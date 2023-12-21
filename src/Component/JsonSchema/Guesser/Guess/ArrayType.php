@@ -4,6 +4,7 @@ namespace Jane\Component\JsonSchema\Guesser\Guess;
 
 use Jane\Component\JsonSchema\Generator\Context\Context;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Name;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt;
 
