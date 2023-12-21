@@ -85,10 +85,20 @@ class ArrayType extends Type
     public function createNormalizationStatement(Context $context, Expr $input, bool $normalizerFromObject = true): array
     {
         $valuesVar = new Expr\Variable($context->getUniqueVariableName('values'));
-        $statements = [
-            // $values = [];
-            new Stmt\Expression(new Expr\Assign($valuesVar, $this->createNormalizationArrayValueStatement())),
-        ];
+        if ($this->object->getType() === 'object') {
+            $statements = [
+                // $values = {};
+                new Stmt\Expression(new Expr\Assign($valuesVar, new Expr\New_(new Name('\ArrayObject'), [
+                    new Expr\Array_(),
+                    new Expr\ClassConstFetch(new Name('\ArrayObject'), 'ARRAY_AS_PROPS'),
+                ]))),
+            ];
+        } else {
+            $statements = [
+                // $values = [];
+                new Stmt\Expression(new Expr\Assign($valuesVar, $this->createNormalizationArrayValueStatement())),
+            ];
+        }
 
         $loopValueVar = new Expr\Variable($context->getUniqueVariableName('value'));
         $loopKeyVar = $this->createLoopKeyStatement($context);
