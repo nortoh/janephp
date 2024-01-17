@@ -18,18 +18,18 @@ class PluginMountNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\PluginMount';
+        return $type === 'Docker\Api\Model\PluginMount';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\PluginMount';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\PluginMount';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -51,7 +51,7 @@ class PluginMountNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setDescription($data['Description']);
         }
         if (\array_key_exists('Settable', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['Settable'] as $value) {
                 $values[] = $value;
             }
@@ -67,7 +67,7 @@ class PluginMountNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setType($data['Type']);
         }
         if (\array_key_exists('Options', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['Options'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -78,12 +78,12 @@ class PluginMountNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['Name'] = $object->getName();
         $data['Description'] = $object->getDescription();
-        $values = array();
+        $values = [];
         foreach ($object->getSettable() as $value) {
             $values[] = $value;
         }
@@ -91,7 +91,7 @@ class PluginMountNormalizer implements DenormalizerInterface, NormalizerInterfac
         $data['Source'] = $object->getSource();
         $data['Destination'] = $object->getDestination();
         $data['Type'] = $object->getType();
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getOptions() as $value_1) {
             $values_1[] = $value_1;
         }
@@ -101,8 +101,8 @@ class PluginMountNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\PluginMount' => false);
+        return ['Docker\Api\Model\PluginMount' => false];
     }
 }

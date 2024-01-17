@@ -18,18 +18,18 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\IssueSearchResultItem';
+        return $type === 'Github\Model\IssueSearchResultItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\IssueSearchResultItem';
+        return is_object($data) && get_class($data) === 'Github\Model\IssueSearchResultItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -96,9 +96,9 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             $object->setActiveLockReason(null);
         }
         if (\array_key_exists('assignees', $data) && $data['assignees'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['assignees'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\SimpleUser', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\SimpleUser', 'json', $context);
             }
             $object->setAssignees($values);
             unset($data['assignees']);
@@ -107,16 +107,16 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             $object->setAssignees(null);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\IssueSearchResultItemUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\IssueSearchResultItemUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
             $object->setUser(null);
         }
         if (\array_key_exists('labels', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['labels'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\\Model\\IssueSearchResultItemLabelsItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\Model\IssueSearchResultItemLabelsItem', 'json', $context);
             }
             $object->setLabels($values_1);
             unset($data['labels']);
@@ -126,14 +126,14 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             unset($data['state']);
         }
         if (\array_key_exists('assignee', $data) && $data['assignee'] !== null) {
-            $object->setAssignee($this->denormalizer->denormalize($data['assignee'], 'Github\\Model\\IssueSearchResultItemAssignee', 'json', $context));
+            $object->setAssignee($this->denormalizer->denormalize($data['assignee'], 'Github\Model\IssueSearchResultItemAssignee', 'json', $context));
             unset($data['assignee']);
         }
         elseif (\array_key_exists('assignee', $data) && $data['assignee'] === null) {
             $object->setAssignee(null);
         }
         if (\array_key_exists('milestone', $data) && $data['milestone'] !== null) {
-            $object->setMilestone($this->denormalizer->denormalize($data['milestone'], 'Github\\Model\\IssueSearchResultItemMilestone', 'json', $context));
+            $object->setMilestone($this->denormalizer->denormalize($data['milestone'], 'Github\Model\IssueSearchResultItemMilestone', 'json', $context));
             unset($data['milestone']);
         }
         elseif (\array_key_exists('milestone', $data) && $data['milestone'] === null) {
@@ -144,30 +144,30 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             unset($data['comments']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('closed_at', $data) && $data['closed_at'] !== null) {
-            $object->setClosedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['closed_at']));
+            $object->setClosedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['closed_at']));
             unset($data['closed_at']);
         }
         elseif (\array_key_exists('closed_at', $data) && $data['closed_at'] === null) {
             $object->setClosedAt(null);
         }
         if (\array_key_exists('text_matches', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['text_matches'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'Github\\Model\\SearchResultTextMatchesItem', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'Github\Model\SearchResultTextMatchesItem', 'json', $context);
             }
             $object->setTextMatches($values_2);
             unset($data['text_matches']);
         }
         if (\array_key_exists('pull_request', $data)) {
-            $object->setPullRequest($this->denormalizer->denormalize($data['pull_request'], 'Github\\Model\\IssueSearchResultItemPullRequest', 'json', $context));
+            $object->setPullRequest($this->denormalizer->denormalize($data['pull_request'], 'Github\Model\IssueSearchResultItemPullRequest', 'json', $context));
             unset($data['pull_request']);
         }
         if (\array_key_exists('body', $data)) {
@@ -187,7 +187,7 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             unset($data['draft']);
         }
         if (\array_key_exists('repository', $data)) {
-            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\\Model\\Repository', 'json', $context));
+            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\Model\Repository', 'json', $context));
             unset($data['repository']);
         }
         if (\array_key_exists('body_html', $data)) {
@@ -203,7 +203,7 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             unset($data['timeline_url']);
         }
         if (\array_key_exists('performed_via_github_app', $data) && $data['performed_via_github_app'] !== null) {
-            $object->setPerformedViaGithubApp($this->denormalizer->denormalize($data['performed_via_github_app'], 'Github\\Model\\IssueSearchResultItemPerformedViaGithubApp', 'json', $context));
+            $object->setPerformedViaGithubApp($this->denormalizer->denormalize($data['performed_via_github_app'], 'Github\Model\IssueSearchResultItemPerformedViaGithubApp', 'json', $context));
             unset($data['performed_via_github_app']);
         }
         elseif (\array_key_exists('performed_via_github_app', $data) && $data['performed_via_github_app'] === null) {
@@ -219,9 +219,9 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['repository_url'] = $object->getRepositoryUrl();
         $data['labels_url'] = $object->getLabelsUrl();
@@ -237,34 +237,34 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             $data['active_lock_reason'] = $object->getActiveLockReason();
         }
         if ($object->isInitialized('assignees') && null !== $object->getAssignees()) {
-            $values = array();
+            $values = [];
             foreach ($object->getAssignees() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['assignees'] = $values;
         }
-        $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
-        $values_1 = array();
+        $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $values_1 = [];
         foreach ($object->getLabels() as $value_1) {
-            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['labels'] = $values_1;
         $data['state'] = $object->getState();
-        $data['assignee'] = $this->normalizer->normalize($object->getAssignee(), 'json', $context);
-        $data['milestone'] = $this->normalizer->normalize($object->getMilestone(), 'json', $context);
+        $data['assignee'] = ($object->getAssignee() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAssignee(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['milestone'] = ($object->getMilestone() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMilestone(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['comments'] = $object->getComments();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['closed_at'] = $object->getClosedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
+        $data['closed_at'] = $object->getClosedAt()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('textMatches') && null !== $object->getTextMatches()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getTextMatches() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['text_matches'] = $values_2;
         }
         if ($object->isInitialized('pullRequest') && null !== $object->getPullRequest()) {
-            $data['pull_request'] = $this->normalizer->normalize($object->getPullRequest(), 'json', $context);
+            $data['pull_request'] = ($object->getPullRequest() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPullRequest(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('body') && null !== $object->getBody()) {
             $data['body'] = $object->getBody();
@@ -275,7 +275,7 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             $data['draft'] = $object->getDraft();
         }
         if ($object->isInitialized('repository') && null !== $object->getRepository()) {
-            $data['repository'] = $this->normalizer->normalize($object->getRepository(), 'json', $context);
+            $data['repository'] = ($object->getRepository() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRepository(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('bodyHtml') && null !== $object->getBodyHtml()) {
             $data['body_html'] = $object->getBodyHtml();
@@ -287,7 +287,7 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             $data['timeline_url'] = $object->getTimelineUrl();
         }
         if ($object->isInitialized('performedViaGithubApp') && null !== $object->getPerformedViaGithubApp()) {
-            $data['performed_via_github_app'] = $this->normalizer->normalize($object->getPerformedViaGithubApp(), 'json', $context);
+            $data['performed_via_github_app'] = ($object->getPerformedViaGithubApp() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPerformedViaGithubApp(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value_3) {
             if (preg_match('/.*/', (string) $key)) {
@@ -299,8 +299,8 @@ class IssueSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\IssueSearchResultItem' => false);
+        return ['Github\Model\IssueSearchResultItem' => false];
     }
 }

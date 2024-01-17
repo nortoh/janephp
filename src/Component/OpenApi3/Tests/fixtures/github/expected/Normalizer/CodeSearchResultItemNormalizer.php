@@ -18,18 +18,18 @@ class CodeSearchResultItemNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\CodeSearchResultItem';
+        return $type === 'Github\Model\CodeSearchResultItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\CodeSearchResultItem';
+        return is_object($data) && get_class($data) === 'Github\Model\CodeSearchResultItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -69,7 +69,7 @@ class CodeSearchResultItemNormalizer implements DenormalizerInterface, Normalize
             unset($data['html_url']);
         }
         if (\array_key_exists('repository', $data)) {
-            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\\Model\\MinimalRepository', 'json', $context));
+            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\Model\MinimalRepository', 'json', $context));
             unset($data['repository']);
         }
         if (\array_key_exists('score', $data)) {
@@ -88,11 +88,11 @@ class CodeSearchResultItemNormalizer implements DenormalizerInterface, Normalize
             $object->setLanguage(null);
         }
         if (\array_key_exists('last_modified_at', $data)) {
-            $object->setLastModifiedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['last_modified_at']));
+            $object->setLastModifiedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['last_modified_at']));
             unset($data['last_modified_at']);
         }
         if (\array_key_exists('line_numbers', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['line_numbers'] as $value) {
                 $values[] = $value;
             }
@@ -100,9 +100,9 @@ class CodeSearchResultItemNormalizer implements DenormalizerInterface, Normalize
             unset($data['line_numbers']);
         }
         if (\array_key_exists('text_matches', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['text_matches'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\\Model\\SearchResultTextMatchesItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\Model\SearchResultTextMatchesItem', 'json', $context);
             }
             $object->setTextMatches($values_1);
             unset($data['text_matches']);
@@ -117,16 +117,16 @@ class CodeSearchResultItemNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
         $data['path'] = $object->getPath();
         $data['sha'] = $object->getSha();
         $data['url'] = $object->getUrl();
         $data['git_url'] = $object->getGitUrl();
         $data['html_url'] = $object->getHtmlUrl();
-        $data['repository'] = $this->normalizer->normalize($object->getRepository(), 'json', $context);
+        $data['repository'] = ($object->getRepository() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRepository(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['score'] = $object->getScore();
         if ($object->isInitialized('fileSize') && null !== $object->getFileSize()) {
             $data['file_size'] = $object->getFileSize();
@@ -135,19 +135,19 @@ class CodeSearchResultItemNormalizer implements DenormalizerInterface, Normalize
             $data['language'] = $object->getLanguage();
         }
         if ($object->isInitialized('lastModifiedAt') && null !== $object->getLastModifiedAt()) {
-            $data['last_modified_at'] = $object->getLastModifiedAt()->format('Y-m-d\\TH:i:sP');
+            $data['last_modified_at'] = $object->getLastModifiedAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('lineNumbers') && null !== $object->getLineNumbers()) {
-            $values = array();
+            $values = [];
             foreach ($object->getLineNumbers() as $value) {
                 $values[] = $value;
             }
             $data['line_numbers'] = $values;
         }
         if ($object->isInitialized('textMatches') && null !== $object->getTextMatches()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getTextMatches() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['text_matches'] = $values_1;
         }
@@ -161,8 +161,8 @@ class CodeSearchResultItemNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\CodeSearchResultItem' => false);
+        return ['Github\Model\CodeSearchResultItem' => false];
     }
 }

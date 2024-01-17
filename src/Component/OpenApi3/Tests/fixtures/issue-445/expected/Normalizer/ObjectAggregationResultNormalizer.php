@@ -18,18 +18,18 @@ class ObjectAggregationResultNormalizer implements DenormalizerInterface, Normal
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ObjectAggregationResult';
+        return $type === 'PicturePark\API\Model\ObjectAggregationResult';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ObjectAggregationResult';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ObjectAggregationResult';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,9 +45,9 @@ class ObjectAggregationResultNormalizer implements DenormalizerInterface, Normal
             $object->setElapsedMilliseconds($data['elapsedMilliseconds']);
         }
         if (\array_key_exists('aggregationResults', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['aggregationResults'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\AggregationResult', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\AggregationResult', 'json', $context);
             }
             $object->setAggregationResults($values);
         }
@@ -61,9 +61,9 @@ class ObjectAggregationResultNormalizer implements DenormalizerInterface, Normal
             $object->setIsSearchStringRewritten($data['isSearchStringRewritten']);
         }
         if (\array_key_exists('queryDebugInformation', $data) && $data['queryDebugInformation'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['queryDebugInformation'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\QueryDebugInformation', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\QueryDebugInformation', 'json', $context);
             }
             $object->setQueryDebugInformation($values_1);
         }
@@ -75,13 +75,13 @@ class ObjectAggregationResultNormalizer implements DenormalizerInterface, Normal
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['elapsedMilliseconds'] = $object->getElapsedMilliseconds();
-        $values = array();
+        $values = [];
         foreach ($object->getAggregationResults() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['aggregationResults'] = $values;
         if ($object->isInitialized('searchString') && null !== $object->getSearchString()) {
@@ -89,16 +89,16 @@ class ObjectAggregationResultNormalizer implements DenormalizerInterface, Normal
         }
         $data['isSearchStringRewritten'] = $object->getIsSearchStringRewritten();
         if ($object->isInitialized('queryDebugInformation') && null !== $object->getQueryDebugInformation()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getQueryDebugInformation() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['queryDebugInformation'] = $values_1;
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ObjectAggregationResult' => false);
+        return ['PicturePark\API\Model\ObjectAggregationResult' => false];
     }
 }

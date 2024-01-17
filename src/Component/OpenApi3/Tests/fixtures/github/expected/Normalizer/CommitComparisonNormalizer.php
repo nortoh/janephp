@@ -18,18 +18,18 @@ class CommitComparisonNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\CommitComparison';
+        return $type === 'Github\Model\CommitComparison';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\CommitComparison';
+        return is_object($data) && get_class($data) === 'Github\Model\CommitComparison';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -65,11 +65,11 @@ class CommitComparisonNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['patch_url']);
         }
         if (\array_key_exists('base_commit', $data)) {
-            $object->setBaseCommit($this->denormalizer->denormalize($data['base_commit'], 'Github\\Model\\Commit', 'json', $context));
+            $object->setBaseCommit($this->denormalizer->denormalize($data['base_commit'], 'Github\Model\Commit', 'json', $context));
             unset($data['base_commit']);
         }
         if (\array_key_exists('merge_base_commit', $data)) {
-            $object->setMergeBaseCommit($this->denormalizer->denormalize($data['merge_base_commit'], 'Github\\Model\\Commit', 'json', $context));
+            $object->setMergeBaseCommit($this->denormalizer->denormalize($data['merge_base_commit'], 'Github\Model\Commit', 'json', $context));
             unset($data['merge_base_commit']);
         }
         if (\array_key_exists('status', $data)) {
@@ -89,17 +89,17 @@ class CommitComparisonNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['total_commits']);
         }
         if (\array_key_exists('commits', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['commits'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\Commit', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\Commit', 'json', $context);
             }
             $object->setCommits($values);
             unset($data['commits']);
         }
         if (\array_key_exists('files', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['files'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\\Model\\DiffEntry', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\Model\DiffEntry', 'json', $context);
             }
             $object->setFiles($values_1);
             unset($data['files']);
@@ -114,28 +114,28 @@ class CommitComparisonNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['html_url'] = $object->getHtmlUrl();
         $data['permalink_url'] = $object->getPermalinkUrl();
         $data['diff_url'] = $object->getDiffUrl();
         $data['patch_url'] = $object->getPatchUrl();
-        $data['base_commit'] = $this->normalizer->normalize($object->getBaseCommit(), 'json', $context);
-        $data['merge_base_commit'] = $this->normalizer->normalize($object->getMergeBaseCommit(), 'json', $context);
+        $data['base_commit'] = ($object->getBaseCommit() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getBaseCommit(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['merge_base_commit'] = ($object->getMergeBaseCommit() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMergeBaseCommit(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['status'] = $object->getStatus();
         $data['ahead_by'] = $object->getAheadBy();
         $data['behind_by'] = $object->getBehindBy();
         $data['total_commits'] = $object->getTotalCommits();
-        $values = array();
+        $values = [];
         foreach ($object->getCommits() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['commits'] = $values;
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getFiles() as $value_1) {
-            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['files'] = $values_1;
         foreach ($object as $key => $value_2) {
@@ -148,8 +148,8 @@ class CommitComparisonNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\CommitComparison' => false);
+        return ['Github\Model\CommitComparison' => false];
     }
 }

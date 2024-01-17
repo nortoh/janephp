@@ -18,18 +18,18 @@ class ListItemReferencesResultNormalizer implements DenormalizerInterface, Norma
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ListItemReferencesResult';
+        return $type === 'PicturePark\API\Model\ListItemReferencesResult';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ListItemReferencesResult';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ListItemReferencesResult';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -52,16 +52,16 @@ class ListItemReferencesResultNormalizer implements DenormalizerInterface, Norma
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('metadataReferences') && null !== $object->getMetadataReferences()) {
             $data['metadataReferences'] = $object->getMetadataReferences();
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ListItemReferencesResult' => false);
+        return ['PicturePark\API\Model\ListItemReferencesResult' => false];
     }
 }

@@ -18,18 +18,18 @@ class ReposOwnerRepoIssuesIssueNumberLabelsPutBodyNormalizer implements Denormal
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoIssuesIssueNumberLabelsPutBody';
+        return $type === 'Github\Model\ReposOwnerRepoIssuesIssueNumberLabelsPutBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoIssuesIssueNumberLabelsPutBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoIssuesIssueNumberLabelsPutBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ReposOwnerRepoIssuesIssueNumberLabelsPutBodyNormalizer implements Denormal
             return $object;
         }
         if (\array_key_exists('labels', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['labels'] as $value) {
                 $values[] = $value;
             }
@@ -62,11 +62,11 @@ class ReposOwnerRepoIssuesIssueNumberLabelsPutBodyNormalizer implements Denormal
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('labels') && null !== $object->getLabels()) {
-            $values = array();
+            $values = [];
             foreach ($object->getLabels() as $value) {
                 $values[] = $value;
             }
@@ -82,8 +82,8 @@ class ReposOwnerRepoIssuesIssueNumberLabelsPutBodyNormalizer implements Denormal
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoIssuesIssueNumberLabelsPutBody' => false);
+        return ['Github\Model\ReposOwnerRepoIssuesIssueNumberLabelsPutBody' => false];
     }
 }

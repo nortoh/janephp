@@ -18,18 +18,18 @@ class SubBazNormalizer implements DenormalizerInterface, NormalizerInterface, De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SubBaz';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\SubBaz';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SubBaz';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\SubBaz';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class SubBazNormalizer implements DenormalizerInterface, NormalizerInterface, De
             return $object;
         }
         if (\array_key_exists('parent', $data)) {
-            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Baz', 'json', $context));
+            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Jane\Component\OpenApi3\Tests\Expected\Model\Baz', 'json', $context));
             unset($data['parent']);
         }
         foreach ($data as $key => $value) {
@@ -55,11 +55,11 @@ class SubBazNormalizer implements DenormalizerInterface, NormalizerInterface, De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('parent') && null !== $object->getParent()) {
-            $data['parent'] = $this->normalizer->normalize($object->getParent(), 'json', $context);
+            $data['parent'] = ($object->getParent() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getParent(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -68,8 +68,8 @@ class SubBazNormalizer implements DenormalizerInterface, NormalizerInterface, De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SubBaz' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\SubBaz' => false];
     }
 }

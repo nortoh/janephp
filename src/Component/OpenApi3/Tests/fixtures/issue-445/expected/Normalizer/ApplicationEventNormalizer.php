@@ -18,63 +18,63 @@ class ApplicationEventNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ApplicationEvent';
+        return $type === 'PicturePark\API\Model\ApplicationEvent';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ApplicationEvent';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ApplicationEvent';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'TransferEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\TransferEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\TransferEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'ReindexEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ReindexEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ReindexEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'ContentDetailViewEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ContentDetailViewEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ContentDetailViewEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'ContentDownloadEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ContentDownloadEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ContentDownloadEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'SessionRenewalEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\SessionRenewalEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\SessionRenewalEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'SharePageViewEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\SharePageViewEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\SharePageViewEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'ApiStatisticsEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ApiStatisticsEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ApiStatisticsEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'BusinessProcessEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\BusinessProcessEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\BusinessProcessEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'OutputRenderedEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\OutputRenderedEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\OutputRenderedEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'ConfigurationChangeEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ConfigurationChangeEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ConfigurationChangeEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'CustomerChangeEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\CustomerChangeEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\CustomerChangeEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'SearchReindexCompletedEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\SearchReindexCompletedEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\SearchReindexCompletedEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'BusinessRuleFiredEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\BusinessRuleFiredEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\BusinessRuleFiredEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'BusinessProcessCancellationRequestedEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\BusinessProcessCancellationRequestedEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\BusinessProcessCancellationRequestedEvent', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'XmpWritebackCompletedEvent' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\XmpWritebackCompletedEvent', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\XmpWritebackCompletedEvent', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -87,7 +87,7 @@ class ApplicationEventNormalizer implements DenormalizerInterface, NormalizerInt
             return $object;
         }
         if (\array_key_exists('timestamp', $data)) {
-            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['timestamp']));
+            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['timestamp']));
         }
         if (\array_key_exists('kind', $data)) {
             $object->setKind($data['kind']);
@@ -97,9 +97,9 @@ class ApplicationEventNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'TransferEvent' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -145,12 +145,12 @@ class ApplicationEventNormalizer implements DenormalizerInterface, NormalizerInt
         if (null !== $object->getKind() and 'XmpWritebackCompletedEvent' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
-        $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\\TH:i:sP');
+        $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\TH:i:sP');
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ApplicationEvent' => false);
+        return ['PicturePark\API\Model\ApplicationEvent' => false];
     }
 }

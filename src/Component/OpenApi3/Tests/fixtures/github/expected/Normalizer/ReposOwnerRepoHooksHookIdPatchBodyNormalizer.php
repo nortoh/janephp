@@ -18,18 +18,18 @@ class ReposOwnerRepoHooksHookIdPatchBodyNormalizer implements DenormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoHooksHookIdPatchBody';
+        return $type === 'Github\Model\ReposOwnerRepoHooksHookIdPatchBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoHooksHookIdPatchBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoHooksHookIdPatchBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,11 +45,11 @@ class ReposOwnerRepoHooksHookIdPatchBodyNormalizer implements DenormalizerInterf
             return $object;
         }
         if (\array_key_exists('config', $data)) {
-            $object->setConfig($this->denormalizer->denormalize($data['config'], 'Github\\Model\\ReposOwnerRepoHooksHookIdPatchBodyConfig', 'json', $context));
+            $object->setConfig($this->denormalizer->denormalize($data['config'], 'Github\Model\ReposOwnerRepoHooksHookIdPatchBodyConfig', 'json', $context));
             unset($data['config']);
         }
         if (\array_key_exists('events', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['events'] as $value) {
                 $values[] = $value;
             }
@@ -57,7 +57,7 @@ class ReposOwnerRepoHooksHookIdPatchBodyNormalizer implements DenormalizerInterf
             unset($data['events']);
         }
         if (\array_key_exists('add_events', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['add_events'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -65,7 +65,7 @@ class ReposOwnerRepoHooksHookIdPatchBodyNormalizer implements DenormalizerInterf
             unset($data['add_events']);
         }
         if (\array_key_exists('remove_events', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['remove_events'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -86,28 +86,28 @@ class ReposOwnerRepoHooksHookIdPatchBodyNormalizer implements DenormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('config') && null !== $object->getConfig()) {
-            $data['config'] = $this->normalizer->normalize($object->getConfig(), 'json', $context);
+            $data['config'] = ($object->getConfig() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getConfig(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('events') && null !== $object->getEvents()) {
-            $values = array();
+            $values = [];
             foreach ($object->getEvents() as $value) {
                 $values[] = $value;
             }
             $data['events'] = $values;
         }
         if ($object->isInitialized('addEvents') && null !== $object->getAddEvents()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAddEvents() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['add_events'] = $values_1;
         }
         if ($object->isInitialized('removeEvents') && null !== $object->getRemoveEvents()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getRemoveEvents() as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -126,8 +126,8 @@ class ReposOwnerRepoHooksHookIdPatchBodyNormalizer implements DenormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoHooksHookIdPatchBody' => false);
+        return ['Github\Model\ReposOwnerRepoHooksHookIdPatchBody' => false];
     }
 }

@@ -18,18 +18,18 @@ class VideoMetricsNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\VideoMetrics';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\VideoMetrics';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\VideoMetrics';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\VideoMetrics';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -79,9 +79,9 @@ class VideoMetricsNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['media_key'] = $object->getMediaKey();
         $data['view_count'] = $object->getViewCount();
         if ($object->isInitialized('playback0Count') && null !== $object->getPlayback0Count()) {
@@ -106,8 +106,8 @@ class VideoMetricsNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\VideoMetrics' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\VideoMetrics' => false];
     }
 }

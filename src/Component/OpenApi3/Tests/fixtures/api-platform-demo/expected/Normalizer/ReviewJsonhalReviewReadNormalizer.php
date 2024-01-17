@@ -18,18 +18,18 @@ class ReviewJsonhalReviewReadNormalizer implements DenormalizerInterface, Normal
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewRead';
+        return $type === 'ApiPlatform\Demo\Model\ReviewJsonhalReviewRead';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewRead';
+        return is_object($data) && get_class($data) === 'ApiPlatform\Demo\Model\ReviewJsonhalReviewRead';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class ReviewJsonhalReviewReadNormalizer implements DenormalizerInterface, Normal
             return $object;
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewReadLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'ApiPlatform\Demo\Model\ReviewJsonhalReviewReadLinks', 'json', $context));
             unset($data['_links']);
         }
         if (\array_key_exists('id', $data) && $data['id'] !== null) {
@@ -68,7 +68,7 @@ class ReviewJsonhalReviewReadNormalizer implements DenormalizerInterface, Normal
             $object->setLetter(null);
         }
         if (\array_key_exists('book', $data)) {
-            $object->setBook($this->denormalizer->denormalize($data['book'], 'ApiPlatform\\Demo\\Model\\BookJsonhalReviewRead', 'json', $context));
+            $object->setBook($this->denormalizer->denormalize($data['book'], 'ApiPlatform\Demo\Model\BookJsonhalReviewRead', 'json', $context));
             unset($data['book']);
         }
         if (\array_key_exists('author', $data) && $data['author'] !== null) {
@@ -79,7 +79,7 @@ class ReviewJsonhalReviewReadNormalizer implements DenormalizerInterface, Normal
             $object->setAuthor(null);
         }
         if (\array_key_exists('publicationDate', $data) && $data['publicationDate'] !== null) {
-            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['publicationDate']));
+            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['publicationDate']));
             unset($data['publicationDate']);
         }
         elseif (\array_key_exists('publicationDate', $data) && $data['publicationDate'] === null) {
@@ -95,23 +95,23 @@ class ReviewJsonhalReviewReadNormalizer implements DenormalizerInterface, Normal
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('links') && null !== $object->getLinks()) {
-            $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+            $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['body'] = $object->getBody();
         $data['rating'] = $object->getRating();
         if ($object->isInitialized('letter') && null !== $object->getLetter()) {
             $data['letter'] = $object->getLetter();
         }
-        $data['book'] = $this->normalizer->normalize($object->getBook(), 'json', $context);
+        $data['book'] = ($object->getBook() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getBook(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('author') && null !== $object->getAuthor()) {
             $data['author'] = $object->getAuthor();
         }
         if ($object->isInitialized('publicationDate') && null !== $object->getPublicationDate()) {
-            $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\\TH:i:sP');
+            $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\TH:i:sP');
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -120,8 +120,8 @@ class ReviewJsonhalReviewReadNormalizer implements DenormalizerInterface, Normal
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewRead' => false);
+        return ['ApiPlatform\Demo\Model\ReviewJsonhalReviewRead' => false];
     }
 }

@@ -18,18 +18,18 @@ class GbPeopleReportReponseReportDirectorshipsInactiveItemNormalizer implements 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorshipsInactiveItem';
+        return $type === 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorshipsInactiveItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorshipsInactiveItem';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorshipsInactiveItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -58,7 +58,7 @@ class GbPeopleReportReponseReportDirectorshipsInactiveItemNormalizer implements 
             unset($data['status']);
         }
         if (\array_key_exists('position', $data)) {
-            $object->setPosition($this->denormalizer->denormalize($data['position'], 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorshipsInactiveItemPosition', 'json', $context));
+            $object->setPosition($this->denormalizer->denormalize($data['position'], 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorshipsInactiveItemPosition', 'json', $context));
             unset($data['position']);
         }
         if (\array_key_exists('companyRegistrationDate', $data)) {
@@ -66,7 +66,7 @@ class GbPeopleReportReponseReportDirectorshipsInactiveItemNormalizer implements 
             unset($data['companyRegistrationDate']);
         }
         if (\array_key_exists('netWorth', $data)) {
-            $object->setNetWorth($this->denormalizer->denormalize($data['netWorth'], 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorshipsInactiveItemNetWorth', 'json', $context));
+            $object->setNetWorth($this->denormalizer->denormalize($data['netWorth'], 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorshipsInactiveItemNetWorth', 'json', $context));
             unset($data['netWorth']);
         }
         if (\array_key_exists('legalCount', $data)) {
@@ -74,11 +74,11 @@ class GbPeopleReportReponseReportDirectorshipsInactiveItemNormalizer implements 
             unset($data['legalCount']);
         }
         if (\array_key_exists('creditScore', $data)) {
-            $object->setCreditScore($this->denormalizer->denormalize($data['creditScore'], 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScore', 'json', $context));
+            $object->setCreditScore($this->denormalizer->denormalize($data['creditScore'], 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScore', 'json', $context));
             unset($data['creditScore']);
         }
         if (\array_key_exists('additionalData', $data)) {
-            $object->setAdditionalData($this->denormalizer->denormalize($data['additionalData'], 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorshipsInactiveItemAdditionalData', 'json', $context));
+            $object->setAdditionalData($this->denormalizer->denormalize($data['additionalData'], 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorshipsInactiveItemAdditionalData', 'json', $context));
             unset($data['additionalData']);
         }
         foreach ($data as $key => $value) {
@@ -91,9 +91,9 @@ class GbPeopleReportReponseReportDirectorshipsInactiveItemNormalizer implements 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('companyName') && null !== $object->getCompanyName()) {
             $data['companyName'] = $object->getCompanyName();
         }
@@ -107,22 +107,22 @@ class GbPeopleReportReponseReportDirectorshipsInactiveItemNormalizer implements 
             $data['status'] = $object->getStatus();
         }
         if ($object->isInitialized('position') && null !== $object->getPosition()) {
-            $data['position'] = $this->normalizer->normalize($object->getPosition(), 'json', $context);
+            $data['position'] = ($object->getPosition() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPosition(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('companyRegistrationDate') && null !== $object->getCompanyRegistrationDate()) {
             $data['companyRegistrationDate'] = $object->getCompanyRegistrationDate();
         }
         if ($object->isInitialized('netWorth') && null !== $object->getNetWorth()) {
-            $data['netWorth'] = $this->normalizer->normalize($object->getNetWorth(), 'json', $context);
+            $data['netWorth'] = ($object->getNetWorth() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getNetWorth(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('legalCount') && null !== $object->getLegalCount()) {
             $data['legalCount'] = $object->getLegalCount();
         }
         if ($object->isInitialized('creditScore') && null !== $object->getCreditScore()) {
-            $data['creditScore'] = $this->normalizer->normalize($object->getCreditScore(), 'json', $context);
+            $data['creditScore'] = ($object->getCreditScore() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCreditScore(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('additionalData') && null !== $object->getAdditionalData()) {
-            $data['additionalData'] = $this->normalizer->normalize($object->getAdditionalData(), 'json', $context);
+            $data['additionalData'] = ($object->getAdditionalData() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAdditionalData(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -131,8 +131,8 @@ class GbPeopleReportReponseReportDirectorshipsInactiveItemNormalizer implements 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorshipsInactiveItem' => false);
+        return ['CreditSafe\API\Model\GbPeopleReportReponseReportDirectorshipsInactiveItem' => false];
     }
 }

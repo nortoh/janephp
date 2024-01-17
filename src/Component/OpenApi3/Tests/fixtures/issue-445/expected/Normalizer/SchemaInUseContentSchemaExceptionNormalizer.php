@@ -18,18 +18,18 @@ class SchemaInUseContentSchemaExceptionNormalizer implements DenormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\SchemaInUseContentSchemaException';
+        return $type === 'PicturePark\API\Model\SchemaInUseContentSchemaException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\SchemaInUseContentSchemaException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\SchemaInUseContentSchemaException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -103,7 +103,7 @@ class SchemaInUseContentSchemaExceptionNormalizer implements DenormalizerInterfa
             $object->setSchemaId(null);
         }
         if (\array_key_exists('contentSchemaIds', $data) && $data['contentSchemaIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['contentSchemaIds'] as $value) {
                 $values[] = $value;
             }
@@ -123,9 +123,9 @@ class SchemaInUseContentSchemaExceptionNormalizer implements DenormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -155,7 +155,7 @@ class SchemaInUseContentSchemaExceptionNormalizer implements DenormalizerInterfa
             $data['schemaId'] = $object->getSchemaId();
         }
         if ($object->isInitialized('contentSchemaIds') && null !== $object->getContentSchemaIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getContentSchemaIds() as $value) {
                 $values[] = $value;
             }
@@ -168,8 +168,8 @@ class SchemaInUseContentSchemaExceptionNormalizer implements DenormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\SchemaInUseContentSchemaException' => false);
+        return ['PicturePark\API\Model\SchemaInUseContentSchemaException' => false];
     }
 }

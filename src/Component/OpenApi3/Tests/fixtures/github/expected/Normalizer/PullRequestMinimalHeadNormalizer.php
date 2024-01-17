@@ -18,18 +18,18 @@ class PullRequestMinimalHeadNormalizer implements DenormalizerInterface, Normali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\PullRequestMinimalHead';
+        return $type === 'Github\Model\PullRequestMinimalHead';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\PullRequestMinimalHead';
+        return is_object($data) && get_class($data) === 'Github\Model\PullRequestMinimalHead';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,7 +53,7 @@ class PullRequestMinimalHeadNormalizer implements DenormalizerInterface, Normali
             unset($data['sha']);
         }
         if (\array_key_exists('repo', $data)) {
-            $object->setRepo($this->denormalizer->denormalize($data['repo'], 'Github\\Model\\PullRequestMinimalHeadRepo', 'json', $context));
+            $object->setRepo($this->denormalizer->denormalize($data['repo'], 'Github\Model\PullRequestMinimalHeadRepo', 'json', $context));
             unset($data['repo']);
         }
         foreach ($data as $key => $value) {
@@ -66,12 +66,12 @@ class PullRequestMinimalHeadNormalizer implements DenormalizerInterface, Normali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['ref'] = $object->getRef();
         $data['sha'] = $object->getSha();
-        $data['repo'] = $this->normalizer->normalize($object->getRepo(), 'json', $context);
+        $data['repo'] = ($object->getRepo() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRepo(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -82,8 +82,8 @@ class PullRequestMinimalHeadNormalizer implements DenormalizerInterface, Normali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\PullRequestMinimalHead' => false);
+        return ['Github\Model\PullRequestMinimalHead' => false];
     }
 }

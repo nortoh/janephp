@@ -18,47 +18,47 @@ class TestNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Test';
+        return $type === 'Jane\Component\JsonSchema\Tests\Expected\Model\Test';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return $data instanceof \Jane\Component\JsonSchema\Tests\Expected\Model\Test;
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         $object = new \Jane\Component\JsonSchema\Tests\Expected\Model\Test();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
         if (\array_key_exists('child', $data)) {
-            $object->setChild($this->denormalizer->denormalize($data['child'], 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Childtype', 'json', $context));
+            $object->setChild($this->denormalizer->denormalize($data['child'], 'Jane\Component\JsonSchema\Tests\Expected\Model\Childtype', 'json', $context));
         }
         if (\array_key_exists('parent', $data)) {
-            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Parenttype', 'json', $context));
+            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Jane\Component\JsonSchema\Tests\Expected\Model\Parenttype', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('child') && null !== $object->getChild()) {
-            $data['child'] = $this->normalizer->normalize($object->getChild(), 'json', $context);
+            $data['child'] = ($object->getChild() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getChild(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('parent') && null !== $object->getParent()) {
-            $data['parent'] = $this->normalizer->normalize($object->getParent(), 'json', $context);
+            $data['parent'] = ($object->getParent() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getParent(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Test' => false);
+        return ['Jane\Component\JsonSchema\Tests\Expected\Model\Test' => false];
     }
 }

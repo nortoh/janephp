@@ -18,18 +18,18 @@ class GbPeopleReportReponseNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbPeopleReportReponse';
+        return $type === 'CreditSafe\API\Model\GbPeopleReportReponse';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbPeopleReportReponse';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbPeopleReportReponse';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -66,7 +66,7 @@ class GbPeopleReportReponseNormalizer implements DenormalizerInterface, Normaliz
             unset($data['userId']);
         }
         if (\array_key_exists('report', $data)) {
-            $object->setReport($this->denormalizer->denormalize($data['report'], 'CreditSafe\\API\\Model\\GbPeopleReportReponseReport', 'json', $context));
+            $object->setReport($this->denormalizer->denormalize($data['report'], 'CreditSafe\API\Model\GbPeopleReportReponseReport', 'json', $context));
             unset($data['report']);
         }
         foreach ($data as $key => $value) {
@@ -79,9 +79,9 @@ class GbPeopleReportReponseNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('correlationId') && null !== $object->getCorrelationId()) {
             $data['correlationId'] = $object->getCorrelationId();
         }
@@ -101,7 +101,7 @@ class GbPeopleReportReponseNormalizer implements DenormalizerInterface, Normaliz
             $data['userId'] = $object->getUserId();
         }
         if ($object->isInitialized('report') && null !== $object->getReport()) {
-            $data['report'] = $this->normalizer->normalize($object->getReport(), 'json', $context);
+            $data['report'] = ($object->getReport() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getReport(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -110,8 +110,8 @@ class GbPeopleReportReponseNormalizer implements DenormalizerInterface, Normaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbPeopleReportReponse' => false);
+        return ['CreditSafe\API\Model\GbPeopleReportReponse' => false];
     }
 }

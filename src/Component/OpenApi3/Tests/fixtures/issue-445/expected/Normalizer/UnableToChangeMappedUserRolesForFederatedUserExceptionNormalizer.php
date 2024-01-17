@@ -18,18 +18,18 @@ class UnableToChangeMappedUserRolesForFederatedUserExceptionNormalizer implement
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\UnableToChangeMappedUserRolesForFederatedUserException';
+        return $type === 'PicturePark\API\Model\UnableToChangeMappedUserRolesForFederatedUserException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\UnableToChangeMappedUserRolesForFederatedUserException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\UnableToChangeMappedUserRolesForFederatedUserException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -103,7 +103,7 @@ class UnableToChangeMappedUserRolesForFederatedUserExceptionNormalizer implement
             $object->setAffectedUserId(null);
         }
         if (\array_key_exists('userRoleIds', $data) && $data['userRoleIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['userRoleIds'] as $value) {
                 $values[] = $value;
             }
@@ -123,9 +123,9 @@ class UnableToChangeMappedUserRolesForFederatedUserExceptionNormalizer implement
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -155,7 +155,7 @@ class UnableToChangeMappedUserRolesForFederatedUserExceptionNormalizer implement
             $data['affectedUserId'] = $object->getAffectedUserId();
         }
         if ($object->isInitialized('userRoleIds') && null !== $object->getUserRoleIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getUserRoleIds() as $value) {
                 $values[] = $value;
             }
@@ -168,8 +168,8 @@ class UnableToChangeMappedUserRolesForFederatedUserExceptionNormalizer implement
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\UnableToChangeMappedUserRolesForFederatedUserException' => false);
+        return ['PicturePark\API\Model\UnableToChangeMappedUserRolesForFederatedUserException' => false];
     }
 }

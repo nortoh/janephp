@@ -26,7 +26,7 @@ class HTTPSecuritySchemeSub
      *
      * @return self
      */
-    public function setScheme($scheme) : self
+    public function setScheme($scheme): self
     {
         $this->scheme = $scheme;
         return $this;

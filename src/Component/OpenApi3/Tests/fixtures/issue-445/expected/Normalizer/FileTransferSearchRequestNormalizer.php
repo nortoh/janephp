@@ -18,18 +18,18 @@ class FileTransferSearchRequestNormalizer implements DenormalizerInterface, Norm
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\FileTransferSearchRequest';
+        return $type === 'PicturePark\API\Model\FileTransferSearchRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\FileTransferSearchRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\FileTransferSearchRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class FileTransferSearchRequestNormalizer implements DenormalizerInterface, Norm
             $object->setSearchString(null);
         }
         if (\array_key_exists('searchBehaviors', $data) && $data['searchBehaviors'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['searchBehaviors'] as $value) {
                 $values[] = $value;
             }
@@ -77,14 +77,14 @@ class FileTransferSearchRequestNormalizer implements DenormalizerInterface, Norm
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('searchString') && null !== $object->getSearchString()) {
             $data['searchString'] = $object->getSearchString();
         }
         if ($object->isInitialized('searchBehaviors') && null !== $object->getSearchBehaviors()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSearchBehaviors() as $value) {
                 $values[] = $value;
             }
@@ -99,8 +99,8 @@ class FileTransferSearchRequestNormalizer implements DenormalizerInterface, Norm
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\FileTransferSearchRequest' => false);
+        return ['PicturePark\API\Model\FileTransferSearchRequest' => false];
     }
 }

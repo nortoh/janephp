@@ -17,36 +17,36 @@ class MigrationsGetCommitAuthors extends \Github\Runtime\Client\BaseEndpoint imp
     *     @var string $since Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
     * }
     */
-    public function __construct(string $owner, string $repo, array $queryParameters = array())
+    public function __construct(string $owner, string $repo, array $queryParameters = [])
     {
         $this->owner = $owner;
         $this->repo = $repo;
         $this->queryParameters = $queryParameters;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{owner}', '{repo}'), array($this->owner, $this->repo), '/repos/{owner}/{repo}/import/authors');
+        return str_replace(['{owner}', '{repo}'], [$this->owner, $this->repo], '/repos/{owner}/{repo}/import/authors');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('since'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('since', array('string'));
+        $optionsResolver->setDefined(['since']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('since', ['string']);
         return $optionsResolver;
     }
     /**
@@ -61,14 +61,14 @@ class MigrationsGetCommitAuthors extends \Github\Runtime\Client\BaseEndpoint imp
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\PorterAuthor[]', 'json');
+            return $serializer->deserialize($body, 'Github\Model\PorterAuthor[]', 'json');
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\MigrationsGetCommitAuthorsNotFoundException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\MigrationsGetCommitAuthorsNotFoundException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

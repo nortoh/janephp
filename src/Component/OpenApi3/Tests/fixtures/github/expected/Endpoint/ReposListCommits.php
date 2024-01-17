@@ -43,7 +43,7 @@ class ReposListCommits extends \Github\Runtime\Client\BaseEndpoint implements \G
     * }
     * @param array $accept Accept content header application/json|application/scim+json
     */
-    public function __construct(string $owner, string $repo, array $queryParameters = array(), array $accept = array())
+    public function __construct(string $owner, string $repo, array $queryParameters = [], array $accept = [])
     {
         $this->owner = $owner;
         $this->repo = $repo;
@@ -51,38 +51,38 @@ class ReposListCommits extends \Github\Runtime\Client\BaseEndpoint implements \G
         $this->accept = $accept;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{owner}', '{repo}'), array($this->owner, $this->repo), '/repos/{owner}/{repo}/commits');
+        return str_replace(['{owner}', '{repo}'], [$this->owner, $this->repo], '/repos/{owner}/{repo}/commits');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
         if (empty($this->accept)) {
-            return array('Accept' => array('application/json', 'application/scim+json'));
+            return ['Accept' => ['application/json', 'application/scim+json']];
         }
         return $this->accept;
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('sha', 'path', 'author', 'since', 'until', 'per_page', 'page'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('per_page' => 30, 'page' => 1));
-        $optionsResolver->addAllowedTypes('sha', array('string'));
-        $optionsResolver->addAllowedTypes('path', array('string'));
-        $optionsResolver->addAllowedTypes('author', array('string'));
-        $optionsResolver->addAllowedTypes('since', array('string'));
-        $optionsResolver->addAllowedTypes('until', array('string'));
-        $optionsResolver->addAllowedTypes('per_page', array('int'));
-        $optionsResolver->addAllowedTypes('page', array('int'));
+        $optionsResolver->setDefined(['sha', 'path', 'author', 'since', 'until', 'per_page', 'page']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['per_page' => 30, 'page' => 1]);
+        $optionsResolver->addAllowedTypes('sha', ['string']);
+        $optionsResolver->addAllowedTypes('path', ['string']);
+        $optionsResolver->addAllowedTypes('author', ['string']);
+        $optionsResolver->addAllowedTypes('since', ['string']);
+        $optionsResolver->addAllowedTypes('until', ['string']);
+        $optionsResolver->addAllowedTypes('per_page', ['int']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
         return $optionsResolver;
     }
     /**
@@ -100,23 +100,23 @@ class ReposListCommits extends \Github\Runtime\Client\BaseEndpoint implements \G
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\SimpleCommit[]', 'json');
+            return $serializer->deserialize($body, 'Github\Model\SimpleCommit[]', 'json');
         }
         if (is_null($contentType) === false && (500 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ReposListCommitsInternalServerErrorException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ReposListCommitsInternalServerErrorException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ReposListCommitsBadRequestException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ReposListCommitsBadRequestException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ReposListCommitsNotFoundException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ReposListCommitsNotFoundException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (409 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ReposListCommitsConflictException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ReposListCommitsConflictException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

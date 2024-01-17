@@ -18,18 +18,18 @@ class TransferFileNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\TransferFile';
+        return $type === 'PicturePark\API\Model\TransferFile';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\TransferFile';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\TransferFile';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -58,9 +58,9 @@ class TransferFileNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('identifier') && null !== $object->getIdentifier()) {
             $data['identifier'] = $object->getIdentifier();
         }
@@ -69,8 +69,8 @@ class TransferFileNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\TransferFile' => false);
+        return ['PicturePark\API\Model\TransferFile' => false];
     }
 }

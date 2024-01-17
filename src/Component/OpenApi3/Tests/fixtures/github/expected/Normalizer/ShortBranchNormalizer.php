@@ -18,18 +18,18 @@ class ShortBranchNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ShortBranch';
+        return $type === 'Github\Model\ShortBranch';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ShortBranch';
+        return is_object($data) && get_class($data) === 'Github\Model\ShortBranch';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,7 +49,7 @@ class ShortBranchNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['name']);
         }
         if (\array_key_exists('commit', $data)) {
-            $object->setCommit($this->denormalizer->denormalize($data['commit'], 'Github\\Model\\ShortBranchCommit', 'json', $context));
+            $object->setCommit($this->denormalizer->denormalize($data['commit'], 'Github\Model\ShortBranchCommit', 'json', $context));
             unset($data['commit']);
         }
         if (\array_key_exists('protected', $data)) {
@@ -57,7 +57,7 @@ class ShortBranchNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['protected']);
         }
         if (\array_key_exists('protection', $data)) {
-            $object->setProtection($this->denormalizer->denormalize($data['protection'], 'Github\\Model\\BranchProtection', 'json', $context));
+            $object->setProtection($this->denormalizer->denormalize($data['protection'], 'Github\Model\BranchProtection', 'json', $context));
             unset($data['protection']);
         }
         if (\array_key_exists('protection_url', $data)) {
@@ -74,14 +74,14 @@ class ShortBranchNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
-        $data['commit'] = $this->normalizer->normalize($object->getCommit(), 'json', $context);
+        $data['commit'] = ($object->getCommit() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCommit(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['protected'] = $object->getProtected();
         if ($object->isInitialized('protection') && null !== $object->getProtection()) {
-            $data['protection'] = $this->normalizer->normalize($object->getProtection(), 'json', $context);
+            $data['protection'] = ($object->getProtection() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getProtection(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('protectionUrl') && null !== $object->getProtectionUrl()) {
             $data['protection_url'] = $object->getProtectionUrl();
@@ -96,8 +96,8 @@ class ShortBranchNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ShortBranch' => false);
+        return ['Github\Model\ShortBranch' => false];
     }
 }

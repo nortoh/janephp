@@ -18,18 +18,18 @@ class UserWithheldNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\UserWithheld';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\UserWithheld';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\UserWithheld';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\UserWithheld';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class UserWithheldNormalizer implements DenormalizerInterface, NormalizerInterfa
             return $object;
         }
         if (\array_key_exists('country_codes', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['country_codes'] as $value) {
                 $values[] = $value;
             }
@@ -63,10 +63,10 @@ class UserWithheldNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $values = array();
+        $data = [];
+        $values = [];
         foreach ($object->getCountryCodes() as $value) {
             $values[] = $value;
         }
@@ -81,8 +81,8 @@ class UserWithheldNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\UserWithheld' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\UserWithheld' => false];
     }
 }

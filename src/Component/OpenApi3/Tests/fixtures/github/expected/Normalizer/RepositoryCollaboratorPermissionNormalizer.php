@@ -18,18 +18,18 @@ class RepositoryCollaboratorPermissionNormalizer implements DenormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\RepositoryCollaboratorPermission';
+        return $type === 'Github\Model\RepositoryCollaboratorPermission';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\RepositoryCollaboratorPermission';
+        return is_object($data) && get_class($data) === 'Github\Model\RepositoryCollaboratorPermission';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,7 +49,7 @@ class RepositoryCollaboratorPermissionNormalizer implements DenormalizerInterfac
             unset($data['permission']);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\RepositoryCollaboratorPermissionUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\RepositoryCollaboratorPermissionUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
@@ -65,11 +65,11 @@ class RepositoryCollaboratorPermissionNormalizer implements DenormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['permission'] = $object->getPermission();
-        $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
+        $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -80,8 +80,8 @@ class RepositoryCollaboratorPermissionNormalizer implements DenormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\RepositoryCollaboratorPermission' => false);
+        return ['Github\Model\RepositoryCollaboratorPermission' => false];
     }
 }

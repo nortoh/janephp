@@ -18,18 +18,18 @@ class GistFullhistoryItemNormalizer implements DenormalizerInterface, Normalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GistFullhistoryItem';
+        return $type === 'Github\Model\GistFullhistoryItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GistFullhistoryItem';
+        return is_object($data) && get_class($data) === 'Github\Model\GistFullhistoryItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,14 +53,14 @@ class GistFullhistoryItemNormalizer implements DenormalizerInterface, Normalizer
             unset($data['version']);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\GistFullhistoryItemUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\GistFullhistoryItemUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
             $object->setUser(null);
         }
         if (\array_key_exists('change_status', $data)) {
-            $object->setChangeStatus($this->denormalizer->denormalize($data['change_status'], 'Github\\Model\\GistFullhistoryItemChangeStatus', 'json', $context));
+            $object->setChangeStatus($this->denormalizer->denormalize($data['change_status'], 'Github\Model\GistFullhistoryItemChangeStatus', 'json', $context));
             unset($data['change_status']);
         }
         if (\array_key_exists('committed_at', $data)) {
@@ -77,9 +77,9 @@ class GistFullhistoryItemNormalizer implements DenormalizerInterface, Normalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('url') && null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
@@ -87,10 +87,10 @@ class GistFullhistoryItemNormalizer implements DenormalizerInterface, Normalizer
             $data['version'] = $object->getVersion();
         }
         if ($object->isInitialized('user') && null !== $object->getUser()) {
-            $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
+            $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('changeStatus') && null !== $object->getChangeStatus()) {
-            $data['change_status'] = $this->normalizer->normalize($object->getChangeStatus(), 'json', $context);
+            $data['change_status'] = ($object->getChangeStatus() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getChangeStatus(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('committedAt') && null !== $object->getCommittedAt()) {
             $data['committed_at'] = $object->getCommittedAt();
@@ -105,8 +105,8 @@ class GistFullhistoryItemNormalizer implements DenormalizerInterface, Normalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GistFullhistoryItem' => false);
+        return ['Github\Model\GistFullhistoryItem' => false];
     }
 }

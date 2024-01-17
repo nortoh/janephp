@@ -5,6 +5,7 @@ namespace Jane\Component\OpenApi3\Generator\RequestBodyContent;
 use Jane\Component\JsonSchema\Generator\Context\Context;
 use Jane\Component\OpenApi3\JsonSchema\Model\MediaType;
 use PhpParser\Node\Arg;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar;
@@ -32,8 +33,8 @@ class JsonBodyContentGenerator extends AbstractBodyContentGenerator
         if (null === $classGuess) {
             return [new Stmt\Return_(new Expr\Array_([
                 new Expr\Array_([
-                    new Expr\ArrayItem(
-                        new Expr\Array_([new Expr\ArrayItem(new Scalar\String_($contentType))]),
+                    new ArrayItem(
+                        new Expr\Array_([new ArrayItem(new Scalar\String_($contentType))]),
                         new Scalar\String_('Content-Type')
                     ),
                 ]),
@@ -45,8 +46,8 @@ class JsonBodyContentGenerator extends AbstractBodyContentGenerator
 
         return [new Stmt\Return_(new Expr\Array_([
             new Expr\Array_([
-                new Expr\ArrayItem(
-                    new Expr\Array_([new Expr\ArrayItem(new Scalar\String_($contentType))]),
+                new ArrayItem(
+                    new Expr\Array_([new ArrayItem(new Scalar\String_($contentType))]),
                     new Scalar\String_('Content-Type')
                 ),
             ]),

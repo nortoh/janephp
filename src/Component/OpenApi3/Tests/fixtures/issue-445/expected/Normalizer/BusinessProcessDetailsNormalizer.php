@@ -18,18 +18,18 @@ class BusinessProcessDetailsNormalizer implements DenormalizerInterface, Normali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessProcessDetails';
+        return $type === 'PicturePark\API\Model\BusinessProcessDetails';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessProcessDetails';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessProcessDetails';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -76,11 +76,11 @@ class BusinessProcessDetailsNormalizer implements DenormalizerInterface, Normali
             unset($data['lifeCycle']);
         }
         if (\array_key_exists('startDate', $data)) {
-            $object->setStartDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['startDate']));
+            $object->setStartDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['startDate']));
             unset($data['startDate']);
         }
         if (\array_key_exists('endDate', $data)) {
-            $object->setEndDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['endDate']));
+            $object->setEndDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['endDate']));
             unset($data['endDate']);
         }
         if (\array_key_exists('finished', $data)) {
@@ -88,9 +88,9 @@ class BusinessProcessDetailsNormalizer implements DenormalizerInterface, Normali
             unset($data['finished']);
         }
         if (\array_key_exists('stateHistory', $data) && $data['stateHistory'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['stateHistory'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\BusinessProcessState', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\BusinessProcessState', 'json', $context);
             }
             $object->setStateHistory($values);
             unset($data['stateHistory']);
@@ -106,7 +106,7 @@ class BusinessProcessDetailsNormalizer implements DenormalizerInterface, Normali
             $object->setCurrentState(null);
         }
         if (\array_key_exists('lastReportedProgress', $data) && $data['lastReportedProgress'] !== null) {
-            $object->setLastReportedProgress(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['lastReportedProgress']));
+            $object->setLastReportedProgress(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['lastReportedProgress']));
             unset($data['lastReportedProgress']);
         }
         elseif (\array_key_exists('lastReportedProgress', $data) && $data['lastReportedProgress'] === null) {
@@ -140,9 +140,9 @@ class BusinessProcessDetailsNormalizer implements DenormalizerInterface, Normali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['processDefinitionId'] = $object->getProcessDefinitionId();
         if ($object->isInitialized('referenceId') && null !== $object->getReferenceId()) {
@@ -154,13 +154,13 @@ class BusinessProcessDetailsNormalizer implements DenormalizerInterface, Normali
         $data['supportsCancellation'] = $object->getSupportsCancellation();
         $data['businessProcessScope'] = $object->getBusinessProcessScope();
         $data['lifeCycle'] = $object->getLifeCycle();
-        $data['startDate'] = $object->getStartDate()->format('Y-m-d\\TH:i:sP');
-        $data['endDate'] = $object->getEndDate()->format('Y-m-d\\TH:i:sP');
+        $data['startDate'] = $object->getStartDate()->format('Y-m-d\TH:i:sP');
+        $data['endDate'] = $object->getEndDate()->format('Y-m-d\TH:i:sP');
         $data['finished'] = $object->getFinished();
         if ($object->isInitialized('stateHistory') && null !== $object->getStateHistory()) {
-            $values = array();
+            $values = [];
             foreach ($object->getStateHistory() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['stateHistory'] = $values;
         }
@@ -168,7 +168,7 @@ class BusinessProcessDetailsNormalizer implements DenormalizerInterface, Normali
             $data['currentState'] = $object->getCurrentState();
         }
         if ($object->isInitialized('lastReportedProgress') && null !== $object->getLastReportedProgress()) {
-            $data['lastReportedProgress'] = $object->getLastReportedProgress()->format('Y-m-d\\TH:i:sP');
+            $data['lastReportedProgress'] = $object->getLastReportedProgress()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('continuationBusinessProcessId') && null !== $object->getContinuationBusinessProcessId()) {
             $data['continuationBusinessProcessId'] = $object->getContinuationBusinessProcessId();
@@ -184,8 +184,8 @@ class BusinessProcessDetailsNormalizer implements DenormalizerInterface, Normali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessProcessDetails' => false);
+        return ['PicturePark\API\Model\BusinessProcessDetails' => false];
     }
 }

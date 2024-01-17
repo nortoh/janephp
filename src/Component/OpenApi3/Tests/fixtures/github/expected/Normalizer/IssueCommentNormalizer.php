@@ -18,18 +18,18 @@ class IssueCommentNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\IssueComment';
+        return $type === 'Github\Model\IssueComment';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\IssueComment';
+        return is_object($data) && get_class($data) === 'Github\Model\IssueComment';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -73,18 +73,18 @@ class IssueCommentNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['html_url']);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\IssueCommentUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\IssueCommentUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
             $object->setUser(null);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('issue_url', $data)) {
@@ -96,14 +96,14 @@ class IssueCommentNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['author_association']);
         }
         if (\array_key_exists('performed_via_github_app', $data) && $data['performed_via_github_app'] !== null) {
-            $object->setPerformedViaGithubApp($this->denormalizer->denormalize($data['performed_via_github_app'], 'Github\\Model\\IssueCommentPerformedViaGithubApp', 'json', $context));
+            $object->setPerformedViaGithubApp($this->denormalizer->denormalize($data['performed_via_github_app'], 'Github\Model\IssueCommentPerformedViaGithubApp', 'json', $context));
             unset($data['performed_via_github_app']);
         }
         elseif (\array_key_exists('performed_via_github_app', $data) && $data['performed_via_github_app'] === null) {
             $object->setPerformedViaGithubApp(null);
         }
         if (\array_key_exists('reactions', $data)) {
-            $object->setReactions($this->denormalizer->denormalize($data['reactions'], 'Github\\Model\\ReactionRollup', 'json', $context));
+            $object->setReactions($this->denormalizer->denormalize($data['reactions'], 'Github\Model\ReactionRollup', 'json', $context));
             unset($data['reactions']);
         }
         foreach ($data as $key => $value) {
@@ -116,9 +116,9 @@ class IssueCommentNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
         $data['url'] = $object->getUrl();
@@ -132,16 +132,16 @@ class IssueCommentNormalizer implements DenormalizerInterface, NormalizerInterfa
             $data['body_html'] = $object->getBodyHtml();
         }
         $data['html_url'] = $object->getHtmlUrl();
-        $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['issue_url'] = $object->getIssueUrl();
         $data['author_association'] = $object->getAuthorAssociation();
         if ($object->isInitialized('performedViaGithubApp') && null !== $object->getPerformedViaGithubApp()) {
-            $data['performed_via_github_app'] = $this->normalizer->normalize($object->getPerformedViaGithubApp(), 'json', $context);
+            $data['performed_via_github_app'] = ($object->getPerformedViaGithubApp() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPerformedViaGithubApp(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('reactions') && null !== $object->getReactions()) {
-            $data['reactions'] = $this->normalizer->normalize($object->getReactions(), 'json', $context);
+            $data['reactions'] = ($object->getReactions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getReactions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -153,8 +153,8 @@ class IssueCommentNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\IssueComment' => false);
+        return ['Github\Model\IssueComment' => false];
     }
 }

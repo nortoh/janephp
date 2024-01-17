@@ -18,18 +18,18 @@ class ReviewReviewReadNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'ApiPlatform\\Demo\\Model\\ReviewReviewRead';
+        return $type === 'ApiPlatform\Demo\Model\ReviewReviewRead';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'ApiPlatform\\Demo\\Model\\ReviewReviewRead';
+        return is_object($data) && get_class($data) === 'ApiPlatform\Demo\Model\ReviewReviewRead';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -64,7 +64,7 @@ class ReviewReviewReadNormalizer implements DenormalizerInterface, NormalizerInt
             $object->setLetter(null);
         }
         if (\array_key_exists('book', $data)) {
-            $object->setBook($this->denormalizer->denormalize($data['book'], 'ApiPlatform\\Demo\\Model\\BookReviewRead', 'json', $context));
+            $object->setBook($this->denormalizer->denormalize($data['book'], 'ApiPlatform\Demo\Model\BookReviewRead', 'json', $context));
             unset($data['book']);
         }
         if (\array_key_exists('author', $data) && $data['author'] !== null) {
@@ -75,7 +75,7 @@ class ReviewReviewReadNormalizer implements DenormalizerInterface, NormalizerInt
             $object->setAuthor(null);
         }
         if (\array_key_exists('publicationDate', $data) && $data['publicationDate'] !== null) {
-            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['publicationDate']));
+            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['publicationDate']));
             unset($data['publicationDate']);
         }
         elseif (\array_key_exists('publicationDate', $data) && $data['publicationDate'] === null) {
@@ -91,20 +91,20 @@ class ReviewReviewReadNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['body'] = $object->getBody();
         $data['rating'] = $object->getRating();
         if ($object->isInitialized('letter') && null !== $object->getLetter()) {
             $data['letter'] = $object->getLetter();
         }
-        $data['book'] = $this->normalizer->normalize($object->getBook(), 'json', $context);
+        $data['book'] = ($object->getBook() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getBook(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('author') && null !== $object->getAuthor()) {
             $data['author'] = $object->getAuthor();
         }
         if ($object->isInitialized('publicationDate') && null !== $object->getPublicationDate()) {
-            $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\\TH:i:sP');
+            $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\TH:i:sP');
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -113,8 +113,8 @@ class ReviewReviewReadNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('ApiPlatform\\Demo\\Model\\ReviewReviewRead' => false);
+        return ['ApiPlatform\Demo\Model\ReviewReviewRead' => false];
     }
 }

@@ -18,18 +18,18 @@ class TestSubObjectNormalizer implements DenormalizerInterface, NormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\TestSubObject';
+        return $type === 'Jane\Component\JsonSchema\Tests\Expected\Model\TestSubObject';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return $data instanceof \Jane\Component\JsonSchema\Tests\Expected\Model\TestSubObject;
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         $object = new \Jane\Component\JsonSchema\Tests\Expected\Model\TestSubObject();
         if (null === $data || false === \is_array($data)) {
@@ -43,16 +43,16 @@ class TestSubObjectNormalizer implements DenormalizerInterface, NormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('foo') && null !== $object->getFoo()) {
             $data['foo'] = $object->getFoo();
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\TestSubObject' => false);
+        return ['Jane\Component\JsonSchema\Tests\Expected\Model\TestSubObject' => false];
     }
 }

@@ -18,38 +18,38 @@ class TeamsListDiscussionsInOrg extends \Github\Runtime\Client\BaseEndpoint impl
      *     @var int $page Page number of the results to fetch.
      * }
      */
-    public function __construct(string $org, string $teamSlug, array $queryParameters = array())
+    public function __construct(string $org, string $teamSlug, array $queryParameters = [])
     {
         $this->org = $org;
         $this->team_slug = $teamSlug;
         $this->queryParameters = $queryParameters;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{org}', '{team_slug}'), array($this->org, $this->team_slug), '/orgs/{org}/teams/{team_slug}/discussions');
+        return str_replace(['{org}', '{team_slug}'], [$this->org, $this->team_slug], '/orgs/{org}/teams/{team_slug}/discussions');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('direction', 'per_page', 'page'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('direction' => 'desc', 'per_page' => 30, 'page' => 1));
-        $optionsResolver->addAllowedTypes('direction', array('string'));
-        $optionsResolver->addAllowedTypes('per_page', array('int'));
-        $optionsResolver->addAllowedTypes('page', array('int'));
+        $optionsResolver->setDefined(['direction', 'per_page', 'page']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['direction' => 'desc', 'per_page' => 30, 'page' => 1]);
+        $optionsResolver->addAllowedTypes('direction', ['string']);
+        $optionsResolver->addAllowedTypes('per_page', ['int']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
         return $optionsResolver;
     }
     /**
@@ -63,11 +63,11 @@ class TeamsListDiscussionsInOrg extends \Github\Runtime\Client\BaseEndpoint impl
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\TeamDiscussion[]', 'json');
+            return $serializer->deserialize($body, 'Github\Model\TeamDiscussion[]', 'json');
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

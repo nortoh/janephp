@@ -18,18 +18,18 @@ class GbPeopleReportReponseReportDirectorDetailsNormalizer implements Denormaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorDetails';
+        return $type === 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorDetails';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorDetails';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorDetails';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -70,7 +70,7 @@ class GbPeopleReportReponseReportDirectorDetailsNormalizer implements Denormaliz
             unset($data['surname']);
         }
         if (\array_key_exists('address', $data)) {
-            $object->setAddress($this->denormalizer->denormalize($data['address'], 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorDetailsAddress', 'json', $context));
+            $object->setAddress($this->denormalizer->denormalize($data['address'], 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorDetailsAddress', 'json', $context));
             unset($data['address']);
         }
         if (\array_key_exists('gender', $data)) {
@@ -90,15 +90,15 @@ class GbPeopleReportReponseReportDirectorDetailsNormalizer implements Denormaliz
             unset($data['directorType']);
         }
         if (\array_key_exists('positions', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['positions'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorDetailsPositionsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorDetailsPositionsItem', 'json', $context);
             }
             $object->setPositions($values);
             unset($data['positions']);
         }
         if (\array_key_exists('additionalData', $data)) {
-            $object->setAdditionalData($this->denormalizer->denormalize($data['additionalData'], 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorDetailsAdditionalData', 'json', $context));
+            $object->setAdditionalData($this->denormalizer->denormalize($data['additionalData'], 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorDetailsAdditionalData', 'json', $context));
             unset($data['additionalData']);
         }
         foreach ($data as $key => $value_1) {
@@ -111,9 +111,9 @@ class GbPeopleReportReponseReportDirectorDetailsNormalizer implements Denormaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -136,7 +136,7 @@ class GbPeopleReportReponseReportDirectorDetailsNormalizer implements Denormaliz
             $data['surname'] = $object->getSurname();
         }
         if ($object->isInitialized('address') && null !== $object->getAddress()) {
-            $data['address'] = $this->normalizer->normalize($object->getAddress(), 'json', $context);
+            $data['address'] = ($object->getAddress() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAddress(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('gender') && null !== $object->getGender()) {
             $data['gender'] = $object->getGender();
@@ -151,14 +151,14 @@ class GbPeopleReportReponseReportDirectorDetailsNormalizer implements Denormaliz
             $data['directorType'] = $object->getDirectorType();
         }
         if ($object->isInitialized('positions') && null !== $object->getPositions()) {
-            $values = array();
+            $values = [];
             foreach ($object->getPositions() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['positions'] = $values;
         }
         if ($object->isInitialized('additionalData') && null !== $object->getAdditionalData()) {
-            $data['additionalData'] = $this->normalizer->normalize($object->getAdditionalData(), 'json', $context);
+            $data['additionalData'] = ($object->getAdditionalData() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAdditionalData(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -167,8 +167,8 @@ class GbPeopleReportReponseReportDirectorDetailsNormalizer implements Denormaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorDetails' => false);
+        return ['CreditSafe\API\Model\GbPeopleReportReponseReportDirectorDetails' => false];
     }
 }

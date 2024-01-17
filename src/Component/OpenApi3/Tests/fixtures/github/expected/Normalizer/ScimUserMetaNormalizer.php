@@ -18,18 +18,18 @@ class ScimUserMetaNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ScimUserMeta';
+        return $type === 'Github\Model\ScimUserMeta';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ScimUserMeta';
+        return is_object($data) && get_class($data) === 'Github\Model\ScimUserMeta';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,11 +49,11 @@ class ScimUserMetaNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['resourceType']);
         }
         if (\array_key_exists('created', $data)) {
-            $object->setCreated(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created']));
+            $object->setCreated(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created']));
             unset($data['created']);
         }
         if (\array_key_exists('lastModified', $data)) {
-            $object->setLastModified(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['lastModified']));
+            $object->setLastModified(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['lastModified']));
             unset($data['lastModified']);
         }
         if (\array_key_exists('location', $data)) {
@@ -70,17 +70,17 @@ class ScimUserMetaNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('resourceType') && null !== $object->getResourceType()) {
             $data['resourceType'] = $object->getResourceType();
         }
         if ($object->isInitialized('created') && null !== $object->getCreated()) {
-            $data['created'] = $object->getCreated()->format('Y-m-d\\TH:i:sP');
+            $data['created'] = $object->getCreated()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('lastModified') && null !== $object->getLastModified()) {
-            $data['lastModified'] = $object->getLastModified()->format('Y-m-d\\TH:i:sP');
+            $data['lastModified'] = $object->getLastModified()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('location') && null !== $object->getLocation()) {
             $data['location'] = $object->getLocation();
@@ -95,8 +95,8 @@ class ScimUserMetaNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ScimUserMeta' => false);
+        return ['Github\Model\ScimUserMeta' => false];
     }
 }

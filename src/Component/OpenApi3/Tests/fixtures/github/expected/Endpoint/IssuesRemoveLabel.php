@@ -24,21 +24,21 @@ class IssuesRemoveLabel extends \Github\Runtime\Client\BaseEndpoint implements \
         $this->name = $name;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'DELETE';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{owner}', '{repo}', '{issue_number}', '{name}'), array($this->owner, $this->repo, $this->issue_number, $this->name), '/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}');
+        return str_replace(['{owner}', '{repo}', '{issue_number}', '{name}'], [$this->owner, $this->repo, $this->issue_number, $this->name], '/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -53,17 +53,17 @@ class IssuesRemoveLabel extends \Github\Runtime\Client\BaseEndpoint implements \
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\Label[]', 'json');
+            return $serializer->deserialize($body, 'Github\Model\Label[]', 'json');
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\IssuesRemoveLabelNotFoundException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\IssuesRemoveLabelNotFoundException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (410 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\IssuesRemoveLabelGoneException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\IssuesRemoveLabelGoneException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

@@ -18,18 +18,18 @@ class UserDetailsNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\UserDetails';
+        return $type === 'CreditSafe\API\Model\UserDetails';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\UserDetails';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\UserDetails';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -55,7 +55,7 @@ class UserDetailsNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['countryCode']);
         }
         if (\array_key_exists('createdDate', $data)) {
-            $object->setCreatedDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['createdDate']));
+            $object->setCreatedDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['createdDate']));
             unset($data['createdDate']);
         }
         if (\array_key_exists('csCustomerId', $data)) {
@@ -75,15 +75,15 @@ class UserDetailsNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['languageCode']);
         }
         if (\array_key_exists('lastAccessDate', $data)) {
-            $object->setLastAccessDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['lastAccessDate']));
+            $object->setLastAccessDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['lastAccessDate']));
             unset($data['lastAccessDate']);
         }
         if (\array_key_exists('modifiedDate', $data)) {
-            $object->setModifiedDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['modifiedDate']));
+            $object->setModifiedDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['modifiedDate']));
             unset($data['modifiedDate']);
         }
         if (\array_key_exists('contractEndDate', $data)) {
-            $object->setContractEndDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['contractEndDate']));
+            $object->setContractEndDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['contractEndDate']));
             unset($data['contractEndDate']);
         }
         if (\array_key_exists('userId', $data)) {
@@ -100,14 +100,14 @@ class UserDetailsNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('countryCode') && null !== $object->getCountryCode()) {
             $data['countryCode'] = $object->getCountryCode();
         }
         if ($object->isInitialized('createdDate') && null !== $object->getCreatedDate()) {
-            $data['createdDate'] = $object->getCreatedDate()->format('Y-m-d\\TH:i:sP');
+            $data['createdDate'] = $object->getCreatedDate()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('csCustomerId') && null !== $object->getCsCustomerId()) {
             $data['csCustomerId'] = $object->getCsCustomerId();
@@ -122,13 +122,13 @@ class UserDetailsNormalizer implements DenormalizerInterface, NormalizerInterfac
             $data['languageCode'] = $object->getLanguageCode();
         }
         if ($object->isInitialized('lastAccessDate') && null !== $object->getLastAccessDate()) {
-            $data['lastAccessDate'] = $object->getLastAccessDate()->format('Y-m-d\\TH:i:sP');
+            $data['lastAccessDate'] = $object->getLastAccessDate()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('modifiedDate') && null !== $object->getModifiedDate()) {
-            $data['modifiedDate'] = $object->getModifiedDate()->format('Y-m-d\\TH:i:sP');
+            $data['modifiedDate'] = $object->getModifiedDate()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('contractEndDate') && null !== $object->getContractEndDate()) {
-            $data['contractEndDate'] = $object->getContractEndDate()->format('Y-m-d\\TH:i:sP');
+            $data['contractEndDate'] = $object->getContractEndDate()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('userId') && null !== $object->getUserId()) {
             $data['userId'] = $object->getUserId();
@@ -140,8 +140,8 @@ class UserDetailsNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\UserDetails' => false);
+        return ['CreditSafe\API\Model\UserDetails' => false];
     }
 }

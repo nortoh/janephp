@@ -18,18 +18,18 @@ class UserSearchAndAggregationBaseRequestNormalizer implements DenormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\UserSearchAndAggregationBaseRequest';
+        return $type === 'PicturePark\API\Model\UserSearchAndAggregationBaseRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\UserSearchAndAggregationBaseRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\UserSearchAndAggregationBaseRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class UserSearchAndAggregationBaseRequestNormalizer implements DenormalizerInter
             $object->setSearchString(null);
         }
         if (\array_key_exists('searchBehaviors', $data) && $data['searchBehaviors'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['searchBehaviors'] as $value) {
                 $values[] = $value;
             }
@@ -67,7 +67,7 @@ class UserSearchAndAggregationBaseRequestNormalizer implements DenormalizerInter
             $object->setLifeCycleFilter($data['lifeCycleFilter']);
         }
         if (\array_key_exists('userRightsFilter', $data) && $data['userRightsFilter'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['userRightsFilter'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -77,9 +77,9 @@ class UserSearchAndAggregationBaseRequestNormalizer implements DenormalizerInter
             $object->setUserRightsFilter(null);
         }
         if (\array_key_exists('aggregationFilters', $data) && $data['aggregationFilters'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['aggregationFilters'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\\API\\Model\\AggregationFilter', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\API\Model\AggregationFilter', 'json', $context);
             }
             $object->setAggregationFilters($values_2);
         }
@@ -97,14 +97,14 @@ class UserSearchAndAggregationBaseRequestNormalizer implements DenormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('searchString') && null !== $object->getSearchString()) {
             $data['searchString'] = $object->getSearchString();
         }
         if ($object->isInitialized('searchBehaviors') && null !== $object->getSearchBehaviors()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSearchBehaviors() as $value) {
                 $values[] = $value;
             }
@@ -115,16 +115,16 @@ class UserSearchAndAggregationBaseRequestNormalizer implements DenormalizerInter
         }
         $data['lifeCycleFilter'] = $object->getLifeCycleFilter();
         if ($object->isInitialized('userRightsFilter') && null !== $object->getUserRightsFilter()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getUserRightsFilter() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['userRightsFilter'] = $values_1;
         }
         if ($object->isInitialized('aggregationFilters') && null !== $object->getAggregationFilters()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getAggregationFilters() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregationFilters'] = $values_2;
         }
@@ -132,8 +132,8 @@ class UserSearchAndAggregationBaseRequestNormalizer implements DenormalizerInter
         $data['editableOnly'] = $object->getEditableOnly();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\UserSearchAndAggregationBaseRequest' => false);
+        return ['PicturePark\API\Model\UserSearchAndAggregationBaseRequest' => false];
     }
 }

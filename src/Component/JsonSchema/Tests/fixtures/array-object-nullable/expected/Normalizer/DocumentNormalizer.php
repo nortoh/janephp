@@ -18,18 +18,18 @@ class DocumentNormalizer implements DenormalizerInterface, NormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Document';
+        return $type === 'Jane\Component\JsonSchema\Tests\Expected\Model\Document';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return $data instanceof \Jane\Component\JsonSchema\Tests\Expected\Model\Document;
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -44,9 +44,9 @@ class DocumentNormalizer implements DenormalizerInterface, NormalizerInterface, 
         if (\array_key_exists('attributes', $data) && $data['attributes'] !== null) {
             $value = $data['attributes'];
             if (is_array($data['attributes']) && $this->isOnlyNumericKeys($data['attributes'])) {
-                $values = array();
+                $values = [];
                 foreach ($data['attributes'] as $value_1) {
-                    $values[] = $this->denormalizer->denormalize($value_1, 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Attributes', 'json', $context);
+                    $values[] = $this->denormalizer->denormalize($value_1, 'Jane\Component\JsonSchema\Tests\Expected\Model\Attributes', 'json', $context);
                 }
                 $value = $values;
             } elseif (is_null($data['attributes'])) {
@@ -62,15 +62,15 @@ class DocumentNormalizer implements DenormalizerInterface, NormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('attributes') && null !== $object->getAttributes()) {
             $value = $object->getAttributes();
             if (is_array($object->getAttributes())) {
-                $values = array();
+                $values = [];
                 foreach ($object->getAttributes() as $value_1) {
-                    $values[] = $this->normalizer->normalize($value_1, 'json', $context);
+                    $values[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
                 }
                 $value = $values;
             } elseif (is_null($object->getAttributes())) {
@@ -80,8 +80,8 @@ class DocumentNormalizer implements DenormalizerInterface, NormalizerInterface, 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Document' => false);
+        return ['Jane\Component\JsonSchema\Tests\Expected\Model\Document' => false];
     }
 }

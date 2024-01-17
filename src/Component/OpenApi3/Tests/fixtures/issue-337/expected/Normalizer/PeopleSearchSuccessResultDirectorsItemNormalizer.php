@@ -18,18 +18,18 @@ class PeopleSearchSuccessResultDirectorsItemNormalizer implements DenormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\PeopleSearchSuccessResultDirectorsItem';
+        return $type === 'CreditSafe\API\Model\PeopleSearchSuccessResultDirectorsItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\PeopleSearchSuccessResultDirectorsItem';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\PeopleSearchSuccessResultDirectorsItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -58,11 +58,11 @@ class PeopleSearchSuccessResultDirectorsItemNormalizer implements DenormalizerIn
             unset($data['country']);
         }
         if (\array_key_exists('company', $data)) {
-            $object->setCompany($this->denormalizer->denormalize($data['company'], 'CreditSafe\\API\\Model\\PeopleSearchSuccessResultDirectorsItemCompany', 'json', $context));
+            $object->setCompany($this->denormalizer->denormalize($data['company'], 'CreditSafe\API\Model\PeopleSearchSuccessResultDirectorsItemCompany', 'json', $context));
             unset($data['company']);
         }
         if (\array_key_exists('address', $data)) {
-            $object->setAddress($this->denormalizer->denormalize($data['address'], 'CreditSafe\\API\\Model\\PeopleSearchSuccessResultDirectorsItemAddress', 'json', $context));
+            $object->setAddress($this->denormalizer->denormalize($data['address'], 'CreditSafe\API\Model\PeopleSearchSuccessResultDirectorsItemAddress', 'json', $context));
             unset($data['address']);
         }
         if (\array_key_exists('status', $data)) {
@@ -91,9 +91,9 @@ class PeopleSearchSuccessResultDirectorsItemNormalizer implements DenormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('peopleId') && null !== $object->getPeopleId()) {
             $data['peopleId'] = $object->getPeopleId();
         }
@@ -107,10 +107,10 @@ class PeopleSearchSuccessResultDirectorsItemNormalizer implements DenormalizerIn
             $data['country'] = $object->getCountry();
         }
         if ($object->isInitialized('company') && null !== $object->getCompany()) {
-            $data['company'] = $this->normalizer->normalize($object->getCompany(), 'json', $context);
+            $data['company'] = ($object->getCompany() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCompany(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('address') && null !== $object->getAddress()) {
-            $data['address'] = $this->normalizer->normalize($object->getAddress(), 'json', $context);
+            $data['address'] = ($object->getAddress() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAddress(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('status') && null !== $object->getStatus()) {
             $data['status'] = $object->getStatus();
@@ -131,8 +131,8 @@ class PeopleSearchSuccessResultDirectorsItemNormalizer implements DenormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\PeopleSearchSuccessResultDirectorsItem' => false);
+        return ['CreditSafe\API\Model\PeopleSearchSuccessResultDirectorsItem' => false];
     }
 }

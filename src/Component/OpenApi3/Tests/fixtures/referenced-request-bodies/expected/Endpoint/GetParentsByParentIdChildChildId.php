@@ -18,21 +18,21 @@ class GetParentsByParentIdChildChildId extends \Jane\Component\OpenApi3\Tests\Ex
         $this->child_id = $childId;
     }
     use \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{parent_id}', '{child_id}'), array($this->parent_id, $this->child_id), '/parents/{parent_id}/child/child_id/');
+        return str_replace(['{parent_id}', '{child_id}'], [$this->parent_id, $this->child_id], '/parents/{parent_id}/child/child_id/');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -45,11 +45,11 @@ class GetParentsByParentIdChildChildId extends \Jane\Component\OpenApi3\Tests\Ex
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Child', 'json');
+            return $serializer->deserialize($body, 'Jane\Component\OpenApi3\Tests\Expected\Model\Child', 'json');
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

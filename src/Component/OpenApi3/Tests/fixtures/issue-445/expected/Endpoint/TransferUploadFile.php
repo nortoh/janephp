@@ -24,7 +24,7 @@ class TransferUploadFile extends \PicturePark\API\Runtime\Client\BaseEndpoint im
     *     @var int $TotalChunks Information about chunk.
     * }
     */
-    public function __construct(string $transferId, string $requestId, $requestBody = null, array $queryParameters = array())
+    public function __construct(string $transferId, string $requestId, $requestBody = null, array $queryParameters = [])
     {
         $this->transferId = $transferId;
         $this->requestId = $requestId;
@@ -32,35 +32,35 @@ class TransferUploadFile extends \PicturePark\API\Runtime\Client\BaseEndpoint im
         $this->queryParameters = $queryParameters;
     }
     use \PicturePark\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{transferId}', '{requestId}'), array($this->transferId, $this->requestId), '/v1/Transfers/{transferId}/files/{requestId}/upload');
+        return str_replace(['{transferId}', '{requestId}'], [$this->transferId, $this->requestId], '/v1/Transfers/{transferId}/files/{requestId}/upload');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if (is_string($this->body) or is_resource($this->body) or $this->body instanceof \Psr\Http\Message\StreamInterface) {
-            return array(array('Content-Type' => array('application/octet-stream')), $this->body);
+            return [['Content-Type' => ['application/octet-stream']], $this->body];
         }
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('ChunkNumber', 'CurrentChunkSize', 'TotalSize', 'TotalChunks'));
-        $optionsResolver->setRequired(array('ChunkNumber', 'CurrentChunkSize', 'TotalSize', 'TotalChunks'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('ChunkNumber', array('int'));
-        $optionsResolver->addAllowedTypes('CurrentChunkSize', array('int'));
-        $optionsResolver->addAllowedTypes('TotalSize', array('int'));
-        $optionsResolver->addAllowedTypes('TotalChunks', array('int'));
+        $optionsResolver->setDefined(['ChunkNumber', 'CurrentChunkSize', 'TotalSize', 'TotalChunks']);
+        $optionsResolver->setRequired(['ChunkNumber', 'CurrentChunkSize', 'TotalSize', 'TotalChunks']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('ChunkNumber', ['int']);
+        $optionsResolver->addAllowedTypes('CurrentChunkSize', ['int']);
+        $optionsResolver->addAllowedTypes('TotalSize', ['int']);
+        $optionsResolver->addAllowedTypes('TotalChunks', ['int']);
         return $optionsResolver;
     }
     /**
@@ -84,29 +84,29 @@ class TransferUploadFile extends \PicturePark\API\Runtime\Client\BaseEndpoint im
             return null;
         }
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\TransferUploadFileBadRequestException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkValidationException', 'json'), $response);
+            throw new \PicturePark\API\Exception\TransferUploadFileBadRequestException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkValidationException', 'json'), $response);
         }
         if (401 === $status) {
             throw new \PicturePark\API\Exception\TransferUploadFileUnauthorizedException($response);
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\TransferUploadFileNotFoundException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkNotFoundException', 'json'), $response);
+            throw new \PicturePark\API\Exception\TransferUploadFileNotFoundException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkNotFoundException', 'json'), $response);
         }
         if (405 === $status) {
             throw new \PicturePark\API\Exception\TransferUploadFileMethodNotAllowedException($response);
         }
         if (is_null($contentType) === false && (409 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\TransferUploadFileConflictException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkConflictException', 'json'), $response);
+            throw new \PicturePark\API\Exception\TransferUploadFileConflictException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkConflictException', 'json'), $response);
         }
         if (429 === $status) {
             throw new \PicturePark\API\Exception\TransferUploadFileTooManyRequestsException($response);
         }
         if (is_null($contentType) === false && (500 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\TransferUploadFileInternalServerErrorException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkException', 'json'), $response);
+            throw new \PicturePark\API\Exception\TransferUploadFileInternalServerErrorException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkException', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('Bearer');
+        return ['Bearer'];
     }
 }

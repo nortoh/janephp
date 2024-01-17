@@ -23,48 +23,48 @@ class ApiBooksGetCollection extends \ApiPlatform\Demo\Runtime\Client\BaseEndpoin
      * }
      * @param array $accept Accept content header application/ld+json|application/hal+json|application/vnd.api+json|application/json|application/xml|text/xml|application/x-yaml|text/csv|text/html
      */
-    public function __construct(array $queryParameters = array(), array $accept = array())
+    public function __construct(array $queryParameters = [], array $accept = [])
     {
         $this->queryParameters = $queryParameters;
         $this->accept = $accept;
     }
     use \ApiPlatform\Demo\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/books';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
         if (empty($this->accept)) {
-            return array('Accept' => array('application/ld+json', 'application/hal+json', 'application/vnd.api+json', 'application/json', 'application/xml', 'text/xml', 'application/x-yaml', 'text/csv'));
+            return ['Accept' => ['application/ld+json', 'application/hal+json', 'application/vnd.api+json', 'application/json', 'application/xml', 'text/xml', 'application/x-yaml', 'text/csv']];
         }
         return $this->accept;
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('page', 'itemsPerPage', 'archived', 'order[id]', 'order[title]', 'order[author]', 'order[isbn]', 'order[publicationDate]', 'properties', 'title', 'author'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('page' => 1, 'itemsPerPage' => 30));
-        $optionsResolver->addAllowedTypes('page', array('int'));
-        $optionsResolver->addAllowedTypes('itemsPerPage', array('int'));
-        $optionsResolver->addAllowedTypes('archived', array('bool'));
-        $optionsResolver->addAllowedTypes('order[id]', array('string'));
-        $optionsResolver->addAllowedTypes('order[title]', array('string'));
-        $optionsResolver->addAllowedTypes('order[author]', array('string'));
-        $optionsResolver->addAllowedTypes('order[isbn]', array('string'));
-        $optionsResolver->addAllowedTypes('order[publicationDate]', array('string'));
-        $optionsResolver->addAllowedTypes('properties', array('array'));
-        $optionsResolver->addAllowedTypes('title', array('string'));
-        $optionsResolver->addAllowedTypes('author', array('string'));
+        $optionsResolver->setDefined(['page', 'itemsPerPage', 'archived', 'order[id]', 'order[title]', 'order[author]', 'order[isbn]', 'order[publicationDate]', 'properties', 'title', 'author']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['page' => 1, 'itemsPerPage' => 30]);
+        $optionsResolver->addAllowedTypes('page', ['int']);
+        $optionsResolver->addAllowedTypes('itemsPerPage', ['int']);
+        $optionsResolver->addAllowedTypes('archived', ['bool']);
+        $optionsResolver->addAllowedTypes('order[id]', ['string']);
+        $optionsResolver->addAllowedTypes('order[title]', ['string']);
+        $optionsResolver->addAllowedTypes('order[author]', ['string']);
+        $optionsResolver->addAllowedTypes('order[isbn]', ['string']);
+        $optionsResolver->addAllowedTypes('order[publicationDate]', ['string']);
+        $optionsResolver->addAllowedTypes('properties', ['array']);
+        $optionsResolver->addAllowedTypes('title', ['string']);
+        $optionsResolver->addAllowedTypes('author', ['string']);
         return $optionsResolver;
     }
     /**
@@ -79,21 +79,21 @@ class ApiBooksGetCollection extends \ApiPlatform\Demo\Runtime\Client\BaseEndpoin
         $body = (string) $response->getBody();
         if (200 === $status) {
             if (mb_strpos($contentType, 'application/ld+json') !== false) {
-                return $serializer->deserialize($body, 'ApiPlatform\\Demo\\Model\\BooksGetLdjsonResponse200', 'json');
+                return $serializer->deserialize($body, 'ApiPlatform\Demo\Model\BooksGetLdjsonResponse200', 'json');
             }
             if (mb_strpos($contentType, 'application/hal+json') !== false) {
-                return $serializer->deserialize($body, 'ApiPlatform\\Demo\\Model\\BooksGetHaljsonResponse200', 'json');
+                return $serializer->deserialize($body, 'ApiPlatform\Demo\Model\BooksGetHaljsonResponse200', 'json');
             }
             if (mb_strpos($contentType, 'application/vnd.api+json') !== false) {
-                return $serializer->deserialize($body, 'ApiPlatform\\Demo\\Model\\BookBookRead[]', 'json');
+                return $serializer->deserialize($body, 'ApiPlatform\Demo\Model\BookBookRead[]', 'json');
             }
             if (mb_strpos($contentType, 'application/json') !== false) {
-                return $serializer->deserialize($body, 'ApiPlatform\\Demo\\Model\\BookBookRead[]', 'json');
+                return $serializer->deserialize($body, 'ApiPlatform\Demo\Model\BookBookRead[]', 'json');
             }
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('apiKey');
+        return ['apiKey'];
     }
 }

@@ -18,18 +18,18 @@ class GbCompanyReportExampleResponseReportLocalFinancialStatementsItemRatiosNorm
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportLocalFinancialStatementsItemRatios';
+        return $type === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportLocalFinancialStatementsItemRatios';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportLocalFinancialStatementsItemRatios';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportLocalFinancialStatementsItemRatios';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -149,9 +149,9 @@ class GbCompanyReportExampleResponseReportLocalFinancialStatementsItemRatiosNorm
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('preTaxProfitMargin') && null !== $object->getPreTaxProfitMargin()) {
             $data['preTaxProfitMargin'] = $object->getPreTaxProfitMargin();
         }
@@ -201,8 +201,8 @@ class GbCompanyReportExampleResponseReportLocalFinancialStatementsItemRatiosNorm
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportLocalFinancialStatementsItemRatios' => false);
+        return ['CreditSafe\API\Model\GbCompanyReportExampleResponseReportLocalFinancialStatementsItemRatios' => false];
     }
 }

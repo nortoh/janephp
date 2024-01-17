@@ -18,18 +18,18 @@ class SchemaMultipleTypesExceptionNormalizer implements DenormalizerInterface, N
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\SchemaMultipleTypesException';
+        return $type === 'PicturePark\API\Model\SchemaMultipleTypesException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\SchemaMultipleTypesException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\SchemaMultipleTypesException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -103,7 +103,7 @@ class SchemaMultipleTypesExceptionNormalizer implements DenormalizerInterface, N
             $object->setSchemaId(null);
         }
         if (\array_key_exists('schemaTypes', $data) && $data['schemaTypes'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['schemaTypes'] as $value) {
                 $values[] = $value;
             }
@@ -123,9 +123,9 @@ class SchemaMultipleTypesExceptionNormalizer implements DenormalizerInterface, N
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -155,7 +155,7 @@ class SchemaMultipleTypesExceptionNormalizer implements DenormalizerInterface, N
             $data['schemaId'] = $object->getSchemaId();
         }
         if ($object->isInitialized('schemaTypes') && null !== $object->getSchemaTypes()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSchemaTypes() as $value) {
                 $values[] = $value;
             }
@@ -168,8 +168,8 @@ class SchemaMultipleTypesExceptionNormalizer implements DenormalizerInterface, N
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\SchemaMultipleTypesException' => false);
+        return ['PicturePark\API\Model\SchemaMultipleTypesException' => false];
     }
 }

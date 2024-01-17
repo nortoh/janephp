@@ -18,18 +18,18 @@ class FooPayloadNormalizer implements DenormalizerInterface, NormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\FooPayload';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\FooPayload';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\FooPayload';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\FooPayload';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -55,9 +55,9 @@ class FooPayloadNormalizer implements DenormalizerInterface, NormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('label') && null !== $object->getLabel()) {
             $data['label'] = $object->getLabel();
         }
@@ -68,8 +68,8 @@ class FooPayloadNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\FooPayload' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\FooPayload' => false];
     }
 }

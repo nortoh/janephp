@@ -18,18 +18,18 @@ class UserAuditHistoryNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\UserAuditHistory';
+        return $type === 'PicturePark\API\Model\UserAuditHistory';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\UserAuditHistory';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\UserAuditHistory';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class UserAuditHistoryNormalizer implements DenormalizerInterface, NormalizerInt
             return $object;
         }
         if (\array_key_exists('modificationDate', $data)) {
-            $object->setModificationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['modificationDate']));
+            $object->setModificationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['modificationDate']));
         }
         if (\array_key_exists('modifiedByUser', $data) && $data['modifiedByUser'] !== null) {
             $object->setModifiedByUser($data['modifiedByUser']);
@@ -55,17 +55,17 @@ class UserAuditHistoryNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['modificationDate'] = $object->getModificationDate()->format('Y-m-d\\TH:i:sP');
+        $data = [];
+        $data['modificationDate'] = $object->getModificationDate()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('modifiedByUser') && null !== $object->getModifiedByUser()) {
             $data['modifiedByUser'] = $object->getModifiedByUser();
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\UserAuditHistory' => false);
+        return ['PicturePark\API\Model\UserAuditHistory' => false];
     }
 }

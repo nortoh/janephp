@@ -18,18 +18,18 @@ class ReposOwnerRepoBranchesBranchProtectionPutBodyNormalizer implements Denorma
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoBranchesBranchProtectionPutBody';
+        return $type === 'Github\Model\ReposOwnerRepoBranchesBranchProtectionPutBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoBranchesBranchProtectionPutBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoBranchesBranchProtectionPutBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ReposOwnerRepoBranchesBranchProtectionPutBodyNormalizer implements Denorma
             return $object;
         }
         if (\array_key_exists('required_status_checks', $data) && $data['required_status_checks'] !== null) {
-            $object->setRequiredStatusChecks($this->denormalizer->denormalize($data['required_status_checks'], 'Github\\Model\\ReposOwnerRepoBranchesBranchProtectionPutBodyRequiredStatusChecks', 'json', $context));
+            $object->setRequiredStatusChecks($this->denormalizer->denormalize($data['required_status_checks'], 'Github\Model\ReposOwnerRepoBranchesBranchProtectionPutBodyRequiredStatusChecks', 'json', $context));
             unset($data['required_status_checks']);
         }
         elseif (\array_key_exists('required_status_checks', $data) && $data['required_status_checks'] === null) {
@@ -59,14 +59,14 @@ class ReposOwnerRepoBranchesBranchProtectionPutBodyNormalizer implements Denorma
             $object->setEnforceAdmins(null);
         }
         if (\array_key_exists('required_pull_request_reviews', $data) && $data['required_pull_request_reviews'] !== null) {
-            $object->setRequiredPullRequestReviews($this->denormalizer->denormalize($data['required_pull_request_reviews'], 'Github\\Model\\ReposOwnerRepoBranchesBranchProtectionPutBodyRequiredPullRequestReviews', 'json', $context));
+            $object->setRequiredPullRequestReviews($this->denormalizer->denormalize($data['required_pull_request_reviews'], 'Github\Model\ReposOwnerRepoBranchesBranchProtectionPutBodyRequiredPullRequestReviews', 'json', $context));
             unset($data['required_pull_request_reviews']);
         }
         elseif (\array_key_exists('required_pull_request_reviews', $data) && $data['required_pull_request_reviews'] === null) {
             $object->setRequiredPullRequestReviews(null);
         }
         if (\array_key_exists('restrictions', $data) && $data['restrictions'] !== null) {
-            $object->setRestrictions($this->denormalizer->denormalize($data['restrictions'], 'Github\\Model\\ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictions', 'json', $context));
+            $object->setRestrictions($this->denormalizer->denormalize($data['restrictions'], 'Github\Model\ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictions', 'json', $context));
             unset($data['restrictions']);
         }
         elseif (\array_key_exists('restrictions', $data) && $data['restrictions'] === null) {
@@ -97,13 +97,13 @@ class ReposOwnerRepoBranchesBranchProtectionPutBodyNormalizer implements Denorma
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['required_status_checks'] = $this->normalizer->normalize($object->getRequiredStatusChecks(), 'json', $context);
+        $data = [];
+        $data['required_status_checks'] = ($object->getRequiredStatusChecks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRequiredStatusChecks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['enforce_admins'] = $object->getEnforceAdmins();
-        $data['required_pull_request_reviews'] = $this->normalizer->normalize($object->getRequiredPullRequestReviews(), 'json', $context);
-        $data['restrictions'] = $this->normalizer->normalize($object->getRestrictions(), 'json', $context);
+        $data['required_pull_request_reviews'] = ($object->getRequiredPullRequestReviews() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRequiredPullRequestReviews(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['restrictions'] = ($object->getRestrictions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRestrictions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('requiredLinearHistory') && null !== $object->getRequiredLinearHistory()) {
             $data['required_linear_history'] = $object->getRequiredLinearHistory();
         }
@@ -123,8 +123,8 @@ class ReposOwnerRepoBranchesBranchProtectionPutBodyNormalizer implements Denorma
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoBranchesBranchProtectionPutBody' => false);
+        return ['Github\Model\ReposOwnerRepoBranchesBranchProtectionPutBody' => false];
     }
 }

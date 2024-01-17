@@ -18,18 +18,18 @@ class CompletedFreshInvestigationSearchCriteriaNormalizer implements Denormalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\CompletedFreshInvestigationSearchCriteria';
+        return $type === 'CreditSafe\API\Model\CompletedFreshInvestigationSearchCriteria';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\CompletedFreshInvestigationSearchCriteria';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\CompletedFreshInvestigationSearchCriteria';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,7 +46,7 @@ class CompletedFreshInvestigationSearchCriteriaNormalizer implements Denormalize
             unset($data['additionalInfo']);
         }
         if (\array_key_exists('address', $data)) {
-            $object->setAddress($this->denormalizer->denormalize($data['address'], 'CreditSafe\\API\\Model\\CompletedFreshInvestigationSearchCriteriaAddress', 'json', $context));
+            $object->setAddress($this->denormalizer->denormalize($data['address'], 'CreditSafe\API\Model\CompletedFreshInvestigationSearchCriteriaAddress', 'json', $context));
             unset($data['address']);
         }
         if (\array_key_exists('countryCode', $data)) {
@@ -75,14 +75,14 @@ class CompletedFreshInvestigationSearchCriteriaNormalizer implements Denormalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('additionalInfo') && null !== $object->getAdditionalInfo()) {
             $data['additionalInfo'] = $object->getAdditionalInfo();
         }
         if ($object->isInitialized('address') && null !== $object->getAddress()) {
-            $data['address'] = $this->normalizer->normalize($object->getAddress(), 'json', $context);
+            $data['address'] = ($object->getAddress() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAddress(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('countryCode') && null !== $object->getCountryCode()) {
             $data['countryCode'] = $object->getCountryCode();
@@ -103,8 +103,8 @@ class CompletedFreshInvestigationSearchCriteriaNormalizer implements Denormalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\CompletedFreshInvestigationSearchCriteria' => false);
+        return ['CreditSafe\API\Model\CompletedFreshInvestigationSearchCriteria' => false];
     }
 }

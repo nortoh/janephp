@@ -18,18 +18,18 @@ class FullTextEntitiesNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\FullTextEntities';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\FullTextEntities';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\FullTextEntities';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\FullTextEntities';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,41 +42,41 @@ class FullTextEntitiesNormalizer implements DenormalizerInterface, NormalizerInt
             return $object;
         }
         if (\array_key_exists('urls', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['urls'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\UrlEntity', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Jane\Component\OpenApi3\Tests\Expected\Model\UrlEntity', 'json', $context);
             }
             $object->setUrls($values);
             unset($data['urls']);
         }
         if (\array_key_exists('hashtags', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['hashtags'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\HashtagEntity', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'Jane\Component\OpenApi3\Tests\Expected\Model\HashtagEntity', 'json', $context);
             }
             $object->setHashtags($values_1);
             unset($data['hashtags']);
         }
         if (\array_key_exists('mentions', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['mentions'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\MentionEntity', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'Jane\Component\OpenApi3\Tests\Expected\Model\MentionEntity', 'json', $context);
             }
             $object->setMentions($values_2);
             unset($data['mentions']);
         }
         if (\array_key_exists('cashtags', $data)) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['cashtags'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\CashtagEntity', 'json', $context);
+                $values_3[] = $this->denormalizer->denormalize($value_3, 'Jane\Component\OpenApi3\Tests\Expected\Model\CashtagEntity', 'json', $context);
             }
             $object->setCashtags($values_3);
             unset($data['cashtags']);
         }
         if (\array_key_exists('annotations', $data)) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($data['annotations'] as $value_4) {
-                $values_4[] = $this->denormalizer->denormalize($value_4, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\FullTextEntitiesAnnotationsItem', 'json', $context);
+                $values_4[] = $this->denormalizer->denormalize($value_4, 'Jane\Component\OpenApi3\Tests\Expected\Model\FullTextEntitiesAnnotationsItem', 'json', $context);
             }
             $object->setAnnotations($values_4);
             unset($data['annotations']);
@@ -91,41 +91,41 @@ class FullTextEntitiesNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('urls') && null !== $object->getUrls()) {
-            $values = array();
+            $values = [];
             foreach ($object->getUrls() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['urls'] = $values;
         }
         if ($object->isInitialized('hashtags') && null !== $object->getHashtags()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getHashtags() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['hashtags'] = $values_1;
         }
         if ($object->isInitialized('mentions') && null !== $object->getMentions()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getMentions() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['mentions'] = $values_2;
         }
         if ($object->isInitialized('cashtags') && null !== $object->getCashtags()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getCashtags() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+                $values_3[] = ($value_3 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_3, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['cashtags'] = $values_3;
         }
         if ($object->isInitialized('annotations') && null !== $object->getAnnotations()) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($object->getAnnotations() as $value_4) {
-                $values_4[] = $this->normalizer->normalize($value_4, 'json', $context);
+                $values_4[] = ($value_4 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_4, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['annotations'] = $values_4;
         }
@@ -136,8 +136,8 @@ class FullTextEntitiesNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\FullTextEntities' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\FullTextEntities' => false];
     }
 }

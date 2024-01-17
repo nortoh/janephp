@@ -18,18 +18,18 @@ class PullRequestMinimalNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\PullRequestMinimal';
+        return $type === 'Github\Model\PullRequestMinimal';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\PullRequestMinimal';
+        return is_object($data) && get_class($data) === 'Github\Model\PullRequestMinimal';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,11 +57,11 @@ class PullRequestMinimalNormalizer implements DenormalizerInterface, NormalizerI
             unset($data['url']);
         }
         if (\array_key_exists('head', $data)) {
-            $object->setHead($this->denormalizer->denormalize($data['head'], 'Github\\Model\\PullRequestMinimalHead', 'json', $context));
+            $object->setHead($this->denormalizer->denormalize($data['head'], 'Github\Model\PullRequestMinimalHead', 'json', $context));
             unset($data['head']);
         }
         if (\array_key_exists('base', $data)) {
-            $object->setBase($this->denormalizer->denormalize($data['base'], 'Github\\Model\\PullRequestMinimalBase', 'json', $context));
+            $object->setBase($this->denormalizer->denormalize($data['base'], 'Github\Model\PullRequestMinimalBase', 'json', $context));
             unset($data['base']);
         }
         foreach ($data as $key => $value) {
@@ -74,14 +74,14 @@ class PullRequestMinimalNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['number'] = $object->getNumber();
         $data['url'] = $object->getUrl();
-        $data['head'] = $this->normalizer->normalize($object->getHead(), 'json', $context);
-        $data['base'] = $this->normalizer->normalize($object->getBase(), 'json', $context);
+        $data['head'] = ($object->getHead() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getHead(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['base'] = ($object->getBase() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getBase(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -92,8 +92,8 @@ class PullRequestMinimalNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\PullRequestMinimal' => false);
+        return ['Github\Model\PullRequestMinimal' => false];
     }
 }

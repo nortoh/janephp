@@ -15,17 +15,17 @@ class InteractionsRemoveRestrictionsForOrg extends \Github\Runtime\Client\BaseEn
         $this->org = $org;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'DELETE';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{org}'), array($this->org), '/orgs/{org}/interaction-limits');
+        return str_replace(['{org}'], [$this->org], '/orgs/{org}/interaction-limits');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     /**
      * {@inheritdoc}
@@ -41,8 +41,8 @@ class InteractionsRemoveRestrictionsForOrg extends \Github\Runtime\Client\BaseEn
             return null;
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

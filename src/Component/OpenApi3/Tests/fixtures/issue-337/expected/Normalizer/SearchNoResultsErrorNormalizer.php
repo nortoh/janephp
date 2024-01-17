@@ -18,18 +18,18 @@ class SearchNoResultsErrorNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\SearchNoResultsError';
+        return $type === 'CreditSafe\API\Model\SearchNoResultsError';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\SearchNoResultsError';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\SearchNoResultsError';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,7 +49,7 @@ class SearchNoResultsErrorNormalizer implements DenormalizerInterface, Normalize
             unset($data['totalSize']);
         }
         if (\array_key_exists('companies', $data)) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['companies'] as $key => $value) {
                 $values[$key] = $value;
             }
@@ -57,7 +57,7 @@ class SearchNoResultsErrorNormalizer implements DenormalizerInterface, Normalize
             unset($data['companies']);
         }
         if (\array_key_exists('messages', $data)) {
-            $object->setMessages($this->denormalizer->denormalize($data['messages'], 'CreditSafe\\API\\Model\\SearchNoResultsErrorMessages', 'json', $context));
+            $object->setMessages($this->denormalizer->denormalize($data['messages'], 'CreditSafe\API\Model\SearchNoResultsErrorMessages', 'json', $context));
             unset($data['messages']);
         }
         foreach ($data as $key_1 => $value_1) {
@@ -70,21 +70,21 @@ class SearchNoResultsErrorNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('totalSize') && null !== $object->getTotalSize()) {
             $data['totalSize'] = $object->getTotalSize();
         }
         if ($object->isInitialized('companies') && null !== $object->getCompanies()) {
-            $values = array();
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getCompanies() as $key => $value) {
                 $values[$key] = $value;
             }
             $data['companies'] = $values;
         }
         if ($object->isInitialized('messages') && null !== $object->getMessages()) {
-            $data['messages'] = $this->normalizer->normalize($object->getMessages(), 'json', $context);
+            $data['messages'] = ($object->getMessages() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMessages(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key_1 => $value_1) {
             if (preg_match('/.*/', (string) $key_1)) {
@@ -93,8 +93,8 @@ class SearchNoResultsErrorNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\SearchNoResultsError' => false);
+        return ['CreditSafe\API\Model\SearchNoResultsError' => false];
     }
 }

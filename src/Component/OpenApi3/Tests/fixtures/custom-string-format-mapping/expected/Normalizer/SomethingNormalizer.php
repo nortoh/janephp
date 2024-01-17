@@ -18,18 +18,18 @@ class SomethingNormalizer implements DenormalizerInterface, NormalizerInterface,
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Something';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\Something';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Something';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\Something';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,7 +46,7 @@ class SomethingNormalizer implements DenormalizerInterface, NormalizerInterface,
             unset($data['id']);
         }
         if (\array_key_exists('uuid', $data)) {
-            $object->setUuid($this->denormalizer->denormalize($data['uuid'], 'Symfony\\Component\\Uid\\UuidV4', 'json', $context));
+            $object->setUuid($this->denormalizer->denormalize($data['uuid'], 'Symfony\Component\Uid\UuidV4', 'json', $context));
             unset($data['uuid']);
         }
         foreach ($data as $key => $value) {
@@ -59,9 +59,9 @@ class SomethingNormalizer implements DenormalizerInterface, NormalizerInterface,
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['uuid'] = $this->normalizer->normalize($object->getUuid(), 'json', $context);
         foreach ($object as $key => $value) {
@@ -71,8 +71,8 @@ class SomethingNormalizer implements DenormalizerInterface, NormalizerInterface,
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Something' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\Something' => false];
     }
 }

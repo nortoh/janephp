@@ -22,24 +22,24 @@ class TeamsAddOrUpdateProjectPermissionsLegacy extends \Github\Runtime\Client\Ba
         $this->body = $requestBody;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'PUT';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{team_id}', '{project_id}'), array($this->team_id, $this->project_id), '/teams/{team_id}/projects/{project_id}');
+        return str_replace(['{team_id}', '{project_id}'], [$this->team_id, $this->project_id], '/teams/{team_id}/projects/{project_id}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if ($this->body instanceof \Github\Model\TeamsTeamIdProjectsProjectIdPutBody) {
-            return array(array('Content-Type' => array('application/json')), $serializer->serialize($this->body, 'json'));
+            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
         }
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -59,20 +59,20 @@ class TeamsAddOrUpdateProjectPermissionsLegacy extends \Github\Runtime\Client\Ba
             return null;
         }
         if (is_null($contentType) === false && (403 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\TeamsAddOrUpdateProjectPermissionsLegacyForbiddenException($serializer->deserialize($body, 'Github\\Model\\TeamsTeamIdProjectsProjectIdPutResponse403', 'json'), $response);
+            throw new \Github\Exception\TeamsAddOrUpdateProjectPermissionsLegacyForbiddenException($serializer->deserialize($body, 'Github\Model\TeamsTeamIdProjectsProjectIdPutResponse403', 'json'), $response);
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\TeamsAddOrUpdateProjectPermissionsLegacyNotFoundException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\TeamsAddOrUpdateProjectPermissionsLegacyNotFoundException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (415 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\TeamsAddOrUpdateProjectPermissionsLegacyUnsupportedMediaTypeException($serializer->deserialize($body, 'Github\\Model\\ResponsePreviewHeaderMissing', 'json'), $response);
+            throw new \Github\Exception\TeamsAddOrUpdateProjectPermissionsLegacyUnsupportedMediaTypeException($serializer->deserialize($body, 'Github\Model\ResponsePreviewHeaderMissing', 'json'), $response);
         }
         if (is_null($contentType) === false && (422 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\TeamsAddOrUpdateProjectPermissionsLegacyUnprocessableEntityException($serializer->deserialize($body, 'Github\\Model\\ValidationError', 'json'), $response);
+            throw new \Github\Exception\TeamsAddOrUpdateProjectPermissionsLegacyUnprocessableEntityException($serializer->deserialize($body, 'Github\Model\ValidationError', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

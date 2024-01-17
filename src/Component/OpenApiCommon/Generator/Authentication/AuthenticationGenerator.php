@@ -4,6 +4,7 @@ namespace Jane\Component\OpenApiCommon\Generator\Authentication;
 
 use Jane\Component\OpenApiCommon\Guesser\Guess\SecuritySchemeGuess;
 use PhpParser\Node;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
@@ -71,7 +72,7 @@ trait AuthenticationGenerator
                             new Stmt\Expression(new Expr\Assign(new Expr\Variable('params'), new Expr\FuncCall(new Name('array_merge'), [
                                 new Node\Arg(new Expr\Variable('params')),
                                 new Node\Arg(new Expr\Array_([
-                                    new Expr\ArrayItem(new Expr\PropertyFetch(new Expr\Variable('this'), new Scalar\String_('apiKey')), new Scalar\String_($securityScheme->getVariable())),
+                                    new ArrayItem(new Expr\PropertyFetch(new Expr\Variable('this'), new Scalar\String_('apiKey')), new Scalar\String_($securityScheme->getVariable())),
                                 ])),
                             ]))),
                             new Stmt\Expression(new Expr\Assign(new Expr\Variable('query'), new Expr\FuncCall(new Name('http_build_query'), [

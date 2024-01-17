@@ -18,18 +18,18 @@ class SystemStatusNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\SystemStatus';
+        return $type === 'PicturePark\API\Model\SystemStatus';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\SystemStatus';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\SystemStatus';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,9 +42,9 @@ class SystemStatusNormalizer implements DenormalizerInterface, NormalizerInterfa
             return $object;
         }
         if (\array_key_exists('searchIndicesStatus', $data) && $data['searchIndicesStatus'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['searchIndicesStatus'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\StatusOfSearchIndexState', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\StatusOfSearchIndexState', 'json', $context);
             }
             $object->setSearchIndicesStatus($values);
         }
@@ -52,9 +52,9 @@ class SystemStatusNormalizer implements DenormalizerInterface, NormalizerInterfa
             $object->setSearchIndicesStatus(null);
         }
         if (\array_key_exists('displayValuesStatus', $data) && $data['displayValuesStatus'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['displayValuesStatus'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\StatusOfDisplayValuesState', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\StatusOfDisplayValuesState', 'json', $context);
             }
             $object->setDisplayValuesStatus($values_1);
         }
@@ -62,9 +62,9 @@ class SystemStatusNormalizer implements DenormalizerInterface, NormalizerInterfa
             $object->setDisplayValuesStatus(null);
         }
         if (\array_key_exists('metadataStatus', $data) && $data['metadataStatus'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['metadataStatus'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\\API\\Model\\StatusOfMetadataState', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\API\Model\StatusOfMetadataState', 'json', $context);
             }
             $object->setMetadataStatus($values_2);
         }
@@ -76,34 +76,34 @@ class SystemStatusNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('searchIndicesStatus') && null !== $object->getSearchIndicesStatus()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSearchIndicesStatus() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['searchIndicesStatus'] = $values;
         }
         if ($object->isInitialized('displayValuesStatus') && null !== $object->getDisplayValuesStatus()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getDisplayValuesStatus() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['displayValuesStatus'] = $values_1;
         }
         if ($object->isInitialized('metadataStatus') && null !== $object->getMetadataStatus()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getMetadataStatus() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['metadataStatus'] = $values_2;
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\SystemStatus' => false);
+        return ['PicturePark\API\Model\SystemStatus' => false];
     }
 }

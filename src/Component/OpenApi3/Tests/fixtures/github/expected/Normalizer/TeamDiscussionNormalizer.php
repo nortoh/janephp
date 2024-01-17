@@ -18,18 +18,18 @@ class TeamDiscussionNormalizer implements DenormalizerInterface, NormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\TeamDiscussion';
+        return $type === 'Github\Model\TeamDiscussion';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\TeamDiscussion';
+        return is_object($data) && get_class($data) === 'Github\Model\TeamDiscussion';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class TeamDiscussionNormalizer implements DenormalizerInterface, NormalizerInter
             return $object;
         }
         if (\array_key_exists('author', $data) && $data['author'] !== null) {
-            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\\Model\\TeamDiscussionAuthor', 'json', $context));
+            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\Model\TeamDiscussionAuthor', 'json', $context));
             unset($data['author']);
         }
         elseif (\array_key_exists('author', $data) && $data['author'] === null) {
@@ -72,11 +72,11 @@ class TeamDiscussionNormalizer implements DenormalizerInterface, NormalizerInter
             unset($data['comments_url']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('last_edited_at', $data) && $data['last_edited_at'] !== null) {
-            $object->setLastEditedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['last_edited_at']));
+            $object->setLastEditedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['last_edited_at']));
             unset($data['last_edited_at']);
         }
         elseif (\array_key_exists('last_edited_at', $data) && $data['last_edited_at'] === null) {
@@ -111,7 +111,7 @@ class TeamDiscussionNormalizer implements DenormalizerInterface, NormalizerInter
             unset($data['title']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('url', $data)) {
@@ -119,7 +119,7 @@ class TeamDiscussionNormalizer implements DenormalizerInterface, NormalizerInter
             unset($data['url']);
         }
         if (\array_key_exists('reactions', $data)) {
-            $object->setReactions($this->denormalizer->denormalize($data['reactions'], 'Github\\Model\\ReactionRollup', 'json', $context));
+            $object->setReactions($this->denormalizer->denormalize($data['reactions'], 'Github\Model\ReactionRollup', 'json', $context));
             unset($data['reactions']);
         }
         foreach ($data as $key => $value) {
@@ -132,17 +132,17 @@ class TeamDiscussionNormalizer implements DenormalizerInterface, NormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['author'] = $this->normalizer->normalize($object->getAuthor(), 'json', $context);
+        $data = [];
+        $data['author'] = ($object->getAuthor() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAuthor(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['body'] = $object->getBody();
         $data['body_html'] = $object->getBodyHtml();
         $data['body_version'] = $object->getBodyVersion();
         $data['comments_count'] = $object->getCommentsCount();
         $data['comments_url'] = $object->getCommentsUrl();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['last_edited_at'] = $object->getLastEditedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['last_edited_at'] = $object->getLastEditedAt()->format('Y-m-d\TH:i:sP');
         $data['html_url'] = $object->getHtmlUrl();
         $data['node_id'] = $object->getNodeId();
         $data['number'] = $object->getNumber();
@@ -150,10 +150,10 @@ class TeamDiscussionNormalizer implements DenormalizerInterface, NormalizerInter
         $data['private'] = $object->getPrivate();
         $data['team_url'] = $object->getTeamUrl();
         $data['title'] = $object->getTitle();
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['url'] = $object->getUrl();
         if ($object->isInitialized('reactions') && null !== $object->getReactions()) {
-            $data['reactions'] = $this->normalizer->normalize($object->getReactions(), 'json', $context);
+            $data['reactions'] = ($object->getReactions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getReactions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -165,8 +165,8 @@ class TeamDiscussionNormalizer implements DenormalizerInterface, NormalizerInter
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\TeamDiscussion' => false);
+        return ['Github\Model\TeamDiscussion' => false];
     }
 }

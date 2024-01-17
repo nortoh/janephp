@@ -18,18 +18,18 @@ class ListFreshInvestigationResponseOrdersItemNormalizer implements Denormalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\ListFreshInvestigationResponseOrdersItem';
+        return $type === 'CreditSafe\API\Model\ListFreshInvestigationResponseOrdersItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\ListFreshInvestigationResponseOrdersItem';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\ListFreshInvestigationResponseOrdersItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -66,11 +66,11 @@ class ListFreshInvestigationResponseOrdersItemNormalizer implements Denormalizer
             unset($data['chargeReference']);
         }
         if (\array_key_exists('contactDetails', $data)) {
-            $object->setContactDetails($this->denormalizer->denormalize($data['contactDetails'], 'CreditSafe\\API\\Model\\ListFreshInvestigationResponseOrdersItemContactDetails', 'json', $context));
+            $object->setContactDetails($this->denormalizer->denormalize($data['contactDetails'], 'CreditSafe\API\Model\ListFreshInvestigationResponseOrdersItemContactDetails', 'json', $context));
             unset($data['contactDetails']);
         }
         if (\array_key_exists('status', $data)) {
-            $object->setStatus($this->denormalizer->denormalize($data['status'], 'CreditSafe\\API\\Model\\ListFreshInvestigationResponseOrdersItemStatus', 'json', $context));
+            $object->setStatus($this->denormalizer->denormalize($data['status'], 'CreditSafe\API\Model\ListFreshInvestigationResponseOrdersItemStatus', 'json', $context));
             unset($data['status']);
         }
         if (\array_key_exists('consent', $data)) {
@@ -78,7 +78,7 @@ class ListFreshInvestigationResponseOrdersItemNormalizer implements Denormalizer
             unset($data['consent']);
         }
         if (\array_key_exists('searchCriteria', $data)) {
-            $object->setSearchCriteria($this->denormalizer->denormalize($data['searchCriteria'], 'CreditSafe\\API\\Model\\ListFreshInvestigationResponseOrdersItemSearchCriteria', 'json', $context));
+            $object->setSearchCriteria($this->denormalizer->denormalize($data['searchCriteria'], 'CreditSafe\API\Model\ListFreshInvestigationResponseOrdersItemSearchCriteria', 'json', $context));
             unset($data['searchCriteria']);
         }
         foreach ($data as $key => $value) {
@@ -91,9 +91,9 @@ class ListFreshInvestigationResponseOrdersItemNormalizer implements Denormalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('orderID') && null !== $object->getOrderID()) {
             $data['orderID'] = $object->getOrderID();
         }
@@ -113,16 +113,16 @@ class ListFreshInvestigationResponseOrdersItemNormalizer implements Denormalizer
             $data['chargeReference'] = $object->getChargeReference();
         }
         if ($object->isInitialized('contactDetails') && null !== $object->getContactDetails()) {
-            $data['contactDetails'] = $this->normalizer->normalize($object->getContactDetails(), 'json', $context);
+            $data['contactDetails'] = ($object->getContactDetails() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getContactDetails(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('status') && null !== $object->getStatus()) {
-            $data['status'] = $this->normalizer->normalize($object->getStatus(), 'json', $context);
+            $data['status'] = ($object->getStatus() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getStatus(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('consent') && null !== $object->getConsent()) {
             $data['consent'] = $object->getConsent();
         }
         if ($object->isInitialized('searchCriteria') && null !== $object->getSearchCriteria()) {
-            $data['searchCriteria'] = $this->normalizer->normalize($object->getSearchCriteria(), 'json', $context);
+            $data['searchCriteria'] = ($object->getSearchCriteria() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSearchCriteria(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -131,8 +131,8 @@ class ListFreshInvestigationResponseOrdersItemNormalizer implements Denormalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\ListFreshInvestigationResponseOrdersItem' => false);
+        return ['CreditSafe\API\Model\ListFreshInvestigationResponseOrdersItem' => false];
     }
 }

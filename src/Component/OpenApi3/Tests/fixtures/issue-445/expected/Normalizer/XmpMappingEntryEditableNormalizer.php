@@ -18,18 +18,18 @@ class XmpMappingEntryEditableNormalizer implements DenormalizerInterface, Normal
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\XmpMappingEntryEditable';
+        return $type === 'PicturePark\API\Model\XmpMappingEntryEditable';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\XmpMappingEntryEditable';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\XmpMappingEntryEditable';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -67,9 +67,9 @@ class XmpMappingEntryEditableNormalizer implements DenormalizerInterface, Normal
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['direction'] = $object->getDirection();
         $data['priority'] = $object->getPriority();
         $data['stopProcessing'] = $object->getStopProcessing();
@@ -80,8 +80,8 @@ class XmpMappingEntryEditableNormalizer implements DenormalizerInterface, Normal
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\XmpMappingEntryEditable' => false);
+        return ['PicturePark\API\Model\XmpMappingEntryEditable' => false];
     }
 }

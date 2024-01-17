@@ -18,18 +18,18 @@ class GitCommitParentsItemNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GitCommitParentsItem';
+        return $type === 'Github\Model\GitCommitParentsItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GitCommitParentsItem';
+        return is_object($data) && get_class($data) === 'Github\Model\GitCommitParentsItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -66,9 +66,9 @@ class GitCommitParentsItemNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('sha') && null !== $object->getSha()) {
             $data['sha'] = $object->getSha();
         }
@@ -88,8 +88,8 @@ class GitCommitParentsItemNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GitCommitParentsItem' => false);
+        return ['Github\Model\GitCommitParentsItem' => false];
     }
 }

@@ -18,18 +18,18 @@ class ImportNormalizer implements DenormalizerInterface, NormalizerInterface, De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Import';
+        return $type === 'Github\Model\Import';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Import';
+        return is_object($data) && get_class($data) === 'Github\Model\Import';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -126,9 +126,9 @@ class ImportNormalizer implements DenormalizerInterface, NormalizerInterface, De
             unset($data['large_files_count']);
         }
         if (\array_key_exists('project_choices', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['project_choices'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\ImportProjectChoicesItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\ImportProjectChoicesItem', 'json', $context);
             }
             $object->setProjectChoices($values);
             unset($data['project_choices']);
@@ -174,9 +174,9 @@ class ImportNormalizer implements DenormalizerInterface, NormalizerInterface, De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['vcs'] = $object->getVcs();
         if ($object->isInitialized('useLfs') && null !== $object->getUseLfs()) {
             $data['use_lfs'] = $object->getUseLfs();
@@ -217,9 +217,9 @@ class ImportNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data['large_files_count'] = $object->getLargeFilesCount();
         }
         if ($object->isInitialized('projectChoices') && null !== $object->getProjectChoices()) {
-            $values = array();
+            $values = [];
             foreach ($object->getProjectChoices() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['project_choices'] = $values;
         }
@@ -246,8 +246,8 @@ class ImportNormalizer implements DenormalizerInterface, NormalizerInterface, De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Import' => false);
+        return ['Github\Model\Import' => false];
     }
 }

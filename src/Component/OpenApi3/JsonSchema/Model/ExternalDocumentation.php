@@ -21,7 +21,7 @@ class ExternalDocumentation extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -32,7 +32,7 @@ class ExternalDocumentation extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -42,7 +42,7 @@ class ExternalDocumentation extends \ArrayObject
      *
      * @return string|null
      */
-    public function getUrl() : ?string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
@@ -53,7 +53,7 @@ class ExternalDocumentation extends \ArrayObject
      *
      * @return self
      */
-    public function setUrl(?string $url) : self
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
         return $this;

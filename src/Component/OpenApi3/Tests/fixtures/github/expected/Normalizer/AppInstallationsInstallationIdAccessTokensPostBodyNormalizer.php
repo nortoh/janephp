@@ -18,18 +18,18 @@ class AppInstallationsInstallationIdAccessTokensPostBodyNormalizer implements De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\AppInstallationsInstallationIdAccessTokensPostBody';
+        return $type === 'Github\Model\AppInstallationsInstallationIdAccessTokensPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\AppInstallationsInstallationIdAccessTokensPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\AppInstallationsInstallationIdAccessTokensPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class AppInstallationsInstallationIdAccessTokensPostBodyNormalizer implements De
             return $object;
         }
         if (\array_key_exists('repositories', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['repositories'] as $value) {
                 $values[] = $value;
             }
@@ -53,7 +53,7 @@ class AppInstallationsInstallationIdAccessTokensPostBodyNormalizer implements De
             unset($data['repositories']);
         }
         if (\array_key_exists('repository_ids', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['repository_ids'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -61,7 +61,7 @@ class AppInstallationsInstallationIdAccessTokensPostBodyNormalizer implements De
             unset($data['repository_ids']);
         }
         if (\array_key_exists('permissions', $data)) {
-            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\\Model\\AppInstallationsInstallationIdAccessTokensPostBodyPermissions', 'json', $context));
+            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\Model\AppInstallationsInstallationIdAccessTokensPostBodyPermissions', 'json', $context));
             unset($data['permissions']);
         }
         foreach ($data as $key => $value_2) {
@@ -74,25 +74,25 @@ class AppInstallationsInstallationIdAccessTokensPostBodyNormalizer implements De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('repositories') && null !== $object->getRepositories()) {
-            $values = array();
+            $values = [];
             foreach ($object->getRepositories() as $value) {
                 $values[] = $value;
             }
             $data['repositories'] = $values;
         }
         if ($object->isInitialized('repositoryIds') && null !== $object->getRepositoryIds()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getRepositoryIds() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['repository_ids'] = $values_1;
         }
         if ($object->isInitialized('permissions') && null !== $object->getPermissions()) {
-            $data['permissions'] = $this->normalizer->normalize($object->getPermissions(), 'json', $context);
+            $data['permissions'] = ($object->getPermissions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPermissions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value_2) {
             if (preg_match('/.*/', (string) $key)) {
@@ -104,8 +104,8 @@ class AppInstallationsInstallationIdAccessTokensPostBodyNormalizer implements De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\AppInstallationsInstallationIdAccessTokensPostBody' => false);
+        return ['Github\Model\AppInstallationsInstallationIdAccessTokensPostBody' => false];
     }
 }

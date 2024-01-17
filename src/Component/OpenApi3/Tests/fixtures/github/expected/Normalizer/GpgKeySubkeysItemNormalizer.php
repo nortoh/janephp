@@ -18,18 +18,18 @@ class GpgKeySubkeysItemNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GpgKeySubkeysItem';
+        return $type === 'Github\Model\GpgKeySubkeysItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GpgKeySubkeysItem';
+        return is_object($data) && get_class($data) === 'Github\Model\GpgKeySubkeysItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,7 +61,7 @@ class GpgKeySubkeysItemNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['public_key']);
         }
         if (\array_key_exists('emails', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['emails'] as $value) {
                 $values[] = $value;
             }
@@ -69,7 +69,7 @@ class GpgKeySubkeysItemNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['emails']);
         }
         if (\array_key_exists('subkeys', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['subkeys'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -120,9 +120,9 @@ class GpgKeySubkeysItemNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -136,14 +136,14 @@ class GpgKeySubkeysItemNormalizer implements DenormalizerInterface, NormalizerIn
             $data['public_key'] = $object->getPublicKey();
         }
         if ($object->isInitialized('emails') && null !== $object->getEmails()) {
-            $values = array();
+            $values = [];
             foreach ($object->getEmails() as $value) {
                 $values[] = $value;
             }
             $data['emails'] = $values;
         }
         if ($object->isInitialized('subkeys') && null !== $object->getSubkeys()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getSubkeys() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -180,8 +180,8 @@ class GpgKeySubkeysItemNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GpgKeySubkeysItem' => false);
+        return ['Github\Model\GpgKeySubkeysItem' => false];
     }
 }

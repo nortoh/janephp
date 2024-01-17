@@ -26,7 +26,7 @@ class Responses extends \ArrayObject
      *
      * @return self
      */
-    public function setDefault($default) : self
+    public function setDefault($default): self
     {
         $this->default = $default;
         return $this;

@@ -18,18 +18,18 @@ class CommitSearchResultItemParentsItemNormalizer implements DenormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\CommitSearchResultItemParentsItem';
+        return $type === 'Github\Model\CommitSearchResultItemParentsItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\CommitSearchResultItemParentsItem';
+        return is_object($data) && get_class($data) === 'Github\Model\CommitSearchResultItemParentsItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -66,9 +66,9 @@ class CommitSearchResultItemParentsItemNormalizer implements DenormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('url') && null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
@@ -88,8 +88,8 @@ class CommitSearchResultItemParentsItemNormalizer implements DenormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\CommitSearchResultItemParentsItem' => false);
+        return ['Github\Model\CommitSearchResultItemParentsItem' => false];
     }
 }

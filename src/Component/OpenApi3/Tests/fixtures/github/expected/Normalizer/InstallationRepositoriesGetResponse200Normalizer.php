@@ -18,18 +18,18 @@ class InstallationRepositoriesGetResponse200Normalizer implements DenormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\InstallationRepositoriesGetResponse200';
+        return $type === 'Github\Model\InstallationRepositoriesGetResponse200';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\InstallationRepositoriesGetResponse200';
+        return is_object($data) && get_class($data) === 'Github\Model\InstallationRepositoriesGetResponse200';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,9 +49,9 @@ class InstallationRepositoriesGetResponse200Normalizer implements DenormalizerIn
             unset($data['total_count']);
         }
         if (\array_key_exists('repositories', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['repositories'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\Repository', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\Repository', 'json', $context);
             }
             $object->setRepositories($values);
             unset($data['repositories']);
@@ -70,16 +70,16 @@ class InstallationRepositoriesGetResponse200Normalizer implements DenormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('totalCount') && null !== $object->getTotalCount()) {
             $data['total_count'] = $object->getTotalCount();
         }
         if ($object->isInitialized('repositories') && null !== $object->getRepositories()) {
-            $values = array();
+            $values = [];
             foreach ($object->getRepositories() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['repositories'] = $values;
         }
@@ -96,8 +96,8 @@ class InstallationRepositoriesGetResponse200Normalizer implements DenormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\InstallationRepositoriesGetResponse200' => false);
+        return ['Github\Model\InstallationRepositoriesGetResponse200' => false];
     }
 }

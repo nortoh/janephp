@@ -16,45 +16,45 @@ class FreshInvestigationReport extends \CreditSafe\API\Runtime\Client\BaseEndpoi
      *     @var string $Authorization Bearer JWT (Authentication Token) generated from the /authenticate endpoint.
      * }
      */
-    public function __construct(string $orderId, array $queryParameters = array(), array $headerParameters = array())
+    public function __construct(string $orderId, array $queryParameters = [], array $headerParameters = [])
     {
         $this->orderId = $orderId;
         $this->queryParameters = $queryParameters;
         $this->headerParameters = $headerParameters;
     }
     use \CreditSafe\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{orderId}'), array($this->orderId), '/freshInvestigations/{orderId}');
+        return str_replace(['{orderId}'], [$this->orderId], '/freshInvestigations/{orderId}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('sections'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('sections', array('string'));
+        $optionsResolver->setDefined(['sections']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('sections', ['string']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('Authorization'));
-        $optionsResolver->setRequired(array('Authorization'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('Authorization', array('string'));
+        $optionsResolver->setDefined(['Authorization']);
+        $optionsResolver->setRequired(['Authorization']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('Authorization', ['string']);
         return $optionsResolver;
     }
     /**
@@ -71,7 +71,7 @@ class FreshInvestigationReport extends \CreditSafe\API\Runtime\Client\BaseEndpoi
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'CreditSafe\\API\\Model\\CompletedFreshInvestigation', 'json');
+            return $serializer->deserialize($body, 'CreditSafe\API\Model\CompletedFreshInvestigation', 'json');
         }
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \CreditSafe\API\Exception\FreshInvestigationReportBadRequestException($response);
@@ -83,8 +83,8 @@ class FreshInvestigationReport extends \CreditSafe\API\Runtime\Client\BaseEndpoi
             throw new \CreditSafe\API\Exception\FreshInvestigationReportForbiddenException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('bearerAuth');
+        return ['bearerAuth'];
     }
 }

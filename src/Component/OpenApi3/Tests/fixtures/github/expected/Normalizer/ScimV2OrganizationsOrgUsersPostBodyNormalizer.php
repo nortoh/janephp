@@ -18,18 +18,18 @@ class ScimV2OrganizationsOrgUsersPostBodyNormalizer implements DenormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ScimV2OrganizationsOrgUsersPostBody';
+        return $type === 'Github\Model\ScimV2OrganizationsOrgUsersPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ScimV2OrganizationsOrgUsersPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ScimV2OrganizationsOrgUsersPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,19 +49,19 @@ class ScimV2OrganizationsOrgUsersPostBodyNormalizer implements DenormalizerInter
             unset($data['userName']);
         }
         if (\array_key_exists('name', $data)) {
-            $object->setName($this->denormalizer->denormalize($data['name'], 'Github\\Model\\ScimV2OrganizationsOrgUsersPostBodyName', 'json', $context));
+            $object->setName($this->denormalizer->denormalize($data['name'], 'Github\Model\ScimV2OrganizationsOrgUsersPostBodyName', 'json', $context));
             unset($data['name']);
         }
         if (\array_key_exists('emails', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['emails'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\ScimV2OrganizationsOrgUsersPostBodyEmailsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\ScimV2OrganizationsOrgUsersPostBodyEmailsItem', 'json', $context);
             }
             $object->setEmails($values);
             unset($data['emails']);
         }
         if (\array_key_exists('schemas', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['schemas'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -77,7 +77,7 @@ class ScimV2OrganizationsOrgUsersPostBodyNormalizer implements DenormalizerInter
             unset($data['externalId']);
         }
         if (\array_key_exists('groups', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['groups'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -98,18 +98,18 @@ class ScimV2OrganizationsOrgUsersPostBodyNormalizer implements DenormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['userName'] = $object->getUserName();
-        $data['name'] = $this->normalizer->normalize($object->getName(), 'json', $context);
-        $values = array();
+        $data['name'] = ($object->getName() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getName(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $values = [];
         foreach ($object->getEmails() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['emails'] = $values;
         if ($object->isInitialized('schemas') && null !== $object->getSchemas()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getSchemas() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -122,7 +122,7 @@ class ScimV2OrganizationsOrgUsersPostBodyNormalizer implements DenormalizerInter
             $data['externalId'] = $object->getExternalId();
         }
         if ($object->isInitialized('groups') && null !== $object->getGroups()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getGroups() as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -141,8 +141,8 @@ class ScimV2OrganizationsOrgUsersPostBodyNormalizer implements DenormalizerInter
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ScimV2OrganizationsOrgUsersPostBody' => false);
+        return ['Github\Model\ScimV2OrganizationsOrgUsersPostBody' => false];
     }
 }

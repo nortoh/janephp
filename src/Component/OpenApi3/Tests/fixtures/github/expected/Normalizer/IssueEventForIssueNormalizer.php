@@ -18,18 +18,18 @@ class IssueEventForIssueNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\IssueEventForIssue';
+        return $type === 'Github\Model\IssueEventForIssue';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\IssueEventForIssue';
+        return is_object($data) && get_class($data) === 'Github\Model\IssueEventForIssue';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,7 +57,7 @@ class IssueEventForIssueNormalizer implements DenormalizerInterface, NormalizerI
             unset($data['url']);
         }
         if (\array_key_exists('actor', $data) && $data['actor'] !== null) {
-            $object->setActor($this->denormalizer->denormalize($data['actor'], 'Github\\Model\\SimpleUser', 'json', $context));
+            $object->setActor($this->denormalizer->denormalize($data['actor'], 'Github\Model\SimpleUser', 'json', $context));
             unset($data['actor']);
         }
         elseif (\array_key_exists('actor', $data) && $data['actor'] === null) {
@@ -147,9 +147,9 @@ class IssueEventForIssueNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -160,7 +160,7 @@ class IssueEventForIssueNormalizer implements DenormalizerInterface, NormalizerI
             $data['url'] = $object->getUrl();
         }
         if ($object->isInitialized('actor') && null !== $object->getActor()) {
-            $data['actor'] = $this->normalizer->normalize($object->getActor(), 'json', $context);
+            $data['actor'] = ($object->getActor() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getActor(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('event') && null !== $object->getEvent()) {
             $data['event'] = $object->getEvent();
@@ -223,8 +223,8 @@ class IssueEventForIssueNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\IssueEventForIssue' => false);
+        return ['Github\Model\IssueEventForIssue' => false];
     }
 }

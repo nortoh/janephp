@@ -18,18 +18,18 @@ class TeamRepositoryTemplateRepositoryNormalizer implements DenormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\TeamRepositoryTemplateRepository';
+        return $type === 'Github\Model\TeamRepositoryTemplateRepository';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\TeamRepositoryTemplateRepository';
+        return is_object($data) && get_class($data) === 'Github\Model\TeamRepositoryTemplateRepository';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,7 +61,7 @@ class TeamRepositoryTemplateRepositoryNormalizer implements DenormalizerInterfac
             unset($data['full_name']);
         }
         if (\array_key_exists('owner', $data)) {
-            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\\Model\\TeamRepositoryTemplateRepositoryOwner', 'json', $context));
+            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\Model\TeamRepositoryTemplateRepositoryOwner', 'json', $context));
             unset($data['owner']);
         }
         if (\array_key_exists('private', $data)) {
@@ -285,7 +285,7 @@ class TeamRepositoryTemplateRepositoryNormalizer implements DenormalizerInterfac
             unset($data['is_template']);
         }
         if (\array_key_exists('topics', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['topics'] as $value) {
                 $values[] = $value;
             }
@@ -337,7 +337,7 @@ class TeamRepositoryTemplateRepositoryNormalizer implements DenormalizerInterfac
             unset($data['updated_at']);
         }
         if (\array_key_exists('permissions', $data)) {
-            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\\Model\\TeamRepositoryTemplateRepositoryPermissions', 'json', $context));
+            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\Model\TeamRepositoryTemplateRepositoryPermissions', 'json', $context));
             unset($data['permissions']);
         }
         if (\array_key_exists('allow_rebase_merge', $data)) {
@@ -382,9 +382,9 @@ class TeamRepositoryTemplateRepositoryNormalizer implements DenormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -398,7 +398,7 @@ class TeamRepositoryTemplateRepositoryNormalizer implements DenormalizerInterfac
             $data['full_name'] = $object->getFullName();
         }
         if ($object->isInitialized('owner') && null !== $object->getOwner()) {
-            $data['owner'] = $this->normalizer->normalize($object->getOwner(), 'json', $context);
+            $data['owner'] = ($object->getOwner() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOwner(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('private') && null !== $object->getPrivate()) {
             $data['private'] = $object->getPrivate();
@@ -566,7 +566,7 @@ class TeamRepositoryTemplateRepositoryNormalizer implements DenormalizerInterfac
             $data['is_template'] = $object->getIsTemplate();
         }
         if ($object->isInitialized('topics') && null !== $object->getTopics()) {
-            $values = array();
+            $values = [];
             foreach ($object->getTopics() as $value) {
                 $values[] = $value;
             }
@@ -606,7 +606,7 @@ class TeamRepositoryTemplateRepositoryNormalizer implements DenormalizerInterfac
             $data['updated_at'] = $object->getUpdatedAt();
         }
         if ($object->isInitialized('permissions') && null !== $object->getPermissions()) {
-            $data['permissions'] = $this->normalizer->normalize($object->getPermissions(), 'json', $context);
+            $data['permissions'] = ($object->getPermissions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPermissions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('allowRebaseMerge') && null !== $object->getAllowRebaseMerge()) {
             $data['allow_rebase_merge'] = $object->getAllowRebaseMerge();
@@ -642,8 +642,8 @@ class TeamRepositoryTemplateRepositoryNormalizer implements DenormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\TeamRepositoryTemplateRepository' => false);
+        return ['Github\Model\TeamRepositoryTemplateRepository' => false];
     }
 }

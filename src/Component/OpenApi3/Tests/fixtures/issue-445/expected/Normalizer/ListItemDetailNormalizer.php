@@ -18,18 +18,18 @@ class ListItemDetailNormalizer implements DenormalizerInterface, NormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ListItemDetail';
+        return $type === 'PicturePark\API\Model\ListItemDetail';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ListItemDetail';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ListItemDetail';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class ListItemDetailNormalizer implements DenormalizerInterface, NormalizerInter
             $object->setContentSchemaId($data['contentSchemaId']);
         }
         if (\array_key_exists('content', $data) && $data['content'] !== null) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['content'] as $key => $value) {
                 $values[$key] = $value;
             }
@@ -64,7 +64,7 @@ class ListItemDetailNormalizer implements DenormalizerInterface, NormalizerInter
             $object->setDisplayValues(null);
         }
         if (\array_key_exists('brokenReferenceIds', $data) && $data['brokenReferenceIds'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['brokenReferenceIds'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -74,7 +74,7 @@ class ListItemDetailNormalizer implements DenormalizerInterface, NormalizerInter
             $object->setBrokenReferenceIds(null);
         }
         if (\array_key_exists('brokenRelationTargetIds', $data) && $data['brokenRelationTargetIds'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['brokenRelationTargetIds'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -84,7 +84,7 @@ class ListItemDetailNormalizer implements DenormalizerInterface, NormalizerInter
             $object->setBrokenRelationTargetIds(null);
         }
         if (\array_key_exists('brokenIndirectReferenceIds', $data) && $data['brokenIndirectReferenceIds'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['brokenIndirectReferenceIds'] as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -110,13 +110,13 @@ class ListItemDetailNormalizer implements DenormalizerInterface, NormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['contentSchemaId'] = $object->getContentSchemaId();
         if ($object->isInitialized('content') && null !== $object->getContent()) {
-            $values = array();
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getContent() as $key => $value) {
                 $values[$key] = $value;
             }
@@ -126,21 +126,21 @@ class ListItemDetailNormalizer implements DenormalizerInterface, NormalizerInter
             $data['displayValues'] = $object->getDisplayValues();
         }
         if ($object->isInitialized('brokenReferenceIds') && null !== $object->getBrokenReferenceIds()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getBrokenReferenceIds() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['brokenReferenceIds'] = $values_1;
         }
         if ($object->isInitialized('brokenRelationTargetIds') && null !== $object->getBrokenRelationTargetIds()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getBrokenRelationTargetIds() as $value_2) {
                 $values_2[] = $value_2;
             }
             $data['brokenRelationTargetIds'] = $values_2;
         }
         if ($object->isInitialized('brokenIndirectReferenceIds') && null !== $object->getBrokenIndirectReferenceIds()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getBrokenIndirectReferenceIds() as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -154,8 +154,8 @@ class ListItemDetailNormalizer implements DenormalizerInterface, NormalizerInter
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ListItemDetail' => false);
+        return ['PicturePark\API\Model\ListItemDetail' => false];
     }
 }

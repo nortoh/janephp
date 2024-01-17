@@ -18,18 +18,18 @@ class SimpleCommitStatusNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\SimpleCommitStatus';
+        return $type === 'Github\Model\SimpleCommitStatus';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\SimpleCommitStatus';
+        return is_object($data) && get_class($data) === 'Github\Model\SimpleCommitStatus';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -90,11 +90,11 @@ class SimpleCommitStatusNormalizer implements DenormalizerInterface, NormalizerI
             unset($data['url']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         foreach ($data as $key => $value) {
@@ -107,9 +107,9 @@ class SimpleCommitStatusNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['description'] = $object->getDescription();
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
@@ -121,8 +121,8 @@ class SimpleCommitStatusNormalizer implements DenormalizerInterface, NormalizerI
         }
         $data['avatar_url'] = $object->getAvatarUrl();
         $data['url'] = $object->getUrl();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -133,8 +133,8 @@ class SimpleCommitStatusNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\SimpleCommitStatus' => false);
+        return ['Github\Model\SimpleCommitStatus' => false];
     }
 }

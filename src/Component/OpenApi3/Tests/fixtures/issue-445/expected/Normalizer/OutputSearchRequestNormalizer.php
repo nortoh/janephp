@@ -18,18 +18,18 @@ class OutputSearchRequestNormalizer implements DenormalizerInterface, Normalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\OutputSearchRequest';
+        return $type === 'PicturePark\API\Model\OutputSearchRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\OutputSearchRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\OutputSearchRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -51,7 +51,7 @@ class OutputSearchRequestNormalizer implements DenormalizerInterface, Normalizer
             $object->setPageToken(null);
         }
         if (\array_key_exists('contentIds', $data) && $data['contentIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['contentIds'] as $value) {
                 $values[] = $value;
             }
@@ -61,7 +61,7 @@ class OutputSearchRequestNormalizer implements DenormalizerInterface, Normalizer
             $object->setContentIds(null);
         }
         if (\array_key_exists('renderingStates', $data) && $data['renderingStates'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['renderingStates'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -71,7 +71,7 @@ class OutputSearchRequestNormalizer implements DenormalizerInterface, Normalizer
             $object->setRenderingStates(null);
         }
         if (\array_key_exists('fileExtensions', $data) && $data['fileExtensions'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['fileExtensions'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -81,7 +81,7 @@ class OutputSearchRequestNormalizer implements DenormalizerInterface, Normalizer
             $object->setFileExtensions(null);
         }
         if (\array_key_exists('outputFormatIds', $data) && $data['outputFormatIds'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['outputFormatIds'] as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -95,36 +95,36 @@ class OutputSearchRequestNormalizer implements DenormalizerInterface, Normalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['limit'] = $object->getLimit();
         if ($object->isInitialized('pageToken') && null !== $object->getPageToken()) {
             $data['pageToken'] = $object->getPageToken();
         }
         if ($object->isInitialized('contentIds') && null !== $object->getContentIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getContentIds() as $value) {
                 $values[] = $value;
             }
             $data['contentIds'] = $values;
         }
         if ($object->isInitialized('renderingStates') && null !== $object->getRenderingStates()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getRenderingStates() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['renderingStates'] = $values_1;
         }
         if ($object->isInitialized('fileExtensions') && null !== $object->getFileExtensions()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getFileExtensions() as $value_2) {
                 $values_2[] = $value_2;
             }
             $data['fileExtensions'] = $values_2;
         }
         if ($object->isInitialized('outputFormatIds') && null !== $object->getOutputFormatIds()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getOutputFormatIds() as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -132,8 +132,8 @@ class OutputSearchRequestNormalizer implements DenormalizerInterface, Normalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\OutputSearchRequest' => false);
+        return ['PicturePark\API\Model\OutputSearchRequest' => false];
     }
 }

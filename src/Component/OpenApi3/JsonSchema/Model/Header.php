@@ -75,7 +75,7 @@ class Header extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -86,7 +86,7 @@ class Header extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -96,7 +96,7 @@ class Header extends \ArrayObject
      *
      * @return bool|null
      */
-    public function getRequired() : ?bool
+    public function getRequired(): ?bool
     {
         return $this->required;
     }
@@ -107,7 +107,7 @@ class Header extends \ArrayObject
      *
      * @return self
      */
-    public function setRequired(?bool $required) : self
+    public function setRequired(?bool $required): self
     {
         $this->required = $required;
         return $this;
@@ -117,7 +117,7 @@ class Header extends \ArrayObject
      *
      * @return bool|null
      */
-    public function getDeprecated() : ?bool
+    public function getDeprecated(): ?bool
     {
         return $this->deprecated;
     }
@@ -128,7 +128,7 @@ class Header extends \ArrayObject
      *
      * @return self
      */
-    public function setDeprecated(?bool $deprecated) : self
+    public function setDeprecated(?bool $deprecated): self
     {
         $this->deprecated = $deprecated;
         return $this;
@@ -138,7 +138,7 @@ class Header extends \ArrayObject
      *
      * @return bool|null
      */
-    public function getAllowEmptyValue() : ?bool
+    public function getAllowEmptyValue(): ?bool
     {
         return $this->allowEmptyValue;
     }
@@ -149,7 +149,7 @@ class Header extends \ArrayObject
      *
      * @return self
      */
-    public function setAllowEmptyValue(?bool $allowEmptyValue) : self
+    public function setAllowEmptyValue(?bool $allowEmptyValue): self
     {
         $this->allowEmptyValue = $allowEmptyValue;
         return $this;
@@ -159,7 +159,7 @@ class Header extends \ArrayObject
      *
      * @return string|null
      */
-    public function getStyle() : ?string
+    public function getStyle(): ?string
     {
         return $this->style;
     }
@@ -170,7 +170,7 @@ class Header extends \ArrayObject
      *
      * @return self
      */
-    public function setStyle(?string $style) : self
+    public function setStyle(?string $style): self
     {
         $this->style = $style;
         return $this;
@@ -180,7 +180,7 @@ class Header extends \ArrayObject
      *
      * @return bool|null
      */
-    public function getExplode() : ?bool
+    public function getExplode(): ?bool
     {
         return $this->explode;
     }
@@ -191,7 +191,7 @@ class Header extends \ArrayObject
      *
      * @return self
      */
-    public function setExplode(?bool $explode) : self
+    public function setExplode(?bool $explode): self
     {
         $this->explode = $explode;
         return $this;
@@ -201,7 +201,7 @@ class Header extends \ArrayObject
      *
      * @return bool|null
      */
-    public function getAllowReserved() : ?bool
+    public function getAllowReserved(): ?bool
     {
         return $this->allowReserved;
     }
@@ -212,7 +212,7 @@ class Header extends \ArrayObject
      *
      * @return self
      */
-    public function setAllowReserved(?bool $allowReserved) : self
+    public function setAllowReserved(?bool $allowReserved): self
     {
         $this->allowReserved = $allowReserved;
         return $this;
@@ -233,7 +233,7 @@ class Header extends \ArrayObject
      *
      * @return self
      */
-    public function setSchema($schema) : self
+    public function setSchema($schema): self
     {
         $this->schema = $schema;
         return $this;
@@ -243,7 +243,7 @@ class Header extends \ArrayObject
      *
      * @return MediaType[]|null
      */
-    public function getContent() : ?iterable
+    public function getContent(): ?iterable
     {
         return $this->content;
     }
@@ -254,7 +254,7 @@ class Header extends \ArrayObject
      *
      * @return self
      */
-    public function setContent(?iterable $content) : self
+    public function setContent(?iterable $content): self
     {
         $this->content = $content;
         return $this;
@@ -275,7 +275,7 @@ class Header extends \ArrayObject
      *
      * @return self
      */
-    public function setExample($example) : self
+    public function setExample($example): self
     {
         $this->example = $example;
         return $this;
@@ -285,7 +285,7 @@ class Header extends \ArrayObject
      *
      * @return Example[]|Reference[]|null
      */
-    public function getExamples() : ?iterable
+    public function getExamples(): ?iterable
     {
         return $this->examples;
     }
@@ -296,7 +296,7 @@ class Header extends \ArrayObject
      *
      * @return self
      */
-    public function setExamples(?iterable $examples) : self
+    public function setExamples(?iterable $examples): self
     {
         $this->examples = $examples;
         return $this;

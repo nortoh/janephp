@@ -16,41 +16,41 @@ class TestGetWithPathParameters extends \Jane\Component\OpenApi3\Tests\Expected\
      *     @var string $testHeader 
      * }
      */
-    public function __construct(string $testPath, array $queryParameters = array(), array $headerParameters = array())
+    public function __construct(string $testPath, array $queryParameters = [], array $headerParameters = [])
     {
         $this->testPath = $testPath;
         $this->queryParameters = $queryParameters;
         $this->headerParameters = $headerParameters;
     }
     use \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{testPath}'), array($this->testPath), '/test-path-parameters/{testPath}');
+        return str_replace(['{testPath}'], [$this->testPath], '/test-path-parameters/{testPath}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('testQuery'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('testQuery', array('string'));
+        $optionsResolver->setDefined(['testQuery']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('testQuery', ['string']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('testHeader'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('testHeader', array('string'));
+        $optionsResolver->setDefined(['testHeader']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('testHeader', ['string']);
         return $optionsResolver;
     }
     /**
@@ -65,8 +65,8 @@ class TestGetWithPathParameters extends \Jane\Component\OpenApi3\Tests\Expected\
         $body = (string) $response->getBody();
         return null;
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

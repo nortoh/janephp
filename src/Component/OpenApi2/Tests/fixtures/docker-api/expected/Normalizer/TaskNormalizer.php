@@ -18,18 +18,18 @@ class TaskNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\Task';
+        return $type === 'Docker\Api\Model\Task';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\Task';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\Task';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class TaskNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $object->setID($data['ID']);
         }
         if (\array_key_exists('Version', $data)) {
-            $object->setVersion($this->denormalizer->denormalize($data['Version'], 'Docker\\Api\\Model\\ObjectVersion', 'json', $context));
+            $object->setVersion($this->denormalizer->denormalize($data['Version'], 'Docker\Api\Model\ObjectVersion', 'json', $context));
         }
         if (\array_key_exists('CreatedAt', $data)) {
             $object->setCreatedAt($data['CreatedAt']);
@@ -60,14 +60,14 @@ class TaskNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $object->setName($data['Name']);
         }
         if (\array_key_exists('Labels', $data)) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['Labels'] as $key => $value) {
                 $values[$key] = $value;
             }
             $object->setLabels($values);
         }
         if (\array_key_exists('Spec', $data)) {
-            $object->setSpec($this->denormalizer->denormalize($data['Spec'], 'Docker\\Api\\Model\\TaskSpec', 'json', $context));
+            $object->setSpec($this->denormalizer->denormalize($data['Spec'], 'Docker\Api\Model\TaskSpec', 'json', $context));
         }
         if (\array_key_exists('ServiceID', $data)) {
             $object->setServiceID($data['ServiceID']);
@@ -79,34 +79,34 @@ class TaskNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $object->setNodeID($data['NodeID']);
         }
         if (\array_key_exists('AssignedGenericResources', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['AssignedGenericResources'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Docker\\Api\\Model\\GenericResourcesItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'Docker\Api\Model\GenericResourcesItem', 'json', $context);
             }
             $object->setAssignedGenericResources($values_1);
         }
         if (\array_key_exists('Status', $data)) {
-            $object->setStatus($this->denormalizer->denormalize($data['Status'], 'Docker\\Api\\Model\\TaskStatus', 'json', $context));
+            $object->setStatus($this->denormalizer->denormalize($data['Status'], 'Docker\Api\Model\TaskStatus', 'json', $context));
         }
         if (\array_key_exists('DesiredState', $data)) {
             $object->setDesiredState($data['DesiredState']);
         }
         if (\array_key_exists('JobIteration', $data)) {
-            $object->setJobIteration($this->denormalizer->denormalize($data['JobIteration'], 'Docker\\Api\\Model\\ObjectVersion', 'json', $context));
+            $object->setJobIteration($this->denormalizer->denormalize($data['JobIteration'], 'Docker\Api\Model\ObjectVersion', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('iD') && null !== $object->getID()) {
             $data['ID'] = $object->getID();
         }
         if ($object->isInitialized('version') && null !== $object->getVersion()) {
-            $data['Version'] = $this->normalizer->normalize($object->getVersion(), 'json', $context);
+            $data['Version'] = ($object->getVersion() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getVersion(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('createdAt') && null !== $object->getCreatedAt()) {
             $data['CreatedAt'] = $object->getCreatedAt();
@@ -118,14 +118,14 @@ class TaskNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $data['Name'] = $object->getName();
         }
         if ($object->isInitialized('labels') && null !== $object->getLabels()) {
-            $values = array();
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getLabels() as $key => $value) {
                 $values[$key] = $value;
             }
             $data['Labels'] = $values;
         }
         if ($object->isInitialized('spec') && null !== $object->getSpec()) {
-            $data['Spec'] = $this->normalizer->normalize($object->getSpec(), 'json', $context);
+            $data['Spec'] = ($object->getSpec() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSpec(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('serviceID') && null !== $object->getServiceID()) {
             $data['ServiceID'] = $object->getServiceID();
@@ -137,28 +137,28 @@ class TaskNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $data['NodeID'] = $object->getNodeID();
         }
         if ($object->isInitialized('assignedGenericResources') && null !== $object->getAssignedGenericResources()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAssignedGenericResources() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['AssignedGenericResources'] = $values_1;
         }
         if ($object->isInitialized('status') && null !== $object->getStatus()) {
-            $data['Status'] = $this->normalizer->normalize($object->getStatus(), 'json', $context);
+            $data['Status'] = ($object->getStatus() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getStatus(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('desiredState') && null !== $object->getDesiredState()) {
             $data['DesiredState'] = $object->getDesiredState();
         }
         if ($object->isInitialized('jobIteration') && null !== $object->getJobIteration()) {
-            $data['JobIteration'] = $this->normalizer->normalize($object->getJobIteration(), 'json', $context);
+            $data['JobIteration'] = ($object->getJobIteration() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getJobIteration(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Docker\Api\Validator\TaskConstraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\Task' => false);
+        return ['Docker\Api\Model\Task' => false];
     }
 }

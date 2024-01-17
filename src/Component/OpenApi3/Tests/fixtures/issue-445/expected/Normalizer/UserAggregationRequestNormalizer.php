@@ -18,18 +18,18 @@ class UserAggregationRequestNormalizer implements DenormalizerInterface, Normali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\UserAggregationRequest';
+        return $type === 'PicturePark\API\Model\UserAggregationRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\UserAggregationRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\UserAggregationRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,7 +49,7 @@ class UserAggregationRequestNormalizer implements DenormalizerInterface, Normali
             $object->setSearchString(null);
         }
         if (\array_key_exists('searchBehaviors', $data) && $data['searchBehaviors'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['searchBehaviors'] as $value) {
                 $values[] = $value;
             }
@@ -71,7 +71,7 @@ class UserAggregationRequestNormalizer implements DenormalizerInterface, Normali
             unset($data['lifeCycleFilter']);
         }
         if (\array_key_exists('userRightsFilter', $data) && $data['userRightsFilter'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['userRightsFilter'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -82,9 +82,9 @@ class UserAggregationRequestNormalizer implements DenormalizerInterface, Normali
             $object->setUserRightsFilter(null);
         }
         if (\array_key_exists('aggregationFilters', $data) && $data['aggregationFilters'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['aggregationFilters'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\\API\\Model\\AggregationFilter', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\API\Model\AggregationFilter', 'json', $context);
             }
             $object->setAggregationFilters($values_2);
             unset($data['aggregationFilters']);
@@ -101,9 +101,9 @@ class UserAggregationRequestNormalizer implements DenormalizerInterface, Normali
             unset($data['editableOnly']);
         }
         if (\array_key_exists('aggregators', $data)) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['aggregators'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\\API\\Model\\AggregatorBase', 'json', $context);
+                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\API\Model\AggregatorBase', 'json', $context);
             }
             $object->setAggregators($values_3);
             unset($data['aggregators']);
@@ -118,14 +118,14 @@ class UserAggregationRequestNormalizer implements DenormalizerInterface, Normali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('searchString') && null !== $object->getSearchString()) {
             $data['searchString'] = $object->getSearchString();
         }
         if ($object->isInitialized('searchBehaviors') && null !== $object->getSearchBehaviors()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSearchBehaviors() as $value) {
                 $values[] = $value;
             }
@@ -136,24 +136,24 @@ class UserAggregationRequestNormalizer implements DenormalizerInterface, Normali
         }
         $data['lifeCycleFilter'] = $object->getLifeCycleFilter();
         if ($object->isInitialized('userRightsFilter') && null !== $object->getUserRightsFilter()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getUserRightsFilter() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['userRightsFilter'] = $values_1;
         }
         if ($object->isInitialized('aggregationFilters') && null !== $object->getAggregationFilters()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getAggregationFilters() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregationFilters'] = $values_2;
         }
         $data['includeServiceUser'] = $object->getIncludeServiceUser();
         $data['editableOnly'] = $object->getEditableOnly();
-        $values_3 = array();
+        $values_3 = [];
         foreach ($object->getAggregators() as $value_3) {
-            $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+            $values_3[] = ($value_3 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_3, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['aggregators'] = $values_3;
         foreach ($object as $key => $value_4) {
@@ -163,8 +163,8 @@ class UserAggregationRequestNormalizer implements DenormalizerInterface, Normali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\UserAggregationRequest' => false);
+        return ['PicturePark\API\Model\UserAggregationRequest' => false];
     }
 }

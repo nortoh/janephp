@@ -18,18 +18,18 @@ class MetadataStatusNormalizer implements DenormalizerInterface, NormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\MetadataStatus';
+        return $type === 'PicturePark\API\Model\MetadataStatus';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\MetadataStatus';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\MetadataStatus';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class MetadataStatusNormalizer implements DenormalizerInterface, NormalizerInter
             return $object;
         }
         if (\array_key_exists('contentOrLayerSchemaIds', $data) && $data['contentOrLayerSchemaIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['contentOrLayerSchemaIds'] as $value) {
                 $values[] = $value;
             }
@@ -52,7 +52,7 @@ class MetadataStatusNormalizer implements DenormalizerInterface, NormalizerInter
             $object->setContentOrLayerSchemaIds(null);
         }
         if (\array_key_exists('listSchemaIds', $data) && $data['listSchemaIds'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['listSchemaIds'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -65,9 +65,9 @@ class MetadataStatusNormalizer implements DenormalizerInterface, NormalizerInter
             $object->setState($data['state']);
         }
         if (\array_key_exists('fieldIdsToCleanup', $data) && $data['fieldIdsToCleanup'] !== null) {
-            $values_2 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['fieldIdsToCleanup'] as $key => $value_2) {
-                $values_3 = array();
+                $values_3 = [];
                 foreach ($value_2 as $value_3) {
                     $values_3[] = $value_3;
                 }
@@ -83,18 +83,18 @@ class MetadataStatusNormalizer implements DenormalizerInterface, NormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('contentOrLayerSchemaIds') && null !== $object->getContentOrLayerSchemaIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getContentOrLayerSchemaIds() as $value) {
                 $values[] = $value;
             }
             $data['contentOrLayerSchemaIds'] = $values;
         }
         if ($object->isInitialized('listSchemaIds') && null !== $object->getListSchemaIds()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getListSchemaIds() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -102,9 +102,9 @@ class MetadataStatusNormalizer implements DenormalizerInterface, NormalizerInter
         }
         $data['state'] = $object->getState();
         if ($object->isInitialized('fieldIdsToCleanup') && null !== $object->getFieldIdsToCleanup()) {
-            $values_2 = array();
+            $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getFieldIdsToCleanup() as $key => $value_2) {
-                $values_3 = array();
+                $values_3 = [];
                 foreach ($value_2 as $value_3) {
                     $values_3[] = $value_3;
                 }
@@ -114,8 +114,8 @@ class MetadataStatusNormalizer implements DenormalizerInterface, NormalizerInter
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\MetadataStatus' => false);
+        return ['PicturePark\API\Model\MetadataStatus' => false];
     }
 }

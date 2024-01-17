@@ -18,18 +18,18 @@ class ParameterNormalizer implements DenormalizerInterface, NormalizerInterface,
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, $context = []) : bool
+    public function supportsDenormalization($data, $type, $format = null, $context = []): bool
     {
         return $type === 'Jane\\Component\\OpenApi3\\JsonSchema\\Model\\Parameter';
     }
-    public function supportsNormalization($data, $format = null, $context = []) : bool
+    public function supportsNormalization($data, $format = null, $context = []): bool
     {
         return $data instanceof \Jane\Component\OpenApi3\JsonSchema\Model\Parameter;
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -118,7 +118,7 @@ class ParameterNormalizer implements DenormalizerInterface, NormalizerInterface,
             $object->setSchema(null);
         }
         if (\array_key_exists('content', $data) && $data['content'] !== null) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['content'] as $key => $value_1) {
                 $values[$key] = $this->denormalizer->denormalize($value_1, 'Jane\\Component\\OpenApi3\\JsonSchema\\Model\\MediaType', 'json', $context);
             }
@@ -136,7 +136,7 @@ class ParameterNormalizer implements DenormalizerInterface, NormalizerInterface,
             $object->setExample(null);
         }
         if (\array_key_exists('examples', $data) && $data['examples'] !== null) {
-            $values_1 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['examples'] as $key_1 => $value_2) {
                 $value_3 = $value_2;
                 if (is_array($value_2) and isset($value_2['$ref'])) {
@@ -162,9 +162,9 @@ class ParameterNormalizer implements DenormalizerInterface, NormalizerInterface,
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
         $data['in'] = $object->getIn();
         if (null !== $object->getDescription()) {
@@ -198,7 +198,7 @@ class ParameterNormalizer implements DenormalizerInterface, NormalizerInterface,
             $data['schema'] = $value;
         }
         if (null !== $object->getContent()) {
-            $values = array();
+            $values = [];
             foreach ($object->getContent() as $key => $value_1) {
                 $values[$key] = $this->normalizer->normalize($value_1, 'json', $context);
             }
@@ -208,7 +208,7 @@ class ParameterNormalizer implements DenormalizerInterface, NormalizerInterface,
             $data['example'] = $object->getExample();
         }
         if (null !== $object->getExamples()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getExamples() as $key_1 => $value_2) {
                 $value_3 = $value_2;
                 if (is_object($value_2)) {
@@ -226,5 +226,9 @@ class ParameterNormalizer implements DenormalizerInterface, NormalizerInterface,
             }
         }
         return $data;
+    }
+    public function getSupportedTypes(?string $format): array
+    {
+        return ['*' => false];
     }
 }

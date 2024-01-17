@@ -15,37 +15,37 @@ class ContainerDelete extends \Docker\Api\Runtime\Client\BaseEndpoint implements
      *     @var bool $link Remove the specified link associated with the container.
      * }
      */
-    public function __construct(string $id, array $queryParameters = array())
+    public function __construct(string $id, array $queryParameters = [])
     {
         $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'DELETE';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/containers/{id}');
+        return str_replace(['{id}'], [$this->id], '/containers/{id}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('v', 'force', 'link'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('v' => false, 'force' => false, 'link' => false));
-        $optionsResolver->addAllowedTypes('v', array('bool'));
-        $optionsResolver->addAllowedTypes('force', array('bool'));
-        $optionsResolver->addAllowedTypes('link', array('bool'));
+        $optionsResolver->setDefined(['v', 'force', 'link']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['v' => false, 'force' => false, 'link' => false]);
+        $optionsResolver->addAllowedTypes('v', ['bool']);
+        $optionsResolver->addAllowedTypes('force', ['bool']);
+        $optionsResolver->addAllowedTypes('link', ['bool']);
         return $optionsResolver;
     }
     /**
@@ -66,20 +66,20 @@ class ContainerDelete extends \Docker\Api\Runtime\Client\BaseEndpoint implements
             return null;
         }
         if (400 === $status) {
-            throw new \Docker\Api\Exception\ContainerDeleteBadRequestException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ContainerDeleteBadRequestException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Docker\Api\Exception\ContainerDeleteNotFoundException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ContainerDeleteNotFoundException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Docker\Api\Exception\ContainerDeleteConflictException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ContainerDeleteConflictException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\ContainerDeleteInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ContainerDeleteInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

@@ -27,7 +27,7 @@ class OAuth2SecurityScheme extends \ArrayObject
      *
      * @return string|null
      */
-    public function getType() : ?string
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -38,7 +38,7 @@ class OAuth2SecurityScheme extends \ArrayObject
      *
      * @return self
      */
-    public function setType(?string $type) : self
+    public function setType(?string $type): self
     {
         $this->type = $type;
         return $this;
@@ -59,7 +59,7 @@ class OAuth2SecurityScheme extends \ArrayObject
      *
      * @return self
      */
-    public function setFlows(?OAuthFlows $flows) : self
+    public function setFlows(?OAuthFlows $flows): self
     {
         $this->flows = $flows;
         return $this;
@@ -69,7 +69,7 @@ class OAuth2SecurityScheme extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -80,7 +80,7 @@ class OAuth2SecurityScheme extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;

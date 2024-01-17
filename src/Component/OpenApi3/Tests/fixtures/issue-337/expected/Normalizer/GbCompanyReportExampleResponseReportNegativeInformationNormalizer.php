@@ -18,18 +18,18 @@ class GbCompanyReportExampleResponseReportNegativeInformationNormalizer implemen
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportNegativeInformation';
+        return $type === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportNegativeInformation';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportNegativeInformation';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportNegativeInformation';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,11 +42,11 @@ class GbCompanyReportExampleResponseReportNegativeInformationNormalizer implemen
             return $object;
         }
         if (\array_key_exists('ccjSummary', $data)) {
-            $object->setCcjSummary($this->denormalizer->denormalize($data['ccjSummary'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportNegativeInformationCcjSummary', 'json', $context));
+            $object->setCcjSummary($this->denormalizer->denormalize($data['ccjSummary'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportNegativeInformationCcjSummary', 'json', $context));
             unset($data['ccjSummary']);
         }
         if (\array_key_exists('countyCourtJudgements', $data)) {
-            $object->setCountyCourtJudgements($this->denormalizer->denormalize($data['countyCourtJudgements'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgements', 'json', $context));
+            $object->setCountyCourtJudgements($this->denormalizer->denormalize($data['countyCourtJudgements'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgements', 'json', $context));
             unset($data['countyCourtJudgements']);
         }
         foreach ($data as $key => $value) {
@@ -59,14 +59,14 @@ class GbCompanyReportExampleResponseReportNegativeInformationNormalizer implemen
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('ccjSummary') && null !== $object->getCcjSummary()) {
-            $data['ccjSummary'] = $this->normalizer->normalize($object->getCcjSummary(), 'json', $context);
+            $data['ccjSummary'] = ($object->getCcjSummary() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCcjSummary(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('countyCourtJudgements') && null !== $object->getCountyCourtJudgements()) {
-            $data['countyCourtJudgements'] = $this->normalizer->normalize($object->getCountyCourtJudgements(), 'json', $context);
+            $data['countyCourtJudgements'] = ($object->getCountyCourtJudgements() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCountyCourtJudgements(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -75,8 +75,8 @@ class GbCompanyReportExampleResponseReportNegativeInformationNormalizer implemen
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportNegativeInformation' => false);
+        return ['CreditSafe\API\Model\GbCompanyReportExampleResponseReportNegativeInformation' => false];
     }
 }

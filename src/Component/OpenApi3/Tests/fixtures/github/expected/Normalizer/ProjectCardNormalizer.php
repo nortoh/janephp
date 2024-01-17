@@ -18,18 +18,18 @@ class ProjectCardNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ProjectCard';
+        return $type === 'Github\Model\ProjectCard';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ProjectCard';
+        return is_object($data) && get_class($data) === 'Github\Model\ProjectCard';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -64,18 +64,18 @@ class ProjectCardNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setNote(null);
         }
         if (\array_key_exists('creator', $data) && $data['creator'] !== null) {
-            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\\Model\\ProjectCardCreator', 'json', $context));
+            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\Model\ProjectCardCreator', 'json', $context));
             unset($data['creator']);
         }
         elseif (\array_key_exists('creator', $data) && $data['creator'] === null) {
             $object->setCreator(null);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('archived', $data)) {
@@ -104,16 +104,16 @@ class ProjectCardNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
         $data['note'] = $object->getNote();
-        $data['creator'] = $this->normalizer->normalize($object->getCreator(), 'json', $context);
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['creator'] = ($object->getCreator() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCreator(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('archived') && null !== $object->getArchived()) {
             $data['archived'] = $object->getArchived();
         }
@@ -132,8 +132,8 @@ class ProjectCardNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ProjectCard' => false);
+        return ['Github\Model\ProjectCard' => false];
     }
 }

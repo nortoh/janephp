@@ -18,18 +18,18 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\PullRequestHeadRepo';
+        return $type === 'Github\Model\PullRequestHeadRepo';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\PullRequestHeadRepo';
+        return is_object($data) && get_class($data) === 'Github\Model\PullRequestHeadRepo';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -184,7 +184,7 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
             unset($data['notifications_url']);
         }
         if (\array_key_exists('owner', $data)) {
-            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\\Model\\PullRequestHeadRepoOwner', 'json', $context));
+            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\Model\PullRequestHeadRepoOwner', 'json', $context));
             unset($data['owner']);
         }
         if (\array_key_exists('private', $data)) {
@@ -313,7 +313,7 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
             unset($data['open_issues_count']);
         }
         if (\array_key_exists('permissions', $data)) {
-            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\\Model\\PullRequestHeadRepoPermissions', 'json', $context));
+            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\Model\PullRequestHeadRepoPermissions', 'json', $context));
             unset($data['permissions']);
         }
         if (\array_key_exists('temp_clone_token', $data)) {
@@ -333,14 +333,14 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
             unset($data['allow_rebase_merge']);
         }
         if (\array_key_exists('license', $data) && $data['license'] !== null) {
-            $object->setLicense($this->denormalizer->denormalize($data['license'], 'Github\\Model\\PullRequestHeadRepoLicense', 'json', $context));
+            $object->setLicense($this->denormalizer->denormalize($data['license'], 'Github\Model\PullRequestHeadRepoLicense', 'json', $context));
             unset($data['license']);
         }
         elseif (\array_key_exists('license', $data) && $data['license'] === null) {
             $object->setLicense(null);
         }
         if (\array_key_exists('pushed_at', $data)) {
-            $object->setPushedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['pushed_at']));
+            $object->setPushedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['pushed_at']));
             unset($data['pushed_at']);
         }
         if (\array_key_exists('size', $data)) {
@@ -360,7 +360,7 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
             unset($data['svn_url']);
         }
         if (\array_key_exists('topics', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['topics'] as $value) {
                 $values[] = $value;
             }
@@ -376,11 +376,11 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
             unset($data['watchers_count']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         foreach ($data as $key => $value_1) {
@@ -393,9 +393,9 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['archive_url'] = $object->getArchiveUrl();
         $data['assignees_url'] = $object->getAssigneesUrl();
         $data['blobs_url'] = $object->getBlobsUrl();
@@ -430,7 +430,7 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
         $data['milestones_url'] = $object->getMilestonesUrl();
         $data['name'] = $object->getName();
         $data['notifications_url'] = $object->getNotificationsUrl();
-        $data['owner'] = $this->normalizer->normalize($object->getOwner(), 'json', $context);
+        $data['owner'] = ($object->getOwner() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOwner(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['private'] = $object->getPrivate();
         $data['pulls_url'] = $object->getPullsUrl();
         $data['releases_url'] = $object->getReleasesUrl();
@@ -463,7 +463,7 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
         $data['open_issues'] = $object->getOpenIssues();
         $data['open_issues_count'] = $object->getOpenIssuesCount();
         if ($object->isInitialized('permissions') && null !== $object->getPermissions()) {
-            $data['permissions'] = $this->normalizer->normalize($object->getPermissions(), 'json', $context);
+            $data['permissions'] = ($object->getPermissions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPermissions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('tempCloneToken') && null !== $object->getTempCloneToken()) {
             $data['temp_clone_token'] = $object->getTempCloneToken();
@@ -477,14 +477,14 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
         if ($object->isInitialized('allowRebaseMerge') && null !== $object->getAllowRebaseMerge()) {
             $data['allow_rebase_merge'] = $object->getAllowRebaseMerge();
         }
-        $data['license'] = $this->normalizer->normalize($object->getLicense(), 'json', $context);
-        $data['pushed_at'] = $object->getPushedAt()->format('Y-m-d\\TH:i:sP');
+        $data['license'] = ($object->getLicense() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLicense(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['pushed_at'] = $object->getPushedAt()->format('Y-m-d\TH:i:sP');
         $data['size'] = $object->getSize();
         $data['ssh_url'] = $object->getSshUrl();
         $data['stargazers_count'] = $object->getStargazersCount();
         $data['svn_url'] = $object->getSvnUrl();
         if ($object->isInitialized('topics') && null !== $object->getTopics()) {
-            $values = array();
+            $values = [];
             foreach ($object->getTopics() as $value) {
                 $values[] = $value;
             }
@@ -492,8 +492,8 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
         }
         $data['watchers'] = $object->getWatchers();
         $data['watchers_count'] = $object->getWatchersCount();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value_1;
@@ -504,8 +504,8 @@ class PullRequestHeadRepoNormalizer implements DenormalizerInterface, Normalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\PullRequestHeadRepo' => false);
+        return ['Github\Model\PullRequestHeadRepo' => false];
     }
 }

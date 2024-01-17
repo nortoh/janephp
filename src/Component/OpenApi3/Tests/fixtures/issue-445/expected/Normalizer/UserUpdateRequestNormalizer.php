@@ -18,18 +18,18 @@ class UserUpdateRequestNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\UserUpdateRequest';
+        return $type === 'PicturePark\API\Model\UserUpdateRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\UserUpdateRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\UserUpdateRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -71,9 +71,9 @@ class UserUpdateRequestNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['isDeleted']);
         }
         if (\array_key_exists('userRoles', $data) && $data['userRoles'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['userRoles'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\UserRole', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\UserRole', 'json', $context);
             }
             $object->setUserRoles($values);
             unset($data['userRoles']);
@@ -119,9 +119,9 @@ class UserUpdateRequestNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -134,9 +134,9 @@ class UserUpdateRequestNormalizer implements DenormalizerInterface, NormalizerIn
         $data['emailAddress'] = $object->getEmailAddress();
         $data['isDeleted'] = $object->getIsDeleted();
         if ($object->isInitialized('userRoles') && null !== $object->getUserRoles()) {
-            $values = array();
+            $values = [];
             foreach ($object->getUserRoles() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['userRoles'] = $values;
         }
@@ -159,8 +159,8 @@ class UserUpdateRequestNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\UserUpdateRequest' => false);
+        return ['PicturePark\API\Model\UserUpdateRequest' => false];
     }
 }

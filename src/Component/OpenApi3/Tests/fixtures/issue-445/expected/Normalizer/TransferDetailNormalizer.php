@@ -18,18 +18,18 @@ class TransferDetailNormalizer implements DenormalizerInterface, NormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\TransferDetail';
+        return $type === 'PicturePark\API\Model\TransferDetail';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\TransferDetail';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\TransferDetail';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -104,14 +104,14 @@ class TransferDetailNormalizer implements DenormalizerInterface, NormalizerInter
             unset($data['itemsCancelled']);
         }
         if (\array_key_exists('lastDataExtractionProgressTimeStamp', $data) && $data['lastDataExtractionProgressTimeStamp'] !== null) {
-            $object->setLastDataExtractionProgressTimeStamp(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['lastDataExtractionProgressTimeStamp']));
+            $object->setLastDataExtractionProgressTimeStamp(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['lastDataExtractionProgressTimeStamp']));
             unset($data['lastDataExtractionProgressTimeStamp']);
         }
         elseif (\array_key_exists('lastDataExtractionProgressTimeStamp', $data) && $data['lastDataExtractionProgressTimeStamp'] === null) {
             $object->setLastDataExtractionProgressTimeStamp(null);
         }
         if (\array_key_exists('lastFileUploadProgressTimeStamp', $data) && $data['lastFileUploadProgressTimeStamp'] !== null) {
-            $object->setLastFileUploadProgressTimeStamp(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['lastFileUploadProgressTimeStamp']));
+            $object->setLastFileUploadProgressTimeStamp(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['lastFileUploadProgressTimeStamp']));
             unset($data['lastFileUploadProgressTimeStamp']);
         }
         elseif (\array_key_exists('lastFileUploadProgressTimeStamp', $data) && $data['lastFileUploadProgressTimeStamp'] === null) {
@@ -127,9 +127,9 @@ class TransferDetailNormalizer implements DenormalizerInterface, NormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['name'] = $object->getName();
         $data['state'] = $object->getState();
@@ -161,10 +161,10 @@ class TransferDetailNormalizer implements DenormalizerInterface, NormalizerInter
             $data['itemsCancelled'] = $object->getItemsCancelled();
         }
         if ($object->isInitialized('lastDataExtractionProgressTimeStamp') && null !== $object->getLastDataExtractionProgressTimeStamp()) {
-            $data['lastDataExtractionProgressTimeStamp'] = $object->getLastDataExtractionProgressTimeStamp()->format('Y-m-d\\TH:i:sP');
+            $data['lastDataExtractionProgressTimeStamp'] = $object->getLastDataExtractionProgressTimeStamp()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('lastFileUploadProgressTimeStamp') && null !== $object->getLastFileUploadProgressTimeStamp()) {
-            $data['lastFileUploadProgressTimeStamp'] = $object->getLastFileUploadProgressTimeStamp()->format('Y-m-d\\TH:i:sP');
+            $data['lastFileUploadProgressTimeStamp'] = $object->getLastFileUploadProgressTimeStamp()->format('Y-m-d\TH:i:sP');
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -173,8 +173,8 @@ class TransferDetailNormalizer implements DenormalizerInterface, NormalizerInter
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\TransferDetail' => false);
+        return ['PicturePark\API\Model\TransferDetail' => false];
     }
 }

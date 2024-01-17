@@ -39,7 +39,7 @@ class XML extends \ArrayObject
      *
      * @return string|null
      */
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -50,7 +50,7 @@ class XML extends \ArrayObject
      *
      * @return self
      */
-    public function setName(?string $name) : self
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
@@ -60,7 +60,7 @@ class XML extends \ArrayObject
      *
      * @return string|null
      */
-    public function getNamespace() : ?string
+    public function getNamespace(): ?string
     {
         return $this->namespace;
     }
@@ -71,7 +71,7 @@ class XML extends \ArrayObject
      *
      * @return self
      */
-    public function setNamespace(?string $namespace) : self
+    public function setNamespace(?string $namespace): self
     {
         $this->namespace = $namespace;
         return $this;
@@ -81,7 +81,7 @@ class XML extends \ArrayObject
      *
      * @return string|null
      */
-    public function getPrefix() : ?string
+    public function getPrefix(): ?string
     {
         return $this->prefix;
     }
@@ -92,7 +92,7 @@ class XML extends \ArrayObject
      *
      * @return self
      */
-    public function setPrefix(?string $prefix) : self
+    public function setPrefix(?string $prefix): self
     {
         $this->prefix = $prefix;
         return $this;
@@ -102,7 +102,7 @@ class XML extends \ArrayObject
      *
      * @return bool|null
      */
-    public function getAttribute() : ?bool
+    public function getAttribute(): ?bool
     {
         return $this->attribute;
     }
@@ -113,7 +113,7 @@ class XML extends \ArrayObject
      *
      * @return self
      */
-    public function setAttribute(?bool $attribute) : self
+    public function setAttribute(?bool $attribute): self
     {
         $this->attribute = $attribute;
         return $this;
@@ -123,7 +123,7 @@ class XML extends \ArrayObject
      *
      * @return bool|null
      */
-    public function getWrapped() : ?bool
+    public function getWrapped(): ?bool
     {
         return $this->wrapped;
     }
@@ -134,7 +134,7 @@ class XML extends \ArrayObject
      *
      * @return self
      */
-    public function setWrapped(?bool $wrapped) : self
+    public function setWrapped(?bool $wrapped): self
     {
         $this->wrapped = $wrapped;
         return $this;

@@ -18,18 +18,18 @@ class BusinessProcessDetailsDataBatchResponseNormalizer implements DenormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessProcessDetailsDataBatchResponse';
+        return $type === 'PicturePark\API\Model\BusinessProcessDetailsDataBatchResponse';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessProcessDetailsDataBatchResponse';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessProcessDetailsDataBatchResponse';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -63,9 +63,9 @@ class BusinessProcessDetailsDataBatchResponseNormalizer implements DenormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['kind'] = $object->getKind();
         $data['docType'] = $object->getDocType();
         $data['response'] = $object->getResponse();
@@ -76,8 +76,8 @@ class BusinessProcessDetailsDataBatchResponseNormalizer implements DenormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessProcessDetailsDataBatchResponse' => false);
+        return ['PicturePark\API\Model\BusinessProcessDetailsDataBatchResponse' => false];
     }
 }

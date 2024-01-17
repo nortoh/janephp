@@ -18,18 +18,18 @@ class EndpointSettingsNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\EndpointSettings';
+        return $type === 'Docker\Api\Model\EndpointSettings';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\EndpointSettings';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\EndpointSettings';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,20 +45,20 @@ class EndpointSettingsNormalizer implements DenormalizerInterface, NormalizerInt
             return $object;
         }
         if (\array_key_exists('IPAMConfig', $data) && $data['IPAMConfig'] !== null) {
-            $object->setIPAMConfig($this->denormalizer->denormalize($data['IPAMConfig'], 'Docker\\Api\\Model\\EndpointIPAMConfig', 'json', $context));
+            $object->setIPAMConfig($this->denormalizer->denormalize($data['IPAMConfig'], 'Docker\Api\Model\EndpointIPAMConfig', 'json', $context));
         }
         elseif (\array_key_exists('IPAMConfig', $data) && $data['IPAMConfig'] === null) {
             $object->setIPAMConfig(null);
         }
         if (\array_key_exists('Links', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['Links'] as $value) {
                 $values[] = $value;
             }
             $object->setLinks($values);
         }
         if (\array_key_exists('Aliases', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['Aliases'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -92,7 +92,7 @@ class EndpointSettingsNormalizer implements DenormalizerInterface, NormalizerInt
             $object->setMacAddress($data['MacAddress']);
         }
         if (\array_key_exists('DriverOpts', $data) && $data['DriverOpts'] !== null) {
-            $values_2 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['DriverOpts'] as $key => $value_2) {
                 $values_2[$key] = $value_2;
             }
@@ -106,21 +106,21 @@ class EndpointSettingsNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('iPAMConfig') && null !== $object->getIPAMConfig()) {
-            $data['IPAMConfig'] = $this->normalizer->normalize($object->getIPAMConfig(), 'json', $context);
+            $data['IPAMConfig'] = ($object->getIPAMConfig() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getIPAMConfig(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('links') && null !== $object->getLinks()) {
-            $values = array();
+            $values = [];
             foreach ($object->getLinks() as $value) {
                 $values[] = $value;
             }
             $data['Links'] = $values;
         }
         if ($object->isInitialized('aliases') && null !== $object->getAliases()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAliases() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -154,7 +154,7 @@ class EndpointSettingsNormalizer implements DenormalizerInterface, NormalizerInt
             $data['MacAddress'] = $object->getMacAddress();
         }
         if ($object->isInitialized('driverOpts') && null !== $object->getDriverOpts()) {
-            $values_2 = array();
+            $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getDriverOpts() as $key => $value_2) {
                 $values_2[$key] = $value_2;
             }
@@ -165,8 +165,8 @@ class EndpointSettingsNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\EndpointSettings' => false);
+        return ['Docker\Api\Model\EndpointSettings' => false];
     }
 }

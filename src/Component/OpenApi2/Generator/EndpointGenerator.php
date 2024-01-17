@@ -25,6 +25,7 @@ use Jane\Component\OpenApiCommon\Guesser\Guess\OperationGuess;
 use Jane\Component\OpenApiCommon\Naming\OperationNamingInterface;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
+use PhpParser\Node\UseItem;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class EndpointGenerator implements EndpointGeneratorInterface
@@ -80,7 +81,7 @@ class EndpointGenerator implements EndpointGeneratorInterface
             'extends' => new Name\FullyQualified($naming->getRuntimeClassFQCN($context->getCurrentSchema()->getNamespace(), ['Client'], 'BaseEndpoint')),
             'implements' => [new Name\FullyQualified($naming->getRuntimeClassFQCN($context->getCurrentSchema()->getNamespace(), ['Client'], 'Endpoint'))],
             'stmts' => array_merge($pathProperties, $constructorMethod === null ? [] : [$constructorMethod], [
-                new Stmt\Use_([new Stmt\UseUse(new Name\FullyQualified($naming->getRuntimeClassFQCN($context->getCurrentSchema()->getNamespace(), ['Client'], 'EndpointTrait')))]),
+                new Stmt\Use_([new UseItem(new Name\FullyQualified($naming->getRuntimeClassFQCN($context->getCurrentSchema()->getNamespace(), ['Client'], 'EndpointTrait')))]),
                 $this->getGetMethod($operation),
                 $this->getGetUri($operation, $this->guessClass),
                 $this->getGetBody($operation, $context),

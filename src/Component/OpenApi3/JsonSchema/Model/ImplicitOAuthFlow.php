@@ -27,7 +27,7 @@ class ImplicitOAuthFlow extends \ArrayObject
      *
      * @return string|null
      */
-    public function getAuthorizationUrl() : ?string
+    public function getAuthorizationUrl(): ?string
     {
         return $this->authorizationUrl;
     }
@@ -38,7 +38,7 @@ class ImplicitOAuthFlow extends \ArrayObject
      *
      * @return self
      */
-    public function setAuthorizationUrl(?string $authorizationUrl) : self
+    public function setAuthorizationUrl(?string $authorizationUrl): self
     {
         $this->authorizationUrl = $authorizationUrl;
         return $this;
@@ -48,7 +48,7 @@ class ImplicitOAuthFlow extends \ArrayObject
      *
      * @return string|null
      */
-    public function getRefreshUrl() : ?string
+    public function getRefreshUrl(): ?string
     {
         return $this->refreshUrl;
     }
@@ -59,7 +59,7 @@ class ImplicitOAuthFlow extends \ArrayObject
      *
      * @return self
      */
-    public function setRefreshUrl(?string $refreshUrl) : self
+    public function setRefreshUrl(?string $refreshUrl): self
     {
         $this->refreshUrl = $refreshUrl;
         return $this;
@@ -69,7 +69,7 @@ class ImplicitOAuthFlow extends \ArrayObject
      *
      * @return string[]|null
      */
-    public function getScopes() : ?iterable
+    public function getScopes(): ?iterable
     {
         return $this->scopes;
     }
@@ -80,7 +80,7 @@ class ImplicitOAuthFlow extends \ArrayObject
      *
      * @return self
      */
-    public function setScopes(?iterable $scopes) : self
+    public function setScopes(?iterable $scopes): self
     {
         $this->scopes = $scopes;
         return $this;

@@ -18,18 +18,18 @@ class TopBooksGetHaljsonResponse200LinksNormalizer implements DenormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'ApiPlatform\\Demo\\Model\\TopBooksGetHaljsonResponse200Links';
+        return $type === 'ApiPlatform\Demo\Model\TopBooksGetHaljsonResponse200Links';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'ApiPlatform\\Demo\\Model\\TopBooksGetHaljsonResponse200Links';
+        return is_object($data) && get_class($data) === 'ApiPlatform\Demo\Model\TopBooksGetHaljsonResponse200Links';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,23 +42,23 @@ class TopBooksGetHaljsonResponse200LinksNormalizer implements DenormalizerInterf
             return $object;
         }
         if (\array_key_exists('self', $data)) {
-            $object->setSelf($this->denormalizer->denormalize($data['self'], 'ApiPlatform\\Demo\\Model\\TopBooksGetHaljsonResponse200LinksSelf', 'json', $context));
+            $object->setSelf($this->denormalizer->denormalize($data['self'], 'ApiPlatform\Demo\Model\TopBooksGetHaljsonResponse200LinksSelf', 'json', $context));
             unset($data['self']);
         }
         if (\array_key_exists('first', $data)) {
-            $object->setFirst($this->denormalizer->denormalize($data['first'], 'ApiPlatform\\Demo\\Model\\TopBooksGetHaljsonResponse200LinksFirst', 'json', $context));
+            $object->setFirst($this->denormalizer->denormalize($data['first'], 'ApiPlatform\Demo\Model\TopBooksGetHaljsonResponse200LinksFirst', 'json', $context));
             unset($data['first']);
         }
         if (\array_key_exists('last', $data)) {
-            $object->setLast($this->denormalizer->denormalize($data['last'], 'ApiPlatform\\Demo\\Model\\TopBooksGetHaljsonResponse200LinksLast', 'json', $context));
+            $object->setLast($this->denormalizer->denormalize($data['last'], 'ApiPlatform\Demo\Model\TopBooksGetHaljsonResponse200LinksLast', 'json', $context));
             unset($data['last']);
         }
         if (\array_key_exists('next', $data)) {
-            $object->setNext($this->denormalizer->denormalize($data['next'], 'ApiPlatform\\Demo\\Model\\TopBooksGetHaljsonResponse200LinksNext', 'json', $context));
+            $object->setNext($this->denormalizer->denormalize($data['next'], 'ApiPlatform\Demo\Model\TopBooksGetHaljsonResponse200LinksNext', 'json', $context));
             unset($data['next']);
         }
         if (\array_key_exists('previous', $data)) {
-            $object->setPrevious($this->denormalizer->denormalize($data['previous'], 'ApiPlatform\\Demo\\Model\\TopBooksGetHaljsonResponse200LinksPrevious', 'json', $context));
+            $object->setPrevious($this->denormalizer->denormalize($data['previous'], 'ApiPlatform\Demo\Model\TopBooksGetHaljsonResponse200LinksPrevious', 'json', $context));
             unset($data['previous']);
         }
         foreach ($data as $key => $value) {
@@ -71,23 +71,23 @@ class TopBooksGetHaljsonResponse200LinksNormalizer implements DenormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('self') && null !== $object->getSelf()) {
-            $data['self'] = $this->normalizer->normalize($object->getSelf(), 'json', $context);
+            $data['self'] = ($object->getSelf() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSelf(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('first') && null !== $object->getFirst()) {
-            $data['first'] = $this->normalizer->normalize($object->getFirst(), 'json', $context);
+            $data['first'] = ($object->getFirst() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getFirst(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('last') && null !== $object->getLast()) {
-            $data['last'] = $this->normalizer->normalize($object->getLast(), 'json', $context);
+            $data['last'] = ($object->getLast() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLast(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('next') && null !== $object->getNext()) {
-            $data['next'] = $this->normalizer->normalize($object->getNext(), 'json', $context);
+            $data['next'] = ($object->getNext() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getNext(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('previous') && null !== $object->getPrevious()) {
-            $data['previous'] = $this->normalizer->normalize($object->getPrevious(), 'json', $context);
+            $data['previous'] = ($object->getPrevious() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPrevious(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -96,8 +96,8 @@ class TopBooksGetHaljsonResponse200LinksNormalizer implements DenormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('ApiPlatform\\Demo\\Model\\TopBooksGetHaljsonResponse200Links' => false);
+        return ['ApiPlatform\Demo\Model\TopBooksGetHaljsonResponse200Links' => false];
     }
 }

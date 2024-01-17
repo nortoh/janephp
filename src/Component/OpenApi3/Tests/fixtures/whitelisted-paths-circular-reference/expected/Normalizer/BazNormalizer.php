@@ -18,18 +18,18 @@ class BazNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Baz';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\Baz';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Baz';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\Baz';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,7 +46,7 @@ class BazNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
             unset($data['label']);
         }
         if (\array_key_exists('sub', $data)) {
-            $object->setSub($this->denormalizer->denormalize($data['sub'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SubBaz', 'json', $context));
+            $object->setSub($this->denormalizer->denormalize($data['sub'], 'Jane\Component\OpenApi3\Tests\Expected\Model\SubBaz', 'json', $context));
             unset($data['sub']);
         }
         foreach ($data as $key => $value) {
@@ -59,14 +59,14 @@ class BazNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('label') && null !== $object->getLabel()) {
             $data['label'] = $object->getLabel();
         }
         if ($object->isInitialized('sub') && null !== $object->getSub()) {
-            $data['sub'] = $this->normalizer->normalize($object->getSub(), 'json', $context);
+            $data['sub'] = ($object->getSub() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSub(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -75,8 +75,8 @@ class BazNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Baz' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\Baz' => false];
     }
 }

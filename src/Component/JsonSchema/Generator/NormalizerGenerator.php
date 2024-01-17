@@ -7,12 +7,17 @@ use Jane\Component\JsonSchema\Generator\Normalizer\DenormalizerGenerator;
 use Jane\Component\JsonSchema\Generator\Normalizer\JaneObjectNormalizerGenerator;
 use Jane\Component\JsonSchema\Generator\Normalizer\NormalizerGenerator as NormalizerGeneratorTrait;
 use Jane\Component\JsonSchema\Registry\Schema;
+use PhpParser\Modifiers;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Param;
+use PhpParser\Node\PropertyItem;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
+use PhpParser\Node\UseItem;
 use PhpParser\Parser;
 
 class NormalizerGenerator implements GeneratorInterface
@@ -109,20 +114,20 @@ class NormalizerGenerator implements GeneratorInterface
             );
 
             $useStmts = [
-                new Stmt\Use_([new Stmt\UseUse(new Name('Jane\Component\JsonSchemaRuntime\Reference'))]),
-                new Stmt\Use_([new Stmt\UseUse(new Name($this->naming->getRuntimeClassFQCN($schema->getNamespace(), ['Normalizer'], 'CheckArray')))]),
-                new Stmt\Use_([new Stmt\UseUse(new Name($this->naming->getRuntimeClassFQCN($schema->getNamespace(), ['Normalizer'], 'ValidatorTrait')))]),
-                new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Exception\InvalidArgumentException'))]),
-                new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface'))]),
-                new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait'))]),
-                new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerInterface'))]),
-                new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface'))]),
-                new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait'))]),
-                new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\NormalizerInterface'))]),
+                new Stmt\Use_([new UseItem(new Name('Jane\Component\JsonSchemaRuntime\Reference'))]),
+                new Stmt\Use_([new UseItem(new Name($this->naming->getRuntimeClassFQCN($schema->getNamespace(), ['Normalizer'], 'CheckArray')))]),
+                new Stmt\Use_([new UseItem(new Name($this->naming->getRuntimeClassFQCN($schema->getNamespace(), ['Normalizer'], 'ValidatorTrait')))]),
+                new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Exception\InvalidArgumentException'))]),
+                new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface'))]),
+                new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait'))]),
+                new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerInterface'))]),
+                new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface'))]),
+                new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait'))]),
+                new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\NormalizerInterface'))]),
             ];
 
             if ($this->useCacheableSupportsMethod) {
-                $useStmts[] = new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface'))]);
+                $useStmts[] = new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface'))]);
             }
 
             $useStmts[] = $normalizerClass;
@@ -154,21 +159,22 @@ class NormalizerGenerator implements GeneratorInterface
 
         $properties = [];
         $propertyName = $this->getNaming()->getPropertyName('normalizers');
-        $propertyStmt = new Stmt\PropertyProperty($propertyName);
+        $propertyStmt = new PropertyItem($propertyName);
         $propertyStmt->default = $this->parser->parse('<?php ' . var_export($normalizers, true) . ';')[0]->expr;
         $properties[] = $propertyStmt;
-        $propertyStmt = new Stmt\PropertyProperty('normalizersCache');
+        $propertyStmt = new PropertyItem('normalizersCache');
         $propertyStmt->default = new Expr\Array_();
         $properties[] = $propertyStmt;
 
         $methods = [];
-        $methods[] = new Stmt\Property(Stmt\Class_::MODIFIER_PROTECTED, $properties);
+        $methods[] = new Stmt\Property(Modifiers::PROTECTED, $properties);
         $methods[] = $this->createBaseNormalizerSupportsDenormalizationMethod();
         $methods[] = $this->createBaseNormalizerSupportsNormalizationMethod();
         $methods[] = $this->createBaseNormalizerNormalizeMethod();
         $methods[] = $this->createBaseNormalizerDenormalizeMethod();
         $methods[] = $this->createBaseNormalizerGetNormalizer();
         $methods[] = $this->createBaseNormalizerInitNormalizerMethod();
+        // $methods[] = $this->createBaseNormalizerGetSupportedTypesMethod();
         $methods[] = $this->createProxyGetSupportedTypesMethod(array_keys($normalizers));
 
         if ($this->useCacheableSupportsMethod) {
@@ -182,18 +188,18 @@ class NormalizerGenerator implements GeneratorInterface
         );
 
         $useStmts = [
-            new Stmt\Use_([new Stmt\UseUse(new Name($this->naming->getRuntimeClassFQCN($schema->getNamespace(), ['Normalizer'], 'CheckArray')))]),
-            new Stmt\Use_([new Stmt\UseUse(new Name($this->naming->getRuntimeClassFQCN($schema->getNamespace(), ['Normalizer'], 'ValidatorTrait')))]),
-            new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface'))]),
-            new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait'))]),
-            new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerInterface'))]),
-            new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface'))]),
-            new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait'))]),
-            new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\NormalizerInterface'))]),
+            new Stmt\Use_([new UseItem(new Name($this->naming->getRuntimeClassFQCN($schema->getNamespace(), ['Normalizer'], 'CheckArray')))]),
+            new Stmt\Use_([new UseItem(new Name($this->naming->getRuntimeClassFQCN($schema->getNamespace(), ['Normalizer'], 'ValidatorTrait')))]),
+            new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface'))]),
+            new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait'))]),
+            new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\DenormalizerInterface'))]),
+            new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface'))]),
+            new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait'))]),
+            new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\NormalizerInterface'))]),
         ];
 
         if ($this->useCacheableSupportsMethod) {
-            $useStmts[] = new Stmt\Use_([new Stmt\UseUse(new Name('Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface'))]);
+            $useStmts[] = new Stmt\Use_([new UseItem(new Name('Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface'))]);
         }
 
         return array_merge($useStmts, [$normalizerClass]);
@@ -209,13 +215,13 @@ class NormalizerGenerator implements GeneratorInterface
     protected function createGetSupportedTypesMethod(string $modelFqdn, bool $useCacheableSupportsMethod = false)
     {
         return new Stmt\ClassMethod('getSupportedTypes', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'array',
+            'type' => Modifiers::PUBLIC,
+            'returnType' => new Name('array'),
             'params' => [
-                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), new NullableType('string')),
+                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), new NullableType(new Name('string'))),
             ],
             'stmts' => [new Stmt\Return_(new Expr\Array_([
-                new Expr\ArrayItem(
+                new ArrayItem(
                     new Expr\ConstFetch(new Name($useCacheableSupportsMethod ? 'true' : 'false')),
                     new Scalar\String_($modelFqdn),
                 ),
@@ -234,17 +240,17 @@ class NormalizerGenerator implements GeneratorInterface
     {
         $arrayItems = [];
         foreach ($modelsFqdn as $modelFqdn) {
-            $arrayItems[] = new Expr\ArrayItem(
+            $arrayItems[] = new ArrayItem(
                 new Expr\ConstFetch(new Name('false')), // we don't want proxy Normalizer to be cached, never
                 new Scalar\String_($modelFqdn),
             );
         }
 
-        return new Stmt\ClassMethod('getSupportedTypes', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'array',
+        return new Stmt\ClassMethod(new Identifier('getSupportedTypes'), [
+            'type' => Modifiers::PUBLIC,
+            'returnType' => new Name('array'),
             'params' => [
-                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), new NullableType('string')),
+                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), new NullableType(new Name('string'))),
             ],
             'stmts' => [new Stmt\Return_(new Expr\Array_($arrayItems))],
         ]);

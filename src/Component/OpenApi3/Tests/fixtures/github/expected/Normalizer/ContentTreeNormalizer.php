@@ -18,18 +18,18 @@ class ContentTreeNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ContentTree';
+        return $type === 'Github\Model\ContentTree';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ContentTree';
+        return is_object($data) && get_class($data) === 'Github\Model\ContentTree';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -90,15 +90,15 @@ class ContentTreeNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setDownloadUrl(null);
         }
         if (\array_key_exists('entries', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['entries'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\ContentTreeEntriesItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\ContentTreeEntriesItem', 'json', $context);
             }
             $object->setEntries($values);
             unset($data['entries']);
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\\Model\\ContentTreeLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\Model\ContentTreeLinks', 'json', $context));
             unset($data['_links']);
         }
         foreach ($data as $key => $value_1) {
@@ -111,9 +111,9 @@ class ContentTreeNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['type'] = $object->getType();
         $data['size'] = $object->getSize();
         $data['name'] = $object->getName();
@@ -124,13 +124,13 @@ class ContentTreeNormalizer implements DenormalizerInterface, NormalizerInterfac
         $data['html_url'] = $object->getHtmlUrl();
         $data['download_url'] = $object->getDownloadUrl();
         if ($object->isInitialized('entries') && null !== $object->getEntries()) {
-            $values = array();
+            $values = [];
             foreach ($object->getEntries() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['entries'] = $values;
         }
-        $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+        $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value_1;
@@ -141,8 +141,8 @@ class ContentTreeNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ContentTree' => false);
+        return ['Github\Model\ContentTree' => false];
     }
 }

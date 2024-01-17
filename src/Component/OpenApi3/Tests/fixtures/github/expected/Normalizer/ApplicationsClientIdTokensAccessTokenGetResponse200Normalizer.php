@@ -18,18 +18,18 @@ class ApplicationsClientIdTokensAccessTokenGetResponse200Normalizer implements D
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ApplicationsClientIdTokensAccessTokenGetResponse200';
+        return $type === 'Github\Model\ApplicationsClientIdTokensAccessTokenGetResponse200';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ApplicationsClientIdTokensAccessTokenGetResponse200';
+        return is_object($data) && get_class($data) === 'Github\Model\ApplicationsClientIdTokensAccessTokenGetResponse200';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,7 +53,7 @@ class ApplicationsClientIdTokensAccessTokenGetResponse200Normalizer implements D
             unset($data['url']);
         }
         if (\array_key_exists('scopes', $data) && $data['scopes'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['scopes'] as $value) {
                 $values[] = $value;
             }
@@ -82,7 +82,7 @@ class ApplicationsClientIdTokensAccessTokenGetResponse200Normalizer implements D
             $object->setHashedToken(null);
         }
         if (\array_key_exists('app', $data)) {
-            $object->setApp($this->denormalizer->denormalize($data['app'], 'Github\\Model\\AuthorizationApp', 'json', $context));
+            $object->setApp($this->denormalizer->denormalize($data['app'], 'Github\Model\AuthorizationApp', 'json', $context));
             unset($data['app']);
         }
         if (\array_key_exists('note', $data) && $data['note'] !== null) {
@@ -100,11 +100,11 @@ class ApplicationsClientIdTokensAccessTokenGetResponse200Normalizer implements D
             $object->setNoteUrl(null);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('fingerprint', $data) && $data['fingerprint'] !== null) {
@@ -115,14 +115,14 @@ class ApplicationsClientIdTokensAccessTokenGetResponse200Normalizer implements D
             $object->setFingerprint(null);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\AuthorizationUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\AuthorizationUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
             $object->setUser(null);
         }
         if (\array_key_exists('installation', $data) && $data['installation'] !== null) {
-            $object->setInstallation($this->denormalizer->denormalize($data['installation'], 'Github\\Model\\AuthorizationInstallation', 'json', $context));
+            $object->setInstallation($this->denormalizer->denormalize($data['installation'], 'Github\Model\AuthorizationInstallation', 'json', $context));
             unset($data['installation']);
         }
         elseif (\array_key_exists('installation', $data) && $data['installation'] === null) {
@@ -138,12 +138,12 @@ class ApplicationsClientIdTokensAccessTokenGetResponse200Normalizer implements D
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['url'] = $object->getUrl();
-        $values = array();
+        $values = [];
         foreach ($object->getScopes() as $value) {
             $values[] = $value;
         }
@@ -151,17 +151,17 @@ class ApplicationsClientIdTokensAccessTokenGetResponse200Normalizer implements D
         $data['token'] = $object->getToken();
         $data['token_last_eight'] = $object->getTokenLastEight();
         $data['hashed_token'] = $object->getHashedToken();
-        $data['app'] = $this->normalizer->normalize($object->getApp(), 'json', $context);
+        $data['app'] = ($object->getApp() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getApp(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['note'] = $object->getNote();
         $data['note_url'] = $object->getNoteUrl();
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         $data['fingerprint'] = $object->getFingerprint();
         if ($object->isInitialized('user') && null !== $object->getUser()) {
-            $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
+            $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('installation') && null !== $object->getInstallation()) {
-            $data['installation'] = $this->normalizer->normalize($object->getInstallation(), 'json', $context);
+            $data['installation'] = ($object->getInstallation() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getInstallation(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -173,8 +173,8 @@ class ApplicationsClientIdTokensAccessTokenGetResponse200Normalizer implements D
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ApplicationsClientIdTokensAccessTokenGetResponse200' => false);
+        return ['Github\Model\ApplicationsClientIdTokensAccessTokenGetResponse200' => false];
     }
 }

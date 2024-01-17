@@ -19,44 +19,44 @@ class FindUsersByIdOrUsername extends \Jane\Component\OpenApi3\Tests\Expected\Ru
      * }
      * @param array $accept Accept content header application/json|application/problem+json
      */
-    public function __construct(array $queryParameters = array(), array $accept = array())
+    public function __construct(array $queryParameters = [], array $accept = [])
     {
         $this->queryParameters = $queryParameters;
         $this->accept = $accept;
     }
     use \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/labs/1/users';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
         if (empty($this->accept)) {
-            return array('Accept' => array('application/json', 'application/problem+json'));
+            return ['Accept' => ['application/json', 'application/problem+json']];
         }
         return $this->accept;
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('ids', 'usernames', 'format', 'tweet.format', 'user.format', 'place.format', 'expansions'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('ids', array('array'));
-        $optionsResolver->addAllowedTypes('usernames', array('array'));
-        $optionsResolver->addAllowedTypes('format', array('string'));
-        $optionsResolver->addAllowedTypes('tweet.format', array('string'));
-        $optionsResolver->addAllowedTypes('user.format', array('string'));
-        $optionsResolver->addAllowedTypes('place.format', array('string'));
-        $optionsResolver->addAllowedTypes('expansions', array('array'));
+        $optionsResolver->setDefined(['ids', 'usernames', 'format', 'tweet.format', 'user.format', 'place.format', 'expansions']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('ids', ['array']);
+        $optionsResolver->addAllowedTypes('usernames', ['array']);
+        $optionsResolver->addAllowedTypes('format', ['string']);
+        $optionsResolver->addAllowedTypes('tweet.format', ['string']);
+        $optionsResolver->addAllowedTypes('user.format', ['string']);
+        $optionsResolver->addAllowedTypes('place.format', ['string']);
+        $optionsResolver->addAllowedTypes('expansions', ['array']);
         return $optionsResolver;
     }
     /**
@@ -70,17 +70,17 @@ class FindUsersByIdOrUsername extends \Jane\Component\OpenApi3\Tests\Expected\Ru
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\UserLookupResponse', 'json');
+            return $serializer->deserialize($body, 'Jane\Component\OpenApi3\Tests\Expected\Model\UserLookupResponse', 'json');
         }
         if (mb_strpos($contentType, 'application/json') !== false) {
-            return $serializer->deserialize($body, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Error', 'json');
+            return $serializer->deserialize($body, 'Jane\Component\OpenApi3\Tests\Expected\Model\Error', 'json');
         }
         if (mb_strpos($contentType, 'application/problem+json') !== false) {
             return json_decode($body);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

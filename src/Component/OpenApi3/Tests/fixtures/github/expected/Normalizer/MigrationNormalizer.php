@@ -18,18 +18,18 @@ class MigrationNormalizer implements DenormalizerInterface, NormalizerInterface,
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Migration';
+        return $type === 'Github\Model\Migration';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Migration';
+        return is_object($data) && get_class($data) === 'Github\Model\Migration';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,7 +49,7 @@ class MigrationNormalizer implements DenormalizerInterface, NormalizerInterface,
             unset($data['id']);
         }
         if (\array_key_exists('owner', $data) && $data['owner'] !== null) {
-            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\\Model\\MigrationOwner', 'json', $context));
+            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\Model\MigrationOwner', 'json', $context));
             unset($data['owner']);
         }
         elseif (\array_key_exists('owner', $data) && $data['owner'] === null) {
@@ -72,9 +72,9 @@ class MigrationNormalizer implements DenormalizerInterface, NormalizerInterface,
             unset($data['exclude_attachments']);
         }
         if (\array_key_exists('repositories', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['repositories'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\Repository', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\Repository', 'json', $context);
             }
             $object->setRepositories($values);
             unset($data['repositories']);
@@ -84,11 +84,11 @@ class MigrationNormalizer implements DenormalizerInterface, NormalizerInterface,
             unset($data['url']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('node_id', $data)) {
@@ -100,7 +100,7 @@ class MigrationNormalizer implements DenormalizerInterface, NormalizerInterface,
             unset($data['archive_url']);
         }
         if (\array_key_exists('exclude', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['exclude'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -117,29 +117,29 @@ class MigrationNormalizer implements DenormalizerInterface, NormalizerInterface,
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
-        $data['owner'] = $this->normalizer->normalize($object->getOwner(), 'json', $context);
+        $data['owner'] = ($object->getOwner() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOwner(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['guid'] = $object->getGuid();
         $data['state'] = $object->getState();
         $data['lock_repositories'] = $object->getLockRepositories();
         $data['exclude_attachments'] = $object->getExcludeAttachments();
-        $values = array();
+        $values = [];
         foreach ($object->getRepositories() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['repositories'] = $values;
         $data['url'] = $object->getUrl();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['node_id'] = $object->getNodeId();
         if ($object->isInitialized('archiveUrl') && null !== $object->getArchiveUrl()) {
             $data['archive_url'] = $object->getArchiveUrl();
         }
         if ($object->isInitialized('exclude') && null !== $object->getExclude()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getExclude() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -155,8 +155,8 @@ class MigrationNormalizer implements DenormalizerInterface, NormalizerInterface,
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Migration' => false);
+        return ['Github\Model\Migration' => false];
     }
 }

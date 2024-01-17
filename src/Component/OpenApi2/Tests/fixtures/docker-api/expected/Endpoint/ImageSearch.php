@@ -18,36 +18,36 @@ class ImageSearch extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Do
     
     * }
     */
-    public function __construct(array $queryParameters = array())
+    public function __construct(array $queryParameters = [])
     {
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/images/search';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('term', 'limit', 'filters'));
-        $optionsResolver->setRequired(array('term'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('term', array('string'));
-        $optionsResolver->addAllowedTypes('limit', array('int'));
-        $optionsResolver->addAllowedTypes('filters', array('string'));
+        $optionsResolver->setDefined(['term', 'limit', 'filters']);
+        $optionsResolver->setRequired(['term']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('term', ['string']);
+        $optionsResolver->addAllowedTypes('limit', ['int']);
+        $optionsResolver->addAllowedTypes('filters', ['string']);
         return $optionsResolver;
     }
     /**
@@ -62,14 +62,14 @@ class ImageSearch extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Do
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Docker\\Api\\Model\\ImagesSearchGetResponse200Item[]', 'json');
+            return $serializer->deserialize($body, 'Docker\Api\Model\ImagesSearchGetResponse200Item[]', 'json');
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\ImageSearchInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ImageSearchInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

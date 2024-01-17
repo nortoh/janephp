@@ -18,18 +18,18 @@ class SimpleCommitNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\SimpleCommit';
+        return $type === 'Github\Model\SimpleCommit';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\SimpleCommit';
+        return is_object($data) && get_class($data) === 'Github\Model\SimpleCommit';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,18 +57,18 @@ class SimpleCommitNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['message']);
         }
         if (\array_key_exists('timestamp', $data)) {
-            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['timestamp']));
+            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['timestamp']));
             unset($data['timestamp']);
         }
         if (\array_key_exists('author', $data) && $data['author'] !== null) {
-            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\\Model\\SimpleCommitAuthor', 'json', $context));
+            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\Model\SimpleCommitAuthor', 'json', $context));
             unset($data['author']);
         }
         elseif (\array_key_exists('author', $data) && $data['author'] === null) {
             $object->setAuthor(null);
         }
         if (\array_key_exists('committer', $data) && $data['committer'] !== null) {
-            $object->setCommitter($this->denormalizer->denormalize($data['committer'], 'Github\\Model\\SimpleCommitCommitter', 'json', $context));
+            $object->setCommitter($this->denormalizer->denormalize($data['committer'], 'Github\Model\SimpleCommitCommitter', 'json', $context));
             unset($data['committer']);
         }
         elseif (\array_key_exists('committer', $data) && $data['committer'] === null) {
@@ -84,15 +84,15 @@ class SimpleCommitNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['tree_id'] = $object->getTreeId();
         $data['message'] = $object->getMessage();
-        $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\\TH:i:sP');
-        $data['author'] = $this->normalizer->normalize($object->getAuthor(), 'json', $context);
-        $data['committer'] = $this->normalizer->normalize($object->getCommitter(), 'json', $context);
+        $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\TH:i:sP');
+        $data['author'] = ($object->getAuthor() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAuthor(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['committer'] = ($object->getCommitter() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCommitter(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -103,8 +103,8 @@ class SimpleCommitNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\SimpleCommit' => false);
+        return ['Github\Model\SimpleCommit' => false];
     }
 }

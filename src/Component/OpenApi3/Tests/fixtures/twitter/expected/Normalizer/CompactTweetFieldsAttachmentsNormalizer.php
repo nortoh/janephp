@@ -18,18 +18,18 @@ class CompactTweetFieldsAttachmentsNormalizer implements DenormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\CompactTweetFieldsAttachments';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\CompactTweetFieldsAttachments';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\CompactTweetFieldsAttachments';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\CompactTweetFieldsAttachments';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class CompactTweetFieldsAttachmentsNormalizer implements DenormalizerInterface, 
             return $object;
         }
         if (\array_key_exists('media_keys', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['media_keys'] as $value) {
                 $values[] = $value;
             }
@@ -50,7 +50,7 @@ class CompactTweetFieldsAttachmentsNormalizer implements DenormalizerInterface, 
             unset($data['media_keys']);
         }
         if (\array_key_exists('poll_ids', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['poll_ids'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -67,18 +67,18 @@ class CompactTweetFieldsAttachmentsNormalizer implements DenormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('mediaKeys') && null !== $object->getMediaKeys()) {
-            $values = array();
+            $values = [];
             foreach ($object->getMediaKeys() as $value) {
                 $values[] = $value;
             }
             $data['media_keys'] = $values;
         }
         if ($object->isInitialized('pollIds') && null !== $object->getPollIds()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getPollIds() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -91,8 +91,8 @@ class CompactTweetFieldsAttachmentsNormalizer implements DenormalizerInterface, 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\CompactTweetFieldsAttachments' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\CompactTweetFieldsAttachments' => false];
     }
 }

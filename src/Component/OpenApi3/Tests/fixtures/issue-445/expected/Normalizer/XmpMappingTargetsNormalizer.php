@@ -18,18 +18,18 @@ class XmpMappingTargetsNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\XmpMappingTargets';
+        return $type === 'PicturePark\API\Model\XmpMappingTargets';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\XmpMappingTargets';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\XmpMappingTargets';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,16 +42,16 @@ class XmpMappingTargetsNormalizer implements DenormalizerInterface, NormalizerIn
             return $object;
         }
         if (\array_key_exists('xmpFields', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['xmpFields'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\XmpField', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\XmpField', 'json', $context);
             }
             $object->setXmpFields($values);
         }
         if (\array_key_exists('metadataFields', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['metadataFields'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\MetadataField', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\MetadataField', 'json', $context);
             }
             $object->setMetadataFields($values_1);
         }
@@ -60,23 +60,23 @@ class XmpMappingTargetsNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $values = array();
+        $data = [];
+        $values = [];
         foreach ($object->getXmpFields() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['xmpFields'] = $values;
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getMetadataFields() as $value_1) {
-            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['metadataFields'] = $values_1;
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\XmpMappingTargets' => false);
+        return ['PicturePark\API\Model\XmpMappingTargets' => false];
     }
 }

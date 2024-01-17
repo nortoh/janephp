@@ -16,15 +16,15 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     use CheckArray;
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {
         return $type === 'Jane\\Component\\OpenApi3\\Tests\\Client\\Model\\Error';
     }
-    public function supportsNormalization($data, $format = null, $context = []) : bool
+    public function supportsNormalization($data, $format = null, $context = []): bool
     {
         return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Client\\Model\\Error';
     }
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -41,9 +41,9 @@ class ErrorNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         }
         return $object;
     }
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getMessage()) {
             $data['message'] = $object->getMessage();
         }

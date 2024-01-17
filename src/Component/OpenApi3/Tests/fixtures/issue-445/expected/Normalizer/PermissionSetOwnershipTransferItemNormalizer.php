@@ -18,18 +18,18 @@ class PermissionSetOwnershipTransferItemNormalizer implements DenormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\PermissionSetOwnershipTransferItem';
+        return $type === 'PicturePark\API\Model\PermissionSetOwnershipTransferItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\PermissionSetOwnershipTransferItem';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\PermissionSetOwnershipTransferItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -62,9 +62,9 @@ class PermissionSetOwnershipTransferItemNormalizer implements DenormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['transferUserId'] = $object->getTransferUserId();
         if ($object->isInitialized('permissionSetId') && null !== $object->getPermissionSetId()) {
             $data['permissionSetId'] = $object->getPermissionSetId();
@@ -76,8 +76,8 @@ class PermissionSetOwnershipTransferItemNormalizer implements DenormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\PermissionSetOwnershipTransferItem' => false);
+        return ['PicturePark\API\Model\PermissionSetOwnershipTransferItem' => false];
     }
 }

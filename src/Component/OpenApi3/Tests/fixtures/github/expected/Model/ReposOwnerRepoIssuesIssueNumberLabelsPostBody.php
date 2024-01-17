@@ -7,8 +7,8 @@ class ReposOwnerRepoIssuesIssueNumberLabelsPostBody extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class ReposOwnerRepoIssuesIssueNumberLabelsPostBody extends \ArrayObject
      *
      * @return string[]
      */
-    public function getLabels() : array
+    public function getLabels(): array
     {
         return $this->labels;
     }
@@ -34,7 +34,7 @@ class ReposOwnerRepoIssuesIssueNumberLabelsPostBody extends \ArrayObject
      *
      * @return self
      */
-    public function setLabels(array $labels) : self
+    public function setLabels(array $labels): self
     {
         $this->initialized['labels'] = true;
         $this->labels = $labels;

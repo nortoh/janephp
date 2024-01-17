@@ -18,18 +18,18 @@ class DocumentChangeNormalizer implements DenormalizerInterface, NormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\DocumentChange';
+        return $type === 'PicturePark\API\Model\DocumentChange';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\DocumentChange';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\DocumentChange';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -63,16 +63,16 @@ class DocumentChangeNormalizer implements DenormalizerInterface, NormalizerInter
             $object->setAction(null);
         }
         if (\array_key_exists('timeStamp', $data)) {
-            $object->setTimeStamp(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['timeStamp']));
+            $object->setTimeStamp(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['timeStamp']));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('documentName') && null !== $object->getDocumentName()) {
             $data['documentName'] = $object->getDocumentName();
         }
@@ -83,11 +83,11 @@ class DocumentChangeNormalizer implements DenormalizerInterface, NormalizerInter
         if ($object->isInitialized('action') && null !== $object->getAction()) {
             $data['action'] = $object->getAction();
         }
-        $data['timeStamp'] = $object->getTimeStamp()->format('Y-m-d\\TH:i:sP');
+        $data['timeStamp'] = $object->getTimeStamp()->format('Y-m-d\TH:i:sP');
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\DocumentChange' => false);
+        return ['PicturePark\API\Model\DocumentChange' => false];
     }
 }

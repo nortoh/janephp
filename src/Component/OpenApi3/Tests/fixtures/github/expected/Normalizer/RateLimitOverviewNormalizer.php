@@ -18,18 +18,18 @@ class RateLimitOverviewNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\RateLimitOverview';
+        return $type === 'Github\Model\RateLimitOverview';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\RateLimitOverview';
+        return is_object($data) && get_class($data) === 'Github\Model\RateLimitOverview';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,11 +45,11 @@ class RateLimitOverviewNormalizer implements DenormalizerInterface, NormalizerIn
             return $object;
         }
         if (\array_key_exists('resources', $data)) {
-            $object->setResources($this->denormalizer->denormalize($data['resources'], 'Github\\Model\\RateLimitOverviewResources', 'json', $context));
+            $object->setResources($this->denormalizer->denormalize($data['resources'], 'Github\Model\RateLimitOverviewResources', 'json', $context));
             unset($data['resources']);
         }
         if (\array_key_exists('rate', $data)) {
-            $object->setRate($this->denormalizer->denormalize($data['rate'], 'Github\\Model\\RateLimit', 'json', $context));
+            $object->setRate($this->denormalizer->denormalize($data['rate'], 'Github\Model\RateLimit', 'json', $context));
             unset($data['rate']);
         }
         foreach ($data as $key => $value) {
@@ -62,11 +62,11 @@ class RateLimitOverviewNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['resources'] = $this->normalizer->normalize($object->getResources(), 'json', $context);
-        $data['rate'] = $this->normalizer->normalize($object->getRate(), 'json', $context);
+        $data = [];
+        $data['resources'] = ($object->getResources() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getResources(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['rate'] = ($object->getRate() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRate(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -77,8 +77,8 @@ class RateLimitOverviewNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\RateLimitOverview' => false);
+        return ['Github\Model\RateLimitOverview' => false];
     }
 }

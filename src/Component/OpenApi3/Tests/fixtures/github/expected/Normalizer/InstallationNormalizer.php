@@ -18,18 +18,18 @@ class InstallationNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Installation';
+        return $type === 'Github\Model\Installation';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Installation';
+        return is_object($data) && get_class($data) === 'Github\Model\Installation';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -51,9 +51,9 @@ class InstallationNormalizer implements DenormalizerInterface, NormalizerInterfa
         if (\array_key_exists('account', $data) && $data['account'] !== null) {
             $value = $data['account'];
             if (is_array($data['account']) and isset($data['account']['login']) and isset($data['account']['id']) and isset($data['account']['node_id']) and isset($data['account']['avatar_url']) and isset($data['account']['gravatar_id']) and isset($data['account']['url']) and isset($data['account']['html_url']) and isset($data['account']['followers_url']) and isset($data['account']['following_url']) and isset($data['account']['gists_url']) and isset($data['account']['starred_url']) and isset($data['account']['subscriptions_url']) and isset($data['account']['organizations_url']) and isset($data['account']['repos_url']) and isset($data['account']['events_url']) and isset($data['account']['received_events_url']) and isset($data['account']['type']) and isset($data['account']['site_admin'])) {
-                $value = $this->denormalizer->denormalize($data['account'], 'Github\\Model\\SimpleUser', 'json', $context);
+                $value = $this->denormalizer->denormalize($data['account'], 'Github\Model\SimpleUser', 'json', $context);
             } elseif (is_array($data['account']) and isset($data['account']['html_url']) and isset($data['account']['id']) and isset($data['account']['node_id']) and isset($data['account']['name']) and isset($data['account']['slug']) and isset($data['account']['created_at']) and isset($data['account']['updated_at']) and isset($data['account']['avatar_url'])) {
-                $value = $this->denormalizer->denormalize($data['account'], 'Github\\Model\\Enterprise', 'json', $context);
+                $value = $this->denormalizer->denormalize($data['account'], 'Github\Model\Enterprise', 'json', $context);
             }
             $object->setAccount($value);
             unset($data['account']);
@@ -90,11 +90,11 @@ class InstallationNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['target_type']);
         }
         if (\array_key_exists('permissions', $data)) {
-            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\\Model\\InstallationPermissions', 'json', $context));
+            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\Model\InstallationPermissions', 'json', $context));
             unset($data['permissions']);
         }
         if (\array_key_exists('events', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['events'] as $value_1) {
                 $values[] = $value_1;
             }
@@ -102,11 +102,11 @@ class InstallationNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['events']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('single_file_name', $data) && $data['single_file_name'] !== null) {
@@ -121,14 +121,14 @@ class InstallationNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['app_slug']);
         }
         if (\array_key_exists('suspended_by', $data) && $data['suspended_by'] !== null) {
-            $object->setSuspendedBy($this->denormalizer->denormalize($data['suspended_by'], 'Github\\Model\\InstallationSuspendedBy', 'json', $context));
+            $object->setSuspendedBy($this->denormalizer->denormalize($data['suspended_by'], 'Github\Model\InstallationSuspendedBy', 'json', $context));
             unset($data['suspended_by']);
         }
         elseif (\array_key_exists('suspended_by', $data) && $data['suspended_by'] === null) {
             $object->setSuspendedBy(null);
         }
         if (\array_key_exists('suspended_at', $data) && $data['suspended_at'] !== null) {
-            $object->setSuspendedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['suspended_at']));
+            $object->setSuspendedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['suspended_at']));
             unset($data['suspended_at']);
         }
         elseif (\array_key_exists('suspended_at', $data) && $data['suspended_at'] === null) {
@@ -151,15 +151,15 @@ class InstallationNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $value = $object->getAccount();
         if (is_object($object->getAccount())) {
-            $value = $this->normalizer->normalize($object->getAccount(), 'json', $context);
+            $value = ($object->getAccount() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAccount(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         } elseif (is_object($object->getAccount())) {
-            $value = $this->normalizer->normalize($object->getAccount(), 'json', $context);
+            $value = ($object->getAccount() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAccount(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['account'] = $value;
         $data['repository_selection'] = $object->getRepositorySelection();
@@ -169,21 +169,21 @@ class InstallationNormalizer implements DenormalizerInterface, NormalizerInterfa
         $data['app_id'] = $object->getAppId();
         $data['target_id'] = $object->getTargetId();
         $data['target_type'] = $object->getTargetType();
-        $data['permissions'] = $this->normalizer->normalize($object->getPermissions(), 'json', $context);
-        $values = array();
+        $data['permissions'] = ($object->getPermissions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPermissions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $values = [];
         foreach ($object->getEvents() as $value_1) {
             $values[] = $value_1;
         }
         $data['events'] = $values;
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['single_file_name'] = $object->getSingleFileName();
         $data['app_slug'] = $object->getAppSlug();
         if ($object->isInitialized('suspendedBy') && null !== $object->getSuspendedBy()) {
-            $data['suspended_by'] = $this->normalizer->normalize($object->getSuspendedBy(), 'json', $context);
+            $data['suspended_by'] = ($object->getSuspendedBy() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSuspendedBy(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('suspendedAt') && null !== $object->getSuspendedAt()) {
-            $data['suspended_at'] = $object->getSuspendedAt()->format('Y-m-d\\TH:i:sP');
+            $data['suspended_at'] = $object->getSuspendedAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('contactEmail') && null !== $object->getContactEmail()) {
             $data['contact_email'] = $object->getContactEmail();
@@ -198,8 +198,8 @@ class InstallationNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Installation' => false);
+        return ['Github\Model\Installation' => false];
     }
 }

@@ -18,18 +18,18 @@ class ServicesIdUpdatePostBodyNormalizer implements DenormalizerInterface, Norma
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\ServicesIdUpdatePostBody';
+        return $type === 'Docker\Api\Model\ServicesIdUpdatePostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\ServicesIdUpdatePostBody';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\ServicesIdUpdatePostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,81 +48,81 @@ class ServicesIdUpdatePostBodyNormalizer implements DenormalizerInterface, Norma
             $object->setName($data['Name']);
         }
         if (\array_key_exists('Labels', $data)) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['Labels'] as $key => $value) {
                 $values[$key] = $value;
             }
             $object->setLabels($values);
         }
         if (\array_key_exists('TaskTemplate', $data)) {
-            $object->setTaskTemplate($this->denormalizer->denormalize($data['TaskTemplate'], 'Docker\\Api\\Model\\TaskSpec', 'json', $context));
+            $object->setTaskTemplate($this->denormalizer->denormalize($data['TaskTemplate'], 'Docker\Api\Model\TaskSpec', 'json', $context));
         }
         if (\array_key_exists('Mode', $data)) {
-            $object->setMode($this->denormalizer->denormalize($data['Mode'], 'Docker\\Api\\Model\\ServiceSpecMode', 'json', $context));
+            $object->setMode($this->denormalizer->denormalize($data['Mode'], 'Docker\Api\Model\ServiceSpecMode', 'json', $context));
         }
         if (\array_key_exists('UpdateConfig', $data)) {
-            $object->setUpdateConfig($this->denormalizer->denormalize($data['UpdateConfig'], 'Docker\\Api\\Model\\ServiceSpecUpdateConfig', 'json', $context));
+            $object->setUpdateConfig($this->denormalizer->denormalize($data['UpdateConfig'], 'Docker\Api\Model\ServiceSpecUpdateConfig', 'json', $context));
         }
         if (\array_key_exists('RollbackConfig', $data)) {
-            $object->setRollbackConfig($this->denormalizer->denormalize($data['RollbackConfig'], 'Docker\\Api\\Model\\ServiceSpecRollbackConfig', 'json', $context));
+            $object->setRollbackConfig($this->denormalizer->denormalize($data['RollbackConfig'], 'Docker\Api\Model\ServiceSpecRollbackConfig', 'json', $context));
         }
         if (\array_key_exists('Networks', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['Networks'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Docker\\Api\\Model\\NetworkAttachmentConfig', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'Docker\Api\Model\NetworkAttachmentConfig', 'json', $context);
             }
             $object->setNetworks($values_1);
         }
         if (\array_key_exists('EndpointSpec', $data)) {
-            $object->setEndpointSpec($this->denormalizer->denormalize($data['EndpointSpec'], 'Docker\\Api\\Model\\EndpointSpec', 'json', $context));
+            $object->setEndpointSpec($this->denormalizer->denormalize($data['EndpointSpec'], 'Docker\Api\Model\EndpointSpec', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('name') && null !== $object->getName()) {
             $data['Name'] = $object->getName();
         }
         if ($object->isInitialized('labels') && null !== $object->getLabels()) {
-            $values = array();
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getLabels() as $key => $value) {
                 $values[$key] = $value;
             }
             $data['Labels'] = $values;
         }
         if ($object->isInitialized('taskTemplate') && null !== $object->getTaskTemplate()) {
-            $data['TaskTemplate'] = $this->normalizer->normalize($object->getTaskTemplate(), 'json', $context);
+            $data['TaskTemplate'] = ($object->getTaskTemplate() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getTaskTemplate(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('mode') && null !== $object->getMode()) {
-            $data['Mode'] = $this->normalizer->normalize($object->getMode(), 'json', $context);
+            $data['Mode'] = ($object->getMode() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMode(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('updateConfig') && null !== $object->getUpdateConfig()) {
-            $data['UpdateConfig'] = $this->normalizer->normalize($object->getUpdateConfig(), 'json', $context);
+            $data['UpdateConfig'] = ($object->getUpdateConfig() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUpdateConfig(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('rollbackConfig') && null !== $object->getRollbackConfig()) {
-            $data['RollbackConfig'] = $this->normalizer->normalize($object->getRollbackConfig(), 'json', $context);
+            $data['RollbackConfig'] = ($object->getRollbackConfig() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRollbackConfig(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('networks') && null !== $object->getNetworks()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getNetworks() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['Networks'] = $values_1;
         }
         if ($object->isInitialized('endpointSpec') && null !== $object->getEndpointSpec()) {
-            $data['EndpointSpec'] = $this->normalizer->normalize($object->getEndpointSpec(), 'json', $context);
+            $data['EndpointSpec'] = ($object->getEndpointSpec() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getEndpointSpec(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Docker\Api\Validator\ServicesIdUpdatePostBodyConstraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\ServicesIdUpdatePostBody' => false);
+        return ['Docker\Api\Model\ServicesIdUpdatePostBody' => false];
     }
 }

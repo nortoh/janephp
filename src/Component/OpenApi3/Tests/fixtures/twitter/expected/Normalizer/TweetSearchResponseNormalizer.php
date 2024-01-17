@@ -18,18 +18,18 @@ class TweetSearchResponseNormalizer implements DenormalizerInterface, Normalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TweetSearchResponse';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\TweetSearchResponse';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TweetSearchResponse';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\TweetSearchResponse';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class TweetSearchResponseNormalizer implements DenormalizerInterface, Normalizer
             return $object;
         }
         if (\array_key_exists('data', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['data'] as $value) {
                 $values[] = $value;
             }
@@ -50,11 +50,11 @@ class TweetSearchResponseNormalizer implements DenormalizerInterface, Normalizer
             unset($data['data']);
         }
         if (\array_key_exists('includes', $data)) {
-            $object->setIncludes($this->denormalizer->denormalize($data['includes'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Expansions', 'json', $context));
+            $object->setIncludes($this->denormalizer->denormalize($data['includes'], 'Jane\Component\OpenApi3\Tests\Expected\Model\Expansions', 'json', $context));
             unset($data['includes']);
         }
         if (\array_key_exists('errors', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['errors'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -62,7 +62,7 @@ class TweetSearchResponseNormalizer implements DenormalizerInterface, Normalizer
             unset($data['errors']);
         }
         if (\array_key_exists('meta', $data)) {
-            $object->setMeta($this->denormalizer->denormalize($data['meta'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TweetSearchResponseMeta', 'json', $context));
+            $object->setMeta($this->denormalizer->denormalize($data['meta'], 'Jane\Component\OpenApi3\Tests\Expected\Model\TweetSearchResponseMeta', 'json', $context));
             unset($data['meta']);
         }
         foreach ($data as $key => $value_2) {
@@ -75,28 +75,28 @@ class TweetSearchResponseNormalizer implements DenormalizerInterface, Normalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('data') && null !== $object->getData()) {
-            $values = array();
+            $values = [];
             foreach ($object->getData() as $value) {
                 $values[] = $value;
             }
             $data['data'] = $values;
         }
         if ($object->isInitialized('includes') && null !== $object->getIncludes()) {
-            $data['includes'] = $this->normalizer->normalize($object->getIncludes(), 'json', $context);
+            $data['includes'] = ($object->getIncludes() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getIncludes(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('errors') && null !== $object->getErrors()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getErrors() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['errors'] = $values_1;
         }
         if ($object->isInitialized('meta') && null !== $object->getMeta()) {
-            $data['meta'] = $this->normalizer->normalize($object->getMeta(), 'json', $context);
+            $data['meta'] = ($object->getMeta() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMeta(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value_2) {
             if (preg_match('/.*/', (string) $key)) {
@@ -105,8 +105,8 @@ class TweetSearchResponseNormalizer implements DenormalizerInterface, Normalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TweetSearchResponse' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\TweetSearchResponse' => false];
     }
 }

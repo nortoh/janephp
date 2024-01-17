@@ -18,18 +18,18 @@ class ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictionsNormalizer implem
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictions';
+        return $type === 'Github\Model\ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictions';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictions';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictions';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictionsNormalizer implem
             return $object;
         }
         if (\array_key_exists('users', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['users'] as $value) {
                 $values[] = $value;
             }
@@ -53,7 +53,7 @@ class ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictionsNormalizer implem
             unset($data['users']);
         }
         if (\array_key_exists('teams', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['teams'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -61,7 +61,7 @@ class ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictionsNormalizer implem
             unset($data['teams']);
         }
         if (\array_key_exists('apps', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['apps'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -78,21 +78,21 @@ class ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictionsNormalizer implem
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $values = array();
+        $data = [];
+        $values = [];
         foreach ($object->getUsers() as $value) {
             $values[] = $value;
         }
         $data['users'] = $values;
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getTeams() as $value_1) {
             $values_1[] = $value_1;
         }
         $data['teams'] = $values_1;
         if ($object->isInitialized('apps') && null !== $object->getApps()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getApps() as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -108,8 +108,8 @@ class ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictionsNormalizer implem
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictions' => false);
+        return ['Github\Model\ReposOwnerRepoBranchesBranchProtectionPutBodyRestrictions' => false];
     }
 }

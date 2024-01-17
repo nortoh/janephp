@@ -18,18 +18,18 @@ class OrganizationActionsSecretNormalizer implements DenormalizerInterface, Norm
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\OrganizationActionsSecret';
+        return $type === 'Github\Model\OrganizationActionsSecret';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\OrganizationActionsSecret';
+        return is_object($data) && get_class($data) === 'Github\Model\OrganizationActionsSecret';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,11 +49,11 @@ class OrganizationActionsSecretNormalizer implements DenormalizerInterface, Norm
             unset($data['name']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('visibility', $data)) {
@@ -74,12 +74,12 @@ class OrganizationActionsSecretNormalizer implements DenormalizerInterface, Norm
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['visibility'] = $object->getVisibility();
         if ($object->isInitialized('selectedRepositoriesUrl') && null !== $object->getSelectedRepositoriesUrl()) {
             $data['selected_repositories_url'] = $object->getSelectedRepositoriesUrl();
@@ -94,8 +94,8 @@ class OrganizationActionsSecretNormalizer implements DenormalizerInterface, Norm
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\OrganizationActionsSecret' => false);
+        return ['Github\Model\OrganizationActionsSecret' => false];
     }
 }

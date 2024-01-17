@@ -18,18 +18,18 @@ class SchemaFieldAnalyzerInvalidExceptionNormalizer implements DenormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\SchemaFieldAnalyzerInvalidException';
+        return $type === 'PicturePark\API\Model\SchemaFieldAnalyzerInvalidException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\SchemaFieldAnalyzerInvalidException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\SchemaFieldAnalyzerInvalidException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -110,7 +110,7 @@ class SchemaFieldAnalyzerInvalidExceptionNormalizer implements DenormalizerInter
             $object->setSchemaId(null);
         }
         if (\array_key_exists('analyzers', $data) && $data['analyzers'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['analyzers'] as $value) {
                 $values[] = $value;
             }
@@ -121,7 +121,7 @@ class SchemaFieldAnalyzerInvalidExceptionNormalizer implements DenormalizerInter
             $object->setAnalyzers(null);
         }
         if (\array_key_exists('allowedAnalyzers', $data) && $data['allowedAnalyzers'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['allowedAnalyzers'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -141,9 +141,9 @@ class SchemaFieldAnalyzerInvalidExceptionNormalizer implements DenormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -176,14 +176,14 @@ class SchemaFieldAnalyzerInvalidExceptionNormalizer implements DenormalizerInter
             $data['schemaId'] = $object->getSchemaId();
         }
         if ($object->isInitialized('analyzers') && null !== $object->getAnalyzers()) {
-            $values = array();
+            $values = [];
             foreach ($object->getAnalyzers() as $value) {
                 $values[] = $value;
             }
             $data['analyzers'] = $values;
         }
         if ($object->isInitialized('allowedAnalyzers') && null !== $object->getAllowedAnalyzers()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAllowedAnalyzers() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -196,8 +196,8 @@ class SchemaFieldAnalyzerInvalidExceptionNormalizer implements DenormalizerInter
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\SchemaFieldAnalyzerInvalidException' => false);
+        return ['PicturePark\API\Model\SchemaFieldAnalyzerInvalidException' => false];
     }
 }

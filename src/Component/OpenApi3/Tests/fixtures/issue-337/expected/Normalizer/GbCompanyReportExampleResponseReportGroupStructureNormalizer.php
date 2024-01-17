@@ -18,18 +18,18 @@ class GbCompanyReportExampleResponseReportGroupStructureNormalizer implements De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportGroupStructure';
+        return $type === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportGroupStructure';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportGroupStructure';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportGroupStructure';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,9 +42,9 @@ class GbCompanyReportExampleResponseReportGroupStructureNormalizer implements De
             return $object;
         }
         if (\array_key_exists('subsidiaryCompanies', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['subsidiaryCompanies'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportGroupStructureSubsidiaryCompaniesItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportGroupStructureSubsidiaryCompaniesItem', 'json', $context);
             }
             $object->setSubsidiaryCompanies($values);
             unset($data['subsidiaryCompanies']);
@@ -59,13 +59,13 @@ class GbCompanyReportExampleResponseReportGroupStructureNormalizer implements De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('subsidiaryCompanies') && null !== $object->getSubsidiaryCompanies()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSubsidiaryCompanies() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['subsidiaryCompanies'] = $values;
         }
@@ -76,8 +76,8 @@ class GbCompanyReportExampleResponseReportGroupStructureNormalizer implements De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportGroupStructure' => false);
+        return ['CreditSafe\API\Model\GbCompanyReportExampleResponseReportGroupStructure' => false];
     }
 }

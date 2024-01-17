@@ -18,18 +18,18 @@ class DocumentHistoryNormalizer implements DenormalizerInterface, NormalizerInte
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\DocumentHistory';
+        return $type === 'PicturePark\API\Model\DocumentHistory';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\DocumentHistory';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\DocumentHistory';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,7 +57,7 @@ class DocumentHistoryNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setDocumentType(null);
         }
         if (\array_key_exists('documentDate', $data)) {
-            $object->setDocumentDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['documentDate']));
+            $object->setDocumentDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['documentDate']));
         }
         if (\array_key_exists('document', $data) && $data['document'] !== null) {
             $object->setDocument($data['document']);
@@ -66,7 +66,7 @@ class DocumentHistoryNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setDocument(null);
         }
         if (\array_key_exists('timestamp', $data)) {
-            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['timestamp']));
+            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['timestamp']));
         }
         if (\array_key_exists('audit', $data) && $data['audit'] !== null) {
             $object->setAudit($data['audit']);
@@ -85,9 +85,9 @@ class DocumentHistoryNormalizer implements DenormalizerInterface, NormalizerInte
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('documentId') && null !== $object->getDocumentId()) {
             $data['documentId'] = $object->getDocumentId();
         }
@@ -95,11 +95,11 @@ class DocumentHistoryNormalizer implements DenormalizerInterface, NormalizerInte
         if ($object->isInitialized('documentType') && null !== $object->getDocumentType()) {
             $data['documentType'] = $object->getDocumentType();
         }
-        $data['documentDate'] = $object->getDocumentDate()->format('Y-m-d\\TH:i:sP');
+        $data['documentDate'] = $object->getDocumentDate()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('document') && null !== $object->getDocument()) {
             $data['document'] = $object->getDocument();
         }
-        $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\\TH:i:sP');
+        $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('audit') && null !== $object->getAudit()) {
             $data['audit'] = $object->getAudit();
         }
@@ -107,8 +107,8 @@ class DocumentHistoryNormalizer implements DenormalizerInterface, NormalizerInte
         $data['action'] = $object->getAction();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\DocumentHistory' => false);
+        return ['PicturePark\API\Model\DocumentHistory' => false];
     }
 }

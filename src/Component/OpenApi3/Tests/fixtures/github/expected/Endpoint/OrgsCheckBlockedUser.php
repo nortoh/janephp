@@ -18,21 +18,21 @@ class OrgsCheckBlockedUser extends \Github\Runtime\Client\BaseEndpoint implement
         $this->username = $username;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{org}', '{username}'), array($this->org, $this->username), '/orgs/{org}/blocks/{username}');
+        return str_replace(['{org}', '{username}'], [$this->org, $this->username], '/orgs/{org}/blocks/{username}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -49,11 +49,11 @@ class OrgsCheckBlockedUser extends \Github\Runtime\Client\BaseEndpoint implement
             return null;
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\OrgsCheckBlockedUserNotFoundException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\OrgsCheckBlockedUserNotFoundException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

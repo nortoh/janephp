@@ -15,21 +15,21 @@ class ActivityDeleteThreadSubscription extends \Github\Runtime\Client\BaseEndpoi
         $this->thread_id = $threadId;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'DELETE';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{thread_id}'), array($this->thread_id), '/notifications/threads/{thread_id}/subscription');
+        return str_replace(['{thread_id}'], [$this->thread_id], '/notifications/threads/{thread_id}/subscription');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -50,14 +50,14 @@ class ActivityDeleteThreadSubscription extends \Github\Runtime\Client\BaseEndpoi
             return null;
         }
         if (is_null($contentType) === false && (403 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ActivityDeleteThreadSubscriptionForbiddenException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ActivityDeleteThreadSubscriptionForbiddenException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (401 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ActivityDeleteThreadSubscriptionUnauthorizedException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ActivityDeleteThreadSubscriptionUnauthorizedException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

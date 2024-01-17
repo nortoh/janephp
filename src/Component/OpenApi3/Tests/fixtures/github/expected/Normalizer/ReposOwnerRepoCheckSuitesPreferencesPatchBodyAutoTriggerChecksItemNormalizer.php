@@ -18,18 +18,18 @@ class ReposOwnerRepoCheckSuitesPreferencesPatchBodyAutoTriggerChecksItemNormaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoCheckSuitesPreferencesPatchBodyAutoTriggerChecksItem';
+        return $type === 'Github\Model\ReposOwnerRepoCheckSuitesPreferencesPatchBodyAutoTriggerChecksItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoCheckSuitesPreferencesPatchBodyAutoTriggerChecksItem';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoCheckSuitesPreferencesPatchBodyAutoTriggerChecksItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -62,9 +62,9 @@ class ReposOwnerRepoCheckSuitesPreferencesPatchBodyAutoTriggerChecksItemNormaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['app_id'] = $object->getAppId();
         $data['setting'] = $object->getSetting();
         foreach ($object as $key => $value) {
@@ -77,8 +77,8 @@ class ReposOwnerRepoCheckSuitesPreferencesPatchBodyAutoTriggerChecksItemNormaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoCheckSuitesPreferencesPatchBodyAutoTriggerChecksItem' => false);
+        return ['Github\Model\ReposOwnerRepoCheckSuitesPreferencesPatchBodyAutoTriggerChecksItem' => false];
     }
 }

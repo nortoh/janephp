@@ -18,18 +18,18 @@ class ReposOwnerRepoTopicsPutBodyNormalizer implements DenormalizerInterface, No
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoTopicsPutBody';
+        return $type === 'Github\Model\ReposOwnerRepoTopicsPutBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoTopicsPutBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoTopicsPutBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ReposOwnerRepoTopicsPutBodyNormalizer implements DenormalizerInterface, No
             return $object;
         }
         if (\array_key_exists('names', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['names'] as $value) {
                 $values[] = $value;
             }
@@ -62,10 +62,10 @@ class ReposOwnerRepoTopicsPutBodyNormalizer implements DenormalizerInterface, No
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $values = array();
+        $data = [];
+        $values = [];
         foreach ($object->getNames() as $value) {
             $values[] = $value;
         }
@@ -80,8 +80,8 @@ class ReposOwnerRepoTopicsPutBodyNormalizer implements DenormalizerInterface, No
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoTopicsPutBody' => false);
+        return ['Github\Model\ReposOwnerRepoTopicsPutBody' => false];
     }
 }

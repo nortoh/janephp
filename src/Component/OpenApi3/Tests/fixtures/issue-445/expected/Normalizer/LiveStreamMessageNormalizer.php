@@ -18,18 +18,18 @@ class LiveStreamMessageNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\LiveStreamMessage';
+        return $type === 'PicturePark\API\Model\LiveStreamMessage';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\LiveStreamMessage';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\LiveStreamMessage';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -79,7 +79,7 @@ class LiveStreamMessageNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setCustomerAlias(null);
         }
         if (\array_key_exists('timestamp', $data)) {
-            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['timestamp']));
+            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['timestamp']));
             unset($data['timestamp']);
         }
         if (\array_key_exists('scope', $data) && $data['scope'] !== null) {
@@ -113,9 +113,9 @@ class LiveStreamMessageNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -130,7 +130,7 @@ class LiveStreamMessageNormalizer implements DenormalizerInterface, NormalizerIn
             $data['customerAlias'] = $object->getCustomerAlias();
         }
         if ($object->isInitialized('timestamp') && null !== $object->getTimestamp()) {
-            $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\\TH:i:sP');
+            $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('scope') && null !== $object->getScope()) {
             $data['scope'] = $object->getScope();
@@ -148,8 +148,8 @@ class LiveStreamMessageNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\LiveStreamMessage' => false);
+        return ['PicturePark\API\Model\LiveStreamMessage' => false];
     }
 }

@@ -18,18 +18,18 @@ class LabelNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Label';
+        return $type === 'Github\Model\Label';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Label';
+        return is_object($data) && get_class($data) === 'Github\Model\Label';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -85,9 +85,9 @@ class LabelNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
         $data['url'] = $object->getUrl();
@@ -107,8 +107,8 @@ class LabelNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Label' => false);
+        return ['Github\Model\Label' => false];
     }
 }

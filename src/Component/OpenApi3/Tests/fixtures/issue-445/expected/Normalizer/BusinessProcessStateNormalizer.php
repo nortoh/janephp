@@ -18,18 +18,18 @@ class BusinessProcessStateNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessProcessState';
+        return $type === 'PicturePark\API\Model\BusinessProcessState';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessProcessState';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessProcessState';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class BusinessProcessStateNormalizer implements DenormalizerInterface, Normalize
             $object->setState($data['state']);
         }
         if (\array_key_exists('timestamp', $data)) {
-            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['timestamp']));
+            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['timestamp']));
         }
         if (\array_key_exists('error', $data) && $data['error'] !== null) {
             $object->setError($data['error']);
@@ -58,18 +58,18 @@ class BusinessProcessStateNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['state'] = $object->getState();
-        $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\\TH:i:sP');
+        $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('error') && null !== $object->getError()) {
             $data['error'] = $object->getError();
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessProcessState' => false);
+        return ['PicturePark\API\Model\BusinessProcessState' => false];
     }
 }

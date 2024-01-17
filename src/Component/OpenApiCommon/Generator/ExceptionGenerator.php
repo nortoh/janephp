@@ -7,10 +7,13 @@ use Jane\Component\JsonSchema\Generator\File;
 use Jane\Component\JsonSchema\Guesser\Guess\ClassGuess;
 use Jane\Component\OpenApiCommon\Naming\ExceptionNaming;
 use PhpParser\Comment\Doc;
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
+use PhpParser\Node\PropertyItem;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
 
@@ -105,15 +108,15 @@ EOD
             $methodName = 'get' . ucfirst($propertyName);
             $exception = new Stmt\Namespace_(new Name($schema->getNamespace() . '\\Exception'), [
                 new Stmt\Class_(
-                    new Name($exceptionName),
+                    new Identifier($exceptionName),
                     [
                         'extends' => new Name($highLevelExceptionName),
                         'stmts' => [
-                            new Stmt\Property(Stmt\Class_::MODIFIER_PRIVATE, [
-                                new Stmt\PropertyProperty($propertyName),
+                            new Stmt\Property(Modifiers::PRIVATE, [
+                                new PropertyItem($propertyName),
                             ], ['comments' => [new Doc($propertyComment)]]),
-                            new Stmt\Property(Stmt\Class_::MODIFIER_PRIVATE, [
-                                new Stmt\PropertyProperty('response'),
+                            new Stmt\Property(Modifiers::PRIVATE, [
+                                new PropertyItem('response'),
                             ], ['comments' => [new Doc(<<<EOD
 /**
  * @var \Psr\Http\Message\ResponseInterface
@@ -121,7 +124,7 @@ EOD
 EOD
                             )]]),
                             new Stmt\ClassMethod('__construct', [
-                                                            'type' => Stmt\Class_::MODIFIER_PUBLIC,
+                                                            'type' => Modifiers::PUBLIC,
                                                             'params' => [
                                                                 new Param(new Node\Expr\Variable($realPropertyName), null, $isArray ? null : new Name('\\' . $classFqdn)),
                                                                 new Param(new Node\Expr\Variable('response'), null, new Name('\\Psr\\Http\\Message\\ResponseInterface')),
@@ -180,12 +183,12 @@ EOD
 
         $exception = new Stmt\Namespace_(new Name($schema->getNamespace() . '\\Exception'), [
             new Stmt\Class_(
-                new Name($exceptionName),
+                new Identifier($exceptionName),
                 [
                     'extends' => new Name($highLevelExceptionName),
                     'stmts' => [
-                        new Stmt\Property(Stmt\Class_::MODIFIER_PRIVATE, [
-                            new Stmt\PropertyProperty('response'),
+                        new Stmt\Property(Modifiers::PRIVATE, [
+                            new PropertyItem('response'),
                         ], ['comments' => [new Doc(<<<EOD
 /**
  * @var \Psr\Http\Message\ResponseInterface
@@ -193,7 +196,7 @@ EOD
 EOD
                         )]]),
                         new Stmt\ClassMethod('__construct', [
-                            'type' => Stmt\Class_::MODIFIER_PUBLIC,
+                            'type' => Modifiers::PUBLIC,
                             'params' => [
                                 new Param(new Node\Expr\Variable('response'), new Expr\ConstFetch(new Name('null')), new Name('\\Psr\\Http\\Message\\ResponseInterface')),
                             ],
@@ -210,7 +213,7 @@ EOD
                             ],
                         ]),
                         new Stmt\ClassMethod('getResponse', [
-                            'type' => Stmt\Class_::MODIFIER_PUBLIC,
+                            'type' => Modifiers::PUBLIC,
                             'stmts' => [
                                 new Stmt\Return_(
                                     new Expr\PropertyFetch(
@@ -244,7 +247,7 @@ EOD
 
         $apiException = new Stmt\Namespace_(new Name($schema->getNamespace() . '\\Exception'), [
             new Stmt\Interface_(
-                new Name('ApiException'),
+                new Identifier('ApiException'),
                 [
                     'extends' => [
                         new Name('\\Throwable'),
@@ -255,7 +258,7 @@ EOD
 
         $clientException = new Stmt\Namespace_(new Name($schema->getNamespace() . '\\Exception'), [
             new Stmt\Interface_(
-                new Name('ClientException'),
+                new Identifier('ClientException'),
                 [
                     'extends' => [
                         new Name('ApiException'),
@@ -266,7 +269,7 @@ EOD
 
         $serverException = new Stmt\Namespace_(new Name($schema->getNamespace() . '\\Exception'), [
             new Stmt\Interface_(
-                new Name('ServerException'),
+                new Identifier('ServerException'),
                 [
                     'extends' => [
                         new Name('ApiException'),
@@ -282,16 +285,16 @@ EOD
         if ($registry->getThrowUnexpectedStatusCode()) {
             $unexpectedStatusCodeException = new Stmt\Namespace_(new Name($schema->getNamespace() . '\\Exception'), [
                 new Stmt\Class_(
-                    new Name('UnexpectedStatusCodeException'),
+                    new Identifier('UnexpectedStatusCodeException'),
                     [
                         'implements' => [
                             new Name('ClientException'),
                         ],
                         'extends' => new Name('\\RuntimeException'),
-                        'flags' => Stmt\Class_::MODIFIER_FINAL,
+                        'flags' => Modifiers::FINAL,
                         'stmts' => [
                             new Stmt\ClassMethod('__construct', [
-                                'type' => Stmt\Class_::MODIFIER_PUBLIC,
+                                'type' => Modifiers::PUBLIC,
                                 'params' => [
                                     new Param(new Expr\Variable('status')),
                                     new Param(new Expr\Variable('message'), new Scalar\String_('')),
@@ -325,7 +328,7 @@ EOD
 
         $highLevelException = new Stmt\Namespace_(new Name($schema->getNamespace() . '\\Exception'), [
             new Stmt\Class_(
-                new Name($highLevelExceptionName),
+                new Identifier($highLevelExceptionName),
                 [
                     'extends' => new Name('\\RuntimeException'),
                     'implements' => [new Name($code >= 500 ? 'ServerException' : 'ClientException')],

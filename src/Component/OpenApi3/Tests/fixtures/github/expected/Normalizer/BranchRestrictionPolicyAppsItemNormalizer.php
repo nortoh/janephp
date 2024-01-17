@@ -18,18 +18,18 @@ class BranchRestrictionPolicyAppsItemNormalizer implements DenormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\BranchRestrictionPolicyAppsItem';
+        return $type === 'Github\Model\BranchRestrictionPolicyAppsItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\BranchRestrictionPolicyAppsItem';
+        return is_object($data) && get_class($data) === 'Github\Model\BranchRestrictionPolicyAppsItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,7 +57,7 @@ class BranchRestrictionPolicyAppsItemNormalizer implements DenormalizerInterface
             unset($data['node_id']);
         }
         if (\array_key_exists('owner', $data)) {
-            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\\Model\\BranchRestrictionPolicyAppsItemOwner', 'json', $context));
+            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\Model\BranchRestrictionPolicyAppsItemOwner', 'json', $context));
             unset($data['owner']);
         }
         if (\array_key_exists('name', $data)) {
@@ -85,11 +85,11 @@ class BranchRestrictionPolicyAppsItemNormalizer implements DenormalizerInterface
             unset($data['updated_at']);
         }
         if (\array_key_exists('permissions', $data)) {
-            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\\Model\\BranchRestrictionPolicyAppsItemPermissions', 'json', $context));
+            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\Model\BranchRestrictionPolicyAppsItemPermissions', 'json', $context));
             unset($data['permissions']);
         }
         if (\array_key_exists('events', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['events'] as $value) {
                 $values[] = $value;
             }
@@ -106,9 +106,9 @@ class BranchRestrictionPolicyAppsItemNormalizer implements DenormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -119,7 +119,7 @@ class BranchRestrictionPolicyAppsItemNormalizer implements DenormalizerInterface
             $data['node_id'] = $object->getNodeId();
         }
         if ($object->isInitialized('owner') && null !== $object->getOwner()) {
-            $data['owner'] = $this->normalizer->normalize($object->getOwner(), 'json', $context);
+            $data['owner'] = ($object->getOwner() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOwner(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('name') && null !== $object->getName()) {
             $data['name'] = $object->getName();
@@ -140,10 +140,10 @@ class BranchRestrictionPolicyAppsItemNormalizer implements DenormalizerInterface
             $data['updated_at'] = $object->getUpdatedAt();
         }
         if ($object->isInitialized('permissions') && null !== $object->getPermissions()) {
-            $data['permissions'] = $this->normalizer->normalize($object->getPermissions(), 'json', $context);
+            $data['permissions'] = ($object->getPermissions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPermissions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('events') && null !== $object->getEvents()) {
-            $values = array();
+            $values = [];
             foreach ($object->getEvents() as $value) {
                 $values[] = $value;
             }
@@ -159,8 +159,8 @@ class BranchRestrictionPolicyAppsItemNormalizer implements DenormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\BranchRestrictionPolicyAppsItem' => false);
+        return ['Github\Model\BranchRestrictionPolicyAppsItem' => false];
     }
 }

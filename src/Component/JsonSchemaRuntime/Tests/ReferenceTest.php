@@ -17,7 +17,7 @@ class ReferenceTest extends TestCase
         self::assertEquals($expected, $reference->resolve($denormalizerCallback));
     }
 
-    public function resolveProvider(): array
+    public static function resolveProvider(): array
     {
         return [
             ['#', __DIR__ . '/schema.json', json_decode(file_get_contents(__DIR__ . '/schema.json'), true), null],

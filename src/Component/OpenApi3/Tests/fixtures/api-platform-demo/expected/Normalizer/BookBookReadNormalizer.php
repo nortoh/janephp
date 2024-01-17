@@ -18,18 +18,18 @@ class BookBookReadNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'ApiPlatform\\Demo\\Model\\BookBookRead';
+        return $type === 'ApiPlatform\Demo\Model\BookBookRead';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'ApiPlatform\\Demo\\Model\\BookBookRead';
+        return is_object($data) && get_class($data) === 'ApiPlatform\Demo\Model\BookBookRead';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -68,13 +68,13 @@ class BookBookReadNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['author']);
         }
         if (\array_key_exists('publicationDate', $data)) {
-            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['publicationDate']));
+            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['publicationDate']));
             unset($data['publicationDate']);
         }
         if (\array_key_exists('reviews', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['reviews'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'ApiPlatform\\Demo\\Model\\ReviewBookRead', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'ApiPlatform\Demo\Model\ReviewBookRead', 'json', $context);
             }
             $object->setReviews($values);
             unset($data['reviews']);
@@ -89,20 +89,20 @@ class BookBookReadNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('isbn') && null !== $object->getIsbn()) {
             $data['isbn'] = $object->getIsbn();
         }
         $data['title'] = $object->getTitle();
         $data['description'] = $object->getDescription();
         $data['author'] = $object->getAuthor();
-        $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\\TH:i:sP');
+        $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('reviews') && null !== $object->getReviews()) {
-            $values = array();
+            $values = [];
             foreach ($object->getReviews() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['reviews'] = $values;
         }
@@ -113,8 +113,8 @@ class BookBookReadNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('ApiPlatform\\Demo\\Model\\BookBookRead' => false);
+        return ['ApiPlatform\Demo\Model\BookBookRead' => false];
     }
 }

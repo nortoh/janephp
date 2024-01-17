@@ -18,18 +18,18 @@ class PullRequestHeadRepoPermissionsNormalizer implements DenormalizerInterface,
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\PullRequestHeadRepoPermissions';
+        return $type === 'Github\Model\PullRequestHeadRepoPermissions';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\PullRequestHeadRepoPermissions';
+        return is_object($data) && get_class($data) === 'Github\Model\PullRequestHeadRepoPermissions';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -66,9 +66,9 @@ class PullRequestHeadRepoPermissionsNormalizer implements DenormalizerInterface,
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['admin'] = $object->getAdmin();
         $data['pull'] = $object->getPull();
         $data['push'] = $object->getPush();
@@ -82,8 +82,8 @@ class PullRequestHeadRepoPermissionsNormalizer implements DenormalizerInterface,
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\PullRequestHeadRepoPermissions' => false);
+        return ['Github\Model\PullRequestHeadRepoPermissions' => false];
     }
 }

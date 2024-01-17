@@ -21,7 +21,7 @@ class SimpleResponse
      *
      * @return string
      */
-    public function getFoo() : string
+    public function getFoo(): string
     {
         return $this->foo;
     }
@@ -32,7 +32,7 @@ class SimpleResponse
      *
      * @return self
      */
-    public function setFoo(string $foo) : self
+    public function setFoo(string $foo): self
     {
         $this->foo = $foo;
         return $this;
@@ -42,7 +42,7 @@ class SimpleResponse
      *
      * @return bool
      */
-    public function getBaz() : bool
+    public function getBaz(): bool
     {
         return $this->baz;
     }
@@ -53,7 +53,7 @@ class SimpleResponse
      *
      * @return self
      */
-    public function setBaz(bool $baz) : self
+    public function setBaz(bool $baz): self
     {
         $this->baz = $baz;
         return $this;

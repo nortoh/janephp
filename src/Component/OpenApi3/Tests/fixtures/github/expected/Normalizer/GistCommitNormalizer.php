@@ -18,18 +18,18 @@ class GistCommitNormalizer implements DenormalizerInterface, NormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GistCommit';
+        return $type === 'Github\Model\GistCommit';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GistCommit';
+        return is_object($data) && get_class($data) === 'Github\Model\GistCommit';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,18 +53,18 @@ class GistCommitNormalizer implements DenormalizerInterface, NormalizerInterface
             unset($data['version']);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\GistCommitUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\GistCommitUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
             $object->setUser(null);
         }
         if (\array_key_exists('change_status', $data)) {
-            $object->setChangeStatus($this->denormalizer->denormalize($data['change_status'], 'Github\\Model\\GistCommitChangeStatus', 'json', $context));
+            $object->setChangeStatus($this->denormalizer->denormalize($data['change_status'], 'Github\Model\GistCommitChangeStatus', 'json', $context));
             unset($data['change_status']);
         }
         if (\array_key_exists('committed_at', $data)) {
-            $object->setCommittedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['committed_at']));
+            $object->setCommittedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['committed_at']));
             unset($data['committed_at']);
         }
         foreach ($data as $key => $value) {
@@ -77,14 +77,14 @@ class GistCommitNormalizer implements DenormalizerInterface, NormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['version'] = $object->getVersion();
-        $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
-        $data['change_status'] = $this->normalizer->normalize($object->getChangeStatus(), 'json', $context);
-        $data['committed_at'] = $object->getCommittedAt()->format('Y-m-d\\TH:i:sP');
+        $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['change_status'] = ($object->getChangeStatus() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getChangeStatus(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['committed_at'] = $object->getCommittedAt()->format('Y-m-d\TH:i:sP');
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -95,8 +95,8 @@ class GistCommitNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GistCommit' => false);
+        return ['Github\Model\GistCommit' => false];
     }
 }

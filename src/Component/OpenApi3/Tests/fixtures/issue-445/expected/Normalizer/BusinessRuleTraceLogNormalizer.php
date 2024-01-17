@@ -18,18 +18,18 @@ class BusinessRuleTraceLogNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessRuleTraceLog';
+        return $type === 'PicturePark\API\Model\BusinessRuleTraceLog';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessRuleTraceLog';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessRuleTraceLog';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,7 +57,7 @@ class BusinessRuleTraceLogNormalizer implements DenormalizerInterface, Normalize
             $object->setDocumentType($data['documentType']);
         }
         if (\array_key_exists('ruleIds', $data) && $data['ruleIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['ruleIds'] as $value) {
                 $values[] = $value;
             }
@@ -67,9 +67,9 @@ class BusinessRuleTraceLogNormalizer implements DenormalizerInterface, Normalize
             $object->setRuleIds(null);
         }
         if (\array_key_exists('rules', $data) && $data['rules'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['rules'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\BusinessRuleTracedRule', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\BusinessRuleTracedRule', 'json', $context);
             }
             $object->setRules($values_1);
         }
@@ -77,9 +77,9 @@ class BusinessRuleTraceLogNormalizer implements DenormalizerInterface, Normalize
             $object->setRules(null);
         }
         if (\array_key_exists('validationErrors', $data) && $data['validationErrors'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['validationErrors'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\\API\\Model\\ErrorResponse', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\API\Model\ErrorResponse', 'json', $context);
             }
             $object->setValidationErrors($values_2);
         }
@@ -87,9 +87,9 @@ class BusinessRuleTraceLogNormalizer implements DenormalizerInterface, Normalize
             $object->setValidationErrors(null);
         }
         if (\array_key_exists('generalErrors', $data) && $data['generalErrors'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['generalErrors'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\\API\\Model\\ErrorResponse', 'json', $context);
+                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\API\Model\ErrorResponse', 'json', $context);
             }
             $object->setGeneralErrors($values_3);
         }
@@ -107,9 +107,9 @@ class BusinessRuleTraceLogNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -118,30 +118,30 @@ class BusinessRuleTraceLogNormalizer implements DenormalizerInterface, Normalize
         }
         $data['documentType'] = $object->getDocumentType();
         if ($object->isInitialized('ruleIds') && null !== $object->getRuleIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getRuleIds() as $value) {
                 $values[] = $value;
             }
             $data['ruleIds'] = $values;
         }
         if ($object->isInitialized('rules') && null !== $object->getRules()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getRules() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['rules'] = $values_1;
         }
         if ($object->isInitialized('validationErrors') && null !== $object->getValidationErrors()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getValidationErrors() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['validationErrors'] = $values_2;
         }
         if ($object->isInitialized('generalErrors') && null !== $object->getGeneralErrors()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getGeneralErrors() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+                $values_3[] = ($value_3 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_3, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['generalErrors'] = $values_3;
         }
@@ -150,8 +150,8 @@ class BusinessRuleTraceLogNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessRuleTraceLog' => false);
+        return ['PicturePark\API\Model\BusinessRuleTraceLog' => false];
     }
 }

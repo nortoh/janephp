@@ -18,48 +18,48 @@ class BusinessRuleActionNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessRuleAction';
+        return $type === 'PicturePark\API\Model\BusinessRuleAction';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessRuleAction';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessRuleAction';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'AssignLayerAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\AssignLayerAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\AssignLayerAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'UnassignLayerAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\UnassignLayerAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\UnassignLayerAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'AssignValueAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\AssignValueAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\AssignValueAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'AssignTagboxItemsAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\AssignTagboxItemsAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\AssignTagboxItemsAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'UnassignTagboxItemsAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\UnassignTagboxItemsAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\UnassignTagboxItemsAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'AssignContentPermissionSetsAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\AssignContentPermissionSetsAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\AssignContentPermissionSetsAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'UnassignContentPermissionSetsAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\UnassignContentPermissionSetsAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\UnassignContentPermissionSetsAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'ProduceMessageAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ProduceMessageAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ProduceMessageAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'AssignTagboxItemsInLayerAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\AssignTagboxItemsInLayerAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\AssignTagboxItemsInLayerAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'EnqueueTaggingAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\EnqueueTaggingAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\EnqueueTaggingAction', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -85,9 +85,9 @@ class BusinessRuleActionNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'AssignLayerAction' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -124,8 +124,8 @@ class BusinessRuleActionNormalizer implements DenormalizerInterface, NormalizerI
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessRuleAction' => false);
+        return ['PicturePark\API\Model\BusinessRuleAction' => false];
     }
 }

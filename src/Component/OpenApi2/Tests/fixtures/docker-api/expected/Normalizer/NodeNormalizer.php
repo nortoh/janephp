@@ -18,18 +18,18 @@ class NodeNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\Node';
+        return $type === 'Docker\Api\Model\Node';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\Node';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\Node';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class NodeNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $object->setID($data['ID']);
         }
         if (\array_key_exists('Version', $data)) {
-            $object->setVersion($this->denormalizer->denormalize($data['Version'], 'Docker\\Api\\Model\\ObjectVersion', 'json', $context));
+            $object->setVersion($this->denormalizer->denormalize($data['Version'], 'Docker\Api\Model\ObjectVersion', 'json', $context));
         }
         if (\array_key_exists('CreatedAt', $data)) {
             $object->setCreatedAt($data['CreatedAt']);
@@ -57,16 +57,16 @@ class NodeNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $object->setUpdatedAt($data['UpdatedAt']);
         }
         if (\array_key_exists('Spec', $data)) {
-            $object->setSpec($this->denormalizer->denormalize($data['Spec'], 'Docker\\Api\\Model\\NodeSpec', 'json', $context));
+            $object->setSpec($this->denormalizer->denormalize($data['Spec'], 'Docker\Api\Model\NodeSpec', 'json', $context));
         }
         if (\array_key_exists('Description', $data)) {
-            $object->setDescription($this->denormalizer->denormalize($data['Description'], 'Docker\\Api\\Model\\NodeDescription', 'json', $context));
+            $object->setDescription($this->denormalizer->denormalize($data['Description'], 'Docker\Api\Model\NodeDescription', 'json', $context));
         }
         if (\array_key_exists('Status', $data)) {
-            $object->setStatus($this->denormalizer->denormalize($data['Status'], 'Docker\\Api\\Model\\NodeStatus', 'json', $context));
+            $object->setStatus($this->denormalizer->denormalize($data['Status'], 'Docker\Api\Model\NodeStatus', 'json', $context));
         }
         if (\array_key_exists('ManagerStatus', $data) && $data['ManagerStatus'] !== null) {
-            $object->setManagerStatus($this->denormalizer->denormalize($data['ManagerStatus'], 'Docker\\Api\\Model\\ManagerStatus', 'json', $context));
+            $object->setManagerStatus($this->denormalizer->denormalize($data['ManagerStatus'], 'Docker\Api\Model\ManagerStatus', 'json', $context));
         }
         elseif (\array_key_exists('ManagerStatus', $data) && $data['ManagerStatus'] === null) {
             $object->setManagerStatus(null);
@@ -76,14 +76,14 @@ class NodeNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('iD') && null !== $object->getID()) {
             $data['ID'] = $object->getID();
         }
         if ($object->isInitialized('version') && null !== $object->getVersion()) {
-            $data['Version'] = $this->normalizer->normalize($object->getVersion(), 'json', $context);
+            $data['Version'] = ($object->getVersion() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getVersion(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('createdAt') && null !== $object->getCreatedAt()) {
             $data['CreatedAt'] = $object->getCreatedAt();
@@ -92,24 +92,24 @@ class NodeNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $data['UpdatedAt'] = $object->getUpdatedAt();
         }
         if ($object->isInitialized('spec') && null !== $object->getSpec()) {
-            $data['Spec'] = $this->normalizer->normalize($object->getSpec(), 'json', $context);
+            $data['Spec'] = ($object->getSpec() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSpec(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('description') && null !== $object->getDescription()) {
-            $data['Description'] = $this->normalizer->normalize($object->getDescription(), 'json', $context);
+            $data['Description'] = ($object->getDescription() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getDescription(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('status') && null !== $object->getStatus()) {
-            $data['Status'] = $this->normalizer->normalize($object->getStatus(), 'json', $context);
+            $data['Status'] = ($object->getStatus() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getStatus(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('managerStatus') && null !== $object->getManagerStatus()) {
-            $data['ManagerStatus'] = $this->normalizer->normalize($object->getManagerStatus(), 'json', $context);
+            $data['ManagerStatus'] = ($object->getManagerStatus() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getManagerStatus(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Docker\Api\Validator\NodeConstraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\Node' => false);
+        return ['Docker\Api\Model\Node' => false];
     }
 }

@@ -18,18 +18,18 @@ class ProjectsColumnsCardsCardIdDeleteResponse403Normalizer implements Denormali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ProjectsColumnsCardsCardIdDeleteResponse403';
+        return $type === 'Github\Model\ProjectsColumnsCardsCardIdDeleteResponse403';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ProjectsColumnsCardsCardIdDeleteResponse403';
+        return is_object($data) && get_class($data) === 'Github\Model\ProjectsColumnsCardsCardIdDeleteResponse403';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,7 +53,7 @@ class ProjectsColumnsCardsCardIdDeleteResponse403Normalizer implements Denormali
             unset($data['documentation_url']);
         }
         if (\array_key_exists('errors', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['errors'] as $value) {
                 $values[] = $value;
             }
@@ -70,9 +70,9 @@ class ProjectsColumnsCardsCardIdDeleteResponse403Normalizer implements Denormali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('message') && null !== $object->getMessage()) {
             $data['message'] = $object->getMessage();
         }
@@ -80,7 +80,7 @@ class ProjectsColumnsCardsCardIdDeleteResponse403Normalizer implements Denormali
             $data['documentation_url'] = $object->getDocumentationUrl();
         }
         if ($object->isInitialized('errors') && null !== $object->getErrors()) {
-            $values = array();
+            $values = [];
             foreach ($object->getErrors() as $value) {
                 $values[] = $value;
             }
@@ -96,8 +96,8 @@ class ProjectsColumnsCardsCardIdDeleteResponse403Normalizer implements Denormali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ProjectsColumnsCardsCardIdDeleteResponse403' => false);
+        return ['Github\Model\ProjectsColumnsCardsCardIdDeleteResponse403' => false];
     }
 }

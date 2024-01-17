@@ -18,18 +18,18 @@ class OrgHookNormalizer implements DenormalizerInterface, NormalizerInterface, D
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\OrgHook';
+        return $type === 'Github\Model\OrgHook';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\OrgHook';
+        return is_object($data) && get_class($data) === 'Github\Model\OrgHook';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,7 +61,7 @@ class OrgHookNormalizer implements DenormalizerInterface, NormalizerInterface, D
             unset($data['name']);
         }
         if (\array_key_exists('events', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['events'] as $value) {
                 $values[] = $value;
             }
@@ -73,15 +73,15 @@ class OrgHookNormalizer implements DenormalizerInterface, NormalizerInterface, D
             unset($data['active']);
         }
         if (\array_key_exists('config', $data)) {
-            $object->setConfig($this->denormalizer->denormalize($data['config'], 'Github\\Model\\OrgHookConfig', 'json', $context));
+            $object->setConfig($this->denormalizer->denormalize($data['config'], 'Github\Model\OrgHookConfig', 'json', $context));
             unset($data['config']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('type', $data)) {
@@ -98,22 +98,22 @@ class OrgHookNormalizer implements DenormalizerInterface, NormalizerInterface, D
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['url'] = $object->getUrl();
         $data['ping_url'] = $object->getPingUrl();
         $data['name'] = $object->getName();
-        $values = array();
+        $values = [];
         foreach ($object->getEvents() as $value) {
             $values[] = $value;
         }
         $data['events'] = $values;
         $data['active'] = $object->getActive();
-        $data['config'] = $this->normalizer->normalize($object->getConfig(), 'json', $context);
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['config'] = ($object->getConfig() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getConfig(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         $data['type'] = $object->getType();
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -125,8 +125,8 @@ class OrgHookNormalizer implements DenormalizerInterface, NormalizerInterface, D
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\OrgHook' => false);
+        return ['Github\Model\OrgHook' => false];
     }
 }

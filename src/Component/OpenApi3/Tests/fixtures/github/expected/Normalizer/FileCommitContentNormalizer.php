@@ -18,18 +18,18 @@ class FileCommitContentNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\FileCommitContent';
+        return $type === 'Github\Model\FileCommitContent';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\FileCommitContent';
+        return is_object($data) && get_class($data) === 'Github\Model\FileCommitContent';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -81,7 +81,7 @@ class FileCommitContentNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['type']);
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\\Model\\FileCommitContentLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\Model\FileCommitContentLinks', 'json', $context));
             unset($data['_links']);
         }
         foreach ($data as $key => $value) {
@@ -94,9 +94,9 @@ class FileCommitContentNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('name') && null !== $object->getName()) {
             $data['name'] = $object->getName();
         }
@@ -125,7 +125,7 @@ class FileCommitContentNormalizer implements DenormalizerInterface, NormalizerIn
             $data['type'] = $object->getType();
         }
         if ($object->isInitialized('links') && null !== $object->getLinks()) {
-            $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+            $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -137,8 +137,8 @@ class FileCommitContentNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\FileCommitContent' => false);
+        return ['Github\Model\FileCommitContent' => false];
     }
 }

@@ -18,18 +18,18 @@ class EnterpriseNormalizer implements DenormalizerInterface, NormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Enterprise';
+        return $type === 'Github\Model\Enterprise';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Enterprise';
+        return is_object($data) && get_class($data) === 'Github\Model\Enterprise';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -79,14 +79,14 @@ class EnterpriseNormalizer implements DenormalizerInterface, NormalizerInterface
             unset($data['slug']);
         }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         elseif (\array_key_exists('created_at', $data) && $data['created_at'] === null) {
             $object->setCreatedAt(null);
         }
         if (\array_key_exists('updated_at', $data) && $data['updated_at'] !== null) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         elseif (\array_key_exists('updated_at', $data) && $data['updated_at'] === null) {
@@ -106,9 +106,9 @@ class EnterpriseNormalizer implements DenormalizerInterface, NormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('description') && null !== $object->getDescription()) {
             $data['description'] = $object->getDescription();
         }
@@ -120,8 +120,8 @@ class EnterpriseNormalizer implements DenormalizerInterface, NormalizerInterface
         $data['node_id'] = $object->getNodeId();
         $data['name'] = $object->getName();
         $data['slug'] = $object->getSlug();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['avatar_url'] = $object->getAvatarUrl();
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -133,8 +133,8 @@ class EnterpriseNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Enterprise' => false);
+        return ['Github\Model\Enterprise' => false];
     }
 }

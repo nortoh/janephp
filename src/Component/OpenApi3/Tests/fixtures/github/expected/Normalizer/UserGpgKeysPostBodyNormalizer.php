@@ -18,18 +18,18 @@ class UserGpgKeysPostBodyNormalizer implements DenormalizerInterface, Normalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\UserGpgKeysPostBody';
+        return $type === 'Github\Model\UserGpgKeysPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\UserGpgKeysPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\UserGpgKeysPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -58,9 +58,9 @@ class UserGpgKeysPostBodyNormalizer implements DenormalizerInterface, Normalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['armored_public_key'] = $object->getArmoredPublicKey();
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -72,8 +72,8 @@ class UserGpgKeysPostBodyNormalizer implements DenormalizerInterface, Normalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\UserGpgKeysPostBody' => false);
+        return ['Github\Model\UserGpgKeysPostBody' => false];
     }
 }

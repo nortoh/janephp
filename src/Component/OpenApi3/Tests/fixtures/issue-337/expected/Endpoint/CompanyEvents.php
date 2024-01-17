@@ -19,48 +19,48 @@ class CompanyEvents extends \CreditSafe\API\Runtime\Client\BaseEndpoint implemen
      *     @var string $Authorization Bearer JWT (Authentication Token) generated from the /authenticate endpoint.
      * }
      */
-    public function __construct(string $id, array $queryParameters = array(), array $headerParameters = array())
+    public function __construct(string $id, array $queryParameters = [], array $headerParameters = [])
     {
         $this->id = $id;
         $this->queryParameters = $queryParameters;
         $this->headerParameters = $headerParameters;
     }
     use \CreditSafe\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/monitoring/companies/{id}/events');
+        return str_replace(['{id}'], [$this->id], '/monitoring/companies/{id}/events');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('startDate', 'endDate', 'page', 'pageSize'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('page' => 0, 'pageSize' => 50));
-        $optionsResolver->addAllowedTypes('startDate', array('string'));
-        $optionsResolver->addAllowedTypes('endDate', array('string'));
-        $optionsResolver->addAllowedTypes('page', array('int'));
-        $optionsResolver->addAllowedTypes('pageSize', array('int'));
+        $optionsResolver->setDefined(['startDate', 'endDate', 'page', 'pageSize']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['page' => 0, 'pageSize' => 50]);
+        $optionsResolver->addAllowedTypes('startDate', ['string']);
+        $optionsResolver->addAllowedTypes('endDate', ['string']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
+        $optionsResolver->addAllowedTypes('pageSize', ['int']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('Authorization'));
-        $optionsResolver->setRequired(array('Authorization'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('Authorization', array('string'));
+        $optionsResolver->setDefined(['Authorization']);
+        $optionsResolver->setRequired(['Authorization']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('Authorization', ['string']);
         return $optionsResolver;
     }
     /**
@@ -78,10 +78,10 @@ class CompanyEvents extends \CreditSafe\API\Runtime\Client\BaseEndpoint implemen
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'CreditSafe\\API\\Model\\CompanyEventsResponse', 'json');
+            return $serializer->deserialize($body, 'CreditSafe\API\Model\CompanyEventsResponse', 'json');
         }
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \CreditSafe\API\Exception\CompanyEventsBadRequestException($serializer->deserialize($body, 'CreditSafe\\API\\Model\\BadRequestError', 'json'), $response);
+            throw new \CreditSafe\API\Exception\CompanyEventsBadRequestException($serializer->deserialize($body, 'CreditSafe\API\Model\BadRequestError', 'json'), $response);
         }
         if (is_null($contentType) === false && (401 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \CreditSafe\API\Exception\CompanyEventsUnauthorizedException($response);
@@ -93,8 +93,8 @@ class CompanyEvents extends \CreditSafe\API\Runtime\Client\BaseEndpoint implemen
             throw new \CreditSafe\API\Exception\CompanyEventsNotFoundException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('bearerAuth');
+        return ['bearerAuth'];
     }
 }

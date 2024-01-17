@@ -1,0 +1,12 @@
+PHPUnit 10.5.7 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.3.1
+Configuration: /home/christian/nexcess/janephp/phpunit.xml
+
+...............................................................  63 / 129 ( 48%)
+............................................................... 126 / 129 ( 97%)
+...                                                             129 / 129 (100%)
+
+Time: 00:47.803, Memory: 392.00 MB
+
+OK (129 tests, 22605 assertions)

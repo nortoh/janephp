@@ -16,37 +16,37 @@ class CodeScanningListAlertsForRepo extends \Github\Runtime\Client\BaseEndpoint 
      *     @var string $ref Returns a list of code scanning alerts for a specific brach reference. The `ref` must be formatted as `heads/<branch name>`.
      * }
      */
-    public function __construct(string $owner, string $repo, array $queryParameters = array())
+    public function __construct(string $owner, string $repo, array $queryParameters = [])
     {
         $this->owner = $owner;
         $this->repo = $repo;
         $this->queryParameters = $queryParameters;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{owner}', '{repo}'), array($this->owner, $this->repo), '/repos/{owner}/{repo}/code-scanning/alerts');
+        return str_replace(['{owner}', '{repo}'], [$this->owner, $this->repo], '/repos/{owner}/{repo}/code-scanning/alerts');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('state', 'ref'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('state' => 'open'));
-        $optionsResolver->addAllowedTypes('state', array('string'));
-        $optionsResolver->addAllowedTypes('ref', array('string'));
+        $optionsResolver->setDefined(['state', 'ref']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['state' => 'open']);
+        $optionsResolver->addAllowedTypes('state', ['string']);
+        $optionsResolver->addAllowedTypes('ref', ['string']);
         return $optionsResolver;
     }
     /**
@@ -62,17 +62,17 @@ class CodeScanningListAlertsForRepo extends \Github\Runtime\Client\BaseEndpoint 
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\CodeScanningAlert[]', 'json');
+            return $serializer->deserialize($body, 'Github\Model\CodeScanningAlert[]', 'json');
         }
         if (404 === $status) {
             throw new \Github\Exception\CodeScanningListAlertsForRepoNotFoundException($response);
         }
         if (is_null($contentType) === false && (503 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\CodeScanningListAlertsForRepoServiceUnavailableException($serializer->deserialize($body, 'Github\\Model\\ResponseServiceUnavailable', 'json'), $response);
+            throw new \Github\Exception\CodeScanningListAlertsForRepoServiceUnavailableException($serializer->deserialize($body, 'Github\Model\ResponseServiceUnavailable', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

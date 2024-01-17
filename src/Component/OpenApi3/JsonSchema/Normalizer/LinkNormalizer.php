@@ -18,18 +18,18 @@ class LinkNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, $context = []) : bool
+    public function supportsDenormalization($data, $type, $format = null, $context = []): bool
     {
         return $type === 'Jane\\Component\\OpenApi3\\JsonSchema\\Model\\Link';
     }
-    public function supportsNormalization($data, $format = null, $context = []) : bool
+    public function supportsNormalization($data, $format = null, $context = []): bool
     {
         return $data instanceof \Jane\Component\OpenApi3\JsonSchema\Model\Link;
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -56,7 +56,7 @@ class LinkNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $object->setOperationRef(null);
         }
         if (\array_key_exists('parameters', $data) && $data['parameters'] !== null) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['parameters'] as $key => $value) {
                 $values[$key] = $value;
             }
@@ -97,9 +97,9 @@ class LinkNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getOperationId()) {
             $data['operationId'] = $object->getOperationId();
         }
@@ -107,7 +107,7 @@ class LinkNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $data['operationRef'] = $object->getOperationRef();
         }
         if (null !== $object->getParameters()) {
-            $values = array();
+            $values = [];
             foreach ($object->getParameters() as $key => $value) {
                 $values[$key] = $value;
             }
@@ -128,5 +128,9 @@ class LinkNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             }
         }
         return $data;
+    }
+    public function getSupportedTypes(?string $format): array
+    {
+        return ['*' => false];
     }
 }

@@ -25,17 +25,17 @@ class InfoNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
 
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {
         return $type === 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Info';
     }
 
-    public function supportsNormalization($data, $format = null, $context = []) : bool
+    public function supportsNormalization($data, $format = null, $context = []): bool
     {
         return $data instanceof \Jane\Component\OpenApi2\JsonSchema\Model\Info;
     }
 
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []) : mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -89,7 +89,7 @@ class InfoNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         return $object;
     }
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $data = [];
         if (null !== $object->getTitle()) {
@@ -129,5 +129,10 @@ class InfoNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         }
 
         return $data;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return ['*' => false];
     }
 }

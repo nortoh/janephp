@@ -14,24 +14,24 @@ class GenerateAuthenticationToken extends \CreditSafe\API\Runtime\Client\BaseEnd
         $this->body = $requestBody;
     }
     use \CreditSafe\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/authenticate';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if ($this->body instanceof \CreditSafe\API\Model\AuthenticationRequest) {
-            return array(array('Content-Type' => array('application/json')), $serializer->serialize($this->body, 'json'));
+            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
         }
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -46,7 +46,7 @@ class GenerateAuthenticationToken extends \CreditSafe\API\Runtime\Client\BaseEnd
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'CreditSafe\\API\\Model\\AuthenticationSuccessResponse', 'json');
+            return $serializer->deserialize($body, 'CreditSafe\API\Model\AuthenticationSuccessResponse', 'json');
         }
         if (is_null($contentType) === false && (401 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \CreditSafe\API\Exception\GenerateAuthenticationTokenUnauthorizedException($response);
@@ -55,8 +55,8 @@ class GenerateAuthenticationToken extends \CreditSafe\API\Runtime\Client\BaseEnd
             throw new \CreditSafe\API\Exception\GenerateAuthenticationTokenNotFoundException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('bearerAuth');
+        return ['bearerAuth'];
     }
 }

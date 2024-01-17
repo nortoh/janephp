@@ -18,18 +18,18 @@ class ListItemFieldsBatchUpdateRequestNormalizer implements DenormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ListItemFieldsBatchUpdateRequest';
+        return $type === 'PicturePark\API\Model\ListItemFieldsBatchUpdateRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ListItemFieldsBatchUpdateRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ListItemFieldsBatchUpdateRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,16 +42,16 @@ class ListItemFieldsBatchUpdateRequestNormalizer implements DenormalizerInterfac
             return $object;
         }
         if (\array_key_exists('listItemIds', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['listItemIds'] as $value) {
                 $values[] = $value;
             }
             $object->setListItemIds($values);
         }
         if (\array_key_exists('changeCommands', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['changeCommands'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\MetadataValuesChangeCommandBase', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\MetadataValuesChangeCommandBase', 'json', $context);
             }
             $object->setChangeCommands($values_1);
         }
@@ -66,25 +66,25 @@ class ListItemFieldsBatchUpdateRequestNormalizer implements DenormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $values = array();
+        $data = [];
+        $values = [];
         foreach ($object->getListItemIds() as $value) {
             $values[] = $value;
         }
         $data['listItemIds'] = $values;
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getChangeCommands() as $value_1) {
-            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['changeCommands'] = $values_1;
         $data['allowMissingDependencies'] = $object->getAllowMissingDependencies();
         $data['notifyProgress'] = $object->getNotifyProgress();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ListItemFieldsBatchUpdateRequest' => false);
+        return ['PicturePark\API\Model\ListItemFieldsBatchUpdateRequest' => false];
     }
 }

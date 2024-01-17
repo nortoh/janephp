@@ -18,18 +18,18 @@ class HostConfigLogConfigNormalizer implements DenormalizerInterface, Normalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\HostConfigLogConfig';
+        return $type === 'Docker\Api\Model\HostConfigLogConfig';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\HostConfigLogConfig';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\HostConfigLogConfig';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class HostConfigLogConfigNormalizer implements DenormalizerInterface, Normalizer
             $object->setType($data['Type']);
         }
         if (\array_key_exists('Config', $data)) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['Config'] as $key => $value) {
                 $values[$key] = $value;
             }
@@ -59,14 +59,14 @@ class HostConfigLogConfigNormalizer implements DenormalizerInterface, Normalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('type') && null !== $object->getType()) {
             $data['Type'] = $object->getType();
         }
         if ($object->isInitialized('config') && null !== $object->getConfig()) {
-            $values = array();
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getConfig() as $key => $value) {
                 $values[$key] = $value;
             }
@@ -77,8 +77,8 @@ class HostConfigLogConfigNormalizer implements DenormalizerInterface, Normalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\HostConfigLogConfig' => false);
+        return ['Docker\Api\Model\HostConfigLogConfig' => false];
     }
 }

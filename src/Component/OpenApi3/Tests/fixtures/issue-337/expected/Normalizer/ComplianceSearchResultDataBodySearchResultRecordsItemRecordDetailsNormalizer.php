@@ -18,18 +18,18 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsNormaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetails';
+        return $type === 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetails';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetails';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetails';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -74,9 +74,9 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsNormaliz
             unset($data['glb']);
         }
         if (\array_key_exists('iDs', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['iDs'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsIDsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsIDsItem', 'json', $context);
             }
             $object->setIDs($values);
             unset($data['iDs']);
@@ -86,11 +86,11 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsNormaliz
             unset($data['lastUpdatedDate']);
         }
         if (\array_key_exists('name', $data)) {
-            $object->setName($this->denormalizer->denormalize($data['name'], 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsName', 'json', $context));
+            $object->setName($this->denormalizer->denormalize($data['name'], 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsName', 'json', $context));
             unset($data['name']);
         }
         if (\array_key_exists('recordState', $data)) {
-            $object->setRecordState($this->denormalizer->denormalize($data['recordState'], 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsRecordState', 'json', $context));
+            $object->setRecordState($this->denormalizer->denormalize($data['recordState'], 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsRecordState', 'json', $context));
             unset($data['recordState']);
         }
         if (\array_key_exists('searchDate', $data)) {
@@ -107,9 +107,9 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsNormaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('acceptListID') && null !== $object->getAcceptListID()) {
             $data['acceptListID'] = $object->getAcceptListID();
         }
@@ -135,9 +135,9 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsNormaliz
             $data['glb'] = $object->getGlb();
         }
         if ($object->isInitialized('iDs') && null !== $object->getIDs()) {
-            $values = array();
+            $values = [];
             foreach ($object->getIDs() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['iDs'] = $values;
         }
@@ -145,10 +145,10 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsNormaliz
             $data['lastUpdatedDate'] = $object->getLastUpdatedDate();
         }
         if ($object->isInitialized('name') && null !== $object->getName()) {
-            $data['name'] = $this->normalizer->normalize($object->getName(), 'json', $context);
+            $data['name'] = ($object->getName() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getName(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('recordState') && null !== $object->getRecordState()) {
-            $data['recordState'] = $this->normalizer->normalize($object->getRecordState(), 'json', $context);
+            $data['recordState'] = ($object->getRecordState() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRecordState(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('searchDate') && null !== $object->getSearchDate()) {
             $data['searchDate'] = $object->getSearchDate();
@@ -160,8 +160,8 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetailsNormaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetails' => false);
+        return ['CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetails' => false];
     }
 }

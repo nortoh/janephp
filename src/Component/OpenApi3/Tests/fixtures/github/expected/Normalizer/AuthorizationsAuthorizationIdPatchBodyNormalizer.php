@@ -18,18 +18,18 @@ class AuthorizationsAuthorizationIdPatchBodyNormalizer implements DenormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\AuthorizationsAuthorizationIdPatchBody';
+        return $type === 'Github\Model\AuthorizationsAuthorizationIdPatchBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\AuthorizationsAuthorizationIdPatchBody';
+        return is_object($data) && get_class($data) === 'Github\Model\AuthorizationsAuthorizationIdPatchBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class AuthorizationsAuthorizationIdPatchBodyNormalizer implements DenormalizerIn
             return $object;
         }
         if (\array_key_exists('scopes', $data) && $data['scopes'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['scopes'] as $value) {
                 $values[] = $value;
             }
@@ -56,7 +56,7 @@ class AuthorizationsAuthorizationIdPatchBodyNormalizer implements DenormalizerIn
             $object->setScopes(null);
         }
         if (\array_key_exists('add_scopes', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['add_scopes'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -64,7 +64,7 @@ class AuthorizationsAuthorizationIdPatchBodyNormalizer implements DenormalizerIn
             unset($data['add_scopes']);
         }
         if (\array_key_exists('remove_scopes', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['remove_scopes'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -93,25 +93,25 @@ class AuthorizationsAuthorizationIdPatchBodyNormalizer implements DenormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('scopes') && null !== $object->getScopes()) {
-            $values = array();
+            $values = [];
             foreach ($object->getScopes() as $value) {
                 $values[] = $value;
             }
             $data['scopes'] = $values;
         }
         if ($object->isInitialized('addScopes') && null !== $object->getAddScopes()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAddScopes() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['add_scopes'] = $values_1;
         }
         if ($object->isInitialized('removeScopes') && null !== $object->getRemoveScopes()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getRemoveScopes() as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -136,8 +136,8 @@ class AuthorizationsAuthorizationIdPatchBodyNormalizer implements DenormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\AuthorizationsAuthorizationIdPatchBody' => false);
+        return ['Github\Model\AuthorizationsAuthorizationIdPatchBody' => false];
     }
 }

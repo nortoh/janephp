@@ -18,18 +18,18 @@ class QueryDebugInformationNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\QueryDebugInformation';
+        return $type === 'PicturePark\API\Model\QueryDebugInformation';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\QueryDebugInformation';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\QueryDebugInformation';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -70,9 +70,9 @@ class QueryDebugInformationNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('general') && null !== $object->getGeneral()) {
             $data['general'] = $object->getGeneral();
         }
@@ -87,8 +87,8 @@ class QueryDebugInformationNormalizer implements DenormalizerInterface, Normaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\QueryDebugInformation' => false);
+        return ['PicturePark\API\Model\QueryDebugInformation' => false];
     }
 }

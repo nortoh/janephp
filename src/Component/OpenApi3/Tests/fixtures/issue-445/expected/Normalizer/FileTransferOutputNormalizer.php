@@ -18,18 +18,18 @@ class FileTransferOutputNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\FileTransferOutput';
+        return $type === 'PicturePark\API\Model\FileTransferOutput';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\FileTransferOutput';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\FileTransferOutput';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,9 +61,9 @@ class FileTransferOutputNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -73,8 +73,8 @@ class FileTransferOutputNormalizer implements DenormalizerInterface, NormalizerI
         $data['outputSource'] = $object->getOutputSource();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\FileTransferOutput' => false);
+        return ['PicturePark\API\Model\FileTransferOutput' => false];
     }
 }

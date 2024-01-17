@@ -18,18 +18,18 @@ class ClusterInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\ClusterInfo';
+        return $type === 'Docker\Api\Model\ClusterInfo';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\ClusterInfo';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\ClusterInfo';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class ClusterInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setID($data['ID']);
         }
         if (\array_key_exists('Version', $data)) {
-            $object->setVersion($this->denormalizer->denormalize($data['Version'], 'Docker\\Api\\Model\\ObjectVersion', 'json', $context));
+            $object->setVersion($this->denormalizer->denormalize($data['Version'], 'Docker\Api\Model\ObjectVersion', 'json', $context));
         }
         if (\array_key_exists('CreatedAt', $data)) {
             $object->setCreatedAt($data['CreatedAt']);
@@ -57,10 +57,10 @@ class ClusterInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setUpdatedAt($data['UpdatedAt']);
         }
         if (\array_key_exists('Spec', $data)) {
-            $object->setSpec($this->denormalizer->denormalize($data['Spec'], 'Docker\\Api\\Model\\SwarmSpec', 'json', $context));
+            $object->setSpec($this->denormalizer->denormalize($data['Spec'], 'Docker\Api\Model\SwarmSpec', 'json', $context));
         }
         if (\array_key_exists('TLSInfo', $data)) {
-            $object->setTLSInfo($this->denormalizer->denormalize($data['TLSInfo'], 'Docker\\Api\\Model\\TLSInfo', 'json', $context));
+            $object->setTLSInfo($this->denormalizer->denormalize($data['TLSInfo'], 'Docker\Api\Model\TLSInfo', 'json', $context));
         }
         if (\array_key_exists('RootRotationInProgress', $data)) {
             $object->setRootRotationInProgress($data['RootRotationInProgress']);
@@ -69,7 +69,7 @@ class ClusterInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setDataPathPort($data['DataPathPort']);
         }
         if (\array_key_exists('DefaultAddrPool', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['DefaultAddrPool'] as $value) {
                 $values[] = $value;
             }
@@ -83,14 +83,14 @@ class ClusterInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('iD') && null !== $object->getID()) {
             $data['ID'] = $object->getID();
         }
         if ($object->isInitialized('version') && null !== $object->getVersion()) {
-            $data['Version'] = $this->normalizer->normalize($object->getVersion(), 'json', $context);
+            $data['Version'] = ($object->getVersion() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getVersion(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('createdAt') && null !== $object->getCreatedAt()) {
             $data['CreatedAt'] = $object->getCreatedAt();
@@ -99,10 +99,10 @@ class ClusterInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
             $data['UpdatedAt'] = $object->getUpdatedAt();
         }
         if ($object->isInitialized('spec') && null !== $object->getSpec()) {
-            $data['Spec'] = $this->normalizer->normalize($object->getSpec(), 'json', $context);
+            $data['Spec'] = ($object->getSpec() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSpec(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('tLSInfo') && null !== $object->getTLSInfo()) {
-            $data['TLSInfo'] = $this->normalizer->normalize($object->getTLSInfo(), 'json', $context);
+            $data['TLSInfo'] = ($object->getTLSInfo() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getTLSInfo(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('rootRotationInProgress') && null !== $object->getRootRotationInProgress()) {
             $data['RootRotationInProgress'] = $object->getRootRotationInProgress();
@@ -111,7 +111,7 @@ class ClusterInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
             $data['DataPathPort'] = $object->getDataPathPort();
         }
         if ($object->isInitialized('defaultAddrPool') && null !== $object->getDefaultAddrPool()) {
-            $values = array();
+            $values = [];
             foreach ($object->getDefaultAddrPool() as $value) {
                 $values[] = $value;
             }
@@ -125,8 +125,8 @@ class ClusterInfoNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\ClusterInfo' => false);
+        return ['Docker\Api\Model\ClusterInfo' => false];
     }
 }

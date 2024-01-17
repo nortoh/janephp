@@ -18,18 +18,18 @@ class ReposOwnerRepoHooksPostBodyNormalizer implements DenormalizerInterface, No
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoHooksPostBody';
+        return $type === 'Github\Model\ReposOwnerRepoHooksPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoHooksPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoHooksPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,11 +49,11 @@ class ReposOwnerRepoHooksPostBodyNormalizer implements DenormalizerInterface, No
             unset($data['name']);
         }
         if (\array_key_exists('config', $data)) {
-            $object->setConfig($this->denormalizer->denormalize($data['config'], 'Github\\Model\\ReposOwnerRepoHooksPostBodyConfig', 'json', $context));
+            $object->setConfig($this->denormalizer->denormalize($data['config'], 'Github\Model\ReposOwnerRepoHooksPostBodyConfig', 'json', $context));
             unset($data['config']);
         }
         if (\array_key_exists('events', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['events'] as $value) {
                 $values[] = $value;
             }
@@ -74,15 +74,15 @@ class ReposOwnerRepoHooksPostBodyNormalizer implements DenormalizerInterface, No
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('name') && null !== $object->getName()) {
             $data['name'] = $object->getName();
         }
-        $data['config'] = $this->normalizer->normalize($object->getConfig(), 'json', $context);
+        $data['config'] = ($object->getConfig() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getConfig(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('events') && null !== $object->getEvents()) {
-            $values = array();
+            $values = [];
             foreach ($object->getEvents() as $value) {
                 $values[] = $value;
             }
@@ -101,8 +101,8 @@ class ReposOwnerRepoHooksPostBodyNormalizer implements DenormalizerInterface, No
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoHooksPostBody' => false);
+        return ['Github\Model\ReposOwnerRepoHooksPostBody' => false];
     }
 }

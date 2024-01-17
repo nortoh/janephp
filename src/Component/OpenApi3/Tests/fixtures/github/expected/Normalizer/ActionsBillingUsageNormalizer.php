@@ -18,18 +18,18 @@ class ActionsBillingUsageNormalizer implements DenormalizerInterface, Normalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ActionsBillingUsage';
+        return $type === 'Github\Model\ActionsBillingUsage';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ActionsBillingUsage';
+        return is_object($data) && get_class($data) === 'Github\Model\ActionsBillingUsage';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,7 +57,7 @@ class ActionsBillingUsageNormalizer implements DenormalizerInterface, Normalizer
             unset($data['included_minutes']);
         }
         if (\array_key_exists('minutes_used_breakdown', $data)) {
-            $object->setMinutesUsedBreakdown($this->denormalizer->denormalize($data['minutes_used_breakdown'], 'Github\\Model\\ActionsBillingUsageMinutesUsedBreakdown', 'json', $context));
+            $object->setMinutesUsedBreakdown($this->denormalizer->denormalize($data['minutes_used_breakdown'], 'Github\Model\ActionsBillingUsageMinutesUsedBreakdown', 'json', $context));
             unset($data['minutes_used_breakdown']);
         }
         foreach ($data as $key => $value) {
@@ -70,9 +70,9 @@ class ActionsBillingUsageNormalizer implements DenormalizerInterface, Normalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('totalMinutesUsed') && null !== $object->getTotalMinutesUsed()) {
             $data['total_minutes_used'] = $object->getTotalMinutesUsed();
         }
@@ -83,7 +83,7 @@ class ActionsBillingUsageNormalizer implements DenormalizerInterface, Normalizer
             $data['included_minutes'] = $object->getIncludedMinutes();
         }
         if ($object->isInitialized('minutesUsedBreakdown') && null !== $object->getMinutesUsedBreakdown()) {
-            $data['minutes_used_breakdown'] = $this->normalizer->normalize($object->getMinutesUsedBreakdown(), 'json', $context);
+            $data['minutes_used_breakdown'] = ($object->getMinutesUsedBreakdown() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMinutesUsedBreakdown(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -95,8 +95,8 @@ class ActionsBillingUsageNormalizer implements DenormalizerInterface, Normalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ActionsBillingUsage' => false);
+        return ['Github\Model\ActionsBillingUsage' => false];
     }
 }

@@ -18,18 +18,18 @@ class GroupMappingNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GroupMapping';
+        return $type === 'Github\Model\GroupMapping';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GroupMapping';
+        return is_object($data) && get_class($data) === 'Github\Model\GroupMapping';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,9 +45,9 @@ class GroupMappingNormalizer implements DenormalizerInterface, NormalizerInterfa
             return $object;
         }
         if (\array_key_exists('groups', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['groups'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\GroupMappingGroupsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\GroupMappingGroupsItem', 'json', $context);
             }
             $object->setGroups($values);
             unset($data['groups']);
@@ -82,13 +82,13 @@ class GroupMappingNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('groups') && null !== $object->getGroups()) {
-            $values = array();
+            $values = [];
             foreach ($object->getGroups() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['groups'] = $values;
         }
@@ -117,8 +117,8 @@ class GroupMappingNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GroupMapping' => false);
+        return ['Github\Model\GroupMapping' => false];
     }
 }

@@ -18,18 +18,18 @@ class ListItemAggregationRequestNormalizer implements DenormalizerInterface, Nor
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ListItemAggregationRequest';
+        return $type === 'PicturePark\API\Model\ListItemAggregationRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ListItemAggregationRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ListItemAggregationRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,7 +49,7 @@ class ListItemAggregationRequestNormalizer implements DenormalizerInterface, Nor
             $object->setSearchString(null);
         }
         if (\array_key_exists('searchBehaviors', $data) && $data['searchBehaviors'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['searchBehaviors'] as $value) {
                 $values[] = $value;
             }
@@ -67,9 +67,9 @@ class ListItemAggregationRequestNormalizer implements DenormalizerInterface, Nor
             $object->setFilter(null);
         }
         if (\array_key_exists('aggregationFilters', $data) && $data['aggregationFilters'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['aggregationFilters'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\AggregationFilter', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\AggregationFilter', 'json', $context);
             }
             $object->setAggregationFilters($values_1);
             unset($data['aggregationFilters']);
@@ -86,7 +86,7 @@ class ListItemAggregationRequestNormalizer implements DenormalizerInterface, Nor
             unset($data['brokenDependenciesFilter']);
         }
         if (\array_key_exists('schemaIds', $data) && $data['schemaIds'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['schemaIds'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -97,7 +97,7 @@ class ListItemAggregationRequestNormalizer implements DenormalizerInterface, Nor
             $object->setSchemaIds(null);
         }
         if (\array_key_exists('searchLanguages', $data) && $data['searchLanguages'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['searchLanguages'] as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -112,9 +112,9 @@ class ListItemAggregationRequestNormalizer implements DenormalizerInterface, Nor
             unset($data['lifeCycleFilter']);
         }
         if (\array_key_exists('aggregators', $data)) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($data['aggregators'] as $value_4) {
-                $values_4[] = $this->denormalizer->denormalize($value_4, 'PicturePark\\API\\Model\\AggregatorBase', 'json', $context);
+                $values_4[] = $this->denormalizer->denormalize($value_4, 'PicturePark\API\Model\AggregatorBase', 'json', $context);
             }
             $object->setAggregators($values_4);
             unset($data['aggregators']);
@@ -129,14 +129,14 @@ class ListItemAggregationRequestNormalizer implements DenormalizerInterface, Nor
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('searchString') && null !== $object->getSearchString()) {
             $data['searchString'] = $object->getSearchString();
         }
         if ($object->isInitialized('searchBehaviors') && null !== $object->getSearchBehaviors()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSearchBehaviors() as $value) {
                 $values[] = $value;
             }
@@ -146,32 +146,32 @@ class ListItemAggregationRequestNormalizer implements DenormalizerInterface, Nor
             $data['filter'] = $object->getFilter();
         }
         if ($object->isInitialized('aggregationFilters') && null !== $object->getAggregationFilters()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAggregationFilters() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregationFilters'] = $values_1;
         }
         $data['includeAllSchemaChildren'] = $object->getIncludeAllSchemaChildren();
         $data['brokenDependenciesFilter'] = $object->getBrokenDependenciesFilter();
         if ($object->isInitialized('schemaIds') && null !== $object->getSchemaIds()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getSchemaIds() as $value_2) {
                 $values_2[] = $value_2;
             }
             $data['schemaIds'] = $values_2;
         }
         if ($object->isInitialized('searchLanguages') && null !== $object->getSearchLanguages()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getSearchLanguages() as $value_3) {
                 $values_3[] = $value_3;
             }
             $data['searchLanguages'] = $values_3;
         }
         $data['lifeCycleFilter'] = $object->getLifeCycleFilter();
-        $values_4 = array();
+        $values_4 = [];
         foreach ($object->getAggregators() as $value_4) {
-            $values_4[] = $this->normalizer->normalize($value_4, 'json', $context);
+            $values_4[] = ($value_4 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_4, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['aggregators'] = $values_4;
         foreach ($object as $key => $value_5) {
@@ -181,8 +181,8 @@ class ListItemAggregationRequestNormalizer implements DenormalizerInterface, Nor
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ListItemAggregationRequest' => false);
+        return ['PicturePark\API\Model\ListItemAggregationRequest' => false];
     }
 }

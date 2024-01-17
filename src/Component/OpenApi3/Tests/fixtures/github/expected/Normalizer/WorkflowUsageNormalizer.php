@@ -18,18 +18,18 @@ class WorkflowUsageNormalizer implements DenormalizerInterface, NormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\WorkflowUsage';
+        return $type === 'Github\Model\WorkflowUsage';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\WorkflowUsage';
+        return is_object($data) && get_class($data) === 'Github\Model\WorkflowUsage';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class WorkflowUsageNormalizer implements DenormalizerInterface, NormalizerInterf
             return $object;
         }
         if (\array_key_exists('billable', $data)) {
-            $object->setBillable($this->denormalizer->denormalize($data['billable'], 'Github\\Model\\WorkflowUsageBillable', 'json', $context));
+            $object->setBillable($this->denormalizer->denormalize($data['billable'], 'Github\Model\WorkflowUsageBillable', 'json', $context));
             unset($data['billable']);
         }
         foreach ($data as $key => $value) {
@@ -58,11 +58,11 @@ class WorkflowUsageNormalizer implements DenormalizerInterface, NormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('billable') && null !== $object->getBillable()) {
-            $data['billable'] = $this->normalizer->normalize($object->getBillable(), 'json', $context);
+            $data['billable'] = ($object->getBillable() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getBillable(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -74,8 +74,8 @@ class WorkflowUsageNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\WorkflowUsage' => false);
+        return ['Github\Model\WorkflowUsage' => false];
     }
 }

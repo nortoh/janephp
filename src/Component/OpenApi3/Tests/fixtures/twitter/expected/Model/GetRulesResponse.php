@@ -7,8 +7,8 @@ class GetRulesResponse extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -29,7 +29,7 @@ class GetRulesResponse extends \ArrayObject
      *
      * @return Rule[]
      */
-    public function getData() : array
+    public function getData(): array
     {
         return $this->data;
     }
@@ -40,7 +40,7 @@ class GetRulesResponse extends \ArrayObject
      *
      * @return self
      */
-    public function setData(array $data) : self
+    public function setData(array $data): self
     {
         $this->initialized['data'] = true;
         $this->data = $data;
@@ -51,7 +51,7 @@ class GetRulesResponse extends \ArrayObject
      *
      * @return RulesResponseMetadata
      */
-    public function getMeta() : RulesResponseMetadata
+    public function getMeta(): RulesResponseMetadata
     {
         return $this->meta;
     }
@@ -62,7 +62,7 @@ class GetRulesResponse extends \ArrayObject
      *
      * @return self
      */
-    public function setMeta(RulesResponseMetadata $meta) : self
+    public function setMeta(RulesResponseMetadata $meta): self
     {
         $this->initialized['meta'] = true;
         $this->meta = $meta;

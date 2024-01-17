@@ -18,18 +18,18 @@ class TermsAggregatorNormalizer implements DenormalizerInterface, NormalizerInte
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\TermsAggregator';
+        return $type === 'PicturePark\API\Model\TermsAggregator';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\TermsAggregator';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\TermsAggregator';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,9 +53,9 @@ class TermsAggregatorNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setNames(null);
         }
         if (\array_key_exists('aggregators', $data) && $data['aggregators'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['aggregators'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\AggregatorBase', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\AggregatorBase', 'json', $context);
             }
             $object->setAggregators($values);
             unset($data['aggregators']);
@@ -86,7 +86,7 @@ class TermsAggregatorNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setSize(null);
         }
         if (\array_key_exists('includes', $data) && $data['includes'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['includes'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -97,7 +97,7 @@ class TermsAggregatorNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setIncludes(null);
         }
         if (\array_key_exists('excludes', $data) && $data['excludes'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['excludes'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -115,7 +115,7 @@ class TermsAggregatorNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setSearchString(null);
         }
         if (\array_key_exists('searchFields', $data) && $data['searchFields'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['searchFields'] as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -135,17 +135,17 @@ class TermsAggregatorNormalizer implements DenormalizerInterface, NormalizerInte
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
         if ($object->isInitialized('names') && null !== $object->getNames()) {
             $data['names'] = $object->getNames();
         }
         if ($object->isInitialized('aggregators') && null !== $object->getAggregators()) {
-            $values = array();
+            $values = [];
             foreach ($object->getAggregators() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregators'] = $values;
         }
@@ -158,14 +158,14 @@ class TermsAggregatorNormalizer implements DenormalizerInterface, NormalizerInte
             $data['size'] = $object->getSize();
         }
         if ($object->isInitialized('includes') && null !== $object->getIncludes()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getIncludes() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['includes'] = $values_1;
         }
         if ($object->isInitialized('excludes') && null !== $object->getExcludes()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getExcludes() as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -175,7 +175,7 @@ class TermsAggregatorNormalizer implements DenormalizerInterface, NormalizerInte
             $data['searchString'] = $object->getSearchString();
         }
         if ($object->isInitialized('searchFields') && null !== $object->getSearchFields()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getSearchFields() as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -188,8 +188,8 @@ class TermsAggregatorNormalizer implements DenormalizerInterface, NormalizerInte
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\TermsAggregator' => false);
+        return ['PicturePark\API\Model\TermsAggregator' => false];
     }
 }

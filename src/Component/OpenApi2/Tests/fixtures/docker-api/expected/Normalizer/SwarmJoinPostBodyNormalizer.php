@@ -18,18 +18,18 @@ class SwarmJoinPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\SwarmJoinPostBody';
+        return $type === 'Docker\Api\Model\SwarmJoinPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\SwarmJoinPostBody';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\SwarmJoinPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -54,7 +54,7 @@ class SwarmJoinPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setDataPathAddr($data['DataPathAddr']);
         }
         if (\array_key_exists('RemoteAddrs', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['RemoteAddrs'] as $value) {
                 $values[] = $value;
             }
@@ -68,9 +68,9 @@ class SwarmJoinPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('listenAddr') && null !== $object->getListenAddr()) {
             $data['ListenAddr'] = $object->getListenAddr();
         }
@@ -81,7 +81,7 @@ class SwarmJoinPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
             $data['DataPathAddr'] = $object->getDataPathAddr();
         }
         if ($object->isInitialized('remoteAddrs') && null !== $object->getRemoteAddrs()) {
-            $values = array();
+            $values = [];
             foreach ($object->getRemoteAddrs() as $value) {
                 $values[] = $value;
             }
@@ -95,8 +95,8 @@ class SwarmJoinPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\SwarmJoinPostBody' => false);
+        return ['Docker\Api\Model\SwarmJoinPostBody' => false];
     }
 }

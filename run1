@@ -1,0 +1,41 @@
+PHPUnit 10.5.7 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.3.0
+Configuration: /home/christian/nexcess/janephp/phpunit.xml
+
+.E
+
+Time: 00:00.041, Memory: 20.00 MB
+
+There was 1 error:
+
+1) Jane\Component\JsonSchema\Tests\JaneBaseTest::testResources with data set #0 (Symfony\Component\Finder\SplFileInfo Object (...))
+Error: Call to a member function getComments() on int
+
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php:1102
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php:1110
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php:588
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:523
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php:27
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:523
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:391
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:406
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php:1111
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php:807
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:523
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:295
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php:984
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php:755
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:523
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:295
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php:712
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:523
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:295
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:203
+/home/christian/nexcess/janephp/vendor/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php:230
+/home/christian/nexcess/janephp/src/Component/JsonSchema/Printer.php:54
+/home/christian/nexcess/janephp/src/Component/JsonSchema/Console/Command/GenerateCommand.php:70
+/home/christian/nexcess/janephp/src/Component/JsonSchema/Tests/JaneBaseTest.php:27
+
+ERRORS!
+Tests: 2, Assertions: 3, Errors: 1.

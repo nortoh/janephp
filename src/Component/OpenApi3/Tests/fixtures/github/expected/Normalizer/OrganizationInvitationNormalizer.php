@@ -18,18 +18,18 @@ class OrganizationInvitationNormalizer implements DenormalizerInterface, Normali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\OrganizationInvitation';
+        return $type === 'Github\Model\OrganizationInvitation';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\OrganizationInvitation';
+        return is_object($data) && get_class($data) === 'Github\Model\OrganizationInvitation';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -71,7 +71,7 @@ class OrganizationInvitationNormalizer implements DenormalizerInterface, Normali
             unset($data['created_at']);
         }
         if (\array_key_exists('inviter', $data) && $data['inviter'] !== null) {
-            $object->setInviter($this->denormalizer->denormalize($data['inviter'], 'Github\\Model\\SimpleUser', 'json', $context));
+            $object->setInviter($this->denormalizer->denormalize($data['inviter'], 'Github\Model\SimpleUser', 'json', $context));
             unset($data['inviter']);
         }
         elseif (\array_key_exists('inviter', $data) && $data['inviter'] === null) {
@@ -103,9 +103,9 @@ class OrganizationInvitationNormalizer implements DenormalizerInterface, Normali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -122,7 +122,7 @@ class OrganizationInvitationNormalizer implements DenormalizerInterface, Normali
             $data['created_at'] = $object->getCreatedAt();
         }
         if ($object->isInitialized('inviter') && null !== $object->getInviter()) {
-            $data['inviter'] = $this->normalizer->normalize($object->getInviter(), 'json', $context);
+            $data['inviter'] = ($object->getInviter() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getInviter(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('teamCount') && null !== $object->getTeamCount()) {
             $data['team_count'] = $object->getTeamCount();
@@ -146,8 +146,8 @@ class OrganizationInvitationNormalizer implements DenormalizerInterface, Normali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\OrganizationInvitation' => false);
+        return ['Github\Model\OrganizationInvitation' => false];
     }
 }

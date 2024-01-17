@@ -18,18 +18,18 @@ class SortableFieldThresholdExceededExceptionNormalizer implements DenormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\SortableFieldThresholdExceededException';
+        return $type === 'PicturePark\API\Model\SortableFieldThresholdExceededException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\SortableFieldThresholdExceededException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\SortableFieldThresholdExceededException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -99,7 +99,7 @@ class SortableFieldThresholdExceededExceptionNormalizer implements DenormalizerI
             $object->setUserId(null);
         }
         if (\array_key_exists('schemaIds', $data) && $data['schemaIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['schemaIds'] as $value) {
                 $values[] = $value;
             }
@@ -127,9 +127,9 @@ class SortableFieldThresholdExceededExceptionNormalizer implements DenormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -156,7 +156,7 @@ class SortableFieldThresholdExceededExceptionNormalizer implements DenormalizerI
             $data['userId'] = $object->getUserId();
         }
         if ($object->isInitialized('schemaIds') && null !== $object->getSchemaIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSchemaIds() as $value) {
                 $values[] = $value;
             }
@@ -175,8 +175,8 @@ class SortableFieldThresholdExceededExceptionNormalizer implements DenormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\SortableFieldThresholdExceededException' => false);
+        return ['PicturePark\API\Model\SortableFieldThresholdExceededException' => false];
     }
 }

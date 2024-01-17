@@ -18,18 +18,18 @@ class SystemVersionNormalizer implements DenormalizerInterface, NormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\SystemVersion';
+        return $type === 'Docker\Api\Model\SystemVersion';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\SystemVersion';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\SystemVersion';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,12 +45,12 @@ class SystemVersionNormalizer implements DenormalizerInterface, NormalizerInterf
             return $object;
         }
         if (\array_key_exists('Platform', $data)) {
-            $object->setPlatform($this->denormalizer->denormalize($data['Platform'], 'Docker\\Api\\Model\\SystemVersionPlatform', 'json', $context));
+            $object->setPlatform($this->denormalizer->denormalize($data['Platform'], 'Docker\Api\Model\SystemVersionPlatform', 'json', $context));
         }
         if (\array_key_exists('Components', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['Components'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Docker\\Api\\Model\\SystemVersionComponentsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Docker\Api\Model\SystemVersionComponentsItem', 'json', $context);
             }
             $object->setComponents($values);
         }
@@ -89,16 +89,16 @@ class SystemVersionNormalizer implements DenormalizerInterface, NormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('platform') && null !== $object->getPlatform()) {
-            $data['Platform'] = $this->normalizer->normalize($object->getPlatform(), 'json', $context);
+            $data['Platform'] = ($object->getPlatform() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPlatform(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('components') && null !== $object->getComponents()) {
-            $values = array();
+            $values = [];
             foreach ($object->getComponents() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['Components'] = $values;
         }
@@ -137,8 +137,8 @@ class SystemVersionNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\SystemVersion' => false);
+        return ['Docker\Api\Model\SystemVersion' => false];
     }
 }

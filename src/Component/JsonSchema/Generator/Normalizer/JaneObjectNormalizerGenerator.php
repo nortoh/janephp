@@ -3,8 +3,10 @@
 namespace Jane\Component\JsonSchema\Generator\Normalizer;
 
 use PhpParser\Comment\Doc;
+use PhpParser\Modifiers;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt;
@@ -14,13 +16,13 @@ trait JaneObjectNormalizerGenerator
     protected function createBaseNormalizerSupportsDenormalizationMethod(): Stmt\ClassMethod
     {
         return new Stmt\ClassMethod('supportsDenormalization', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'bool',
+            'type' => Modifiers::PUBLIC,
+            'returnType' => new Name('bool'),
             'params' => [
                 new Param(new Expr\Variable('data')),
                 new Param(new Expr\Variable('type')),
                 new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [new Stmt\Return_(new Expr\FuncCall(new Name('array_key_exists'), [
                 new Arg(new Expr\Variable('type')),
@@ -29,15 +31,25 @@ trait JaneObjectNormalizerGenerator
         ]);
     }
 
+    protected function createBaseNormalizerGetSupportedTypesMethod(): Stmt\ClassMethod {
+        return new Stmt\ClassMethod(new Identifier('getSupportedTypes'), [
+            'type' => Modifiers::PUBLIC,
+            'returnType' => new Name('array'),
+            'params' => [
+                new Param(new Expr\Variable('format', ))
+            ]
+        ]);
+    }
+
     protected function createBaseNormalizerSupportsNormalizationMethod(): Stmt\ClassMethod
     {
         return new Stmt\ClassMethod('supportsNormalization', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'bool',
+            'type' => Modifiers::PUBLIC,
+            'returnType' => new Name('bool'),
             'params' => [
                 new Param(new Expr\Variable('data')),
                 new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [new Stmt\Return_(
                 new Expr\BinaryOp\BooleanAnd(
@@ -52,12 +64,12 @@ trait JaneObjectNormalizerGenerator
 
     protected function createBaseNormalizerNormalizeMethod(): Stmt\ClassMethod
     {
-        return new Stmt\ClassMethod('normalize', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
+        return new Stmt\ClassMethod(new Identifier('normalize'), [
+            'type' => Modifiers::PUBLIC,
             'params' => [
-                new Param(new Expr\Variable('object')),
-                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                new Param(new Expr\Variable('object'), type: new Name('mixed')),
+                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), type: new Name('string')),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [
                 new Stmt\Expression(new Expr\Assign(
@@ -79,6 +91,7 @@ trait JaneObjectNormalizerGenerator
                     new Arg(new Expr\Variable('context')),
                 ])),
             ],
+            'returnType' => new Name('array|string|int|float|bool|\ArrayObject|null')
         ], [
             'comments' => [new Doc(<<<EOD
 /**
@@ -92,12 +105,12 @@ EOD
     protected function createBaseNormalizerDenormalizeMethod(): Stmt\ClassMethod
     {
         return new Stmt\ClassMethod('denormalize', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
+            'type' => Modifiers::PUBLIC,
             'params' => [
-                new Param(new Expr\Variable('data')),
-                new Param(new Expr\Variable('class')),
-                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                new Param(new Expr\Variable('data'), type: new Name('mixed')),
+                new Param(new Expr\Variable('class'), type: new Name('string')),
+                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), type: new Name('string')),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [
                 new Stmt\Expression(new Expr\Assign(
@@ -120,6 +133,7 @@ EOD
                     new Arg(new Expr\Variable('context')),
                 ])),
             ],
+            'returnType' => new Name('mixed')
         ], [
             'comments' => [new Doc(<<<EOD
 /**
@@ -133,9 +147,9 @@ EOD
     protected function createBaseNormalizerGetNormalizer(): Stmt\ClassMethod
     {
         return new Stmt\ClassMethod('getNormalizer', [
-            'type' => Stmt\Class_::MODIFIER_PRIVATE,
+            'type' => Modifiers::PRIVATE,
             'params' => [
-                new Param(new Expr\Variable('normalizerClass'), null, 'string'),
+                new Param(new Expr\Variable('normalizerClass'), null, new Name('string')),
             ],
             'stmts' => [
                 new Stmt\Return_(new Expr\BinaryOp\Coalesce(
@@ -154,9 +168,9 @@ EOD
     protected function createBaseNormalizerInitNormalizerMethod(): Stmt\ClassMethod
     {
         return new Stmt\ClassMethod('initNormalizer', [
-            'type' => Stmt\Class_::MODIFIER_PRIVATE,
+            'type' => Modifiers::PRIVATE,
             'params' => [
-                new Param(new Expr\Variable('normalizerClass'), null, 'string'),
+                new Param(new Expr\Variable('normalizerClass'), null, new Name('string')),
             ],
             'stmts' => [
                 new Stmt\Expression(new Expr\Assign(

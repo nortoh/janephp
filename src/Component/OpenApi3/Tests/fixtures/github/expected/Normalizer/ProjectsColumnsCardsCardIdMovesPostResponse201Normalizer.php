@@ -18,18 +18,18 @@ class ProjectsColumnsCardsCardIdMovesPostResponse201Normalizer implements Denorm
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ProjectsColumnsCardsCardIdMovesPostResponse201';
+        return $type === 'Github\Model\ProjectsColumnsCardsCardIdMovesPostResponse201';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ProjectsColumnsCardsCardIdMovesPostResponse201';
+        return is_object($data) && get_class($data) === 'Github\Model\ProjectsColumnsCardsCardIdMovesPostResponse201';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,16 +49,16 @@ class ProjectsColumnsCardsCardIdMovesPostResponse201Normalizer implements Denorm
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Github\Validator\ProjectsColumnsCardsCardIdMovesPostResponse201Constraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ProjectsColumnsCardsCardIdMovesPostResponse201' => false);
+        return ['Github\Model\ProjectsColumnsCardsCardIdMovesPostResponse201' => false];
     }
 }

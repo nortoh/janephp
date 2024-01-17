@@ -18,18 +18,18 @@ class DisplayValueStatusNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\DisplayValueStatus';
+        return $type === 'PicturePark\API\Model\DisplayValueStatus';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\DisplayValueStatus';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\DisplayValueStatus';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class DisplayValueStatusNormalizer implements DenormalizerInterface, NormalizerI
             return $object;
         }
         if (\array_key_exists('contentOrLayerSchemaIds', $data) && $data['contentOrLayerSchemaIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['contentOrLayerSchemaIds'] as $value) {
                 $values[] = $value;
             }
@@ -52,7 +52,7 @@ class DisplayValueStatusNormalizer implements DenormalizerInterface, NormalizerI
             $object->setContentOrLayerSchemaIds(null);
         }
         if (\array_key_exists('listSchemaIds', $data) && $data['listSchemaIds'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['listSchemaIds'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -69,18 +69,18 @@ class DisplayValueStatusNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('contentOrLayerSchemaIds') && null !== $object->getContentOrLayerSchemaIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getContentOrLayerSchemaIds() as $value) {
                 $values[] = $value;
             }
             $data['contentOrLayerSchemaIds'] = $values;
         }
         if ($object->isInitialized('listSchemaIds') && null !== $object->getListSchemaIds()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getListSchemaIds() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -89,8 +89,8 @@ class DisplayValueStatusNormalizer implements DenormalizerInterface, NormalizerI
         $data['state'] = $object->getState();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\DisplayValueStatus' => false);
+        return ['PicturePark\API\Model\DisplayValueStatus' => false];
     }
 }

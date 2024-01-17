@@ -38,21 +38,21 @@ class ImageGet extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Docke
         $this->name = $name;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{name}'), array($this->name), '/images/{name}/get');
+        return str_replace(['{name}'], [$this->name], '/images/{name}/get');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -69,11 +69,11 @@ class ImageGet extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Docke
             return json_decode($body);
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\ImageGetInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ImageGetInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

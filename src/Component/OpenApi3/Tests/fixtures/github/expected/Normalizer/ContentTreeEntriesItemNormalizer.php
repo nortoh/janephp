@@ -18,18 +18,18 @@ class ContentTreeEntriesItemNormalizer implements DenormalizerInterface, Normali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ContentTreeEntriesItem';
+        return $type === 'Github\Model\ContentTreeEntriesItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ContentTreeEntriesItem';
+        return is_object($data) && get_class($data) === 'Github\Model\ContentTreeEntriesItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -94,7 +94,7 @@ class ContentTreeEntriesItemNormalizer implements DenormalizerInterface, Normali
             $object->setDownloadUrl(null);
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\\Model\\ContentTreeEntriesItemLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\Model\ContentTreeEntriesItemLinks', 'json', $context));
             unset($data['_links']);
         }
         foreach ($data as $key => $value) {
@@ -107,9 +107,9 @@ class ContentTreeEntriesItemNormalizer implements DenormalizerInterface, Normali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['type'] = $object->getType();
         $data['size'] = $object->getSize();
         $data['name'] = $object->getName();
@@ -122,7 +122,7 @@ class ContentTreeEntriesItemNormalizer implements DenormalizerInterface, Normali
         $data['git_url'] = $object->getGitUrl();
         $data['html_url'] = $object->getHtmlUrl();
         $data['download_url'] = $object->getDownloadUrl();
-        $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+        $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -133,8 +133,8 @@ class ContentTreeEntriesItemNormalizer implements DenormalizerInterface, Normali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ContentTreeEntriesItem' => false);
+        return ['Github\Model\ContentTreeEntriesItem' => false];
     }
 }

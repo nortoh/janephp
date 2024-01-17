@@ -18,18 +18,18 @@ class OrganizationFullPlanNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\OrganizationFullPlan';
+        return $type === 'Github\Model\OrganizationFullPlan';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\OrganizationFullPlan';
+        return is_object($data) && get_class($data) === 'Github\Model\OrganizationFullPlan';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -74,9 +74,9 @@ class OrganizationFullPlanNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
         $data['space'] = $object->getSpace();
         $data['private_repos'] = $object->getPrivateRepos();
@@ -96,8 +96,8 @@ class OrganizationFullPlanNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\OrganizationFullPlan' => false);
+        return ['Github\Model\OrganizationFullPlan' => false];
     }
 }

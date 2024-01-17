@@ -18,18 +18,18 @@ class BookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'ApiPlatform\\Demo\\Model\\Book';
+        return $type === 'ApiPlatform\Demo\Model\Book';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'ApiPlatform\\Demo\\Model\\Book';
+        return is_object($data) && get_class($data) === 'ApiPlatform\Demo\Model\Book';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -68,11 +68,11 @@ class BookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             unset($data['author']);
         }
         if (\array_key_exists('publicationDate', $data)) {
-            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['publicationDate']));
+            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['publicationDate']));
             unset($data['publicationDate']);
         }
         if (\array_key_exists('reviews', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['reviews'] as $value) {
                 $values[] = $value;
             }
@@ -87,7 +87,7 @@ class BookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $object->setCover(null);
         }
         if (\array_key_exists('archivedAt', $data) && $data['archivedAt'] !== null) {
-            $object->setArchivedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['archivedAt']));
+            $object->setArchivedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['archivedAt']));
             unset($data['archivedAt']);
         }
         elseif (\array_key_exists('archivedAt', $data) && $data['archivedAt'] === null) {
@@ -103,18 +103,18 @@ class BookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('isbn') && null !== $object->getIsbn()) {
             $data['isbn'] = $object->getIsbn();
         }
         $data['title'] = $object->getTitle();
         $data['description'] = $object->getDescription();
         $data['author'] = $object->getAuthor();
-        $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\\TH:i:sP');
+        $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('reviews') && null !== $object->getReviews()) {
-            $values = array();
+            $values = [];
             foreach ($object->getReviews() as $value) {
                 $values[] = $value;
             }
@@ -124,7 +124,7 @@ class BookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $data['cover'] = $object->getCover();
         }
         if ($object->isInitialized('archivedAt') && null !== $object->getArchivedAt()) {
-            $data['archivedAt'] = $object->getArchivedAt()->format('Y-m-d\\TH:i:sP');
+            $data['archivedAt'] = $object->getArchivedAt()->format('Y-m-d\TH:i:sP');
         }
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -133,8 +133,8 @@ class BookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('ApiPlatform\\Demo\\Model\\Book' => false);
+        return ['ApiPlatform\Demo\Model\Book' => false];
     }
 }

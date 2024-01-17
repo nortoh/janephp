@@ -16,19 +16,19 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    protected $normalizers = array('Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Test' => 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Normalizer\\TestNormalizer', 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Otherchildtype' => 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Normalizer\\OtherchildtypeNormalizer', 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Childtype' => 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Normalizer\\ChildtypeNormalizer', 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Parenttype' => 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Normalizer\\ParenttypeNormalizer', 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Foo' => 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Normalizer\\FooNormalizer', 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Bar' => 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Normalizer\\BarNormalizer', 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Baz' => 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Normalizer\\BazNormalizer', 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\BazBaz' => 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Normalizer\\BazBazNormalizer'), $normalizersCache = array();
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    protected $normalizers = array('Jane\Component\JsonSchema\Tests\Expected\Model\Test' => 'Jane\Component\JsonSchema\Tests\Expected\Normalizer\TestNormalizer', 'Jane\Component\JsonSchema\Tests\Expected\Model\Otherchildtype' => 'Jane\Component\JsonSchema\Tests\Expected\Normalizer\OtherchildtypeNormalizer', 'Jane\Component\JsonSchema\Tests\Expected\Model\Childtype' => 'Jane\Component\JsonSchema\Tests\Expected\Normalizer\ChildtypeNormalizer', 'Jane\Component\JsonSchema\Tests\Expected\Model\Parenttype' => 'Jane\Component\JsonSchema\Tests\Expected\Normalizer\ParenttypeNormalizer', 'Jane\Component\JsonSchema\Tests\Expected\Model\Foo' => 'Jane\Component\JsonSchema\Tests\Expected\Normalizer\FooNormalizer', 'Jane\Component\JsonSchema\Tests\Expected\Model\Bar' => 'Jane\Component\JsonSchema\Tests\Expected\Normalizer\BarNormalizer', 'Jane\Component\JsonSchema\Tests\Expected\Model\Baz' => 'Jane\Component\JsonSchema\Tests\Expected\Normalizer\BazNormalizer', 'Jane\Component\JsonSchema\Tests\Expected\Model\BazBaz' => 'Jane\Component\JsonSchema\Tests\Expected\Normalizer\BazBazNormalizer'), $normalizersCache = [];
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return array_key_exists($type, $this->normalizers);
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $normalizerClass = $this->normalizers[get_class($object)];
         $normalizer = $this->getNormalizer($normalizerClass);
@@ -37,7 +37,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         $denormalizerClass = $this->normalizers[$class];
         $denormalizer = $this->getNormalizer($denormalizerClass);
@@ -55,8 +55,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         $this->normalizersCache[$normalizerClass] = $normalizer;
         return $normalizer;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Test' => false, 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Otherchildtype' => false, 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Childtype' => false, 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Parenttype' => false, 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Foo' => false, 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Bar' => false, 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Baz' => false, 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\BazBaz' => false);
+        return ['Jane\Component\JsonSchema\Tests\Expected\Model\Test' => false, 'Jane\Component\JsonSchema\Tests\Expected\Model\Otherchildtype' => false, 'Jane\Component\JsonSchema\Tests\Expected\Model\Childtype' => false, 'Jane\Component\JsonSchema\Tests\Expected\Model\Parenttype' => false, 'Jane\Component\JsonSchema\Tests\Expected\Model\Foo' => false, 'Jane\Component\JsonSchema\Tests\Expected\Model\Bar' => false, 'Jane\Component\JsonSchema\Tests\Expected\Model\Baz' => false, 'Jane\Component\JsonSchema\Tests\Expected\Model\BazBaz' => false];
     }
 }

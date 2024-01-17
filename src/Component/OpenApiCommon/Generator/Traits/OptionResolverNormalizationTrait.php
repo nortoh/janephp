@@ -6,6 +6,7 @@ use Jane\Component\JsonSchema\Generator\Context\Context;
 use Jane\Component\OpenApiCommon\Guesser\Guess\OperationGuess;
 use Jane\Component\OpenApiCommon\Registry\Registry;
 use PhpParser\Node;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Scalar;
 
@@ -38,8 +39,8 @@ trait OptionResolverNormalizationTrait
                     new Node\Arg(new Scalar\String_($optionName)),
                     new Node\Arg(new Expr\StaticCall(new Node\Name('\\Closure'), 'fromCallable', [
                         new Node\Arg(new Expr\Array_([
-                            new Expr\ArrayItem(new Expr\New_(new Node\Name($class))),
-                            new Expr\ArrayItem(new Scalar\String_('__invoke')),
+                            new ArrayItem(new Expr\New_(new Node\Name($class))),
+                            new ArrayItem(new Scalar\String_('__invoke')),
                         ])),
                     ])),
                 ]

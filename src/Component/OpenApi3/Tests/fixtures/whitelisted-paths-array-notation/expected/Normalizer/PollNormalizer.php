@@ -18,18 +18,18 @@ class PollNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\OpenApi3\\Tests\\Expected\\Model\\Poll';
+        return $type === 'Jane\OpenApi3\Tests\Expected\Model\Poll';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\OpenApi3\\Tests\\Expected\\Model\\Poll';
+        return is_object($data) && get_class($data) === 'Jane\OpenApi3\Tests\Expected\Model\Poll';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,9 +46,9 @@ class PollNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             unset($data['id']);
         }
         if (\array_key_exists('options', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['options'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jane\\OpenApi3\\Tests\\Expected\\Model\\PollOption', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Jane\OpenApi3\Tests\Expected\Model\PollOption', 'json', $context);
             }
             $object->setOptions($values);
             unset($data['options']);
@@ -58,7 +58,7 @@ class PollNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             unset($data['voting_status']);
         }
         if (\array_key_exists('end_datetime', $data)) {
-            $object->setEndDatetime(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['end_datetime']));
+            $object->setEndDatetime(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['end_datetime']));
             unset($data['end_datetime']);
         }
         if (\array_key_exists('duration_minutes', $data)) {
@@ -75,17 +75,17 @@ class PollNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
-        $values = array();
+        $values = [];
         foreach ($object->getOptions() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['options'] = $values;
         $data['voting_status'] = $object->getVotingStatus();
-        $data['end_datetime'] = $object->getEndDatetime()->format('Y-m-d\\TH:i:sP');
+        $data['end_datetime'] = $object->getEndDatetime()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('durationMinutes') && null !== $object->getDurationMinutes()) {
             $data['duration_minutes'] = $object->getDurationMinutes();
         }
@@ -96,8 +96,8 @@ class PollNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\OpenApi3\\Tests\\Expected\\Model\\Poll' => false);
+        return ['Jane\OpenApi3\Tests\Expected\Model\Poll' => false];
     }
 }

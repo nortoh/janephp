@@ -14,22 +14,22 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     use CheckArray;
-    protected $normalizers = array('Jane\\Component\\OpenApi3\\Tests\\Client\\Model\\SimpleResponse' => 'Jane\\Component\\OpenApi3\\Tests\\Client\\Normalizer\\SimpleResponseNormalizer', 'Jane\\Component\\OpenApi3\\Tests\\Client\\Model\\Error' => 'Jane\\Component\\OpenApi3\\Tests\\Client\\Normalizer\\ErrorNormalizer', '\\Jane\\Component\\JsonSchemaRuntime\\Reference' => '\\Jane\\Component\\OpenApi3\\Tests\\Client\\Runtime\\Normalizer\\ReferenceNormalizer'), $normalizersCache = array();
-    public function supportsDenormalization($data, $type, $format = null)
+    protected $normalizers = array('Jane\\Component\\OpenApi3\\Tests\\Client\\Model\\SimpleResponse' => 'Jane\\Component\\OpenApi3\\Tests\\Client\\Normalizer\\SimpleResponseNormalizer', 'Jane\\Component\\OpenApi3\\Tests\\Client\\Model\\Error' => 'Jane\\Component\\OpenApi3\\Tests\\Client\\Normalizer\\ErrorNormalizer', '\\Jane\\Component\\JsonSchemaRuntime\\Reference' => '\\Jane\\Component\\OpenApi3\\Tests\\Client\\Runtime\\Normalizer\\ReferenceNormalizer'), $normalizersCache = [];
+    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {
         return array_key_exists($type, $this->normalizers);
     }
-    public function supportsNormalization($data, $format = null, $context = []) : bool
+    public function supportsNormalization($data, $format = null, $context = []): bool
     {
         return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
     }
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $normalizerClass = $this->normalizers[get_class($object)];
         $normalizer = $this->getNormalizer($normalizerClass);
         return $normalizer->normalize($object, $format, $context);
     }
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         $denormalizerClass = $this->normalizers[$class];
         $denormalizer = $this->getNormalizer($denormalizerClass);

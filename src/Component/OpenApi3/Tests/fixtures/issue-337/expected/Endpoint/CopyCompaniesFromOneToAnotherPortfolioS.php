@@ -17,7 +17,7 @@ class CopyCompaniesFromOneToAnotherPortfolioS extends \CreditSafe\API\Runtime\Cl
      *     @var string $Authorization Bearer JWT (Authentication Token) generated from the /authenticate endpoint.
      * }
      */
-    public function __construct(string $portfolioId, \CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdCompaniesCopyPostBody $requestBody, array $queryParameters = array(), array $headerParameters = array())
+    public function __construct(string $portfolioId, \CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdCompaniesCopyPostBody $requestBody, array $queryParameters = [], array $headerParameters = [])
     {
         $this->portfolioId = $portfolioId;
         $this->body = $requestBody;
@@ -25,41 +25,41 @@ class CopyCompaniesFromOneToAnotherPortfolioS extends \CreditSafe\API\Runtime\Cl
         $this->headerParameters = $headerParameters;
     }
     use \CreditSafe\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{portfolioId}'), array($this->portfolioId), '/monitoring/portfolios/{portfolioId}/companies/copy');
+        return str_replace(['{portfolioId}'], [$this->portfolioId], '/monitoring/portfolios/{portfolioId}/companies/copy');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if ($this->body instanceof \CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdCompaniesCopyPostBody) {
-            return array(array('Content-Type' => array('application/json')), $serializer->serialize($this->body, 'json'));
+            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
         }
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('copyAll'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('copyAll' => false));
-        $optionsResolver->addAllowedTypes('copyAll', array('bool'));
+        $optionsResolver->setDefined(['copyAll']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['copyAll' => false]);
+        $optionsResolver->addAllowedTypes('copyAll', ['bool']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('Authorization'));
-        $optionsResolver->setRequired(array('Authorization'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('Authorization', array('string'));
+        $optionsResolver->setDefined(['Authorization']);
+        $optionsResolver->setRequired(['Authorization']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('Authorization', ['string']);
         return $optionsResolver;
     }
     /**
@@ -92,8 +92,8 @@ class CopyCompaniesFromOneToAnotherPortfolioS extends \CreditSafe\API\Runtime\Cl
             throw new \CreditSafe\API\Exception\CopyCompaniesFromOneToAnotherPortfolioSNotFoundException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('bearerAuth');
+        return ['bearerAuth'];
     }
 }

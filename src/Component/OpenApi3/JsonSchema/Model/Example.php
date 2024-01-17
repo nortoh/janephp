@@ -33,7 +33,7 @@ class Example extends \ArrayObject
      *
      * @return string|null
      */
-    public function getSummary() : ?string
+    public function getSummary(): ?string
     {
         return $this->summary;
     }
@@ -44,7 +44,7 @@ class Example extends \ArrayObject
      *
      * @return self
      */
-    public function setSummary(?string $summary) : self
+    public function setSummary(?string $summary): self
     {
         $this->summary = $summary;
         return $this;
@@ -54,7 +54,7 @@ class Example extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -65,7 +65,7 @@ class Example extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -86,7 +86,7 @@ class Example extends \ArrayObject
      *
      * @return self
      */
-    public function setValue($value) : self
+    public function setValue($value): self
     {
         $this->value = $value;
         return $this;
@@ -96,7 +96,7 @@ class Example extends \ArrayObject
      *
      * @return string|null
      */
-    public function getExternalValue() : ?string
+    public function getExternalValue(): ?string
     {
         return $this->externalValue;
     }
@@ -107,7 +107,7 @@ class Example extends \ArrayObject
      *
      * @return self
      */
-    public function setExternalValue(?string $externalValue) : self
+    public function setExternalValue(?string $externalValue): self
     {
         $this->externalValue = $externalValue;
         return $this;

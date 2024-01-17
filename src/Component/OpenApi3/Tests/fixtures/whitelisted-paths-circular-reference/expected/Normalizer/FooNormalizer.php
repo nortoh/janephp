@@ -18,18 +18,18 @@ class FooNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Foo';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\Foo';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Foo';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\Foo';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,7 +46,7 @@ class FooNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
             unset($data['label']);
         }
         if (\array_key_exists('parent', $data)) {
-            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Foo', 'json', $context));
+            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Jane\Component\OpenApi3\Tests\Expected\Model\Foo', 'json', $context));
             unset($data['parent']);
         }
         foreach ($data as $key => $value) {
@@ -59,14 +59,14 @@ class FooNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('label') && null !== $object->getLabel()) {
             $data['label'] = $object->getLabel();
         }
         if ($object->isInitialized('parent') && null !== $object->getParent()) {
-            $data['parent'] = $this->normalizer->normalize($object->getParent(), 'json', $context);
+            $data['parent'] = ($object->getParent() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getParent(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -75,8 +75,8 @@ class FooNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Foo' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\Foo' => false];
     }
 }

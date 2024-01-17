@@ -18,18 +18,18 @@ class ResponseForbiddenGistNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ResponseForbiddenGist';
+        return $type === 'Github\Model\ResponseForbiddenGist';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ResponseForbiddenGist';
+        return is_object($data) && get_class($data) === 'Github\Model\ResponseForbiddenGist';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ResponseForbiddenGistNormalizer implements DenormalizerInterface, Normaliz
             return $object;
         }
         if (\array_key_exists('block', $data)) {
-            $object->setBlock($this->denormalizer->denormalize($data['block'], 'Github\\Model\\ResponseForbiddenGistBlock', 'json', $context));
+            $object->setBlock($this->denormalizer->denormalize($data['block'], 'Github\Model\ResponseForbiddenGistBlock', 'json', $context));
             unset($data['block']);
         }
         if (\array_key_exists('message', $data)) {
@@ -66,11 +66,11 @@ class ResponseForbiddenGistNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('block') && null !== $object->getBlock()) {
-            $data['block'] = $this->normalizer->normalize($object->getBlock(), 'json', $context);
+            $data['block'] = ($object->getBlock() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getBlock(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('message') && null !== $object->getMessage()) {
             $data['message'] = $object->getMessage();
@@ -88,8 +88,8 @@ class ResponseForbiddenGistNormalizer implements DenormalizerInterface, Normaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ResponseForbiddenGist' => false);
+        return ['Github\Model\ResponseForbiddenGist' => false];
     }
 }

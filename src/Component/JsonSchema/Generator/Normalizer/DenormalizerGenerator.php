@@ -34,12 +34,12 @@ trait DenormalizerGenerator
     {
         return new Stmt\ClassMethod('supportsDenormalization', [
             'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'bool',
+            'returnType' => new Name('bool'),
             'params' => [
                 new Param(new Expr\Variable('data')),
                 new Param(new Expr\Variable('type')),
                 new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [new Stmt\Return_(new Expr\BinaryOp\Identical(new Expr\Variable('type'), new Scalar\String_($modelFqdn)))],
         ]);
@@ -190,12 +190,13 @@ trait DenormalizerGenerator
         return new Stmt\ClassMethod('denormalize', [
             'type' => Stmt\Class_::MODIFIER_PUBLIC,
             'params' => [
-                new Param($dataVariable),
-                new Param(new Expr\Variable('class')),
-                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                new Param($dataVariable, type: new Name('mixed')),
+                new Param(new Expr\Variable('class'), type: new Name('string')),
+                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), type: new Name('string')),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => $statements,
+            'returnType' => new Name('mixed')
         ], [
             'comments' => [new Doc(<<<EOD
 /**

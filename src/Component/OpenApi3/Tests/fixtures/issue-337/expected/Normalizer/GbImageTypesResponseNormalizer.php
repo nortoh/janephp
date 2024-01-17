@@ -18,18 +18,18 @@ class GbImageTypesResponseNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbImageTypesResponse';
+        return $type === 'CreditSafe\API\Model\GbImageTypesResponse';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbImageTypesResponse';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbImageTypesResponse';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,9 +46,9 @@ class GbImageTypesResponseNormalizer implements DenormalizerInterface, Normalize
             unset($data['country']);
         }
         if (\array_key_exists('availableTypes', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['availableTypes'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\\API\\Model\\GbImageTypesResponseAvailableTypesItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\API\Model\GbImageTypesResponseAvailableTypesItem', 'json', $context);
             }
             $object->setAvailableTypes($values);
             unset($data['availableTypes']);
@@ -63,16 +63,16 @@ class GbImageTypesResponseNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('country') && null !== $object->getCountry()) {
             $data['country'] = $object->getCountry();
         }
         if ($object->isInitialized('availableTypes') && null !== $object->getAvailableTypes()) {
-            $values = array();
+            $values = [];
             foreach ($object->getAvailableTypes() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['availableTypes'] = $values;
         }
@@ -83,8 +83,8 @@ class GbImageTypesResponseNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbImageTypesResponse' => false);
+        return ['CreditSafe\API\Model\GbImageTypesResponse' => false];
     }
 }

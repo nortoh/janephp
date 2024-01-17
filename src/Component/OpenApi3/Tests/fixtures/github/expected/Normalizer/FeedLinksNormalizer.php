@@ -18,18 +18,18 @@ class FeedLinksNormalizer implements DenormalizerInterface, NormalizerInterface,
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\FeedLinks';
+        return $type === 'Github\Model\FeedLinks';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\FeedLinks';
+        return is_object($data) && get_class($data) === 'Github\Model\FeedLinks';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,37 +45,37 @@ class FeedLinksNormalizer implements DenormalizerInterface, NormalizerInterface,
             return $object;
         }
         if (\array_key_exists('timeline', $data)) {
-            $object->setTimeline($this->denormalizer->denormalize($data['timeline'], 'Github\\Model\\LinkWithType', 'json', $context));
+            $object->setTimeline($this->denormalizer->denormalize($data['timeline'], 'Github\Model\LinkWithType', 'json', $context));
             unset($data['timeline']);
         }
         if (\array_key_exists('user', $data)) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\LinkWithType', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\LinkWithType', 'json', $context));
             unset($data['user']);
         }
         if (\array_key_exists('security_advisories', $data)) {
-            $object->setSecurityAdvisories($this->denormalizer->denormalize($data['security_advisories'], 'Github\\Model\\LinkWithType', 'json', $context));
+            $object->setSecurityAdvisories($this->denormalizer->denormalize($data['security_advisories'], 'Github\Model\LinkWithType', 'json', $context));
             unset($data['security_advisories']);
         }
         if (\array_key_exists('current_user', $data)) {
-            $object->setCurrentUser($this->denormalizer->denormalize($data['current_user'], 'Github\\Model\\LinkWithType', 'json', $context));
+            $object->setCurrentUser($this->denormalizer->denormalize($data['current_user'], 'Github\Model\LinkWithType', 'json', $context));
             unset($data['current_user']);
         }
         if (\array_key_exists('current_user_public', $data)) {
-            $object->setCurrentUserPublic($this->denormalizer->denormalize($data['current_user_public'], 'Github\\Model\\LinkWithType', 'json', $context));
+            $object->setCurrentUserPublic($this->denormalizer->denormalize($data['current_user_public'], 'Github\Model\LinkWithType', 'json', $context));
             unset($data['current_user_public']);
         }
         if (\array_key_exists('current_user_actor', $data)) {
-            $object->setCurrentUserActor($this->denormalizer->denormalize($data['current_user_actor'], 'Github\\Model\\LinkWithType', 'json', $context));
+            $object->setCurrentUserActor($this->denormalizer->denormalize($data['current_user_actor'], 'Github\Model\LinkWithType', 'json', $context));
             unset($data['current_user_actor']);
         }
         if (\array_key_exists('current_user_organization', $data)) {
-            $object->setCurrentUserOrganization($this->denormalizer->denormalize($data['current_user_organization'], 'Github\\Model\\LinkWithType', 'json', $context));
+            $object->setCurrentUserOrganization($this->denormalizer->denormalize($data['current_user_organization'], 'Github\Model\LinkWithType', 'json', $context));
             unset($data['current_user_organization']);
         }
         if (\array_key_exists('current_user_organizations', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['current_user_organizations'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\LinkWithType', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\LinkWithType', 'json', $context);
             }
             $object->setCurrentUserOrganizations($values);
             unset($data['current_user_organizations']);
@@ -90,30 +90,30 @@ class FeedLinksNormalizer implements DenormalizerInterface, NormalizerInterface,
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['timeline'] = $this->normalizer->normalize($object->getTimeline(), 'json', $context);
-        $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
+        $data = [];
+        $data['timeline'] = ($object->getTimeline() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getTimeline(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('securityAdvisories') && null !== $object->getSecurityAdvisories()) {
-            $data['security_advisories'] = $this->normalizer->normalize($object->getSecurityAdvisories(), 'json', $context);
+            $data['security_advisories'] = ($object->getSecurityAdvisories() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSecurityAdvisories(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('currentUser') && null !== $object->getCurrentUser()) {
-            $data['current_user'] = $this->normalizer->normalize($object->getCurrentUser(), 'json', $context);
+            $data['current_user'] = ($object->getCurrentUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCurrentUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('currentUserPublic') && null !== $object->getCurrentUserPublic()) {
-            $data['current_user_public'] = $this->normalizer->normalize($object->getCurrentUserPublic(), 'json', $context);
+            $data['current_user_public'] = ($object->getCurrentUserPublic() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCurrentUserPublic(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('currentUserActor') && null !== $object->getCurrentUserActor()) {
-            $data['current_user_actor'] = $this->normalizer->normalize($object->getCurrentUserActor(), 'json', $context);
+            $data['current_user_actor'] = ($object->getCurrentUserActor() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCurrentUserActor(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('currentUserOrganization') && null !== $object->getCurrentUserOrganization()) {
-            $data['current_user_organization'] = $this->normalizer->normalize($object->getCurrentUserOrganization(), 'json', $context);
+            $data['current_user_organization'] = ($object->getCurrentUserOrganization() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCurrentUserOrganization(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('currentUserOrganizations') && null !== $object->getCurrentUserOrganizations()) {
-            $values = array();
+            $values = [];
             foreach ($object->getCurrentUserOrganizations() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['current_user_organizations'] = $values;
         }
@@ -127,8 +127,8 @@ class FeedLinksNormalizer implements DenormalizerInterface, NormalizerInterface,
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\FeedLinks' => false);
+        return ['Github\Model\FeedLinks' => false];
     }
 }

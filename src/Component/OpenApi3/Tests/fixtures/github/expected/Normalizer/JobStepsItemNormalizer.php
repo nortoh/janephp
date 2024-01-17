@@ -18,18 +18,18 @@ class JobStepsItemNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\JobStepsItem';
+        return $type === 'Github\Model\JobStepsItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\JobStepsItem';
+        return is_object($data) && get_class($data) === 'Github\Model\JobStepsItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -64,14 +64,14 @@ class JobStepsItemNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['number']);
         }
         if (\array_key_exists('started_at', $data) && $data['started_at'] !== null) {
-            $object->setStartedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['started_at']));
+            $object->setStartedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['started_at']));
             unset($data['started_at']);
         }
         elseif (\array_key_exists('started_at', $data) && $data['started_at'] === null) {
             $object->setStartedAt(null);
         }
         if (\array_key_exists('completed_at', $data) && $data['completed_at'] !== null) {
-            $object->setCompletedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['completed_at']));
+            $object->setCompletedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['completed_at']));
             unset($data['completed_at']);
         }
         elseif (\array_key_exists('completed_at', $data) && $data['completed_at'] === null) {
@@ -87,18 +87,18 @@ class JobStepsItemNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['status'] = $object->getStatus();
         $data['conclusion'] = $object->getConclusion();
         $data['name'] = $object->getName();
         $data['number'] = $object->getNumber();
         if ($object->isInitialized('startedAt') && null !== $object->getStartedAt()) {
-            $data['started_at'] = $object->getStartedAt()->format('Y-m-d\\TH:i:sP');
+            $data['started_at'] = $object->getStartedAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('completedAt') && null !== $object->getCompletedAt()) {
-            $data['completed_at'] = $object->getCompletedAt()->format('Y-m-d\\TH:i:sP');
+            $data['completed_at'] = $object->getCompletedAt()->format('Y-m-d\TH:i:sP');
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -110,8 +110,8 @@ class JobStepsItemNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\JobStepsItem' => false);
+        return ['Github\Model\JobStepsItem' => false];
     }
 }

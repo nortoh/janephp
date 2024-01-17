@@ -17,24 +17,24 @@ class ProjectsUpdateCard extends \Github\Runtime\Client\BaseEndpoint implements 
         $this->body = $requestBody;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'PATCH';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{card_id}'), array($this->card_id), '/projects/columns/cards/{card_id}');
+        return str_replace(['{card_id}'], [$this->card_id], '/projects/columns/cards/{card_id}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if ($this->body instanceof \Github\Model\ProjectsColumnsCardsCardIdPatchBody) {
-            return array(array('Content-Type' => array('application/json')), $serializer->serialize($this->body, 'json'));
+            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
         }
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -51,26 +51,26 @@ class ProjectsUpdateCard extends \Github\Runtime\Client\BaseEndpoint implements 
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\ProjectCard', 'json');
+            return $serializer->deserialize($body, 'Github\Model\ProjectCard', 'json');
         }
         if (304 === $status) {
             return null;
         }
         if (is_null($contentType) === false && (403 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ProjectsUpdateCardForbiddenException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ProjectsUpdateCardForbiddenException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (401 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ProjectsUpdateCardUnauthorizedException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ProjectsUpdateCardUnauthorizedException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ProjectsUpdateCardNotFoundException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ProjectsUpdateCardNotFoundException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (422 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ProjectsUpdateCardUnprocessableEntityException($serializer->deserialize($body, 'Github\\Model\\ValidationErrorSimple', 'json'), $response);
+            throw new \Github\Exception\ProjectsUpdateCardUnprocessableEntityException($serializer->deserialize($body, 'Github\Model\ValidationErrorSimple', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

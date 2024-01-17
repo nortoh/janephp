@@ -18,18 +18,18 @@ class BranchProtectionAllowForcePushesNormalizer implements DenormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\BranchProtectionAllowForcePushes';
+        return $type === 'Github\Model\BranchProtectionAllowForcePushes';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\BranchProtectionAllowForcePushes';
+        return is_object($data) && get_class($data) === 'Github\Model\BranchProtectionAllowForcePushes';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -58,9 +58,9 @@ class BranchProtectionAllowForcePushesNormalizer implements DenormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('enabled') && null !== $object->getEnabled()) {
             $data['enabled'] = $object->getEnabled();
         }
@@ -74,8 +74,8 @@ class BranchProtectionAllowForcePushesNormalizer implements DenormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\BranchProtectionAllowForcePushes' => false);
+        return ['Github\Model\BranchProtectionAllowForcePushes' => false];
     }
 }

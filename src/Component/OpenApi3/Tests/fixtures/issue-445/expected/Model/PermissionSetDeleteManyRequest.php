@@ -7,8 +7,8 @@ class PermissionSetDeleteManyRequest
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class PermissionSetDeleteManyRequest
      *
      * @return string[]|null
      */
-    public function getPermissionSetIds() : ?array
+    public function getPermissionSetIds(): ?array
     {
         return $this->permissionSetIds;
     }
@@ -34,7 +34,7 @@ class PermissionSetDeleteManyRequest
      *
      * @return self
      */
-    public function setPermissionSetIds(?array $permissionSetIds) : self
+    public function setPermissionSetIds(?array $permissionSetIds): self
     {
         $this->initialized['permissionSetIds'] = true;
         $this->permissionSetIds = $permissionSetIds;

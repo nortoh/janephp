@@ -18,18 +18,18 @@ class IndexFieldNormalizer implements DenormalizerInterface, NormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\IndexField';
+        return $type === 'PicturePark\API\Model\IndexField';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\IndexField';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\IndexField';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -63,7 +63,7 @@ class IndexFieldNormalizer implements DenormalizerInterface, NormalizerInterface
             $object->setType(null);
         }
         if (\array_key_exists('indexFields', $data) && $data['indexFields'] !== null) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['indexFields'] as $key => $value) {
                 $values[$key] = $value;
             }
@@ -73,7 +73,7 @@ class IndexFieldNormalizer implements DenormalizerInterface, NormalizerInterface
             $object->setIndexFields(null);
         }
         if (\array_key_exists('simpleSearchFields', $data) && $data['simpleSearchFields'] !== null) {
-            $values_1 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['simpleSearchFields'] as $key_1 => $value_1) {
                 $values_1[$key_1] = $value_1;
             }
@@ -105,9 +105,9 @@ class IndexFieldNormalizer implements DenormalizerInterface, NormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -118,14 +118,14 @@ class IndexFieldNormalizer implements DenormalizerInterface, NormalizerInterface
             $data['type'] = $object->getType();
         }
         if ($object->isInitialized('indexFields') && null !== $object->getIndexFields()) {
-            $values = array();
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getIndexFields() as $key => $value) {
                 $values[$key] = $value;
             }
             $data['indexFields'] = $values;
         }
         if ($object->isInitialized('simpleSearchFields') && null !== $object->getSimpleSearchFields()) {
-            $values_1 = array();
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getSimpleSearchFields() as $key_1 => $value_1) {
                 $values_1[$key_1] = $value_1;
             }
@@ -141,8 +141,8 @@ class IndexFieldNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\IndexField' => false);
+        return ['PicturePark\API\Model\IndexField' => false];
     }
 }

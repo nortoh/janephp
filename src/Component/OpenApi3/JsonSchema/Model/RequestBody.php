@@ -27,7 +27,7 @@ class RequestBody extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -38,7 +38,7 @@ class RequestBody extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -48,7 +48,7 @@ class RequestBody extends \ArrayObject
      *
      * @return MediaType[]|null
      */
-    public function getContent() : ?iterable
+    public function getContent(): ?iterable
     {
         return $this->content;
     }
@@ -59,7 +59,7 @@ class RequestBody extends \ArrayObject
      *
      * @return self
      */
-    public function setContent(?iterable $content) : self
+    public function setContent(?iterable $content): self
     {
         $this->content = $content;
         return $this;
@@ -69,7 +69,7 @@ class RequestBody extends \ArrayObject
      *
      * @return bool|null
      */
-    public function getRequired() : ?bool
+    public function getRequired(): ?bool
     {
         return $this->required;
     }
@@ -80,7 +80,7 @@ class RequestBody extends \ArrayObject
      *
      * @return self
      */
-    public function setRequired(?bool $required) : self
+    public function setRequired(?bool $required): self
     {
         $this->required = $required;
         return $this;

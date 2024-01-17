@@ -18,18 +18,18 @@ class PullRequestSimpleNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\PullRequestSimple';
+        return $type === 'Github\Model\PullRequestSimple';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\PullRequestSimple';
+        return is_object($data) && get_class($data) === 'Github\Model\PullRequestSimple';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -109,7 +109,7 @@ class PullRequestSimpleNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['title']);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\PullRequestSimpleUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\PullRequestSimpleUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
@@ -123,15 +123,15 @@ class PullRequestSimpleNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setBody(null);
         }
         if (\array_key_exists('labels', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['labels'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\PullRequestSimpleLabelsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\PullRequestSimpleLabelsItem', 'json', $context);
             }
             $object->setLabels($values);
             unset($data['labels']);
         }
         if (\array_key_exists('milestone', $data) && $data['milestone'] !== null) {
-            $object->setMilestone($this->denormalizer->denormalize($data['milestone'], 'Github\\Model\\PullRequestSimpleMilestone', 'json', $context));
+            $object->setMilestone($this->denormalizer->denormalize($data['milestone'], 'Github\Model\PullRequestSimpleMilestone', 'json', $context));
             unset($data['milestone']);
         }
         elseif (\array_key_exists('milestone', $data) && $data['milestone'] === null) {
@@ -145,22 +145,22 @@ class PullRequestSimpleNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setActiveLockReason(null);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('closed_at', $data) && $data['closed_at'] !== null) {
-            $object->setClosedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['closed_at']));
+            $object->setClosedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['closed_at']));
             unset($data['closed_at']);
         }
         elseif (\array_key_exists('closed_at', $data) && $data['closed_at'] === null) {
             $object->setClosedAt(null);
         }
         if (\array_key_exists('merged_at', $data) && $data['merged_at'] !== null) {
-            $object->setMergedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['merged_at']));
+            $object->setMergedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['merged_at']));
             unset($data['merged_at']);
         }
         elseif (\array_key_exists('merged_at', $data) && $data['merged_at'] === null) {
@@ -174,16 +174,16 @@ class PullRequestSimpleNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setMergeCommitSha(null);
         }
         if (\array_key_exists('assignee', $data) && $data['assignee'] !== null) {
-            $object->setAssignee($this->denormalizer->denormalize($data['assignee'], 'Github\\Model\\PullRequestSimpleAssignee', 'json', $context));
+            $object->setAssignee($this->denormalizer->denormalize($data['assignee'], 'Github\Model\PullRequestSimpleAssignee', 'json', $context));
             unset($data['assignee']);
         }
         elseif (\array_key_exists('assignee', $data) && $data['assignee'] === null) {
             $object->setAssignee(null);
         }
         if (\array_key_exists('assignees', $data) && $data['assignees'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['assignees'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\\Model\\SimpleUser', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\Model\SimpleUser', 'json', $context);
             }
             $object->setAssignees($values_1);
             unset($data['assignees']);
@@ -192,9 +192,9 @@ class PullRequestSimpleNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setAssignees(null);
         }
         if (\array_key_exists('requested_reviewers', $data) && $data['requested_reviewers'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['requested_reviewers'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'Github\\Model\\SimpleUser', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'Github\Model\SimpleUser', 'json', $context);
             }
             $object->setRequestedReviewers($values_2);
             unset($data['requested_reviewers']);
@@ -203,9 +203,9 @@ class PullRequestSimpleNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setRequestedReviewers(null);
         }
         if (\array_key_exists('requested_teams', $data) && $data['requested_teams'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['requested_teams'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, 'Github\\Model\\TeamSimple', 'json', $context);
+                $values_3[] = $this->denormalizer->denormalize($value_3, 'Github\Model\TeamSimple', 'json', $context);
             }
             $object->setRequestedTeams($values_3);
             unset($data['requested_teams']);
@@ -214,15 +214,15 @@ class PullRequestSimpleNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setRequestedTeams(null);
         }
         if (\array_key_exists('head', $data)) {
-            $object->setHead($this->denormalizer->denormalize($data['head'], 'Github\\Model\\PullRequestSimpleHead', 'json', $context));
+            $object->setHead($this->denormalizer->denormalize($data['head'], 'Github\Model\PullRequestSimpleHead', 'json', $context));
             unset($data['head']);
         }
         if (\array_key_exists('base', $data)) {
-            $object->setBase($this->denormalizer->denormalize($data['base'], 'Github\\Model\\PullRequestSimpleBase', 'json', $context));
+            $object->setBase($this->denormalizer->denormalize($data['base'], 'Github\Model\PullRequestSimpleBase', 'json', $context));
             unset($data['base']);
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\\Model\\PullRequestSimpleLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\Model\PullRequestSimpleLinks', 'json', $context));
             unset($data['_links']);
         }
         if (\array_key_exists('author_association', $data)) {
@@ -243,9 +243,9 @@ class PullRequestSimpleNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
@@ -262,47 +262,47 @@ class PullRequestSimpleNormalizer implements DenormalizerInterface, NormalizerIn
         $data['state'] = $object->getState();
         $data['locked'] = $object->getLocked();
         $data['title'] = $object->getTitle();
-        $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
+        $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['body'] = $object->getBody();
-        $values = array();
+        $values = [];
         foreach ($object->getLabels() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['labels'] = $values;
-        $data['milestone'] = $this->normalizer->normalize($object->getMilestone(), 'json', $context);
+        $data['milestone'] = ($object->getMilestone() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMilestone(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('activeLockReason') && null !== $object->getActiveLockReason()) {
             $data['active_lock_reason'] = $object->getActiveLockReason();
         }
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['closed_at'] = $object->getClosedAt()->format('Y-m-d\\TH:i:sP');
-        $data['merged_at'] = $object->getMergedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
+        $data['closed_at'] = $object->getClosedAt()->format('Y-m-d\TH:i:sP');
+        $data['merged_at'] = $object->getMergedAt()->format('Y-m-d\TH:i:sP');
         $data['merge_commit_sha'] = $object->getMergeCommitSha();
-        $data['assignee'] = $this->normalizer->normalize($object->getAssignee(), 'json', $context);
+        $data['assignee'] = ($object->getAssignee() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAssignee(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('assignees') && null !== $object->getAssignees()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAssignees() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['assignees'] = $values_1;
         }
         if ($object->isInitialized('requestedReviewers') && null !== $object->getRequestedReviewers()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getRequestedReviewers() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['requested_reviewers'] = $values_2;
         }
         if ($object->isInitialized('requestedTeams') && null !== $object->getRequestedTeams()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getRequestedTeams() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+                $values_3[] = ($value_3 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_3, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['requested_teams'] = $values_3;
         }
-        $data['head'] = $this->normalizer->normalize($object->getHead(), 'json', $context);
-        $data['base'] = $this->normalizer->normalize($object->getBase(), 'json', $context);
-        $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+        $data['head'] = ($object->getHead() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getHead(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['base'] = ($object->getBase() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getBase(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['author_association'] = $object->getAuthorAssociation();
         if ($object->isInitialized('draft') && null !== $object->getDraft()) {
             $data['draft'] = $object->getDraft();
@@ -317,8 +317,8 @@ class PullRequestSimpleNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\PullRequestSimple' => false);
+        return ['Github\Model\PullRequestSimple' => false];
     }
 }

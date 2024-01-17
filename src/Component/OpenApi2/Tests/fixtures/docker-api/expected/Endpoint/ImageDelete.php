@@ -19,36 +19,36 @@ class ImageDelete extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Do
     *     @var bool $noprune Do not delete untagged parent images
     * }
     */
-    public function __construct(string $name, array $queryParameters = array())
+    public function __construct(string $name, array $queryParameters = [])
     {
         $this->name = $name;
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'DELETE';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{name}'), array($this->name), '/images/{name}');
+        return str_replace(['{name}'], [$this->name], '/images/{name}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('force', 'noprune'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('force' => false, 'noprune' => false));
-        $optionsResolver->addAllowedTypes('force', array('bool'));
-        $optionsResolver->addAllowedTypes('noprune', array('bool'));
+        $optionsResolver->setDefined(['force', 'noprune']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['force' => false, 'noprune' => false]);
+        $optionsResolver->addAllowedTypes('force', ['bool']);
+        $optionsResolver->addAllowedTypes('noprune', ['bool']);
         return $optionsResolver;
     }
     /**
@@ -65,20 +65,20 @@ class ImageDelete extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Do
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Docker\\Api\\Model\\ImageDeleteResponseItem[]', 'json');
+            return $serializer->deserialize($body, 'Docker\Api\Model\ImageDeleteResponseItem[]', 'json');
         }
         if (404 === $status) {
-            throw new \Docker\Api\Exception\ImageDeleteNotFoundException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ImageDeleteNotFoundException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Docker\Api\Exception\ImageDeleteConflictException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ImageDeleteConflictException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\ImageDeleteInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ImageDeleteInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

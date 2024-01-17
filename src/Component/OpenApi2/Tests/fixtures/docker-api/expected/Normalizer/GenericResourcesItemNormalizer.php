@@ -18,18 +18,18 @@ class GenericResourcesItemNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\GenericResourcesItem';
+        return $type === 'Docker\Api\Model\GenericResourcesItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\GenericResourcesItem';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\GenericResourcesItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,32 +45,32 @@ class GenericResourcesItemNormalizer implements DenormalizerInterface, Normalize
             return $object;
         }
         if (\array_key_exists('NamedResourceSpec', $data)) {
-            $object->setNamedResourceSpec($this->denormalizer->denormalize($data['NamedResourceSpec'], 'Docker\\Api\\Model\\GenericResourcesItemNamedResourceSpec', 'json', $context));
+            $object->setNamedResourceSpec($this->denormalizer->denormalize($data['NamedResourceSpec'], 'Docker\Api\Model\GenericResourcesItemNamedResourceSpec', 'json', $context));
         }
         if (\array_key_exists('DiscreteResourceSpec', $data)) {
-            $object->setDiscreteResourceSpec($this->denormalizer->denormalize($data['DiscreteResourceSpec'], 'Docker\\Api\\Model\\GenericResourcesItemDiscreteResourceSpec', 'json', $context));
+            $object->setDiscreteResourceSpec($this->denormalizer->denormalize($data['DiscreteResourceSpec'], 'Docker\Api\Model\GenericResourcesItemDiscreteResourceSpec', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('namedResourceSpec') && null !== $object->getNamedResourceSpec()) {
-            $data['NamedResourceSpec'] = $this->normalizer->normalize($object->getNamedResourceSpec(), 'json', $context);
+            $data['NamedResourceSpec'] = ($object->getNamedResourceSpec() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getNamedResourceSpec(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('discreteResourceSpec') && null !== $object->getDiscreteResourceSpec()) {
-            $data['DiscreteResourceSpec'] = $this->normalizer->normalize($object->getDiscreteResourceSpec(), 'json', $context);
+            $data['DiscreteResourceSpec'] = ($object->getDiscreteResourceSpec() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getDiscreteResourceSpec(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Docker\Api\Validator\GenericResourcesItemConstraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\GenericResourcesItem' => false);
+        return ['Docker\Api\Model\GenericResourcesItem' => false];
     }
 }

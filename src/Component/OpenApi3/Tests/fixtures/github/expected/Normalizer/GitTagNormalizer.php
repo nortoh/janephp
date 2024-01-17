@@ -18,18 +18,18 @@ class GitTagNormalizer implements DenormalizerInterface, NormalizerInterface, De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GitTag';
+        return $type === 'Github\Model\GitTag';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GitTag';
+        return is_object($data) && get_class($data) === 'Github\Model\GitTag';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -65,15 +65,15 @@ class GitTagNormalizer implements DenormalizerInterface, NormalizerInterface, De
             unset($data['message']);
         }
         if (\array_key_exists('tagger', $data)) {
-            $object->setTagger($this->denormalizer->denormalize($data['tagger'], 'Github\\Model\\GitTagTagger', 'json', $context));
+            $object->setTagger($this->denormalizer->denormalize($data['tagger'], 'Github\Model\GitTagTagger', 'json', $context));
             unset($data['tagger']);
         }
         if (\array_key_exists('object', $data)) {
-            $object->setObject($this->denormalizer->denormalize($data['object'], 'Github\\Model\\GitTagObject', 'json', $context));
+            $object->setObject($this->denormalizer->denormalize($data['object'], 'Github\Model\GitTagObject', 'json', $context));
             unset($data['object']);
         }
         if (\array_key_exists('verification', $data)) {
-            $object->setVerification($this->denormalizer->denormalize($data['verification'], 'Github\\Model\\Verification', 'json', $context));
+            $object->setVerification($this->denormalizer->denormalize($data['verification'], 'Github\Model\Verification', 'json', $context));
             unset($data['verification']);
         }
         foreach ($data as $key => $value) {
@@ -86,18 +86,18 @@ class GitTagNormalizer implements DenormalizerInterface, NormalizerInterface, De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['node_id'] = $object->getNodeId();
         $data['tag'] = $object->getTag();
         $data['sha'] = $object->getSha();
         $data['url'] = $object->getUrl();
         $data['message'] = $object->getMessage();
-        $data['tagger'] = $this->normalizer->normalize($object->getTagger(), 'json', $context);
-        $data['object'] = $this->normalizer->normalize($object->getObject(), 'json', $context);
+        $data['tagger'] = ($object->getTagger() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getTagger(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['object'] = ($object->getObject() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getObject(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('verification') && null !== $object->getVerification()) {
-            $data['verification'] = $this->normalizer->normalize($object->getVerification(), 'json', $context);
+            $data['verification'] = ($object->getVerification() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getVerification(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -109,8 +109,8 @@ class GitTagNormalizer implements DenormalizerInterface, NormalizerInterface, De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GitTag' => false);
+        return ['Github\Model\GitTag' => false];
     }
 }

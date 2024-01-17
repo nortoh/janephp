@@ -18,18 +18,18 @@ class ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBodyN
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBody';
+        return $type === 'Github\Model\ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBodyN
             return $object;
         }
         if (\array_key_exists('dismissal_restrictions', $data)) {
-            $object->setDismissalRestrictions($this->denormalizer->denormalize($data['dismissal_restrictions'], 'Github\\Model\\ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBodyDismissalRestrictions', 'json', $context));
+            $object->setDismissalRestrictions($this->denormalizer->denormalize($data['dismissal_restrictions'], 'Github\Model\ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBodyDismissalRestrictions', 'json', $context));
             unset($data['dismissal_restrictions']);
         }
         if (\array_key_exists('dismiss_stale_reviews', $data)) {
@@ -70,11 +70,11 @@ class ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBodyN
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('dismissalRestrictions') && null !== $object->getDismissalRestrictions()) {
-            $data['dismissal_restrictions'] = $this->normalizer->normalize($object->getDismissalRestrictions(), 'json', $context);
+            $data['dismissal_restrictions'] = ($object->getDismissalRestrictions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getDismissalRestrictions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('dismissStaleReviews') && null !== $object->getDismissStaleReviews()) {
             $data['dismiss_stale_reviews'] = $object->getDismissStaleReviews();
@@ -95,8 +95,8 @@ class ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBodyN
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBody' => false);
+        return ['Github\Model\ReposOwnerRepoBranchesBranchProtectionRequiredPullRequestReviewsPatchBody' => false];
     }
 }

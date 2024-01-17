@@ -18,18 +18,18 @@ class VolumesGetResponse200Normalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\VolumesGetResponse200';
+        return $type === 'Docker\Api\Model\VolumesGetResponse200';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\VolumesGetResponse200';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\VolumesGetResponse200';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,14 +45,14 @@ class VolumesGetResponse200Normalizer implements DenormalizerInterface, Normaliz
             return $object;
         }
         if (\array_key_exists('Volumes', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['Volumes'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Docker\\Api\\Model\\Volume', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Docker\Api\Model\Volume', 'json', $context);
             }
             $object->setVolumes($values);
         }
         if (\array_key_exists('Warnings', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['Warnings'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -63,15 +63,15 @@ class VolumesGetResponse200Normalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $values = array();
+        $data = [];
+        $values = [];
         foreach ($object->getVolumes() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['Volumes'] = $values;
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getWarnings() as $value_1) {
             $values_1[] = $value_1;
         }
@@ -81,8 +81,8 @@ class VolumesGetResponse200Normalizer implements DenormalizerInterface, Normaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\VolumesGetResponse200' => false);
+        return ['Docker\Api\Model\VolumesGetResponse200' => false];
     }
 }

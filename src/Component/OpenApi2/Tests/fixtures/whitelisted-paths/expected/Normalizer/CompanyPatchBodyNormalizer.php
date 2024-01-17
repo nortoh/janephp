@@ -18,18 +18,18 @@ class CompanyPatchBodyNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\OpenApi2\\Tests\\Expected\\Model\\CompanyPatchBody';
+        return $type === 'Jane\OpenApi2\Tests\Expected\Model\CompanyPatchBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\OpenApi2\\Tests\\Expected\\Model\\CompanyPatchBody';
+        return is_object($data) && get_class($data) === 'Jane\OpenApi2\Tests\Expected\Model\CompanyPatchBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -52,9 +52,9 @@ class CompanyPatchBodyNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('wantsTimestampTimers') && null !== $object->getWantsTimestampTimers()) {
             $data['wants_timestamp_timers'] = $object->getWantsTimestampTimers();
         }
@@ -63,8 +63,8 @@ class CompanyPatchBodyNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\OpenApi2\\Tests\\Expected\\Model\\CompanyPatchBody' => false);
+        return ['Jane\OpenApi2\Tests\Expected\Model\CompanyPatchBody' => false];
     }
 }

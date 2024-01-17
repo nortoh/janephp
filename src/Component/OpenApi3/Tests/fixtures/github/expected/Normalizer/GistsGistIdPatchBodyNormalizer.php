@@ -18,18 +18,18 @@ class GistsGistIdPatchBodyNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GistsGistIdPatchBody';
+        return $type === 'Github\Model\GistsGistIdPatchBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GistsGistIdPatchBody';
+        return is_object($data) && get_class($data) === 'Github\Model\GistsGistIdPatchBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,9 +49,9 @@ class GistsGistIdPatchBodyNormalizer implements DenormalizerInterface, Normalize
             unset($data['description']);
         }
         if (\array_key_exists('files', $data)) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['files'] as $key => $value) {
-                $values[$key] = $this->denormalizer->denormalize($value, 'Github\\Model\\GistsGistIdPatchBodyFilesItem', 'json', $context);
+                $values[$key] = $this->denormalizer->denormalize($value, 'Github\Model\GistsGistIdPatchBodyFilesItem', 'json', $context);
             }
             $object->setFiles($values);
             unset($data['files']);
@@ -66,16 +66,16 @@ class GistsGistIdPatchBodyNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('description') && null !== $object->getDescription()) {
             $data['description'] = $object->getDescription();
         }
         if ($object->isInitialized('files') && null !== $object->getFiles()) {
-            $values = array();
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getFiles() as $key => $value) {
-                $values[$key] = $this->normalizer->normalize($value, 'json', $context);
+                $values[$key] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['files'] = $values;
         }
@@ -89,8 +89,8 @@ class GistsGistIdPatchBodyNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GistsGistIdPatchBody' => false);
+        return ['Github\Model\GistsGistIdPatchBody' => false];
     }
 }

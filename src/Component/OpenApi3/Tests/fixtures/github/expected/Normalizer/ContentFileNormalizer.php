@@ -18,18 +18,18 @@ class ContentFileNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ContentFile';
+        return $type === 'Github\Model\ContentFile';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ContentFile';
+        return is_object($data) && get_class($data) === 'Github\Model\ContentFile';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -98,7 +98,7 @@ class ContentFileNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setDownloadUrl(null);
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\\Model\\ContentFileLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\Model\ContentFileLinks', 'json', $context));
             unset($data['_links']);
         }
         if (\array_key_exists('target', $data)) {
@@ -119,9 +119,9 @@ class ContentFileNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['type'] = $object->getType();
         $data['encoding'] = $object->getEncoding();
         $data['size'] = $object->getSize();
@@ -133,7 +133,7 @@ class ContentFileNormalizer implements DenormalizerInterface, NormalizerInterfac
         $data['git_url'] = $object->getGitUrl();
         $data['html_url'] = $object->getHtmlUrl();
         $data['download_url'] = $object->getDownloadUrl();
-        $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+        $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('target') && null !== $object->getTarget()) {
             $data['target'] = $object->getTarget();
         }
@@ -150,8 +150,8 @@ class ContentFileNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ContentFile' => false);
+        return ['Github\Model\ContentFile' => false];
     }
 }

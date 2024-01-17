@@ -7,8 +7,8 @@ class Document
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class Document
      *
      * @return Attributes[]|null
      */
-    public function getAttributes() : ?array
+    public function getAttributes(): ?array
     {
         return $this->attributes;
     }
@@ -34,7 +34,7 @@ class Document
      *
      * @return self
      */
-    public function setAttributes(?array $attributes) : self
+    public function setAttributes(?array $attributes): self
     {
         $this->initialized['attributes'] = true;
         $this->attributes = $attributes;

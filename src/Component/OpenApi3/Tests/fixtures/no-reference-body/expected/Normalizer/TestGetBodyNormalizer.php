@@ -18,18 +18,18 @@ class TestGetBodyNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TestGetBody';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\TestGetBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TestGetBody';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\TestGetBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,11 +46,11 @@ class TestGetBodyNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['foo']);
         }
         if (\array_key_exists('Bar', $data)) {
-            $object->setBar($this->denormalizer->denormalize($data['Bar'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Bar', 'json', $context));
+            $object->setBar($this->denormalizer->denormalize($data['Bar'], 'Jane\Component\OpenApi3\Tests\Expected\Model\Bar', 'json', $context));
             unset($data['Bar']);
         }
         if (\array_key_exists('Baz', $data)) {
-            $object->setBaz($this->denormalizer->denormalize($data['Baz'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TestGetBodyBaz', 'json', $context));
+            $object->setBaz($this->denormalizer->denormalize($data['Baz'], 'Jane\Component\OpenApi3\Tests\Expected\Model\TestGetBodyBaz', 'json', $context));
             unset($data['Baz']);
         }
         foreach ($data as $key => $value) {
@@ -63,17 +63,17 @@ class TestGetBodyNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('foo') && null !== $object->getFoo()) {
             $data['foo'] = $object->getFoo();
         }
         if ($object->isInitialized('bar') && null !== $object->getBar()) {
-            $data['Bar'] = $this->normalizer->normalize($object->getBar(), 'json', $context);
+            $data['Bar'] = ($object->getBar() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getBar(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('baz') && null !== $object->getBaz()) {
-            $data['Baz'] = $this->normalizer->normalize($object->getBaz(), 'json', $context);
+            $data['Baz'] = ($object->getBaz() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getBaz(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -82,8 +82,8 @@ class TestGetBodyNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TestGetBody' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\TestGetBody' => false];
     }
 }

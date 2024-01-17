@@ -17,39 +17,39 @@ class ReposListForUser extends \Github\Runtime\Client\BaseEndpoint implements \G
      *     @var int $page Page number of the results to fetch.
      * }
      */
-    public function __construct(string $username, array $queryParameters = array())
+    public function __construct(string $username, array $queryParameters = [])
     {
         $this->username = $username;
         $this->queryParameters = $queryParameters;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{username}'), array($this->username), '/users/{username}/repos');
+        return str_replace(['{username}'], [$this->username], '/users/{username}/repos');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('type', 'sort', 'direction', 'per_page', 'page'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('type' => 'owner', 'sort' => 'full_name', 'per_page' => 30, 'page' => 1));
-        $optionsResolver->addAllowedTypes('type', array('string'));
-        $optionsResolver->addAllowedTypes('sort', array('string'));
-        $optionsResolver->addAllowedTypes('direction', array('string'));
-        $optionsResolver->addAllowedTypes('per_page', array('int'));
-        $optionsResolver->addAllowedTypes('page', array('int'));
+        $optionsResolver->setDefined(['type', 'sort', 'direction', 'per_page', 'page']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['type' => 'owner', 'sort' => 'full_name', 'per_page' => 30, 'page' => 1]);
+        $optionsResolver->addAllowedTypes('type', ['string']);
+        $optionsResolver->addAllowedTypes('sort', ['string']);
+        $optionsResolver->addAllowedTypes('direction', ['string']);
+        $optionsResolver->addAllowedTypes('per_page', ['int']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
         return $optionsResolver;
     }
     /**
@@ -63,11 +63,11 @@ class ReposListForUser extends \Github\Runtime\Client\BaseEndpoint implements \G
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\MinimalRepository[]', 'json');
+            return $serializer->deserialize($body, 'Github\Model\MinimalRepository[]', 'json');
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

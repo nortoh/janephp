@@ -18,18 +18,18 @@ class ReposOwnerRepoPagesPostBodyNormalizer implements DenormalizerInterface, No
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoPagesPostBody';
+        return $type === 'Github\Model\ReposOwnerRepoPagesPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoPagesPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoPagesPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ReposOwnerRepoPagesPostBodyNormalizer implements DenormalizerInterface, No
             return $object;
         }
         if (\array_key_exists('source', $data)) {
-            $object->setSource($this->denormalizer->denormalize($data['source'], 'Github\\Model\\ReposOwnerRepoPagesPostBodySource', 'json', $context));
+            $object->setSource($this->denormalizer->denormalize($data['source'], 'Github\Model\ReposOwnerRepoPagesPostBodySource', 'json', $context));
             unset($data['source']);
         }
         foreach ($data as $key => $value) {
@@ -58,11 +58,11 @@ class ReposOwnerRepoPagesPostBodyNormalizer implements DenormalizerInterface, No
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('source') && null !== $object->getSource()) {
-            $data['source'] = $this->normalizer->normalize($object->getSource(), 'json', $context);
+            $data['source'] = ($object->getSource() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSource(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -74,8 +74,8 @@ class ReposOwnerRepoPagesPostBodyNormalizer implements DenormalizerInterface, No
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoPagesPostBody' => false);
+        return ['Github\Model\ReposOwnerRepoPagesPostBody' => false];
     }
 }

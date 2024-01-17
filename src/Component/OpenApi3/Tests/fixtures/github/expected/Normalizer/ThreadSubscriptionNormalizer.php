@@ -18,18 +18,18 @@ class ThreadSubscriptionNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ThreadSubscription';
+        return $type === 'Github\Model\ThreadSubscription';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ThreadSubscription';
+        return is_object($data) && get_class($data) === 'Github\Model\ThreadSubscription';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -60,7 +60,7 @@ class ThreadSubscriptionNormalizer implements DenormalizerInterface, NormalizerI
             $object->setReason(null);
         }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         elseif (\array_key_exists('created_at', $data) && $data['created_at'] === null) {
@@ -88,13 +88,13 @@ class ThreadSubscriptionNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['subscribed'] = $object->getSubscribed();
         $data['ignored'] = $object->getIgnored();
         $data['reason'] = $object->getReason();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         $data['url'] = $object->getUrl();
         if ($object->isInitialized('threadUrl') && null !== $object->getThreadUrl()) {
             $data['thread_url'] = $object->getThreadUrl();
@@ -112,8 +112,8 @@ class ThreadSubscriptionNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ThreadSubscription' => false);
+        return ['Github\Model\ThreadSubscription' => false];
     }
 }

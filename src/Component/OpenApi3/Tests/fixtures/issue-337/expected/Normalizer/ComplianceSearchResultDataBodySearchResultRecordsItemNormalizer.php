@@ -18,18 +18,18 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemNormalizer implements
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItem';
+        return $type === 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItem';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,7 +46,7 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemNormalizer implements
             unset($data['record']);
         }
         if (\array_key_exists('recordDetails', $data)) {
-            $object->setRecordDetails($this->denormalizer->denormalize($data['recordDetails'], 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetails', 'json', $context));
+            $object->setRecordDetails($this->denormalizer->denormalize($data['recordDetails'], 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemRecordDetails', 'json', $context));
             unset($data['recordDetails']);
         }
         if (\array_key_exists('resultID', $data)) {
@@ -58,7 +58,7 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemNormalizer implements
             unset($data['runID']);
         }
         if (\array_key_exists('watchlist', $data)) {
-            $object->setWatchlist($this->denormalizer->denormalize($data['watchlist'], 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlist', 'json', $context));
+            $object->setWatchlist($this->denormalizer->denormalize($data['watchlist'], 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlist', 'json', $context));
             unset($data['watchlist']);
         }
         foreach ($data as $key => $value) {
@@ -71,14 +71,14 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemNormalizer implements
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('record') && null !== $object->getRecord()) {
             $data['record'] = $object->getRecord();
         }
         if ($object->isInitialized('recordDetails') && null !== $object->getRecordDetails()) {
-            $data['recordDetails'] = $this->normalizer->normalize($object->getRecordDetails(), 'json', $context);
+            $data['recordDetails'] = ($object->getRecordDetails() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRecordDetails(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('resultID') && null !== $object->getResultID()) {
             $data['resultID'] = $object->getResultID();
@@ -87,7 +87,7 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemNormalizer implements
             $data['runID'] = $object->getRunID();
         }
         if ($object->isInitialized('watchlist') && null !== $object->getWatchlist()) {
-            $data['watchlist'] = $this->normalizer->normalize($object->getWatchlist(), 'json', $context);
+            $data['watchlist'] = ($object->getWatchlist() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getWatchlist(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -96,8 +96,8 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemNormalizer implements
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItem' => false);
+        return ['CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItem' => false];
     }
 }

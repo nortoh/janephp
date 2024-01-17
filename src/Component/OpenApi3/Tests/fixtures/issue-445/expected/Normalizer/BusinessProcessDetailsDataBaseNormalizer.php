@@ -18,30 +18,30 @@ class BusinessProcessDetailsDataBaseNormalizer implements DenormalizerInterface,
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessProcessDetailsDataBase';
+        return $type === 'PicturePark\API\Model\BusinessProcessDetailsDataBase';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessProcessDetailsDataBase';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessProcessDetailsDataBase';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'BusinessProcessDetailsDataBatchResponse' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\BusinessProcessDetailsDataBatchResponse', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\BusinessProcessDetailsDataBatchResponse', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'BusinessProcessDetailsDataSchemaImport' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\BusinessProcessDetailsDataSchemaImport', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\BusinessProcessDetailsDataSchemaImport', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'BusinessProcessDetailsDataCdnPurge' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\BusinessProcessDetailsDataCdnPurge', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\BusinessProcessDetailsDataCdnPurge', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'BusinessProcessDetailsDataContentImport' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\BusinessProcessDetailsDataContentImport', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\BusinessProcessDetailsDataContentImport', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,9 +61,9 @@ class BusinessProcessDetailsDataBaseNormalizer implements DenormalizerInterface,
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'BusinessProcessDetailsDataBatchResponse' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -79,8 +79,8 @@ class BusinessProcessDetailsDataBaseNormalizer implements DenormalizerInterface,
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessProcessDetailsDataBase' => false);
+        return ['PicturePark\API\Model\BusinessProcessDetailsDataBase' => false];
     }
 }

@@ -18,18 +18,18 @@ class HealthcheckResultNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\HealthcheckResult';
+        return $type === 'Docker\Api\Model\HealthcheckResult';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\HealthcheckResult';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\HealthcheckResult';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class HealthcheckResultNormalizer implements DenormalizerInterface, NormalizerIn
             return $object;
         }
         if (\array_key_exists('Start', $data)) {
-            $object->setStart(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['Start']));
+            $object->setStart(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['Start']));
         }
         if (\array_key_exists('End', $data)) {
             $object->setEnd($data['End']);
@@ -61,11 +61,11 @@ class HealthcheckResultNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('start') && null !== $object->getStart()) {
-            $data['Start'] = $object->getStart()->format('Y-m-d\\TH:i:sP');
+            $data['Start'] = $object->getStart()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('end') && null !== $object->getEnd()) {
             $data['End'] = $object->getEnd();
@@ -81,8 +81,8 @@ class HealthcheckResultNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\HealthcheckResult' => false);
+        return ['Docker\Api\Model\HealthcheckResult' => false];
     }
 }

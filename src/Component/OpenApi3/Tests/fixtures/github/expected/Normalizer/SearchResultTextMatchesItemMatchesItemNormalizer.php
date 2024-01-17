@@ -18,18 +18,18 @@ class SearchResultTextMatchesItemMatchesItemNormalizer implements DenormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\SearchResultTextMatchesItemMatchesItem';
+        return $type === 'Github\Model\SearchResultTextMatchesItemMatchesItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\SearchResultTextMatchesItemMatchesItem';
+        return is_object($data) && get_class($data) === 'Github\Model\SearchResultTextMatchesItemMatchesItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,7 +49,7 @@ class SearchResultTextMatchesItemMatchesItemNormalizer implements DenormalizerIn
             unset($data['text']);
         }
         if (\array_key_exists('indices', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['indices'] as $value) {
                 $values[] = $value;
             }
@@ -66,14 +66,14 @@ class SearchResultTextMatchesItemMatchesItemNormalizer implements DenormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('text') && null !== $object->getText()) {
             $data['text'] = $object->getText();
         }
         if ($object->isInitialized('indices') && null !== $object->getIndices()) {
-            $values = array();
+            $values = [];
             foreach ($object->getIndices() as $value) {
                 $values[] = $value;
             }
@@ -89,8 +89,8 @@ class SearchResultTextMatchesItemMatchesItemNormalizer implements DenormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\SearchResultTextMatchesItemMatchesItem' => false);
+        return ['Github\Model\SearchResultTextMatchesItemMatchesItem' => false];
     }
 }

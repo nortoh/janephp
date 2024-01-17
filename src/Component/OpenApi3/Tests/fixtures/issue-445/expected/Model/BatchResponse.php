@@ -7,8 +7,8 @@ class BatchResponse
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class BatchResponse
      *
      * @return BatchResponseRow[]
      */
-    public function getRows() : array
+    public function getRows(): array
     {
         return $this->rows;
     }
@@ -34,7 +34,7 @@ class BatchResponse
      *
      * @return self
      */
-    public function setRows(array $rows) : self
+    public function setRows(array $rows): self
     {
         $this->initialized['rows'] = true;
         $this->rows = $rows;

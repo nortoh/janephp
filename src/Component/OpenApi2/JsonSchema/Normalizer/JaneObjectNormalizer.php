@@ -26,17 +26,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     protected $normalizers = ['Jane\\Component\\OpenApi2\\JsonSchema\\Model\\OpenApi' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\OpenApiNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Info' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\InfoNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Contact' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\ContactNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\License' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\LicenseNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\ExternalDocs' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\ExternalDocsNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Operation' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\OperationNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\PathItem' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\PathItemNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Response' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\ResponseNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Header' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\HeaderNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\BodyParameter' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\BodyParameterNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Schema' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\SchemaNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\JsonReference' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\JsonReferenceNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\HeaderParameterSubSchema' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\HeaderParameterSubSchemaNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\FormDataParameterSubSchema' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\FormDataParameterSubSchemaNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\QueryParameterSubSchema' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\QueryParameterSubSchemaNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\PathParameterSubSchema' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\PathParameterSubSchemaNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\FileSchema' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\FileSchemaNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\PrimitivesItems' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\PrimitivesItemsNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Xml' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\XmlNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Tag' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\TagNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\BasicAuthenticationSecurity' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\BasicAuthenticationSecurityNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\ApiKeySecurity' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\ApiKeySecurityNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Oauth2ImplicitSecurity' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\Oauth2ImplicitSecurityNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Oauth2PasswordSecurity' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\Oauth2PasswordSecurityNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Oauth2ApplicationSecurity' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\Oauth2ApplicationSecurityNormalizer', 'Jane\\Component\\OpenApi2\\JsonSchema\\Model\\Oauth2AccessCodeSecurity' => 'Jane\\Component\\OpenApi2\\JsonSchema\\Normalizer\\Oauth2AccessCodeSecurityNormalizer', '\\Jane\\Component\\JsonSchemaRuntime\\Reference' => '\\Jane\\Component\\JsonSchemaRuntime\\Normalizer\\ReferenceNormalizer'];
     protected $normalizersCache = [];
 
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {
         return array_key_exists($type, $this->normalizers);
     }
 
-    public function supportsNormalization($data, $format = null, $context = []) : bool
+    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {
         return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
     }
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $normalizerClass = $this->normalizers[get_class($object)];
         $normalizer = $this->getNormalizer($normalizerClass);
@@ -44,7 +44,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         return $normalizer->normalize($object, $format, $context);
     }
 
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         $denormalizerClass = $this->normalizers[$class];
         $denormalizer = $this->getNormalizer($denormalizerClass);
@@ -65,5 +65,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         $this->normalizersCache[$normalizerClass] = $normalizer;
 
         return $normalizer;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return ['*' => false];
     }
 }

@@ -15,10 +15,13 @@ use Jane\Component\OpenApi2\JsonSchema\Model\PathParameterSubSchema;
 use Jane\Component\OpenApi2\JsonSchema\Model\QueryParameterSubSchema;
 use Jane\Component\OpenApiCommon\Guesser\Guess\OperationGuess;
 use PhpParser\Comment\Doc;
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Name;
+use PhpParser\Node\PropertyItem;
 use PhpParser\Node\Stmt;
+use PhpParser\Node\VarLikeIdentifier;
 
 trait GetConstructorTrait
 {
@@ -46,8 +49,8 @@ trait GetConstructorTrait
                 $pathParams[] = $nonBodyParameterGenerator->generateMethodParameter($parameter, $context, $operation->getReference() . '/parameters/' . $key);
                 $pathParamsDoc[] = $nonBodyParameterGenerator->generateMethodDocParameter($parameter, $context, $operation->getReference() . '/parameters/' . $key);
                 $methodStatements[] = new Node\Stmt\Expression(new Expr\Assign(new Expr\PropertyFetch(new Expr\Variable('this'), $parameter->getName()), new Expr\Variable($this->getInflector()->camelize($parameter->getName()))));
-                $pathProperties[] = new Stmt\Property(Stmt\Class_::MODIFIER_PROTECTED, [
-                    new Stmt\PropertyProperty(new Name($parameter->getName())),
+                $pathProperties[] = new Stmt\Property(Modifiers::PROTECTED, [
+                    new PropertyItem(new VarLikeIdentifier($parameter->getName())),
                 ]);
             }
 

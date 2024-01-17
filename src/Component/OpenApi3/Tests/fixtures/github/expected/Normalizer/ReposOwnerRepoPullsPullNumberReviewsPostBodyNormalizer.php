@@ -18,18 +18,18 @@ class ReposOwnerRepoPullsPullNumberReviewsPostBodyNormalizer implements Denormal
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoPullsPullNumberReviewsPostBody';
+        return $type === 'Github\Model\ReposOwnerRepoPullsPullNumberReviewsPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoPullsPullNumberReviewsPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoPullsPullNumberReviewsPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,9 +57,9 @@ class ReposOwnerRepoPullsPullNumberReviewsPostBodyNormalizer implements Denormal
             unset($data['event']);
         }
         if (\array_key_exists('comments', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['comments'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\ReposOwnerRepoPullsPullNumberReviewsPostBodyCommentsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\ReposOwnerRepoPullsPullNumberReviewsPostBodyCommentsItem', 'json', $context);
             }
             $object->setComments($values);
             unset($data['comments']);
@@ -74,9 +74,9 @@ class ReposOwnerRepoPullsPullNumberReviewsPostBodyNormalizer implements Denormal
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('commitId') && null !== $object->getCommitId()) {
             $data['commit_id'] = $object->getCommitId();
         }
@@ -87,9 +87,9 @@ class ReposOwnerRepoPullsPullNumberReviewsPostBodyNormalizer implements Denormal
             $data['event'] = $object->getEvent();
         }
         if ($object->isInitialized('comments') && null !== $object->getComments()) {
-            $values = array();
+            $values = [];
             foreach ($object->getComments() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['comments'] = $values;
         }
@@ -103,8 +103,8 @@ class ReposOwnerRepoPullsPullNumberReviewsPostBodyNormalizer implements Denormal
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoPullsPullNumberReviewsPostBody' => false);
+        return ['Github\Model\ReposOwnerRepoPullsPullNumberReviewsPostBody' => false];
     }
 }

@@ -45,7 +45,7 @@ class Info extends \ArrayObject
      *
      * @return string|null
      */
-    public function getTitle() : ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -56,7 +56,7 @@ class Info extends \ArrayObject
      *
      * @return self
      */
-    public function setTitle(?string $title) : self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
         return $this;
@@ -66,7 +66,7 @@ class Info extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -77,7 +77,7 @@ class Info extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -87,7 +87,7 @@ class Info extends \ArrayObject
      *
      * @return string|null
      */
-    public function getTermsOfService() : ?string
+    public function getTermsOfService(): ?string
     {
         return $this->termsOfService;
     }
@@ -98,7 +98,7 @@ class Info extends \ArrayObject
      *
      * @return self
      */
-    public function setTermsOfService(?string $termsOfService) : self
+    public function setTermsOfService(?string $termsOfService): self
     {
         $this->termsOfService = $termsOfService;
         return $this;
@@ -119,7 +119,7 @@ class Info extends \ArrayObject
      *
      * @return self
      */
-    public function setContact(?Contact $contact) : self
+    public function setContact(?Contact $contact): self
     {
         $this->contact = $contact;
         return $this;
@@ -140,7 +140,7 @@ class Info extends \ArrayObject
      *
      * @return self
      */
-    public function setLicense(?License $license) : self
+    public function setLicense(?License $license): self
     {
         $this->license = $license;
         return $this;
@@ -150,7 +150,7 @@ class Info extends \ArrayObject
      *
      * @return string|null
      */
-    public function getVersion() : ?string
+    public function getVersion(): ?string
     {
         return $this->version;
     }
@@ -161,7 +161,7 @@ class Info extends \ArrayObject
      *
      * @return self
      */
-    public function setVersion(?string $version) : self
+    public function setVersion(?string $version): self
     {
         $this->version = $version;
         return $this;

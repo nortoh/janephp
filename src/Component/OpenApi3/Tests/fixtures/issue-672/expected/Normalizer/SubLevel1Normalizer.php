@@ -18,18 +18,18 @@ class SubLevel1Normalizer implements DenormalizerInterface, NormalizerInterface,
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SubLevel1';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\SubLevel1';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SubLevel1';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\SubLevel1';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class SubLevel1Normalizer implements DenormalizerInterface, NormalizerInterface,
             return $object;
         }
         if (\array_key_exists('subLevel-2', $data)) {
-            $object->setSubLevel2($this->denormalizer->denormalize($data['subLevel-2'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SubLevel2', 'json', $context));
+            $object->setSubLevel2($this->denormalizer->denormalize($data['subLevel-2'], 'Jane\Component\OpenApi3\Tests\Expected\Model\SubLevel2', 'json', $context));
             unset($data['subLevel-2']);
         }
         foreach ($data as $key => $value) {
@@ -55,11 +55,11 @@ class SubLevel1Normalizer implements DenormalizerInterface, NormalizerInterface,
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('subLevel2') && null !== $object->getSubLevel2()) {
-            $data['subLevel-2'] = $this->normalizer->normalize($object->getSubLevel2(), 'json', $context);
+            $data['subLevel-2'] = ($object->getSubLevel2() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSubLevel2(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -68,8 +68,8 @@ class SubLevel1Normalizer implements DenormalizerInterface, NormalizerInterface,
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SubLevel1' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\SubLevel1' => false];
     }
 }

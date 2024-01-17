@@ -18,18 +18,18 @@ class GeoNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Geo';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\Geo';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Geo';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\Geo';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,7 +46,7 @@ class GeoNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
             unset($data['type']);
         }
         if (\array_key_exists('bbox', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['bbox'] as $value) {
                 $values[] = $value;
             }
@@ -54,11 +54,11 @@ class GeoNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
             unset($data['bbox']);
         }
         if (\array_key_exists('geometry', $data)) {
-            $object->setGeometry($this->denormalizer->denormalize($data['geometry'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Point', 'json', $context));
+            $object->setGeometry($this->denormalizer->denormalize($data['geometry'], 'Jane\Component\OpenApi3\Tests\Expected\Model\Point', 'json', $context));
             unset($data['geometry']);
         }
         if (\array_key_exists('properties', $data)) {
-            $values_1 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['properties'] as $key => $value_1) {
                 $values_1[$key] = $value_1;
             }
@@ -75,19 +75,19 @@ class GeoNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['type'] = $object->getType();
-        $values = array();
+        $values = [];
         foreach ($object->getBbox() as $value) {
             $values[] = $value;
         }
         $data['bbox'] = $values;
         if ($object->isInitialized('geometry') && null !== $object->getGeometry()) {
-            $data['geometry'] = $this->normalizer->normalize($object->getGeometry(), 'json', $context);
+            $data['geometry'] = ($object->getGeometry() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getGeometry(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
-        $values_1 = array();
+        $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object->getProperties() as $key => $value_1) {
             $values_1[$key] = $value_1;
         }
@@ -99,8 +99,8 @@ class GeoNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Geo' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\Geo' => false];
     }
 }

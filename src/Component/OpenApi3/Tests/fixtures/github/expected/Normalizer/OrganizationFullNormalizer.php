@@ -18,18 +18,18 @@ class OrganizationFullNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\OrganizationFull';
+        return $type === 'Github\Model\OrganizationFull';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\OrganizationFull';
+        return is_object($data) && get_class($data) === 'Github\Model\OrganizationFull';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -155,7 +155,7 @@ class OrganizationFullNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['html_url']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('type', $data)) {
@@ -199,7 +199,7 @@ class OrganizationFullNormalizer implements DenormalizerInterface, NormalizerInt
             $object->setBillingEmail(null);
         }
         if (\array_key_exists('plan', $data)) {
-            $object->setPlan($this->denormalizer->denormalize($data['plan'], 'Github\\Model\\OrganizationFullPlan', 'json', $context));
+            $object->setPlan($this->denormalizer->denormalize($data['plan'], 'Github\Model\OrganizationFullPlan', 'json', $context));
             unset($data['plan']);
         }
         if (\array_key_exists('default_repository_permission', $data) && $data['default_repository_permission'] !== null) {
@@ -240,7 +240,7 @@ class OrganizationFullNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['members_can_create_internal_repositories']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         foreach ($data as $key => $value) {
@@ -253,9 +253,9 @@ class OrganizationFullNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['login'] = $object->getLogin();
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
@@ -296,7 +296,7 @@ class OrganizationFullNormalizer implements DenormalizerInterface, NormalizerInt
         $data['followers'] = $object->getFollowers();
         $data['following'] = $object->getFollowing();
         $data['html_url'] = $object->getHtmlUrl();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         $data['type'] = $object->getType();
         if ($object->isInitialized('totalPrivateRepos') && null !== $object->getTotalPrivateRepos()) {
             $data['total_private_repos'] = $object->getTotalPrivateRepos();
@@ -317,7 +317,7 @@ class OrganizationFullNormalizer implements DenormalizerInterface, NormalizerInt
             $data['billing_email'] = $object->getBillingEmail();
         }
         if ($object->isInitialized('plan') && null !== $object->getPlan()) {
-            $data['plan'] = $this->normalizer->normalize($object->getPlan(), 'json', $context);
+            $data['plan'] = ($object->getPlan() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPlan(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('defaultRepositoryPermission') && null !== $object->getDefaultRepositoryPermission()) {
             $data['default_repository_permission'] = $object->getDefaultRepositoryPermission();
@@ -340,7 +340,7 @@ class OrganizationFullNormalizer implements DenormalizerInterface, NormalizerInt
         if ($object->isInitialized('membersCanCreateInternalRepositories') && null !== $object->getMembersCanCreateInternalRepositories()) {
             $data['members_can_create_internal_repositories'] = $object->getMembersCanCreateInternalRepositories();
         }
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -351,8 +351,8 @@ class OrganizationFullNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\OrganizationFull' => false);
+        return ['Github\Model\OrganizationFull' => false];
     }
 }

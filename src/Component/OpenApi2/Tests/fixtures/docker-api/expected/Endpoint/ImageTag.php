@@ -14,36 +14,36 @@ class ImageTag extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Docke
      *     @var string $tag The name of the new tag.
      * }
      */
-    public function __construct(string $name, array $queryParameters = array())
+    public function __construct(string $name, array $queryParameters = [])
     {
         $this->name = $name;
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{name}'), array($this->name), '/images/{name}/tag');
+        return str_replace(['{name}'], [$this->name], '/images/{name}/tag');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('repo', 'tag'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('repo', array('string'));
-        $optionsResolver->addAllowedTypes('tag', array('string'));
+        $optionsResolver->setDefined(['repo', 'tag']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('repo', ['string']);
+        $optionsResolver->addAllowedTypes('tag', ['string']);
         return $optionsResolver;
     }
     /**
@@ -64,20 +64,20 @@ class ImageTag extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Docke
             return null;
         }
         if (400 === $status) {
-            throw new \Docker\Api\Exception\ImageTagBadRequestException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ImageTagBadRequestException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Docker\Api\Exception\ImageTagNotFoundException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ImageTagNotFoundException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Docker\Api\Exception\ImageTagConflictException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ImageTagConflictException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\ImageTagInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ImageTagInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

@@ -18,18 +18,18 @@ class BusinessRuleTracedRuleNormalizer implements DenormalizerInterface, Normali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessRuleTracedRule';
+        return $type === 'PicturePark\API\Model\BusinessRuleTracedRule';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessRuleTracedRule';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessRuleTracedRule';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,9 +48,9 @@ class BusinessRuleTracedRuleNormalizer implements DenormalizerInterface, Normali
             $object->setConfiguration(null);
         }
         if (\array_key_exists('evaluations', $data) && $data['evaluations'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['evaluations'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\BusinessRuleTracedEvaluation', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\BusinessRuleTracedEvaluation', 'json', $context);
             }
             $object->setEvaluations($values);
         }
@@ -62,23 +62,23 @@ class BusinessRuleTracedRuleNormalizer implements DenormalizerInterface, Normali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('configuration') && null !== $object->getConfiguration()) {
             $data['configuration'] = $object->getConfiguration();
         }
         if ($object->isInitialized('evaluations') && null !== $object->getEvaluations()) {
-            $values = array();
+            $values = [];
             foreach ($object->getEvaluations() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['evaluations'] = $values;
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessRuleTracedRule' => false);
+        return ['PicturePark\API\Model\BusinessRuleTracedRule' => false];
     }
 }

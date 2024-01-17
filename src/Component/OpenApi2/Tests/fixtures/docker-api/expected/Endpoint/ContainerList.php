@@ -45,37 +45,37 @@ class ContainerList extends \Docker\Api\Runtime\Client\BaseEndpoint implements \
     
     * }
     */
-    public function __construct(array $queryParameters = array())
+    public function __construct(array $queryParameters = [])
     {
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/containers/json';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('all', 'limit', 'size', 'filters'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('all' => false, 'size' => false));
-        $optionsResolver->addAllowedTypes('all', array('bool'));
-        $optionsResolver->addAllowedTypes('limit', array('int'));
-        $optionsResolver->addAllowedTypes('size', array('bool'));
-        $optionsResolver->addAllowedTypes('filters', array('string'));
+        $optionsResolver->setDefined(['all', 'limit', 'size', 'filters']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['all' => false, 'size' => false]);
+        $optionsResolver->addAllowedTypes('all', ['bool']);
+        $optionsResolver->addAllowedTypes('limit', ['int']);
+        $optionsResolver->addAllowedTypes('size', ['bool']);
+        $optionsResolver->addAllowedTypes('filters', ['string']);
         return $optionsResolver;
     }
     /**
@@ -91,17 +91,17 @@ class ContainerList extends \Docker\Api\Runtime\Client\BaseEndpoint implements \
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Docker\\Api\\Model\\ContainerSummary[]', 'json');
+            return $serializer->deserialize($body, 'Docker\Api\Model\ContainerSummary[]', 'json');
         }
         if (400 === $status) {
-            throw new \Docker\Api\Exception\ContainerListBadRequestException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ContainerListBadRequestException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\ContainerListInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ContainerListInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

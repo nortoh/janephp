@@ -18,18 +18,18 @@ class TeamFullNormalizer implements DenormalizerInterface, NormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\TeamFull';
+        return $type === 'Github\Model\TeamFull';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\TeamFull';
+        return is_object($data) && get_class($data) === 'Github\Model\TeamFull';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -92,7 +92,7 @@ class TeamFullNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['repositories_url']);
         }
         if (\array_key_exists('parent', $data) && $data['parent'] !== null) {
-            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Github\\Model\\TeamFullParent', 'json', $context));
+            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Github\Model\TeamFullParent', 'json', $context));
             unset($data['parent']);
         }
         elseif (\array_key_exists('parent', $data) && $data['parent'] === null) {
@@ -107,15 +107,15 @@ class TeamFullNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['repos_count']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('organization', $data)) {
-            $object->setOrganization($this->denormalizer->denormalize($data['organization'], 'Github\\Model\\Organization', 'json', $context));
+            $object->setOrganization($this->denormalizer->denormalize($data['organization'], 'Github\Model\Organization', 'json', $context));
             unset($data['organization']);
         }
         if (\array_key_exists('ldap_dn', $data)) {
@@ -132,9 +132,9 @@ class TeamFullNormalizer implements DenormalizerInterface, NormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
         $data['url'] = $object->getUrl();
@@ -149,13 +149,13 @@ class TeamFullNormalizer implements DenormalizerInterface, NormalizerInterface, 
         $data['members_url'] = $object->getMembersUrl();
         $data['repositories_url'] = $object->getRepositoriesUrl();
         if ($object->isInitialized('parent') && null !== $object->getParent()) {
-            $data['parent'] = $this->normalizer->normalize($object->getParent(), 'json', $context);
+            $data['parent'] = ($object->getParent() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getParent(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['members_count'] = $object->getMembersCount();
         $data['repos_count'] = $object->getReposCount();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['organization'] = $this->normalizer->normalize($object->getOrganization(), 'json', $context);
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
+        $data['organization'] = ($object->getOrganization() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOrganization(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('ldapDn') && null !== $object->getLdapDn()) {
             $data['ldap_dn'] = $object->getLdapDn();
         }
@@ -169,8 +169,8 @@ class TeamFullNormalizer implements DenormalizerInterface, NormalizerInterface, 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\TeamFull' => false);
+        return ['Github\Model\TeamFull' => false];
     }
 }

@@ -16,7 +16,7 @@ class ReposCreateFork extends \Github\Runtime\Client\BaseEndpoint implements \Gi
      * @param null|\Github\Model\ReposOwnerRepoForksPostBody $requestBody 
      * @param array $accept Accept content header application/json|application/scim+json
      */
-    public function __construct(string $owner, string $repo, ?\Github\Model\ReposOwnerRepoForksPostBody $requestBody = null, array $accept = array())
+    public function __construct(string $owner, string $repo, ?\Github\Model\ReposOwnerRepoForksPostBody $requestBody = null, array $accept = [])
     {
         $this->owner = $owner;
         $this->repo = $repo;
@@ -24,25 +24,25 @@ class ReposCreateFork extends \Github\Runtime\Client\BaseEndpoint implements \Gi
         $this->accept = $accept;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{owner}', '{repo}'), array($this->owner, $this->repo), '/repos/{owner}/{repo}/forks');
+        return str_replace(['{owner}', '{repo}'], [$this->owner, $this->repo], '/repos/{owner}/{repo}/forks');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if ($this->body instanceof \Github\Model\ReposOwnerRepoForksPostBody) {
-            return array(array('Content-Type' => array('application/json')), $serializer->serialize($this->body, 'json'));
+            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
         }
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
         if (empty($this->accept)) {
-            return array('Accept' => array('application/json', 'application/scim+json'));
+            return ['Accept' => ['application/json', 'application/scim+json']];
         }
         return $this->accept;
     }
@@ -61,23 +61,23 @@ class ReposCreateFork extends \Github\Runtime\Client\BaseEndpoint implements \Gi
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (202 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\Repository', 'json');
+            return $serializer->deserialize($body, 'Github\Model\Repository', 'json');
         }
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ReposCreateForkBadRequestException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ReposCreateForkBadRequestException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (422 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ReposCreateForkUnprocessableEntityException($serializer->deserialize($body, 'Github\\Model\\ValidationError', 'json'), $response);
+            throw new \Github\Exception\ReposCreateForkUnprocessableEntityException($serializer->deserialize($body, 'Github\Model\ValidationError', 'json'), $response);
         }
         if (is_null($contentType) === false && (403 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ReposCreateForkForbiddenException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ReposCreateForkForbiddenException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ReposCreateForkNotFoundException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ReposCreateForkNotFoundException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

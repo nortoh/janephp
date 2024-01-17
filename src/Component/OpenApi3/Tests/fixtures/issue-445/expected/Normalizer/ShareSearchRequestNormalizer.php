@@ -18,18 +18,18 @@ class ShareSearchRequestNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ShareSearchRequest';
+        return $type === 'PicturePark\API\Model\ShareSearchRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ShareSearchRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ShareSearchRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,7 +49,7 @@ class ShareSearchRequestNormalizer implements DenormalizerInterface, NormalizerI
             $object->setSearchString(null);
         }
         if (\array_key_exists('searchBehaviors', $data) && $data['searchBehaviors'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['searchBehaviors'] as $value) {
                 $values[] = $value;
             }
@@ -67,9 +67,9 @@ class ShareSearchRequestNormalizer implements DenormalizerInterface, NormalizerI
             $object->setFilter(null);
         }
         if (\array_key_exists('aggregationFilters', $data) && $data['aggregationFilters'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['aggregationFilters'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\AggregationFilter', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\AggregationFilter', 'json', $context);
             }
             $object->setAggregationFilters($values_1);
             unset($data['aggregationFilters']);
@@ -82,9 +82,9 @@ class ShareSearchRequestNormalizer implements DenormalizerInterface, NormalizerI
             unset($data['limit']);
         }
         if (\array_key_exists('sort', $data) && $data['sort'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['sort'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\\API\\Model\\SortInfo', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\API\Model\SortInfo', 'json', $context);
             }
             $object->setSort($values_2);
             unset($data['sort']);
@@ -104,9 +104,9 @@ class ShareSearchRequestNormalizer implements DenormalizerInterface, NormalizerI
             unset($data['debugMode']);
         }
         if (\array_key_exists('aggregators', $data) && $data['aggregators'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['aggregators'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\\API\\Model\\AggregatorBase', 'json', $context);
+                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\API\Model\AggregatorBase', 'json', $context);
             }
             $object->setAggregators($values_3);
             unset($data['aggregators']);
@@ -124,14 +124,14 @@ class ShareSearchRequestNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('searchString') && null !== $object->getSearchString()) {
             $data['searchString'] = $object->getSearchString();
         }
         if ($object->isInitialized('searchBehaviors') && null !== $object->getSearchBehaviors()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSearchBehaviors() as $value) {
                 $values[] = $value;
             }
@@ -141,9 +141,9 @@ class ShareSearchRequestNormalizer implements DenormalizerInterface, NormalizerI
             $data['filter'] = $object->getFilter();
         }
         if ($object->isInitialized('aggregationFilters') && null !== $object->getAggregationFilters()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAggregationFilters() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregationFilters'] = $values_1;
         }
@@ -151,9 +151,9 @@ class ShareSearchRequestNormalizer implements DenormalizerInterface, NormalizerI
             $data['limit'] = $object->getLimit();
         }
         if ($object->isInitialized('sort') && null !== $object->getSort()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getSort() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['sort'] = $values_2;
         }
@@ -164,9 +164,9 @@ class ShareSearchRequestNormalizer implements DenormalizerInterface, NormalizerI
             $data['debugMode'] = $object->getDebugMode();
         }
         if ($object->isInitialized('aggregators') && null !== $object->getAggregators()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getAggregators() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+                $values_3[] = ($value_3 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_3, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregators'] = $values_3;
         }
@@ -177,8 +177,8 @@ class ShareSearchRequestNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ShareSearchRequest' => false);
+        return ['PicturePark\API\Model\ShareSearchRequest' => false];
     }
 }

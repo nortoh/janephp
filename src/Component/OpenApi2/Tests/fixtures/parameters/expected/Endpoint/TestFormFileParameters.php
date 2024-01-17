@@ -11,30 +11,30 @@ class TestFormFileParameters extends \Jane\Component\OpenApi2\Tests\Expected\Run
      *     @var string|resource|\Psr\Http\Message\StreamInterface $testFile 
      * }
      */
-    public function __construct(array $formParameters = array())
+    public function __construct(array $formParameters = [])
     {
         $this->formParameters = $formParameters;
     }
     use \Jane\Component\OpenApi2\Tests\Expected\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/test-form-file';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         return $this->getMultipartBody($streamFactory);
     }
-    protected function getFormOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getFormOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getFormOptionsResolver();
-        $optionsResolver->setDefined(array('testFile'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('testFile', array('string', 'resource', '\\Psr\\Http\\Message\\StreamInterface'));
+        $optionsResolver->setDefined(['testFile']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('testFile', ['string', 'resource', '\Psr\Http\Message\StreamInterface']);
         return $optionsResolver;
     }
     /**
@@ -51,8 +51,8 @@ class TestFormFileParameters extends \Jane\Component\OpenApi2\Tests\Expected\Run
             return null;
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

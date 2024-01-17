@@ -24,38 +24,38 @@ class SearchIssuesAndPullRequests extends \Github\Runtime\Client\BaseEndpoint im
     *     @var int $page Page number of the results to fetch.
     * }
     */
-    public function __construct(array $queryParameters = array())
+    public function __construct(array $queryParameters = [])
     {
         $this->queryParameters = $queryParameters;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/search/issues';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('q', 'sort', 'order', 'per_page', 'page'));
-        $optionsResolver->setRequired(array('q'));
-        $optionsResolver->setDefaults(array('order' => 'desc', 'per_page' => 30, 'page' => 1));
-        $optionsResolver->addAllowedTypes('q', array('string'));
-        $optionsResolver->addAllowedTypes('sort', array('string'));
-        $optionsResolver->addAllowedTypes('order', array('string'));
-        $optionsResolver->addAllowedTypes('per_page', array('int'));
-        $optionsResolver->addAllowedTypes('page', array('int'));
+        $optionsResolver->setDefined(['q', 'sort', 'order', 'per_page', 'page']);
+        $optionsResolver->setRequired(['q']);
+        $optionsResolver->setDefaults(['order' => 'desc', 'per_page' => 30, 'page' => 1]);
+        $optionsResolver->addAllowedTypes('q', ['string']);
+        $optionsResolver->addAllowedTypes('sort', ['string']);
+        $optionsResolver->addAllowedTypes('order', ['string']);
+        $optionsResolver->addAllowedTypes('per_page', ['int']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
         return $optionsResolver;
     }
     /**
@@ -72,23 +72,23 @@ class SearchIssuesAndPullRequests extends \Github\Runtime\Client\BaseEndpoint im
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\SearchIssuesGetResponse200', 'json');
+            return $serializer->deserialize($body, 'Github\Model\SearchIssuesGetResponse200', 'json');
         }
         if (is_null($contentType) === false && (503 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\SearchIssuesAndPullRequestsServiceUnavailableException($serializer->deserialize($body, 'Github\\Model\\ResponseServiceUnavailable', 'json'), $response);
+            throw new \Github\Exception\SearchIssuesAndPullRequestsServiceUnavailableException($serializer->deserialize($body, 'Github\Model\ResponseServiceUnavailable', 'json'), $response);
         }
         if (is_null($contentType) === false && (422 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\SearchIssuesAndPullRequestsUnprocessableEntityException($serializer->deserialize($body, 'Github\\Model\\ValidationError', 'json'), $response);
+            throw new \Github\Exception\SearchIssuesAndPullRequestsUnprocessableEntityException($serializer->deserialize($body, 'Github\Model\ValidationError', 'json'), $response);
         }
         if (304 === $status) {
             return null;
         }
         if (is_null($contentType) === false && (403 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\SearchIssuesAndPullRequestsForbiddenException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\SearchIssuesAndPullRequestsForbiddenException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

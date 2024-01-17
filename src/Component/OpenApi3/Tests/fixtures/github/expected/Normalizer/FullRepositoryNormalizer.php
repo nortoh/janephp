@@ -18,18 +18,18 @@ class FullRepositoryNormalizer implements DenormalizerInterface, NormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\FullRepository';
+        return $type === 'Github\Model\FullRepository';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\FullRepository';
+        return is_object($data) && get_class($data) === 'Github\Model\FullRepository';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,7 +61,7 @@ class FullRepositoryNormalizer implements DenormalizerInterface, NormalizerInter
             unset($data['full_name']);
         }
         if (\array_key_exists('owner', $data) && $data['owner'] !== null) {
-            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\\Model\\FullRepositoryOwner', 'json', $context));
+            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\Model\FullRepositoryOwner', 'json', $context));
             unset($data['owner']);
         }
         elseif (\array_key_exists('owner', $data) && $data['owner'] === null) {
@@ -300,7 +300,7 @@ class FullRepositoryNormalizer implements DenormalizerInterface, NormalizerInter
             unset($data['is_template']);
         }
         if (\array_key_exists('topics', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['topics'] as $value) {
                 $values[] = $value;
             }
@@ -340,19 +340,19 @@ class FullRepositoryNormalizer implements DenormalizerInterface, NormalizerInter
             unset($data['visibility']);
         }
         if (\array_key_exists('pushed_at', $data)) {
-            $object->setPushedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['pushed_at']));
+            $object->setPushedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['pushed_at']));
             unset($data['pushed_at']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('permissions', $data)) {
-            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\\Model\\FullRepositoryPermissions', 'json', $context));
+            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\Model\FullRepositoryPermissions', 'json', $context));
             unset($data['permissions']);
         }
         if (\array_key_exists('allow_rebase_merge', $data)) {
@@ -360,7 +360,7 @@ class FullRepositoryNormalizer implements DenormalizerInterface, NormalizerInter
             unset($data['allow_rebase_merge']);
         }
         if (\array_key_exists('template_repository', $data) && $data['template_repository'] !== null) {
-            $object->setTemplateRepository($this->denormalizer->denormalize($data['template_repository'], 'Github\\Model\\FullRepositoryTemplateRepository', 'json', $context));
+            $object->setTemplateRepository($this->denormalizer->denormalize($data['template_repository'], 'Github\Model\FullRepositoryTemplateRepository', 'json', $context));
             unset($data['template_repository']);
         }
         elseif (\array_key_exists('template_repository', $data) && $data['template_repository'] === null) {
@@ -394,25 +394,25 @@ class FullRepositoryNormalizer implements DenormalizerInterface, NormalizerInter
             unset($data['network_count']);
         }
         if (\array_key_exists('license', $data) && $data['license'] !== null) {
-            $object->setLicense($this->denormalizer->denormalize($data['license'], 'Github\\Model\\FullRepositoryLicense', 'json', $context));
+            $object->setLicense($this->denormalizer->denormalize($data['license'], 'Github\Model\FullRepositoryLicense', 'json', $context));
             unset($data['license']);
         }
         elseif (\array_key_exists('license', $data) && $data['license'] === null) {
             $object->setLicense(null);
         }
         if (\array_key_exists('organization', $data) && $data['organization'] !== null) {
-            $object->setOrganization($this->denormalizer->denormalize($data['organization'], 'Github\\Model\\FullRepositoryOrganization', 'json', $context));
+            $object->setOrganization($this->denormalizer->denormalize($data['organization'], 'Github\Model\FullRepositoryOrganization', 'json', $context));
             unset($data['organization']);
         }
         elseif (\array_key_exists('organization', $data) && $data['organization'] === null) {
             $object->setOrganization(null);
         }
         if (\array_key_exists('parent', $data)) {
-            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Github\\Model\\Repository', 'json', $context));
+            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Github\Model\Repository', 'json', $context));
             unset($data['parent']);
         }
         if (\array_key_exists('source', $data)) {
-            $object->setSource($this->denormalizer->denormalize($data['source'], 'Github\\Model\\Repository', 'json', $context));
+            $object->setSource($this->denormalizer->denormalize($data['source'], 'Github\Model\Repository', 'json', $context));
             unset($data['source']);
         }
         if (\array_key_exists('forks', $data)) {
@@ -445,14 +445,14 @@ class FullRepositoryNormalizer implements DenormalizerInterface, NormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
         $data['name'] = $object->getName();
         $data['full_name'] = $object->getFullName();
-        $data['owner'] = $this->normalizer->normalize($object->getOwner(), 'json', $context);
+        $data['owner'] = ($object->getOwner() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOwner(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['private'] = $object->getPrivate();
         $data['html_url'] = $object->getHtmlUrl();
         $data['description'] = $object->getDescription();
@@ -511,7 +511,7 @@ class FullRepositoryNormalizer implements DenormalizerInterface, NormalizerInter
             $data['is_template'] = $object->getIsTemplate();
         }
         if ($object->isInitialized('topics') && null !== $object->getTopics()) {
-            $values = array();
+            $values = [];
             foreach ($object->getTopics() as $value) {
                 $values[] = $value;
             }
@@ -527,17 +527,17 @@ class FullRepositoryNormalizer implements DenormalizerInterface, NormalizerInter
         if ($object->isInitialized('visibility') && null !== $object->getVisibility()) {
             $data['visibility'] = $object->getVisibility();
         }
-        $data['pushed_at'] = $object->getPushedAt()->format('Y-m-d\\TH:i:sP');
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['pushed_at'] = $object->getPushedAt()->format('Y-m-d\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('permissions') && null !== $object->getPermissions()) {
-            $data['permissions'] = $this->normalizer->normalize($object->getPermissions(), 'json', $context);
+            $data['permissions'] = ($object->getPermissions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPermissions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('allowRebaseMerge') && null !== $object->getAllowRebaseMerge()) {
             $data['allow_rebase_merge'] = $object->getAllowRebaseMerge();
         }
         if ($object->isInitialized('templateRepository') && null !== $object->getTemplateRepository()) {
-            $data['template_repository'] = $this->normalizer->normalize($object->getTemplateRepository(), 'json', $context);
+            $data['template_repository'] = ($object->getTemplateRepository() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getTemplateRepository(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('tempCloneToken') && null !== $object->getTempCloneToken()) {
             $data['temp_clone_token'] = $object->getTempCloneToken();
@@ -553,15 +553,15 @@ class FullRepositoryNormalizer implements DenormalizerInterface, NormalizerInter
         }
         $data['subscribers_count'] = $object->getSubscribersCount();
         $data['network_count'] = $object->getNetworkCount();
-        $data['license'] = $this->normalizer->normalize($object->getLicense(), 'json', $context);
+        $data['license'] = ($object->getLicense() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLicense(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('organization') && null !== $object->getOrganization()) {
-            $data['organization'] = $this->normalizer->normalize($object->getOrganization(), 'json', $context);
+            $data['organization'] = ($object->getOrganization() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOrganization(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('parent') && null !== $object->getParent()) {
-            $data['parent'] = $this->normalizer->normalize($object->getParent(), 'json', $context);
+            $data['parent'] = ($object->getParent() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getParent(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('source') && null !== $object->getSource()) {
-            $data['source'] = $this->normalizer->normalize($object->getSource(), 'json', $context);
+            $data['source'] = ($object->getSource() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSource(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['forks'] = $object->getForks();
         if ($object->isInitialized('masterBranch') && null !== $object->getMasterBranch()) {
@@ -582,8 +582,8 @@ class FullRepositoryNormalizer implements DenormalizerInterface, NormalizerInter
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\FullRepository' => false);
+        return ['Github\Model\FullRepository' => false];
     }
 }

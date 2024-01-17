@@ -18,18 +18,18 @@ class CompliancePreDefinedSearchesNormalizer implements DenormalizerInterface, N
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\CompliancePreDefinedSearches';
+        return $type === 'CreditSafe\API\Model\CompliancePreDefinedSearches';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\CompliancePreDefinedSearches';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\CompliancePreDefinedSearches';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,9 +46,9 @@ class CompliancePreDefinedSearchesNormalizer implements DenormalizerInterface, N
             unset($data['totalSize']);
         }
         if (\array_key_exists('predefinedSearches', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['predefinedSearches'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\\API\\Model\\CompliancePreDefinedSearchesPredefinedSearchesItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\API\Model\CompliancePreDefinedSearchesPredefinedSearchesItem', 'json', $context);
             }
             $object->setPredefinedSearches($values);
             unset($data['predefinedSearches']);
@@ -63,16 +63,16 @@ class CompliancePreDefinedSearchesNormalizer implements DenormalizerInterface, N
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('totalSize') && null !== $object->getTotalSize()) {
             $data['totalSize'] = $object->getTotalSize();
         }
         if ($object->isInitialized('predefinedSearches') && null !== $object->getPredefinedSearches()) {
-            $values = array();
+            $values = [];
             foreach ($object->getPredefinedSearches() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['predefinedSearches'] = $values;
         }
@@ -83,8 +83,8 @@ class CompliancePreDefinedSearchesNormalizer implements DenormalizerInterface, N
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\CompliancePreDefinedSearches' => false);
+        return ['CreditSafe\API\Model\CompliancePreDefinedSearches' => false];
     }
 }

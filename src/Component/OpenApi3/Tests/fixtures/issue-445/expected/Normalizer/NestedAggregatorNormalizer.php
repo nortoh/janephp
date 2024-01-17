@@ -18,18 +18,18 @@ class NestedAggregatorNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\NestedAggregator';
+        return $type === 'PicturePark\API\Model\NestedAggregator';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\NestedAggregator';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\NestedAggregator';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,9 +53,9 @@ class NestedAggregatorNormalizer implements DenormalizerInterface, NormalizerInt
             $object->setNames(null);
         }
         if (\array_key_exists('aggregators', $data) && $data['aggregators'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['aggregators'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\AggregatorBase', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\AggregatorBase', 'json', $context);
             }
             $object->setAggregators($values);
             unset($data['aggregators']);
@@ -88,17 +88,17 @@ class NestedAggregatorNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
         if ($object->isInitialized('names') && null !== $object->getNames()) {
             $data['names'] = $object->getNames();
         }
         if ($object->isInitialized('aggregators') && null !== $object->getAggregators()) {
-            $values = array();
+            $values = [];
             foreach ($object->getAggregators() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregators'] = $values;
         }
@@ -114,8 +114,8 @@ class NestedAggregatorNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\NestedAggregator' => false);
+        return ['PicturePark\API\Model\NestedAggregator' => false];
     }
 }

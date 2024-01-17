@@ -18,18 +18,18 @@ class GistsGistIdStarGetResponse404Normalizer implements DenormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GistsGistIdStarGetResponse404';
+        return $type === 'Github\Model\GistsGistIdStarGetResponse404';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GistsGistIdStarGetResponse404';
+        return is_object($data) && get_class($data) === 'Github\Model\GistsGistIdStarGetResponse404';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,16 +49,16 @@ class GistsGistIdStarGetResponse404Normalizer implements DenormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Github\Validator\GistsGistIdStarGetResponse404Constraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GistsGistIdStarGetResponse404' => false);
+        return ['Github\Model\GistsGistIdStarGetResponse404' => false];
     }
 }

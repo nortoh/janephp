@@ -18,18 +18,18 @@ class EventPayloadNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\EventPayload';
+        return $type === 'Github\Model\EventPayload';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\EventPayload';
+        return is_object($data) && get_class($data) === 'Github\Model\EventPayload';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,17 +49,17 @@ class EventPayloadNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['action']);
         }
         if (\array_key_exists('issue', $data)) {
-            $object->setIssue($this->denormalizer->denormalize($data['issue'], 'Github\\Model\\IssueSimple', 'json', $context));
+            $object->setIssue($this->denormalizer->denormalize($data['issue'], 'Github\Model\IssueSimple', 'json', $context));
             unset($data['issue']);
         }
         if (\array_key_exists('comment', $data)) {
-            $object->setComment($this->denormalizer->denormalize($data['comment'], 'Github\\Model\\IssueComment', 'json', $context));
+            $object->setComment($this->denormalizer->denormalize($data['comment'], 'Github\Model\IssueComment', 'json', $context));
             unset($data['comment']);
         }
         if (\array_key_exists('pages', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['pages'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\EventPayloadPagesItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\EventPayloadPagesItem', 'json', $context);
             }
             $object->setPages($values);
             unset($data['pages']);
@@ -74,22 +74,22 @@ class EventPayloadNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('action') && null !== $object->getAction()) {
             $data['action'] = $object->getAction();
         }
         if ($object->isInitialized('issue') && null !== $object->getIssue()) {
-            $data['issue'] = $this->normalizer->normalize($object->getIssue(), 'json', $context);
+            $data['issue'] = ($object->getIssue() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getIssue(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('comment') && null !== $object->getComment()) {
-            $data['comment'] = $this->normalizer->normalize($object->getComment(), 'json', $context);
+            $data['comment'] = ($object->getComment() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getComment(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('pages') && null !== $object->getPages()) {
-            $values = array();
+            $values = [];
             foreach ($object->getPages() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['pages'] = $values;
         }
@@ -103,8 +103,8 @@ class EventPayloadNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\EventPayload' => false);
+        return ['Github\Model\EventPayload' => false];
     }
 }

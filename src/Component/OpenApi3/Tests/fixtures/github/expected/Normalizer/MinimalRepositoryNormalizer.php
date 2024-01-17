@@ -18,18 +18,18 @@ class MinimalRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\MinimalRepository';
+        return $type === 'Github\Model\MinimalRepository';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\MinimalRepository';
+        return is_object($data) && get_class($data) === 'Github\Model\MinimalRepository';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,7 +61,7 @@ class MinimalRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['full_name']);
         }
         if (\array_key_exists('owner', $data) && $data['owner'] !== null) {
-            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\\Model\\MinimalRepositoryOwner', 'json', $context));
+            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\Model\MinimalRepositoryOwner', 'json', $context));
             unset($data['owner']);
         }
         elseif (\array_key_exists('owner', $data) && $data['owner'] === null) {
@@ -300,7 +300,7 @@ class MinimalRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['is_template']);
         }
         if (\array_key_exists('topics', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['topics'] as $value) {
                 $values[] = $value;
             }
@@ -340,28 +340,28 @@ class MinimalRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['visibility']);
         }
         if (\array_key_exists('pushed_at', $data) && $data['pushed_at'] !== null) {
-            $object->setPushedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['pushed_at']));
+            $object->setPushedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['pushed_at']));
             unset($data['pushed_at']);
         }
         elseif (\array_key_exists('pushed_at', $data) && $data['pushed_at'] === null) {
             $object->setPushedAt(null);
         }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         elseif (\array_key_exists('created_at', $data) && $data['created_at'] === null) {
             $object->setCreatedAt(null);
         }
         if (\array_key_exists('updated_at', $data) && $data['updated_at'] !== null) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         elseif (\array_key_exists('updated_at', $data) && $data['updated_at'] === null) {
             $object->setUpdatedAt(null);
         }
         if (\array_key_exists('permissions', $data)) {
-            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\\Model\\MinimalRepositoryPermissions', 'json', $context));
+            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\Model\MinimalRepositoryPermissions', 'json', $context));
             unset($data['permissions']);
         }
         if (\array_key_exists('template_repository', $data)) {
@@ -385,7 +385,7 @@ class MinimalRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['network_count']);
         }
         if (\array_key_exists('license', $data) && $data['license'] !== null) {
-            $object->setLicense($this->denormalizer->denormalize($data['license'], 'Github\\Model\\MinimalRepositoryLicense', 'json', $context));
+            $object->setLicense($this->denormalizer->denormalize($data['license'], 'Github\Model\MinimalRepositoryLicense', 'json', $context));
             unset($data['license']);
         }
         elseif (\array_key_exists('license', $data) && $data['license'] === null) {
@@ -413,14 +413,14 @@ class MinimalRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
         $data['name'] = $object->getName();
         $data['full_name'] = $object->getFullName();
-        $data['owner'] = $this->normalizer->normalize($object->getOwner(), 'json', $context);
+        $data['owner'] = ($object->getOwner() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOwner(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['private'] = $object->getPrivate();
         $data['html_url'] = $object->getHtmlUrl();
         $data['description'] = $object->getDescription();
@@ -505,7 +505,7 @@ class MinimalRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
             $data['is_template'] = $object->getIsTemplate();
         }
         if ($object->isInitialized('topics') && null !== $object->getTopics()) {
-            $values = array();
+            $values = [];
             foreach ($object->getTopics() as $value) {
                 $values[] = $value;
             }
@@ -536,16 +536,16 @@ class MinimalRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
             $data['visibility'] = $object->getVisibility();
         }
         if ($object->isInitialized('pushedAt') && null !== $object->getPushedAt()) {
-            $data['pushed_at'] = $object->getPushedAt()->format('Y-m-d\\TH:i:sP');
+            $data['pushed_at'] = $object->getPushedAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('createdAt') && null !== $object->getCreatedAt()) {
-            $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+            $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('updatedAt') && null !== $object->getUpdatedAt()) {
-            $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+            $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('permissions') && null !== $object->getPermissions()) {
-            $data['permissions'] = $this->normalizer->normalize($object->getPermissions(), 'json', $context);
+            $data['permissions'] = ($object->getPermissions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPermissions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('templateRepository') && null !== $object->getTemplateRepository()) {
             $data['template_repository'] = $object->getTemplateRepository();
@@ -563,7 +563,7 @@ class MinimalRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
             $data['network_count'] = $object->getNetworkCount();
         }
         if ($object->isInitialized('license') && null !== $object->getLicense()) {
-            $data['license'] = $this->normalizer->normalize($object->getLicense(), 'json', $context);
+            $data['license'] = ($object->getLicense() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLicense(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('forks') && null !== $object->getForks()) {
             $data['forks'] = $object->getForks();
@@ -584,8 +584,8 @@ class MinimalRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\MinimalRepository' => false);
+        return ['Github\Model\MinimalRepository' => false];
     }
 }

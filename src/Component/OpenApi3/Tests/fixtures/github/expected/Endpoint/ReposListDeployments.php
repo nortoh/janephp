@@ -20,41 +20,41 @@ class ReposListDeployments extends \Github\Runtime\Client\BaseEndpoint implement
      *     @var int $page Page number of the results to fetch.
      * }
      */
-    public function __construct(string $owner, string $repo, array $queryParameters = array())
+    public function __construct(string $owner, string $repo, array $queryParameters = [])
     {
         $this->owner = $owner;
         $this->repo = $repo;
         $this->queryParameters = $queryParameters;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{owner}', '{repo}'), array($this->owner, $this->repo), '/repos/{owner}/{repo}/deployments');
+        return str_replace(['{owner}', '{repo}'], [$this->owner, $this->repo], '/repos/{owner}/{repo}/deployments');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('sha', 'ref', 'task', 'environment', 'per_page', 'page'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('sha' => 'none', 'ref' => 'none', 'task' => 'none', 'environment' => 'none', 'per_page' => 30, 'page' => 1));
-        $optionsResolver->addAllowedTypes('sha', array('string'));
-        $optionsResolver->addAllowedTypes('ref', array('string'));
-        $optionsResolver->addAllowedTypes('task', array('string'));
-        $optionsResolver->addAllowedTypes('environment', array('string'));
-        $optionsResolver->addAllowedTypes('per_page', array('int'));
-        $optionsResolver->addAllowedTypes('page', array('int'));
+        $optionsResolver->setDefined(['sha', 'ref', 'task', 'environment', 'per_page', 'page']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['sha' => 'none', 'ref' => 'none', 'task' => 'none', 'environment' => 'none', 'per_page' => 30, 'page' => 1]);
+        $optionsResolver->addAllowedTypes('sha', ['string']);
+        $optionsResolver->addAllowedTypes('ref', ['string']);
+        $optionsResolver->addAllowedTypes('task', ['string']);
+        $optionsResolver->addAllowedTypes('environment', ['string']);
+        $optionsResolver->addAllowedTypes('per_page', ['int']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
         return $optionsResolver;
     }
     /**
@@ -68,11 +68,11 @@ class ReposListDeployments extends \Github\Runtime\Client\BaseEndpoint implement
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\Deployment[]', 'json');
+            return $serializer->deserialize($body, 'Github\Model\Deployment[]', 'json');
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

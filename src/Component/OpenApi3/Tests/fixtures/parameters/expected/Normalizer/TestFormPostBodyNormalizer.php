@@ -18,18 +18,18 @@ class TestFormPostBodyNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TestFormPostBody';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\TestFormPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TestFormPostBody';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\TestFormPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,7 +57,7 @@ class TestFormPostBodyNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['testFloat']);
         }
         if (\array_key_exists('testArray', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['testArray'] as $value) {
                 $values[] = $value;
             }
@@ -82,9 +82,9 @@ class TestFormPostBodyNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('testString') && null !== $object->getTestString()) {
             $data['testString'] = $object->getTestString();
         }
@@ -95,7 +95,7 @@ class TestFormPostBodyNormalizer implements DenormalizerInterface, NormalizerInt
             $data['testFloat'] = $object->getTestFloat();
         }
         if ($object->isInitialized('testArray') && null !== $object->getTestArray()) {
-            $values = array();
+            $values = [];
             foreach ($object->getTestArray() as $value) {
                 $values[] = $value;
             }
@@ -112,8 +112,8 @@ class TestFormPostBodyNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TestFormPostBody' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\TestFormPostBody' => false];
     }
 }

@@ -18,18 +18,18 @@ class ReposOwnerRepoActionsRunsRunIdJobsGetResponse200Normalizer implements Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoActionsRunsRunIdJobsGetResponse200';
+        return $type === 'Github\Model\ReposOwnerRepoActionsRunsRunIdJobsGetResponse200';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoActionsRunsRunIdJobsGetResponse200';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoActionsRunsRunIdJobsGetResponse200';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,9 +49,9 @@ class ReposOwnerRepoActionsRunsRunIdJobsGetResponse200Normalizer implements Deno
             unset($data['total_count']);
         }
         if (\array_key_exists('jobs', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['jobs'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\Job', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\Job', 'json', $context);
             }
             $object->setJobs($values);
             unset($data['jobs']);
@@ -66,16 +66,16 @@ class ReposOwnerRepoActionsRunsRunIdJobsGetResponse200Normalizer implements Deno
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('totalCount') && null !== $object->getTotalCount()) {
             $data['total_count'] = $object->getTotalCount();
         }
         if ($object->isInitialized('jobs') && null !== $object->getJobs()) {
-            $values = array();
+            $values = [];
             foreach ($object->getJobs() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['jobs'] = $values;
         }
@@ -89,8 +89,8 @@ class ReposOwnerRepoActionsRunsRunIdJobsGetResponse200Normalizer implements Deno
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoActionsRunsRunIdJobsGetResponse200' => false);
+        return ['Github\Model\ReposOwnerRepoActionsRunsRunIdJobsGetResponse200' => false];
     }
 }

@@ -18,18 +18,18 @@ class GistsGistIdPatchBodyFilesItemNormalizer implements DenormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GistsGistIdPatchBodyFilesItem';
+        return $type === 'Github\Model\GistsGistIdPatchBodyFilesItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GistsGistIdPatchBodyFilesItem';
+        return is_object($data) && get_class($data) === 'Github\Model\GistsGistIdPatchBodyFilesItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -65,9 +65,9 @@ class GistsGistIdPatchBodyFilesItemNormalizer implements DenormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('content') && null !== $object->getContent()) {
             $data['content'] = $object->getContent();
         }
@@ -84,8 +84,8 @@ class GistsGistIdPatchBodyFilesItemNormalizer implements DenormalizerInterface, 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GistsGistIdPatchBodyFilesItem' => false);
+        return ['Github\Model\GistsGistIdPatchBodyFilesItem' => false];
     }
 }

@@ -18,18 +18,18 @@ class ReviewsGetHaljsonResponse200Normalizer implements DenormalizerInterface, N
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'ApiPlatform\\Demo\\Model\\ReviewsGetHaljsonResponse200';
+        return $type === 'ApiPlatform\Demo\Model\ReviewsGetHaljsonResponse200';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'ApiPlatform\\Demo\\Model\\ReviewsGetHaljsonResponse200';
+        return is_object($data) && get_class($data) === 'ApiPlatform\Demo\Model\ReviewsGetHaljsonResponse200';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,9 +42,9 @@ class ReviewsGetHaljsonResponse200Normalizer implements DenormalizerInterface, N
             return $object;
         }
         if (\array_key_exists('_embedded', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['_embedded'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewRead', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'ApiPlatform\Demo\Model\ReviewJsonhalReviewRead', 'json', $context);
             }
             $object->setEmbedded($values);
             unset($data['_embedded']);
@@ -58,7 +58,7 @@ class ReviewsGetHaljsonResponse200Normalizer implements DenormalizerInterface, N
             unset($data['itemsPerPage']);
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'ApiPlatform\\Demo\\Model\\ReviewsGetHaljsonResponse200Links', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'ApiPlatform\Demo\Model\ReviewsGetHaljsonResponse200Links', 'json', $context));
             unset($data['_links']);
         }
         foreach ($data as $key => $value_1) {
@@ -71,12 +71,12 @@ class ReviewsGetHaljsonResponse200Normalizer implements DenormalizerInterface, N
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $values = array();
+        $data = [];
+        $values = [];
         foreach ($object->getEmbedded() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['_embedded'] = $values;
         if ($object->isInitialized('totalItems') && null !== $object->getTotalItems()) {
@@ -85,7 +85,7 @@ class ReviewsGetHaljsonResponse200Normalizer implements DenormalizerInterface, N
         if ($object->isInitialized('itemsPerPage') && null !== $object->getItemsPerPage()) {
             $data['itemsPerPage'] = $object->getItemsPerPage();
         }
-        $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+        $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value_1;
@@ -93,8 +93,8 @@ class ReviewsGetHaljsonResponse200Normalizer implements DenormalizerInterface, N
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('ApiPlatform\\Demo\\Model\\ReviewsGetHaljsonResponse200' => false);
+        return ['ApiPlatform\Demo\Model\ReviewsGetHaljsonResponse200' => false];
     }
 }

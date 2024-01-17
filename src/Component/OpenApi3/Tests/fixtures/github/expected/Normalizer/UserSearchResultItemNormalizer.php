@@ -18,18 +18,18 @@ class UserSearchResultItemNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\UserSearchResultItem';
+        return $type === 'Github\Model\UserSearchResultItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\UserSearchResultItem';
+        return is_object($data) && get_class($data) === 'Github\Model\UserSearchResultItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -136,11 +136,11 @@ class UserSearchResultItemNormalizer implements DenormalizerInterface, Normalize
             unset($data['following']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('name', $data) && $data['name'] !== null) {
@@ -183,9 +183,9 @@ class UserSearchResultItemNormalizer implements DenormalizerInterface, Normalize
             $object->setHireable(null);
         }
         if (\array_key_exists('text_matches', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['text_matches'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\SearchResultTextMatchesItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\SearchResultTextMatchesItem', 'json', $context);
             }
             $object->setTextMatches($values);
             unset($data['text_matches']);
@@ -205,7 +205,7 @@ class UserSearchResultItemNormalizer implements DenormalizerInterface, Normalize
             $object->setCompany(null);
         }
         if (\array_key_exists('suspended_at', $data) && $data['suspended_at'] !== null) {
-            $object->setSuspendedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['suspended_at']));
+            $object->setSuspendedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['suspended_at']));
             unset($data['suspended_at']);
         }
         elseif (\array_key_exists('suspended_at', $data) && $data['suspended_at'] === null) {
@@ -221,9 +221,9 @@ class UserSearchResultItemNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['login'] = $object->getLogin();
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
@@ -255,10 +255,10 @@ class UserSearchResultItemNormalizer implements DenormalizerInterface, Normalize
             $data['following'] = $object->getFollowing();
         }
         if ($object->isInitialized('createdAt') && null !== $object->getCreatedAt()) {
-            $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+            $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('updatedAt') && null !== $object->getUpdatedAt()) {
-            $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+            $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('name') && null !== $object->getName()) {
             $data['name'] = $object->getName();
@@ -277,9 +277,9 @@ class UserSearchResultItemNormalizer implements DenormalizerInterface, Normalize
             $data['hireable'] = $object->getHireable();
         }
         if ($object->isInitialized('textMatches') && null !== $object->getTextMatches()) {
-            $values = array();
+            $values = [];
             foreach ($object->getTextMatches() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['text_matches'] = $values;
         }
@@ -290,7 +290,7 @@ class UserSearchResultItemNormalizer implements DenormalizerInterface, Normalize
             $data['company'] = $object->getCompany();
         }
         if ($object->isInitialized('suspendedAt') && null !== $object->getSuspendedAt()) {
-            $data['suspended_at'] = $object->getSuspendedAt()->format('Y-m-d\\TH:i:sP');
+            $data['suspended_at'] = $object->getSuspendedAt()->format('Y-m-d\TH:i:sP');
         }
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -302,8 +302,8 @@ class UserSearchResultItemNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\UserSearchResultItem' => false);
+        return ['Github\Model\UserSearchResultItem' => false];
     }
 }

@@ -18,18 +18,18 @@ class ComplianceSearchResultDataBodyNormalizer implements DenormalizerInterface,
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBody';
+        return $type === 'CreditSafe\API\Model\ComplianceSearchResultDataBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBody';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\ComplianceSearchResultDataBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class ComplianceSearchResultDataBodyNormalizer implements DenormalizerInterface,
             return $object;
         }
         if (\array_key_exists('searchResult', $data)) {
-            $object->setSearchResult($this->denormalizer->denormalize($data['searchResult'], 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResult', 'json', $context));
+            $object->setSearchResult($this->denormalizer->denormalize($data['searchResult'], 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResult', 'json', $context));
             unset($data['searchResult']);
         }
         foreach ($data as $key => $value) {
@@ -55,11 +55,11 @@ class ComplianceSearchResultDataBodyNormalizer implements DenormalizerInterface,
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('searchResult') && null !== $object->getSearchResult()) {
-            $data['searchResult'] = $this->normalizer->normalize($object->getSearchResult(), 'json', $context);
+            $data['searchResult'] = ($object->getSearchResult() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSearchResult(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -68,8 +68,8 @@ class ComplianceSearchResultDataBodyNormalizer implements DenormalizerInterface,
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\ComplianceSearchResultDataBody' => false);
+        return ['CreditSafe\API\Model\ComplianceSearchResultDataBody' => false];
     }
 }

@@ -18,18 +18,18 @@ class TaskSpecContainerSpecPrivilegesNormalizer implements DenormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\TaskSpecContainerSpecPrivileges';
+        return $type === 'Docker\Api\Model\TaskSpecContainerSpecPrivileges';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\TaskSpecContainerSpecPrivileges';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\TaskSpecContainerSpecPrivileges';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,32 +45,32 @@ class TaskSpecContainerSpecPrivilegesNormalizer implements DenormalizerInterface
             return $object;
         }
         if (\array_key_exists('CredentialSpec', $data)) {
-            $object->setCredentialSpec($this->denormalizer->denormalize($data['CredentialSpec'], 'Docker\\Api\\Model\\TaskSpecContainerSpecPrivilegesCredentialSpec', 'json', $context));
+            $object->setCredentialSpec($this->denormalizer->denormalize($data['CredentialSpec'], 'Docker\Api\Model\TaskSpecContainerSpecPrivilegesCredentialSpec', 'json', $context));
         }
         if (\array_key_exists('SELinuxContext', $data)) {
-            $object->setSELinuxContext($this->denormalizer->denormalize($data['SELinuxContext'], 'Docker\\Api\\Model\\TaskSpecContainerSpecPrivilegesSELinuxContext', 'json', $context));
+            $object->setSELinuxContext($this->denormalizer->denormalize($data['SELinuxContext'], 'Docker\Api\Model\TaskSpecContainerSpecPrivilegesSELinuxContext', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('credentialSpec') && null !== $object->getCredentialSpec()) {
-            $data['CredentialSpec'] = $this->normalizer->normalize($object->getCredentialSpec(), 'json', $context);
+            $data['CredentialSpec'] = ($object->getCredentialSpec() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCredentialSpec(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('sELinuxContext') && null !== $object->getSELinuxContext()) {
-            $data['SELinuxContext'] = $this->normalizer->normalize($object->getSELinuxContext(), 'json', $context);
+            $data['SELinuxContext'] = ($object->getSELinuxContext() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSELinuxContext(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Docker\Api\Validator\TaskSpecContainerSpecPrivilegesConstraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\TaskSpecContainerSpecPrivileges' => false);
+        return ['Docker\Api\Model\TaskSpecContainerSpecPrivileges' => false];
     }
 }

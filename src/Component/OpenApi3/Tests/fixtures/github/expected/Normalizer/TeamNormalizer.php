@@ -18,18 +18,18 @@ class TeamNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Team';
+        return $type === 'Github\Model\Team';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Team';
+        return is_object($data) && get_class($data) === 'Github\Model\Team';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -92,7 +92,7 @@ class TeamNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             unset($data['repositories_url']);
         }
         if (\array_key_exists('parent', $data) && $data['parent'] !== null) {
-            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Github\\Model\\TeamParent', 'json', $context));
+            $object->setParent($this->denormalizer->denormalize($data['parent'], 'Github\Model\TeamParent', 'json', $context));
             unset($data['parent']);
         }
         elseif (\array_key_exists('parent', $data) && $data['parent'] === null) {
@@ -108,9 +108,9 @@ class TeamNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
         $data['name'] = $object->getName();
@@ -125,7 +125,7 @@ class TeamNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         $data['members_url'] = $object->getMembersUrl();
         $data['repositories_url'] = $object->getRepositoriesUrl();
         if ($object->isInitialized('parent') && null !== $object->getParent()) {
-            $data['parent'] = $this->normalizer->normalize($object->getParent(), 'json', $context);
+            $data['parent'] = ($object->getParent() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getParent(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -137,8 +137,8 @@ class TeamNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Team' => false);
+        return ['Github\Model\Team' => false];
     }
 }

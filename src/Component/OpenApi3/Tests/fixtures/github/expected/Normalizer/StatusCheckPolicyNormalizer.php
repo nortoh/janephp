@@ -18,18 +18,18 @@ class StatusCheckPolicyNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\StatusCheckPolicy';
+        return $type === 'Github\Model\StatusCheckPolicy';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\StatusCheckPolicy';
+        return is_object($data) && get_class($data) === 'Github\Model\StatusCheckPolicy';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,7 +53,7 @@ class StatusCheckPolicyNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['strict']);
         }
         if (\array_key_exists('contexts', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['contexts'] as $value) {
                 $values[] = $value;
             }
@@ -74,12 +74,12 @@ class StatusCheckPolicyNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['strict'] = $object->getStrict();
-        $values = array();
+        $values = [];
         foreach ($object->getContexts() as $value) {
             $values[] = $value;
         }
@@ -95,8 +95,8 @@ class StatusCheckPolicyNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\StatusCheckPolicy' => false);
+        return ['Github\Model\StatusCheckPolicy' => false];
     }
 }

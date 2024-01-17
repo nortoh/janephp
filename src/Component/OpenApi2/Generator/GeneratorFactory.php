@@ -11,14 +11,15 @@ use Jane\Component\OpenApiCommon\Naming\ChainOperationNaming;
 use Jane\Component\OpenApiCommon\Naming\OperationIdNaming;
 use Jane\Component\OpenApiCommon\Naming\OperationUrlNaming;
 use PhpParser\ParserFactory;
+use PhpParser\PhpVersion;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class GeneratorFactory
 {
     public static function build(DenormalizerInterface $serializer, string $endpointGeneratorClass): GeneratorInterface
     {
-        $parserFactory = new ParserFactory();
-        $parser = $parserFactory->create(ParserFactory::PREFER_PHP7);
+        // @todo
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromString('7.4'));
 
         $bodyParameter = new BodyParameterGenerator($parser, $serializer);
         $nonBodyParameter = new NonBodyParameterGenerator($parser);

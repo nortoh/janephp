@@ -7,8 +7,8 @@ class PullRequestReviewRequest extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -29,7 +29,7 @@ class PullRequestReviewRequest extends \ArrayObject
      *
      * @return PullRequestReviewRequestUsersItem[]
      */
-    public function getUsers() : array
+    public function getUsers(): array
     {
         return $this->users;
     }
@@ -40,7 +40,7 @@ class PullRequestReviewRequest extends \ArrayObject
      *
      * @return self
      */
-    public function setUsers(array $users) : self
+    public function setUsers(array $users): self
     {
         $this->initialized['users'] = true;
         $this->users = $users;
@@ -51,7 +51,7 @@ class PullRequestReviewRequest extends \ArrayObject
      *
      * @return PullRequestReviewRequestTeamsItem[]
      */
-    public function getTeams() : array
+    public function getTeams(): array
     {
         return $this->teams;
     }
@@ -62,7 +62,7 @@ class PullRequestReviewRequest extends \ArrayObject
      *
      * @return self
      */
-    public function setTeams(array $teams) : self
+    public function setTeams(array $teams): self
     {
         $this->initialized['teams'] = true;
         $this->teams = $teams;

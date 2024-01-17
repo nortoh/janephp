@@ -44,7 +44,7 @@ class GenerateCommand extends Command
      *
      * @return int
      */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $options = $this->configLoader->load($input->getOption('config-file'));
         $registries = $this->registries($options);

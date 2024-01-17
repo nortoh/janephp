@@ -21,7 +21,7 @@ class ContentDownload extends \PicturePark\API\Runtime\Client\BaseEndpoint imple
      * }
      * @param array $accept Accept content header application/json|application/octet-stream
      */
-    public function __construct(string $contentId, string $outputFormatId, array $queryParameters = array(), array $headerParameters = array(), array $accept = array())
+    public function __construct(string $contentId, string $outputFormatId, array $queryParameters = [], array $headerParameters = [], array $accept = [])
     {
         $this->contentId = $contentId;
         $this->outputFormatId = $outputFormatId;
@@ -30,42 +30,42 @@ class ContentDownload extends \PicturePark\API\Runtime\Client\BaseEndpoint imple
         $this->accept = $accept;
     }
     use \PicturePark\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{contentId}', '{outputFormatId}'), array($this->contentId, $this->outputFormatId), '/v1/Contents/downloads/{contentId}/{outputFormatId}');
+        return str_replace(['{contentId}', '{outputFormatId}'], [$this->contentId, $this->outputFormatId], '/v1/Contents/downloads/{contentId}/{outputFormatId}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
         if (empty($this->accept)) {
-            return array('Accept' => array('application/json', 'application/octet-stream'));
+            return ['Accept' => ['application/json', 'application/octet-stream']];
         }
         return $this->accept;
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('width', 'height'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('width', array('int', 'null'));
-        $optionsResolver->addAllowedTypes('height', array('int', 'null'));
+        $optionsResolver->setDefined(['width', 'height']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('width', ['int', 'null']);
+        $optionsResolver->addAllowedTypes('height', ['int', 'null']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('range'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('range', array('string', 'null'));
+        $optionsResolver->setDefined(['range']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('range', ['string', 'null']);
         return $optionsResolver;
     }
     /**
@@ -87,25 +87,25 @@ class ContentDownload extends \PicturePark\API\Runtime\Client\BaseEndpoint imple
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentDownloadBadRequestException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkValidationException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentDownloadBadRequestException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkValidationException', 'json'), $response);
         }
         if (401 === $status) {
             throw new \PicturePark\API\Exception\ContentDownloadUnauthorizedException($response);
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentDownloadNotFoundException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkNotFoundException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentDownloadNotFoundException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkNotFoundException', 'json'), $response);
         }
         if (405 === $status) {
             throw new \PicturePark\API\Exception\ContentDownloadMethodNotAllowedException($response);
         }
         if (is_null($contentType) === false && (409 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentDownloadConflictException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkConflictException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentDownloadConflictException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkConflictException', 'json'), $response);
         }
         if (429 === $status) {
             throw new \PicturePark\API\Exception\ContentDownloadTooManyRequestsException($response);
         }
         if (is_null($contentType) === false && (500 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentDownloadInternalServerErrorException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentDownloadInternalServerErrorException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkException', 'json'), $response);
         }
         if (200 === $status) {
         }
@@ -115,8 +115,8 @@ class ContentDownload extends \PicturePark\API\Runtime\Client\BaseEndpoint imple
             throw new \PicturePark\API\Exception\ContentDownloadPreconditionFailedException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('Bearer');
+        return ['Bearer'];
     }
 }

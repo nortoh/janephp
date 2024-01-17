@@ -18,18 +18,18 @@ class XmpMappingEntryDeleteManyRequestNormalizer implements DenormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\XmpMappingEntryDeleteManyRequest';
+        return $type === 'PicturePark\API\Model\XmpMappingEntryDeleteManyRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\XmpMappingEntryDeleteManyRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\XmpMappingEntryDeleteManyRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class XmpMappingEntryDeleteManyRequestNormalizer implements DenormalizerInterfac
             return $object;
         }
         if (\array_key_exists('ids', $data) && $data['ids'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['ids'] as $value) {
                 $values[] = $value;
             }
@@ -56,11 +56,11 @@ class XmpMappingEntryDeleteManyRequestNormalizer implements DenormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('ids') && null !== $object->getIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getIds() as $value) {
                 $values[] = $value;
             }
@@ -68,8 +68,8 @@ class XmpMappingEntryDeleteManyRequestNormalizer implements DenormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\XmpMappingEntryDeleteManyRequest' => false);
+        return ['PicturePark\API\Model\XmpMappingEntryDeleteManyRequest' => false];
     }
 }

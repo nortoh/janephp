@@ -5,17 +5,17 @@ namespace Jane\Component\OpenApi3\Tests\Expected\Endpoint;
 class GetBaz extends \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client\BaseEndpoint implements \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client\Endpoint
 {
     use \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/baz';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     /**
      * {@inheritdoc}
@@ -28,8 +28,8 @@ class GetBaz extends \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client\Base
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('apikey', 'bearer', 'x-header');
+        return ['apikey', 'bearer', 'x-header'];
     }
 }

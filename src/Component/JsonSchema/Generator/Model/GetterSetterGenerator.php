@@ -40,7 +40,7 @@ trait GetterSetterGenerator
                         new Expr\PropertyFetch(new Expr\Variable('this'), $property->getPhpName())
                     ),
                 ],
-                'returnType' => $returnType,
+                'returnType' => is_string($returnType) ? new Name($returnType) : $returnType
             ], [
                 'comments' => [$this->createGetterDoc($property, $namespace, $strict)],
             ]
@@ -87,11 +87,11 @@ trait GetterSetterGenerator
                     new Param(
                         new Expr\Variable($property->getPhpName()),
                         null,
-                        $setType
+                        is_string($setType) ? new Name($setType) : $setType
                     ),
                 ],
                 'stmts' => $stmts,
-                'returnType' => $fluent ? 'self' : null,
+                'returnType' => $fluent ? new Name('self') : null,
             ], [
                 'comments' => [$this->createSetterDoc($property, $namespace, $strict, $fluent)],
             ]

@@ -14,15 +14,15 @@ class TestFormFileParameters extends \Jane\Component\OpenApi3\Tests\Expected\Run
         $this->body = $requestBody;
     }
     use \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/test-form-file';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if ($this->body instanceof \Jane\Component\OpenApi3\Tests\Expected\Model\TestFormFilePostBody) {
             $bodyBuilder = new \Http\Message\MultipartStream\MultipartStreamBuilder($streamFactory);
@@ -31,9 +31,9 @@ class TestFormFileParameters extends \Jane\Component\OpenApi3\Tests\Expected\Run
                 $value = is_int($value) ? (string) $value : $value;
                 $bodyBuilder->addResource($key, $value);
             }
-            return array(array('Content-Type' => array('multipart/form-data; boundary="' . ($bodyBuilder->getBoundary() . '"'))), $bodyBuilder->build());
+            return [['Content-Type' => ['multipart/form-data; boundary="' . ($bodyBuilder->getBoundary() . '"')]], $bodyBuilder->build()];
         }
-        return array(array(), null);
+        return [[], null];
     }
     /**
      * {@inheritdoc}
@@ -49,8 +49,8 @@ class TestFormFileParameters extends \Jane\Component\OpenApi3\Tests\Expected\Run
             return null;
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

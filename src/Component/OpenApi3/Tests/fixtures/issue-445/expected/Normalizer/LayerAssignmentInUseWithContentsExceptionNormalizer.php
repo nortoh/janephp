@@ -18,18 +18,18 @@ class LayerAssignmentInUseWithContentsExceptionNormalizer implements Denormalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\LayerAssignmentInUseWithContentsException';
+        return $type === 'PicturePark\API\Model\LayerAssignmentInUseWithContentsException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\LayerAssignmentInUseWithContentsException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\LayerAssignmentInUseWithContentsException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -103,7 +103,7 @@ class LayerAssignmentInUseWithContentsExceptionNormalizer implements Denormalize
             $object->setSchemaId(null);
         }
         if (\array_key_exists('usedAssignmentSchemaIds', $data) && $data['usedAssignmentSchemaIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['usedAssignmentSchemaIds'] as $value) {
                 $values[] = $value;
             }
@@ -123,9 +123,9 @@ class LayerAssignmentInUseWithContentsExceptionNormalizer implements Denormalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -155,7 +155,7 @@ class LayerAssignmentInUseWithContentsExceptionNormalizer implements Denormalize
             $data['schemaId'] = $object->getSchemaId();
         }
         if ($object->isInitialized('usedAssignmentSchemaIds') && null !== $object->getUsedAssignmentSchemaIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getUsedAssignmentSchemaIds() as $value) {
                 $values[] = $value;
             }
@@ -168,8 +168,8 @@ class LayerAssignmentInUseWithContentsExceptionNormalizer implements Denormalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\LayerAssignmentInUseWithContentsException' => false);
+        return ['PicturePark\API\Model\LayerAssignmentInUseWithContentsException' => false];
     }
 }

@@ -18,18 +18,18 @@ class OrgsOrgHooksPostBodyNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\OrgsOrgHooksPostBody';
+        return $type === 'Github\Model\OrgsOrgHooksPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\OrgsOrgHooksPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\OrgsOrgHooksPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,11 +49,11 @@ class OrgsOrgHooksPostBodyNormalizer implements DenormalizerInterface, Normalize
             unset($data['name']);
         }
         if (\array_key_exists('config', $data)) {
-            $object->setConfig($this->denormalizer->denormalize($data['config'], 'Github\\Model\\OrgsOrgHooksPostBodyConfig', 'json', $context));
+            $object->setConfig($this->denormalizer->denormalize($data['config'], 'Github\Model\OrgsOrgHooksPostBodyConfig', 'json', $context));
             unset($data['config']);
         }
         if (\array_key_exists('events', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['events'] as $value) {
                 $values[] = $value;
             }
@@ -74,13 +74,13 @@ class OrgsOrgHooksPostBodyNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
-        $data['config'] = $this->normalizer->normalize($object->getConfig(), 'json', $context);
+        $data['config'] = ($object->getConfig() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getConfig(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('events') && null !== $object->getEvents()) {
-            $values = array();
+            $values = [];
             foreach ($object->getEvents() as $value) {
                 $values[] = $value;
             }
@@ -99,8 +99,8 @@ class OrgsOrgHooksPostBodyNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\OrgsOrgHooksPostBody' => false);
+        return ['Github\Model\OrgsOrgHooksPostBody' => false];
     }
 }

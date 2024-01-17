@@ -18,18 +18,18 @@ class GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsIte
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsItem';
+        return $type === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsItem';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -54,7 +54,7 @@ class GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsIte
             unset($data['companyName']);
         }
         if (\array_key_exists('amount', $data)) {
-            $object->setAmount($this->denormalizer->denormalize($data['amount'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsItemAmount', 'json', $context));
+            $object->setAmount($this->denormalizer->denormalize($data['amount'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsItemAmount', 'json', $context));
             unset($data['amount']);
         }
         foreach ($data as $key => $value) {
@@ -67,9 +67,9 @@ class GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsIte
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('statementDate') && null !== $object->getStatementDate()) {
             $data['statementDate'] = $object->getStatementDate();
         }
@@ -80,7 +80,7 @@ class GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsIte
             $data['companyName'] = $object->getCompanyName();
         }
         if ($object->isInitialized('amount') && null !== $object->getAmount()) {
-            $data['amount'] = $this->normalizer->normalize($object->getAmount(), 'json', $context);
+            $data['amount'] = ($object->getAmount() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAmount(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -89,8 +89,8 @@ class GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsIte
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsItem' => false);
+        return ['CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsItem' => false];
     }
 }

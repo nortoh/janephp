@@ -18,18 +18,18 @@ class ReviewJsonhalReviewWriteNormalizer implements DenormalizerInterface, Norma
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewWrite';
+        return $type === 'ApiPlatform\Demo\Model\ReviewJsonhalReviewWrite';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewWrite';
+        return is_object($data) && get_class($data) === 'ApiPlatform\Demo\Model\ReviewJsonhalReviewWrite';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class ReviewJsonhalReviewWriteNormalizer implements DenormalizerInterface, Norma
             return $object;
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewWriteLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'ApiPlatform\Demo\Model\ReviewJsonhalReviewWriteLinks', 'json', $context));
             unset($data['_links']);
         }
         if (\array_key_exists('body', $data)) {
@@ -72,7 +72,7 @@ class ReviewJsonhalReviewWriteNormalizer implements DenormalizerInterface, Norma
             $object->setAuthor(null);
         }
         if (\array_key_exists('publicationDate', $data) && $data['publicationDate'] !== null) {
-            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['publicationDate']));
+            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['publicationDate']));
             unset($data['publicationDate']);
         }
         elseif (\array_key_exists('publicationDate', $data) && $data['publicationDate'] === null) {
@@ -88,11 +88,11 @@ class ReviewJsonhalReviewWriteNormalizer implements DenormalizerInterface, Norma
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('links') && null !== $object->getLinks()) {
-            $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+            $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['body'] = $object->getBody();
         $data['rating'] = $object->getRating();
@@ -104,7 +104,7 @@ class ReviewJsonhalReviewWriteNormalizer implements DenormalizerInterface, Norma
             $data['author'] = $object->getAuthor();
         }
         if ($object->isInitialized('publicationDate') && null !== $object->getPublicationDate()) {
-            $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\\TH:i:sP');
+            $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\TH:i:sP');
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -113,8 +113,8 @@ class ReviewJsonhalReviewWriteNormalizer implements DenormalizerInterface, Norma
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewWrite' => false);
+        return ['ApiPlatform\Demo\Model\ReviewJsonhalReviewWrite' => false];
     }
 }

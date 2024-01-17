@@ -18,18 +18,18 @@ class UserCreateRequestNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\UserCreateRequest';
+        return $type === 'PicturePark\API\Model\UserCreateRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\UserCreateRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\UserCreateRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -63,7 +63,7 @@ class UserCreateRequestNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setLanguageCode(null);
         }
         if (\array_key_exists('userRoleIds', $data) && $data['userRoleIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['userRoleIds'] as $value) {
                 $values[] = $value;
             }
@@ -83,9 +83,9 @@ class UserCreateRequestNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('firstName') && null !== $object->getFirstName()) {
             $data['firstName'] = $object->getFirstName();
         }
@@ -97,7 +97,7 @@ class UserCreateRequestNormalizer implements DenormalizerInterface, NormalizerIn
             $data['languageCode'] = $object->getLanguageCode();
         }
         if ($object->isInitialized('userRoleIds') && null !== $object->getUserRoleIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getUserRoleIds() as $value) {
                 $values[] = $value;
             }
@@ -108,8 +108,8 @@ class UserCreateRequestNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\UserCreateRequest' => false);
+        return ['PicturePark\API\Model\UserCreateRequest' => false];
     }
 }

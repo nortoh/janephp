@@ -18,18 +18,18 @@ class DetailedPlaceNormalizer implements DenormalizerInterface, NormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DetailedPlace';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\DetailedPlace';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DetailedPlace';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\DetailedPlace';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -70,7 +70,7 @@ class DetailedPlaceNormalizer implements DenormalizerInterface, NormalizerInterf
             unset($data['country']);
         }
         if (\array_key_exists('contained_within', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['contained_within'] as $value) {
                 $values[] = $value;
             }
@@ -78,7 +78,7 @@ class DetailedPlaceNormalizer implements DenormalizerInterface, NormalizerInterf
             unset($data['contained_within']);
         }
         if (\array_key_exists('geo', $data)) {
-            $object->setGeo($this->denormalizer->denormalize($data['geo'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Geo', 'json', $context));
+            $object->setGeo($this->denormalizer->denormalize($data['geo'], 'Jane\Component\OpenApi3\Tests\Expected\Model\Geo', 'json', $context));
             unset($data['geo']);
         }
         foreach ($data as $key => $value_1) {
@@ -91,9 +91,9 @@ class DetailedPlaceNormalizer implements DenormalizerInterface, NormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('format') && null !== $object->getFormat()) {
             $data['format'] = $object->getFormat();
         }
@@ -104,14 +104,14 @@ class DetailedPlaceNormalizer implements DenormalizerInterface, NormalizerInterf
         $data['full_name'] = $object->getFullName();
         $data['country'] = $object->getCountry();
         if ($object->isInitialized('containedWithin') && null !== $object->getContainedWithin()) {
-            $values = array();
+            $values = [];
             foreach ($object->getContainedWithin() as $value) {
                 $values[] = $value;
             }
             $data['contained_within'] = $values;
         }
         if ($object->isInitialized('geo') && null !== $object->getGeo()) {
-            $data['geo'] = $this->normalizer->normalize($object->getGeo(), 'json', $context);
+            $data['geo'] = ($object->getGeo() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getGeo(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -120,8 +120,8 @@ class DetailedPlaceNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DetailedPlace' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\DetailedPlace' => false];
     }
 }

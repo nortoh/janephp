@@ -18,18 +18,18 @@ class MarketplacePurchaseNormalizer implements DenormalizerInterface, Normalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\MarketplacePurchase';
+        return $type === 'Github\Model\MarketplacePurchase';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\MarketplacePurchase';
+        return is_object($data) && get_class($data) === 'Github\Model\MarketplacePurchase';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -65,14 +65,14 @@ class MarketplacePurchaseNormalizer implements DenormalizerInterface, Normalizer
             unset($data['organization_billing_email']);
         }
         if (\array_key_exists('marketplace_pending_change', $data) && $data['marketplace_pending_change'] !== null) {
-            $object->setMarketplacePendingChange($this->denormalizer->denormalize($data['marketplace_pending_change'], 'Github\\Model\\MarketplacePurchaseMarketplacePendingChange', 'json', $context));
+            $object->setMarketplacePendingChange($this->denormalizer->denormalize($data['marketplace_pending_change'], 'Github\Model\MarketplacePurchaseMarketplacePendingChange', 'json', $context));
             unset($data['marketplace_pending_change']);
         }
         elseif (\array_key_exists('marketplace_pending_change', $data) && $data['marketplace_pending_change'] === null) {
             $object->setMarketplacePendingChange(null);
         }
         if (\array_key_exists('marketplace_purchase', $data)) {
-            $object->setMarketplacePurchase($this->denormalizer->denormalize($data['marketplace_purchase'], 'Github\\Model\\MarketplacePurchaseMarketplacePurchase', 'json', $context));
+            $object->setMarketplacePurchase($this->denormalizer->denormalize($data['marketplace_purchase'], 'Github\Model\MarketplacePurchaseMarketplacePurchase', 'json', $context));
             unset($data['marketplace_purchase']);
         }
         foreach ($data as $key => $value) {
@@ -85,9 +85,9 @@ class MarketplacePurchaseNormalizer implements DenormalizerInterface, Normalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['type'] = $object->getType();
         $data['id'] = $object->getId();
@@ -96,9 +96,9 @@ class MarketplacePurchaseNormalizer implements DenormalizerInterface, Normalizer
             $data['organization_billing_email'] = $object->getOrganizationBillingEmail();
         }
         if ($object->isInitialized('marketplacePendingChange') && null !== $object->getMarketplacePendingChange()) {
-            $data['marketplace_pending_change'] = $this->normalizer->normalize($object->getMarketplacePendingChange(), 'json', $context);
+            $data['marketplace_pending_change'] = ($object->getMarketplacePendingChange() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMarketplacePendingChange(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
-        $data['marketplace_purchase'] = $this->normalizer->normalize($object->getMarketplacePurchase(), 'json', $context);
+        $data['marketplace_purchase'] = ($object->getMarketplacePurchase() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMarketplacePurchase(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -109,8 +109,8 @@ class MarketplacePurchaseNormalizer implements DenormalizerInterface, Normalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\MarketplacePurchase' => false);
+        return ['Github\Model\MarketplacePurchase' => false];
     }
 }

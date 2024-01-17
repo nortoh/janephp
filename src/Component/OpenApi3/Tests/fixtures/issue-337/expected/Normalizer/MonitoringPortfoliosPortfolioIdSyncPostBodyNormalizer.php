@@ -18,18 +18,18 @@ class MonitoringPortfoliosPortfolioIdSyncPostBodyNormalizer implements Denormali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\MonitoringPortfoliosPortfolioIdSyncPostBody';
+        return $type === 'CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdSyncPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\MonitoringPortfoliosPortfolioIdSyncPostBody';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdSyncPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -59,9 +59,9 @@ class MonitoringPortfoliosPortfolioIdSyncPostBodyNormalizer implements Denormali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['importCsv'] = $object->getImportCsv();
         if ($object->isInitialized('email') && null !== $object->getEmail()) {
             $data['email'] = $object->getEmail();
@@ -73,8 +73,8 @@ class MonitoringPortfoliosPortfolioIdSyncPostBodyNormalizer implements Denormali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\MonitoringPortfoliosPortfolioIdSyncPostBody' => false);
+        return ['CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdSyncPostBody' => false];
     }
 }

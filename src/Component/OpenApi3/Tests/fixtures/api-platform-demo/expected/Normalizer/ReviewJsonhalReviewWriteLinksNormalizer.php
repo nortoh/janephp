@@ -18,18 +18,18 @@ class ReviewJsonhalReviewWriteLinksNormalizer implements DenormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewWriteLinks';
+        return $type === 'ApiPlatform\Demo\Model\ReviewJsonhalReviewWriteLinks';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewWriteLinks';
+        return is_object($data) && get_class($data) === 'ApiPlatform\Demo\Model\ReviewJsonhalReviewWriteLinks';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class ReviewJsonhalReviewWriteLinksNormalizer implements DenormalizerInterface, 
             return $object;
         }
         if (\array_key_exists('self', $data)) {
-            $object->setSelf($this->denormalizer->denormalize($data['self'], 'ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewWriteLinksSelf', 'json', $context));
+            $object->setSelf($this->denormalizer->denormalize($data['self'], 'ApiPlatform\Demo\Model\ReviewJsonhalReviewWriteLinksSelf', 'json', $context));
             unset($data['self']);
         }
         foreach ($data as $key => $value) {
@@ -55,11 +55,11 @@ class ReviewJsonhalReviewWriteLinksNormalizer implements DenormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('self') && null !== $object->getSelf()) {
-            $data['self'] = $this->normalizer->normalize($object->getSelf(), 'json', $context);
+            $data['self'] = ($object->getSelf() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSelf(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -68,8 +68,8 @@ class ReviewJsonhalReviewWriteLinksNormalizer implements DenormalizerInterface, 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('ApiPlatform\\Demo\\Model\\ReviewJsonhalReviewWriteLinks' => false);
+        return ['ApiPlatform\Demo\Model\ReviewJsonhalReviewWriteLinks' => false];
     }
 }

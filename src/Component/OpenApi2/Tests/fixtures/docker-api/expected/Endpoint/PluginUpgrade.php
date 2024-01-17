@@ -27,7 +27,7 @@ class PluginUpgrade extends \Docker\Api\Runtime\Client\BaseEndpoint implements \
     
     * }
     */
-    public function __construct(string $name, array $body, array $queryParameters = array(), array $headerParameters = array())
+    public function __construct(string $name, array $body, array $queryParameters = [], array $headerParameters = [])
     {
         $this->name = $name;
         $this->body = $body;
@@ -35,38 +35,38 @@ class PluginUpgrade extends \Docker\Api\Runtime\Client\BaseEndpoint implements \
         $this->headerParameters = $headerParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{name}'), array($this->name), '/plugins/{name}/upgrade');
+        return str_replace(['{name}'], [$this->name], '/plugins/{name}/upgrade');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         return $this->getSerializedBody($serializer);
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('remote'));
-        $optionsResolver->setRequired(array('remote'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('remote', array('string'));
+        $optionsResolver->setDefined(['remote']);
+        $optionsResolver->setRequired(['remote']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('remote', ['string']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('X-Registry-Auth'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('X-Registry-Auth', array('string'));
+        $optionsResolver->setDefined(['X-Registry-Auth']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('X-Registry-Auth', ['string']);
         return $optionsResolver;
     }
     /**
@@ -85,14 +85,14 @@ class PluginUpgrade extends \Docker\Api\Runtime\Client\BaseEndpoint implements \
             return null;
         }
         if (404 === $status) {
-            throw new \Docker\Api\Exception\PluginUpgradeNotFoundException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\PluginUpgradeNotFoundException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\PluginUpgradeInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\PluginUpgradeInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

@@ -18,18 +18,18 @@ class PermissionSetDetailOfMetadataRightNormalizer implements DenormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\PermissionSetDetailOfMetadataRight';
+        return $type === 'PicturePark\API\Model\PermissionSetDetailOfMetadataRight';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\PermissionSetDetailOfMetadataRight';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\PermissionSetDetailOfMetadataRight';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,9 +48,9 @@ class PermissionSetDetailOfMetadataRightNormalizer implements DenormalizerInterf
             $object->setNames($data['names']);
         }
         if (\array_key_exists('userRolesRights', $data) && $data['userRolesRights'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['userRolesRights'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\PermissionUserRoleRightsOfMetadataRight', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\PermissionUserRoleRightsOfMetadataRight', 'json', $context);
             }
             $object->setUserRolesRights($values);
         }
@@ -58,9 +58,9 @@ class PermissionSetDetailOfMetadataRightNormalizer implements DenormalizerInterf
             $object->setUserRolesRights(null);
         }
         if (\array_key_exists('userRolesPermissionSetRights', $data) && $data['userRolesPermissionSetRights'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['userRolesPermissionSetRights'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\PermissionUserRoleRightsOfPermissionSetRight', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\PermissionUserRoleRightsOfPermissionSetRight', 'json', $context);
             }
             $object->setUserRolesPermissionSetRights($values_1);
         }
@@ -84,22 +84,22 @@ class PermissionSetDetailOfMetadataRightNormalizer implements DenormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['names'] = $object->getNames();
         if ($object->isInitialized('userRolesRights') && null !== $object->getUserRolesRights()) {
-            $values = array();
+            $values = [];
             foreach ($object->getUserRolesRights() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['userRolesRights'] = $values;
         }
         if ($object->isInitialized('userRolesPermissionSetRights') && null !== $object->getUserRolesPermissionSetRights()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getUserRolesPermissionSetRights() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['userRolesPermissionSetRights'] = $values_1;
         }
@@ -110,8 +110,8 @@ class PermissionSetDetailOfMetadataRightNormalizer implements DenormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\PermissionSetDetailOfMetadataRight' => false);
+        return ['PicturePark\API\Model\PermissionSetDetailOfMetadataRight' => false];
     }
 }

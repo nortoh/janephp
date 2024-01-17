@@ -5,6 +5,7 @@ namespace Jane\Component\OpenApi3\Generator\Endpoint;
 use Jane\Component\OpenApi3\Guesser\GuessClass;
 use Jane\Component\OpenApiCommon\Guesser\Guess\OperationGuess;
 use PhpParser\Node\Arg;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar;
@@ -27,9 +28,9 @@ trait GetGetExtraHeadersTrait
             if ($contentType === 'text/html') {
                 continue;
             }
-            $items[] = new Expr\ArrayItem(new Scalar\String_($contentType));
+            $items[] = new ArrayItem(new Scalar\String_($contentType));
         }
-        $headers[] = new Expr\ArrayItem(
+        $headers[] = new ArrayItem(
             new Expr\Array_($items),
             new Scalar\String_('Accept')
         );

@@ -18,18 +18,18 @@ class WorkflowRunUsageNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\WorkflowRunUsage';
+        return $type === 'Github\Model\WorkflowRunUsage';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\WorkflowRunUsage';
+        return is_object($data) && get_class($data) === 'Github\Model\WorkflowRunUsage';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class WorkflowRunUsageNormalizer implements DenormalizerInterface, NormalizerInt
             return $object;
         }
         if (\array_key_exists('billable', $data)) {
-            $object->setBillable($this->denormalizer->denormalize($data['billable'], 'Github\\Model\\WorkflowRunUsageBillable', 'json', $context));
+            $object->setBillable($this->denormalizer->denormalize($data['billable'], 'Github\Model\WorkflowRunUsageBillable', 'json', $context));
             unset($data['billable']);
         }
         if (\array_key_exists('run_duration_ms', $data)) {
@@ -62,11 +62,11 @@ class WorkflowRunUsageNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('billable') && null !== $object->getBillable()) {
-            $data['billable'] = $this->normalizer->normalize($object->getBillable(), 'json', $context);
+            $data['billable'] = ($object->getBillable() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getBillable(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('runDurationMs') && null !== $object->getRunDurationMs()) {
             $data['run_duration_ms'] = $object->getRunDurationMs();
@@ -81,8 +81,8 @@ class WorkflowRunUsageNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\WorkflowRunUsage' => false);
+        return ['Github\Model\WorkflowRunUsage' => false];
     }
 }

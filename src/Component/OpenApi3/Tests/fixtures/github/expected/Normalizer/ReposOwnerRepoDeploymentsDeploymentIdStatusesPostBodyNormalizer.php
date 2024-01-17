@@ -18,18 +18,18 @@ class ReposOwnerRepoDeploymentsDeploymentIdStatusesPostBodyNormalizer implements
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoDeploymentsDeploymentIdStatusesPostBody';
+        return $type === 'Github\Model\ReposOwnerRepoDeploymentsDeploymentIdStatusesPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoDeploymentsDeploymentIdStatusesPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoDeploymentsDeploymentIdStatusesPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -82,9 +82,9 @@ class ReposOwnerRepoDeploymentsDeploymentIdStatusesPostBodyNormalizer implements
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['state'] = $object->getState();
         if ($object->isInitialized('targetUrl') && null !== $object->getTargetUrl()) {
             $data['target_url'] = $object->getTargetUrl();
@@ -114,8 +114,8 @@ class ReposOwnerRepoDeploymentsDeploymentIdStatusesPostBodyNormalizer implements
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoDeploymentsDeploymentIdStatusesPostBody' => false);
+        return ['Github\Model\ReposOwnerRepoDeploymentsDeploymentIdStatusesPostBody' => false];
     }
 }

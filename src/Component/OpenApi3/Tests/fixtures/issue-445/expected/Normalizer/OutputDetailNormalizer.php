@@ -18,18 +18,18 @@ class OutputDetailNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\OutputDetail';
+        return $type === 'PicturePark\API\Model\OutputDetail';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\OutputDetail';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\OutputDetail';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -68,7 +68,7 @@ class OutputDetailNormalizer implements DenormalizerInterface, NormalizerInterfa
             $object->setDetail(null);
         }
         if (\array_key_exists('backupTimestamp', $data) && $data['backupTimestamp'] !== null) {
-            $object->setBackupTimestamp(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['backupTimestamp']));
+            $object->setBackupTimestamp(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['backupTimestamp']));
             unset($data['backupTimestamp']);
         }
         elseif (\array_key_exists('backupTimestamp', $data) && $data['backupTimestamp'] === null) {
@@ -100,9 +100,9 @@ class OutputDetailNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -113,7 +113,7 @@ class OutputDetailNormalizer implements DenormalizerInterface, NormalizerInterfa
             $data['detail'] = $object->getDetail();
         }
         if ($object->isInitialized('backupTimestamp') && null !== $object->getBackupTimestamp()) {
-            $data['backupTimestamp'] = $object->getBackupTimestamp()->format('Y-m-d\\TH:i:sP');
+            $data['backupTimestamp'] = $object->getBackupTimestamp()->format('Y-m-d\TH:i:sP');
         }
         $data['attemptsLeft'] = $object->getAttemptsLeft();
         $data['fileVersion'] = $object->getFileVersion();
@@ -126,8 +126,8 @@ class OutputDetailNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\OutputDetail' => false);
+        return ['PicturePark\API\Model\OutputDetail' => false];
     }
 }

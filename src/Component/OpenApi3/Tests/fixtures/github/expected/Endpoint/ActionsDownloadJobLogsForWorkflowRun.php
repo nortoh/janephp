@@ -24,17 +24,17 @@ class ActionsDownloadJobLogsForWorkflowRun extends \Github\Runtime\Client\BaseEn
         $this->job_id = $jobId;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{owner}', '{repo}', '{job_id}'), array($this->owner, $this->repo, $this->job_id), '/repos/{owner}/{repo}/actions/jobs/{job_id}/logs');
+        return str_replace(['{owner}', '{repo}', '{job_id}'], [$this->owner, $this->repo, $this->job_id], '/repos/{owner}/{repo}/actions/jobs/{job_id}/logs');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     /**
      * {@inheritdoc}
@@ -50,8 +50,8 @@ class ActionsDownloadJobLogsForWorkflowRun extends \Github\Runtime\Client\BaseEn
             return null;
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

@@ -18,7 +18,7 @@ class Client extends \Jane\Component\OpenApi3\Tests\Client\Runtime\Client\Client
     {
         if (null === $httpClient) {
             $httpClient = \Http\Discovery\Psr18ClientDiscovery::find();
-            $plugins = array();
+            $plugins = [];
             $uri = \Http\Discovery\Psr17FactoryDiscovery::findUrlFactory()->createUri('http://127.0.0.1:4010/');
             $plugins[] = new \Http\Client\Common\Plugin\AddHostPlugin($uri);
             $plugins[] = new \Http\Client\Common\Plugin\AddPathPlugin($uri);

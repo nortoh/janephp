@@ -27,7 +27,7 @@ class DumpConfigCommand extends Command
         $this->addOption('config-file', 'c', InputOption::VALUE_REQUIRED, 'File to use for Jane configuration', '.jane');
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         VarDumper::dump($this->configLoader->load($input->getOption('config-file')));
 

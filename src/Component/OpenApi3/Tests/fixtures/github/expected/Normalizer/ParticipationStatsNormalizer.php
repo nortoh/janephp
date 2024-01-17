@@ -18,18 +18,18 @@ class ParticipationStatsNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ParticipationStats';
+        return $type === 'Github\Model\ParticipationStats';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ParticipationStats';
+        return is_object($data) && get_class($data) === 'Github\Model\ParticipationStats';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ParticipationStatsNormalizer implements DenormalizerInterface, NormalizerI
             return $object;
         }
         if (\array_key_exists('all', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['all'] as $value) {
                 $values[] = $value;
             }
@@ -53,7 +53,7 @@ class ParticipationStatsNormalizer implements DenormalizerInterface, NormalizerI
             unset($data['all']);
         }
         if (\array_key_exists('owner', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['owner'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -70,18 +70,18 @@ class ParticipationStatsNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('all') && null !== $object->getAll()) {
-            $values = array();
+            $values = [];
             foreach ($object->getAll() as $value) {
                 $values[] = $value;
             }
             $data['all'] = $values;
         }
         if ($object->isInitialized('owner') && null !== $object->getOwner()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getOwner() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -97,8 +97,8 @@ class ParticipationStatsNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ParticipationStats' => false);
+        return ['Github\Model\ParticipationStats' => false];
     }
 }

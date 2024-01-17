@@ -18,18 +18,18 @@ class DefaultTweetFieldsNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultTweetFields';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\DefaultTweetFields';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultTweetFields';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\DefaultTweetFields';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,11 +42,11 @@ class DefaultTweetFieldsNormalizer implements DenormalizerInterface, NormalizerI
             return $object;
         }
         if (\array_key_exists('geo', $data)) {
-            $object->setGeo($this->denormalizer->denormalize($data['geo'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultTweetFieldsGeo', 'json', $context));
+            $object->setGeo($this->denormalizer->denormalize($data['geo'], 'Jane\Component\OpenApi3\Tests\Expected\Model\DefaultTweetFieldsGeo', 'json', $context));
             unset($data['geo']);
         }
         if (\array_key_exists('entities', $data)) {
-            $object->setEntities($this->denormalizer->denormalize($data['entities'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\FullTextEntities', 'json', $context));
+            $object->setEntities($this->denormalizer->denormalize($data['entities'], 'Jane\Component\OpenApi3\Tests\Expected\Model\FullTextEntities', 'json', $context));
             unset($data['entities']);
         }
         foreach ($data as $key => $value) {
@@ -59,14 +59,14 @@ class DefaultTweetFieldsNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('geo') && null !== $object->getGeo()) {
-            $data['geo'] = $this->normalizer->normalize($object->getGeo(), 'json', $context);
+            $data['geo'] = ($object->getGeo() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getGeo(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('entities') && null !== $object->getEntities()) {
-            $data['entities'] = $this->normalizer->normalize($object->getEntities(), 'json', $context);
+            $data['entities'] = ($object->getEntities() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getEntities(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -75,8 +75,8 @@ class DefaultTweetFieldsNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultTweetFields' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\DefaultTweetFields' => false];
     }
 }

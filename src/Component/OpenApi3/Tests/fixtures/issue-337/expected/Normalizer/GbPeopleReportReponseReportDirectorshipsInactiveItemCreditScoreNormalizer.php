@@ -18,18 +18,18 @@ class GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScoreNormalizer 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScore';
+        return $type === 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScore';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScore';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScore';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScoreNormalizer 
             return $object;
         }
         if (\array_key_exists('currentCreditRating', $data)) {
-            $object->setCurrentCreditRating($this->denormalizer->denormalize($data['currentCreditRating'], 'CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScoreCurrentCreditRating', 'json', $context));
+            $object->setCurrentCreditRating($this->denormalizer->denormalize($data['currentCreditRating'], 'CreditSafe\API\Model\GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScoreCurrentCreditRating', 'json', $context));
             unset($data['currentCreditRating']);
         }
         foreach ($data as $key => $value) {
@@ -55,11 +55,11 @@ class GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScoreNormalizer 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('currentCreditRating') && null !== $object->getCurrentCreditRating()) {
-            $data['currentCreditRating'] = $this->normalizer->normalize($object->getCurrentCreditRating(), 'json', $context);
+            $data['currentCreditRating'] = ($object->getCurrentCreditRating() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCurrentCreditRating(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -68,8 +68,8 @@ class GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScoreNormalizer 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScore' => false);
+        return ['CreditSafe\API\Model\GbPeopleReportReponseReportDirectorshipsInactiveItemCreditScore' => false];
     }
 }

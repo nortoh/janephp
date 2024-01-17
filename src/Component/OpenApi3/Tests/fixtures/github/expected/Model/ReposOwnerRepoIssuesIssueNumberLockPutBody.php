@@ -7,8 +7,8 @@ class ReposOwnerRepoIssuesIssueNumberLockPutBody extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -31,7 +31,7 @@ class ReposOwnerRepoIssuesIssueNumberLockPutBody extends \ArrayObject
     *
     * @return string
     */
-    public function getLockReason() : string
+    public function getLockReason(): string
     {
         return $this->lockReason;
     }
@@ -46,7 +46,7 @@ class ReposOwnerRepoIssuesIssueNumberLockPutBody extends \ArrayObject
     *
     * @return self
     */
-    public function setLockReason(string $lockReason) : self
+    public function setLockReason(string $lockReason): self
     {
         $this->initialized['lockReason'] = true;
         $this->lockReason = $lockReason;

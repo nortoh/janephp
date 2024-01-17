@@ -7,8 +7,8 @@ class SwarmSpecEncryptionConfig
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -27,7 +27,7 @@ class SwarmSpecEncryptionConfig
     *
     * @return bool
     */
-    public function getAutoLockManagers() : bool
+    public function getAutoLockManagers(): bool
     {
         return $this->autoLockManagers;
     }
@@ -40,7 +40,7 @@ class SwarmSpecEncryptionConfig
     *
     * @return self
     */
-    public function setAutoLockManagers(bool $autoLockManagers) : self
+    public function setAutoLockManagers(bool $autoLockManagers): self
     {
         $this->initialized['autoLockManagers'] = true;
         $this->autoLockManagers = $autoLockManagers;

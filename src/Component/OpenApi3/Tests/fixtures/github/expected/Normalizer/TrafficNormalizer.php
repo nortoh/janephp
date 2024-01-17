@@ -18,18 +18,18 @@ class TrafficNormalizer implements DenormalizerInterface, NormalizerInterface, D
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Traffic';
+        return $type === 'Github\Model\Traffic';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Traffic';
+        return is_object($data) && get_class($data) === 'Github\Model\Traffic';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class TrafficNormalizer implements DenormalizerInterface, NormalizerInterface, D
             return $object;
         }
         if (\array_key_exists('timestamp', $data)) {
-            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['timestamp']));
+            $object->setTimestamp(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['timestamp']));
             unset($data['timestamp']);
         }
         if (\array_key_exists('uniques', $data)) {
@@ -66,10 +66,10 @@ class TrafficNormalizer implements DenormalizerInterface, NormalizerInterface, D
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\\TH:i:sP');
+        $data = [];
+        $data['timestamp'] = $object->getTimestamp()->format('Y-m-d\TH:i:sP');
         $data['uniques'] = $object->getUniques();
         $data['count'] = $object->getCount();
         foreach ($object as $key => $value) {
@@ -82,8 +82,8 @@ class TrafficNormalizer implements DenormalizerInterface, NormalizerInterface, D
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Traffic' => false);
+        return ['Github\Model\Traffic' => false];
     }
 }

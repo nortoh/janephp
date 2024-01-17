@@ -18,18 +18,18 @@ class ContainersIdJsonGetResponse200Normalizer implements DenormalizerInterface,
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\ContainersIdJsonGetResponse200';
+        return $type === 'Docker\Api\Model\ContainersIdJsonGetResponse200';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\ContainersIdJsonGetResponse200';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\ContainersIdJsonGetResponse200';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -44,8 +44,8 @@ class ContainersIdJsonGetResponse200Normalizer implements DenormalizerInterface,
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('Id', $data)) {
-            $object->setId($data['Id']);
+        if (\array_key_exists('ID', $data)) {
+            $object->setID($data['ID']);
         }
         if (\array_key_exists('Created', $data)) {
             $object->setCreated($data['Created']);
@@ -54,14 +54,14 @@ class ContainersIdJsonGetResponse200Normalizer implements DenormalizerInterface,
             $object->setPath($data['Path']);
         }
         if (\array_key_exists('Args', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['Args'] as $value) {
                 $values[] = $value;
             }
             $object->setArgs($values);
         }
         if (\array_key_exists('State', $data)) {
-            $object->setState($this->denormalizer->denormalize($data['State'], 'Docker\\Api\\Model\\ContainerState', 'json', $context));
+            $object->setState($this->denormalizer->denormalize($data['State'], 'Docker\Api\Model\ContainerState', 'json', $context));
         }
         if (\array_key_exists('Image', $data)) {
             $object->setImage($data['Image']);
@@ -100,7 +100,7 @@ class ContainersIdJsonGetResponse200Normalizer implements DenormalizerInterface,
             $object->setAppArmorProfile($data['AppArmorProfile']);
         }
         if (\array_key_exists('ExecIDs', $data) && $data['ExecIDs'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['ExecIDs'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -110,10 +110,10 @@ class ContainersIdJsonGetResponse200Normalizer implements DenormalizerInterface,
             $object->setExecIDs(null);
         }
         if (\array_key_exists('HostConfig', $data)) {
-            $object->setHostConfig($this->denormalizer->denormalize($data['HostConfig'], 'Docker\\Api\\Model\\HostConfig', 'json', $context));
+            $object->setHostConfig($this->denormalizer->denormalize($data['HostConfig'], 'Docker\Api\Model\HostConfig', 'json', $context));
         }
         if (\array_key_exists('GraphDriver', $data)) {
-            $object->setGraphDriver($this->denormalizer->denormalize($data['GraphDriver'], 'Docker\\Api\\Model\\GraphDriverData', 'json', $context));
+            $object->setGraphDriver($this->denormalizer->denormalize($data['GraphDriver'], 'Docker\Api\Model\GraphDriverData', 'json', $context));
         }
         if (\array_key_exists('SizeRw', $data)) {
             $object->setSizeRw($data['SizeRw']);
@@ -122,28 +122,28 @@ class ContainersIdJsonGetResponse200Normalizer implements DenormalizerInterface,
             $object->setSizeRootFs($data['SizeRootFs']);
         }
         if (\array_key_exists('Mounts', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['Mounts'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'Docker\\Api\\Model\\MountPoint', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'Docker\Api\Model\MountPoint', 'json', $context);
             }
             $object->setMounts($values_2);
         }
         if (\array_key_exists('Config', $data)) {
-            $object->setConfig($this->denormalizer->denormalize($data['Config'], 'Docker\\Api\\Model\\ContainerConfig', 'json', $context));
+            $object->setConfig($this->denormalizer->denormalize($data['Config'], 'Docker\Api\Model\ContainerConfig', 'json', $context));
         }
         if (\array_key_exists('NetworkSettings', $data)) {
-            $object->setNetworkSettings($this->denormalizer->denormalize($data['NetworkSettings'], 'Docker\\Api\\Model\\NetworkSettings', 'json', $context));
+            $object->setNetworkSettings($this->denormalizer->denormalize($data['NetworkSettings'], 'Docker\Api\Model\NetworkSettings', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        if ($object->isInitialized('id') && null !== $object->getId()) {
-            $data['Id'] = $object->getId();
+        $data = [];
+        if ($object->isInitialized('iD') && null !== $object->getID()) {
+            $data['ID'] = $object->getID();
         }
         if ($object->isInitialized('created') && null !== $object->getCreated()) {
             $data['Created'] = $object->getCreated();
@@ -152,14 +152,14 @@ class ContainersIdJsonGetResponse200Normalizer implements DenormalizerInterface,
             $data['Path'] = $object->getPath();
         }
         if ($object->isInitialized('args') && null !== $object->getArgs()) {
-            $values = array();
+            $values = [];
             foreach ($object->getArgs() as $value) {
                 $values[] = $value;
             }
             $data['Args'] = $values;
         }
         if ($object->isInitialized('state') && null !== $object->getState()) {
-            $data['State'] = $this->normalizer->normalize($object->getState(), 'json', $context);
+            $data['State'] = ($object->getState() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getState(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('image') && null !== $object->getImage()) {
             $data['Image'] = $object->getImage();
@@ -198,17 +198,17 @@ class ContainersIdJsonGetResponse200Normalizer implements DenormalizerInterface,
             $data['AppArmorProfile'] = $object->getAppArmorProfile();
         }
         if ($object->isInitialized('execIDs') && null !== $object->getExecIDs()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getExecIDs() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['ExecIDs'] = $values_1;
         }
         if ($object->isInitialized('hostConfig') && null !== $object->getHostConfig()) {
-            $data['HostConfig'] = $this->normalizer->normalize($object->getHostConfig(), 'json', $context);
+            $data['HostConfig'] = ($object->getHostConfig() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getHostConfig(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('graphDriver') && null !== $object->getGraphDriver()) {
-            $data['GraphDriver'] = $this->normalizer->normalize($object->getGraphDriver(), 'json', $context);
+            $data['GraphDriver'] = ($object->getGraphDriver() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getGraphDriver(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('sizeRw') && null !== $object->getSizeRw()) {
             $data['SizeRw'] = $object->getSizeRw();
@@ -217,25 +217,25 @@ class ContainersIdJsonGetResponse200Normalizer implements DenormalizerInterface,
             $data['SizeRootFs'] = $object->getSizeRootFs();
         }
         if ($object->isInitialized('mounts') && null !== $object->getMounts()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getMounts() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['Mounts'] = $values_2;
         }
         if ($object->isInitialized('config') && null !== $object->getConfig()) {
-            $data['Config'] = $this->normalizer->normalize($object->getConfig(), 'json', $context);
+            $data['Config'] = ($object->getConfig() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getConfig(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('networkSettings') && null !== $object->getNetworkSettings()) {
-            $data['NetworkSettings'] = $this->normalizer->normalize($object->getNetworkSettings(), 'json', $context);
+            $data['NetworkSettings'] = ($object->getNetworkSettings() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getNetworkSettings(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Docker\Api\Validator\ContainersIdJsonGetResponse200Constraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\ContainersIdJsonGetResponse200' => false);
+        return ['Docker\Api\Model\ContainersIdJsonGetResponse200' => false];
     }
 }

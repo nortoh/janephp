@@ -18,18 +18,18 @@ class GbCompanyReportExampleResponseReportCompanySummaryNormalizer implements De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanySummary';
+        return $type === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanySummary';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanySummary';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanySummary';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -58,23 +58,23 @@ class GbCompanyReportExampleResponseReportCompanySummaryNormalizer implements De
             unset($data['companyRegistrationNumber']);
         }
         if (\array_key_exists('mainActivity', $data)) {
-            $object->setMainActivity($this->denormalizer->denormalize($data['mainActivity'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanySummaryMainActivity', 'json', $context));
+            $object->setMainActivity($this->denormalizer->denormalize($data['mainActivity'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanySummaryMainActivity', 'json', $context));
             unset($data['mainActivity']);
         }
         if (\array_key_exists('companyStatus', $data)) {
-            $object->setCompanyStatus($this->denormalizer->denormalize($data['companyStatus'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanySummaryCompanyStatus', 'json', $context));
+            $object->setCompanyStatus($this->denormalizer->denormalize($data['companyStatus'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanySummaryCompanyStatus', 'json', $context));
             unset($data['companyStatus']);
         }
         if (\array_key_exists('latestTurnoverFigure', $data)) {
-            $object->setLatestTurnoverFigure($this->denormalizer->denormalize($data['latestTurnoverFigure'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanySummaryLatestTurnoverFigure', 'json', $context));
+            $object->setLatestTurnoverFigure($this->denormalizer->denormalize($data['latestTurnoverFigure'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanySummaryLatestTurnoverFigure', 'json', $context));
             unset($data['latestTurnoverFigure']);
         }
         if (\array_key_exists('latestShareholdersEquityFigure', $data)) {
-            $object->setLatestShareholdersEquityFigure($this->denormalizer->denormalize($data['latestShareholdersEquityFigure'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanySummaryLatestShareholdersEquityFigure', 'json', $context));
+            $object->setLatestShareholdersEquityFigure($this->denormalizer->denormalize($data['latestShareholdersEquityFigure'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanySummaryLatestShareholdersEquityFigure', 'json', $context));
             unset($data['latestShareholdersEquityFigure']);
         }
         if (\array_key_exists('creditRating', $data)) {
-            $object->setCreditRating($this->denormalizer->denormalize($data['creditRating'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanySummaryCreditRating', 'json', $context));
+            $object->setCreditRating($this->denormalizer->denormalize($data['creditRating'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanySummaryCreditRating', 'json', $context));
             unset($data['creditRating']);
         }
         foreach ($data as $key => $value) {
@@ -87,9 +87,9 @@ class GbCompanyReportExampleResponseReportCompanySummaryNormalizer implements De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('businessName') && null !== $object->getBusinessName()) {
             $data['businessName'] = $object->getBusinessName();
         }
@@ -103,19 +103,19 @@ class GbCompanyReportExampleResponseReportCompanySummaryNormalizer implements De
             $data['companyRegistrationNumber'] = $object->getCompanyRegistrationNumber();
         }
         if ($object->isInitialized('mainActivity') && null !== $object->getMainActivity()) {
-            $data['mainActivity'] = $this->normalizer->normalize($object->getMainActivity(), 'json', $context);
+            $data['mainActivity'] = ($object->getMainActivity() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMainActivity(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('companyStatus') && null !== $object->getCompanyStatus()) {
-            $data['companyStatus'] = $this->normalizer->normalize($object->getCompanyStatus(), 'json', $context);
+            $data['companyStatus'] = ($object->getCompanyStatus() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCompanyStatus(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('latestTurnoverFigure') && null !== $object->getLatestTurnoverFigure()) {
-            $data['latestTurnoverFigure'] = $this->normalizer->normalize($object->getLatestTurnoverFigure(), 'json', $context);
+            $data['latestTurnoverFigure'] = ($object->getLatestTurnoverFigure() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLatestTurnoverFigure(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('latestShareholdersEquityFigure') && null !== $object->getLatestShareholdersEquityFigure()) {
-            $data['latestShareholdersEquityFigure'] = $this->normalizer->normalize($object->getLatestShareholdersEquityFigure(), 'json', $context);
+            $data['latestShareholdersEquityFigure'] = ($object->getLatestShareholdersEquityFigure() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLatestShareholdersEquityFigure(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('creditRating') && null !== $object->getCreditRating()) {
-            $data['creditRating'] = $this->normalizer->normalize($object->getCreditRating(), 'json', $context);
+            $data['creditRating'] = ($object->getCreditRating() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCreditRating(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -124,8 +124,8 @@ class GbCompanyReportExampleResponseReportCompanySummaryNormalizer implements De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanySummary' => false);
+        return ['CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanySummary' => false];
     }
 }

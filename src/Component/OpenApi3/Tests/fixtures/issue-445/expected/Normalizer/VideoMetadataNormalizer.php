@@ -18,18 +18,18 @@ class VideoMetadataNormalizer implements DenormalizerInterface, NormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\VideoMetadata';
+        return $type === 'PicturePark\API\Model\VideoMetadata';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\VideoMetadata';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\VideoMetadata';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -148,9 +148,9 @@ class VideoMetadataNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setOverallBitrate(null);
         }
         if (\array_key_exists('videoStreams', $data) && $data['videoStreams'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['videoStreams'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\VideoStream', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\VideoStream', 'json', $context);
             }
             $object->setVideoStreams($values);
             unset($data['videoStreams']);
@@ -159,9 +159,9 @@ class VideoMetadataNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setVideoStreams(null);
         }
         if (\array_key_exists('audioStreams', $data) && $data['audioStreams'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['audioStreams'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\AudioStream', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\AudioStream', 'json', $context);
             }
             $object->setAudioStreams($values_1);
             unset($data['audioStreams']);
@@ -179,9 +179,9 @@ class VideoMetadataNormalizer implements DenormalizerInterface, NormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('names') && null !== $object->getNames()) {
             $data['names'] = $object->getNames();
         }
@@ -231,16 +231,16 @@ class VideoMetadataNormalizer implements DenormalizerInterface, NormalizerInterf
             $data['overallBitrate'] = $object->getOverallBitrate();
         }
         if ($object->isInitialized('videoStreams') && null !== $object->getVideoStreams()) {
-            $values = array();
+            $values = [];
             foreach ($object->getVideoStreams() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['videoStreams'] = $values;
         }
         if ($object->isInitialized('audioStreams') && null !== $object->getAudioStreams()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAudioStreams() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['audioStreams'] = $values_1;
         }
@@ -251,8 +251,8 @@ class VideoMetadataNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\VideoMetadata' => false);
+        return ['PicturePark\API\Model\VideoMetadata' => false];
     }
 }

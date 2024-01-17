@@ -18,18 +18,18 @@ class OrganizationNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Organization';
+        return $type === 'Github\Model\Organization';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Organization';
+        return is_object($data) && get_class($data) === 'Github\Model\Organization';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -152,15 +152,15 @@ class OrganizationNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['type']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('plan', $data)) {
-            $object->setPlan($this->denormalizer->denormalize($data['plan'], 'Github\\Model\\OrganizationPlan', 'json', $context));
+            $object->setPlan($this->denormalizer->denormalize($data['plan'], 'Github\Model\OrganizationPlan', 'json', $context));
             unset($data['plan']);
         }
         foreach ($data as $key => $value) {
@@ -173,9 +173,9 @@ class OrganizationNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['login'] = $object->getLogin();
         $data['url'] = $object->getUrl();
         $data['id'] = $object->getId();
@@ -214,10 +214,10 @@ class OrganizationNormalizer implements DenormalizerInterface, NormalizerInterfa
         $data['followers'] = $object->getFollowers();
         $data['following'] = $object->getFollowing();
         $data['type'] = $object->getType();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('plan') && null !== $object->getPlan()) {
-            $data['plan'] = $this->normalizer->normalize($object->getPlan(), 'json', $context);
+            $data['plan'] = ($object->getPlan() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPlan(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -229,8 +229,8 @@ class OrganizationNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Organization' => false);
+        return ['Github\Model\Organization' => false];
     }
 }

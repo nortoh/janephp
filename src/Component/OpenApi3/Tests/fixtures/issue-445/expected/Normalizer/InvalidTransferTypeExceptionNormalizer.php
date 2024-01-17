@@ -18,18 +18,18 @@ class InvalidTransferTypeExceptionNormalizer implements DenormalizerInterface, N
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\InvalidTransferTypeException';
+        return $type === 'PicturePark\API\Model\InvalidTransferTypeException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\InvalidTransferTypeException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\InvalidTransferTypeException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -109,9 +109,9 @@ class InvalidTransferTypeExceptionNormalizer implements DenormalizerInterface, N
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -147,8 +147,8 @@ class InvalidTransferTypeExceptionNormalizer implements DenormalizerInterface, N
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\InvalidTransferTypeException' => false);
+        return ['PicturePark\API\Model\InvalidTransferTypeException' => false];
     }
 }

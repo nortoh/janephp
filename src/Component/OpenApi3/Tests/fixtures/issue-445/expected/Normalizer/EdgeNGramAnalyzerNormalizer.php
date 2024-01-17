@@ -18,18 +18,18 @@ class EdgeNGramAnalyzerNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\EdgeNGramAnalyzer';
+        return $type === 'PicturePark\API\Model\EdgeNGramAnalyzer';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\EdgeNGramAnalyzer';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\EdgeNGramAnalyzer';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -66,9 +66,9 @@ class EdgeNGramAnalyzerNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['kind'] = $object->getKind();
         if ($object->isInitialized('type') && null !== $object->getType()) {
             $data['type'] = $object->getType();
@@ -83,8 +83,8 @@ class EdgeNGramAnalyzerNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\EdgeNGramAnalyzer' => false);
+        return ['PicturePark\API\Model\EdgeNGramAnalyzer' => false];
     }
 }

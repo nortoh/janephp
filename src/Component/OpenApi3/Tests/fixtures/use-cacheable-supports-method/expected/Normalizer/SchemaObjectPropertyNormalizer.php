@@ -19,18 +19,18 @@ class SchemaObjectPropertyNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SchemaObjectProperty';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\SchemaObjectProperty';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SchemaObjectProperty';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\SchemaObjectProperty';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -56,9 +56,9 @@ class SchemaObjectPropertyNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('stringProperty') && null !== $object->getStringProperty()) {
             $data['stringProperty'] = $object->getStringProperty();
         }
@@ -69,11 +69,11 @@ class SchemaObjectPropertyNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SchemaObjectProperty' => true);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\SchemaObjectProperty' => true];
     }
-    public function hasCacheableSupportsMethod() : bool
+    public function hasCacheableSupportsMethod(): bool
     {
         return true;
     }

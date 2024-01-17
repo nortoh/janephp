@@ -18,18 +18,18 @@ class TaskSpecPlacementNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\TaskSpecPlacement';
+        return $type === 'Docker\Api\Model\TaskSpecPlacement';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\TaskSpecPlacement';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\TaskSpecPlacement';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,16 +45,16 @@ class TaskSpecPlacementNormalizer implements DenormalizerInterface, NormalizerIn
             return $object;
         }
         if (\array_key_exists('Constraints', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['Constraints'] as $value) {
                 $values[] = $value;
             }
             $object->setConstraints($values);
         }
         if (\array_key_exists('Preferences', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['Preferences'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Docker\\Api\\Model\\TaskSpecPlacementPreferencesItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'Docker\Api\Model\TaskSpecPlacementPreferencesItem', 'json', $context);
             }
             $object->setPreferences($values_1);
         }
@@ -62,9 +62,9 @@ class TaskSpecPlacementNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setMaxReplicas($data['MaxReplicas']);
         }
         if (\array_key_exists('Platforms', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['Platforms'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'Docker\\Api\\Model\\Platform', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'Docker\Api\Model\Platform', 'json', $context);
             }
             $object->setPlatforms($values_2);
         }
@@ -73,20 +73,20 @@ class TaskSpecPlacementNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('constraints') && null !== $object->getConstraints()) {
-            $values = array();
+            $values = [];
             foreach ($object->getConstraints() as $value) {
                 $values[] = $value;
             }
             $data['Constraints'] = $values;
         }
         if ($object->isInitialized('preferences') && null !== $object->getPreferences()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getPreferences() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['Preferences'] = $values_1;
         }
@@ -94,9 +94,9 @@ class TaskSpecPlacementNormalizer implements DenormalizerInterface, NormalizerIn
             $data['MaxReplicas'] = $object->getMaxReplicas();
         }
         if ($object->isInitialized('platforms') && null !== $object->getPlatforms()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getPlatforms() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['Platforms'] = $values_2;
         }
@@ -105,8 +105,8 @@ class TaskSpecPlacementNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\TaskSpecPlacement' => false);
+        return ['Docker\Api\Model\TaskSpecPlacement' => false];
     }
 }

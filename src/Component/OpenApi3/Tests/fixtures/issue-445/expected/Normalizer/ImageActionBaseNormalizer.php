@@ -18,30 +18,30 @@ class ImageActionBaseNormalizer implements DenormalizerInterface, NormalizerInte
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ImageActionBase';
+        return $type === 'PicturePark\API\Model\ImageActionBase';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ImageActionBase';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ImageActionBase';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'AlphaHandlingAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\AlphaHandlingAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\AlphaHandlingAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'CropAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\CropAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\CropAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'UnsharpenMaskAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\UnsharpenMaskAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\UnsharpenMaskAction', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'WatermarkAction' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\WatermarkAction', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\WatermarkAction', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,9 +61,9 @@ class ImageActionBaseNormalizer implements DenormalizerInterface, NormalizerInte
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'AlphaHandlingAction' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -79,8 +79,8 @@ class ImageActionBaseNormalizer implements DenormalizerInterface, NormalizerInte
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ImageActionBase' => false);
+        return ['PicturePark\API\Model\ImageActionBase' => false];
     }
 }

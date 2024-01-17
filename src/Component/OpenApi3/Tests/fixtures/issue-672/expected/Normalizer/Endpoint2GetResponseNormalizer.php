@@ -18,18 +18,18 @@ class Endpoint2GetResponseNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Endpoint2GetResponse';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\Endpoint2GetResponse';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Endpoint2GetResponse';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\Endpoint2GetResponse';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,11 +42,11 @@ class Endpoint2GetResponseNormalizer implements DenormalizerInterface, Normalize
             return $object;
         }
         if (\array_key_exists('field-2', $data)) {
-            $object->setField2($this->denormalizer->denormalize($data['field-2'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SubLevel1', 'json', $context));
+            $object->setField2($this->denormalizer->denormalize($data['field-2'], 'Jane\Component\OpenApi3\Tests\Expected\Model\SubLevel1', 'json', $context));
             unset($data['field-2']);
         }
         if (\array_key_exists('field-2-bis', $data)) {
-            $object->setField2Bis($this->denormalizer->denormalize($data['field-2-bis'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\SubLevel2', 'json', $context));
+            $object->setField2Bis($this->denormalizer->denormalize($data['field-2-bis'], 'Jane\Component\OpenApi3\Tests\Expected\Model\SubLevel2', 'json', $context));
             unset($data['field-2-bis']);
         }
         foreach ($data as $key => $value) {
@@ -59,14 +59,14 @@ class Endpoint2GetResponseNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('field2') && null !== $object->getField2()) {
-            $data['field-2'] = $this->normalizer->normalize($object->getField2(), 'json', $context);
+            $data['field-2'] = ($object->getField2() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getField2(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('field2Bis') && null !== $object->getField2Bis()) {
-            $data['field-2-bis'] = $this->normalizer->normalize($object->getField2Bis(), 'json', $context);
+            $data['field-2-bis'] = ($object->getField2Bis() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getField2Bis(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -75,8 +75,8 @@ class Endpoint2GetResponseNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Endpoint2GetResponse' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\Endpoint2GetResponse' => false];
     }
 }

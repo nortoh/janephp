@@ -22,42 +22,42 @@ class ContentUpdateMetadata extends \PicturePark\API\Runtime\Client\BaseEndpoint
                By default the endpoint waits for the search document creation. Passing false, the endpoint will return when the main entity has been created and the creation of the search document has been enqueued but not yet performed.
     * }
     */
-    public function __construct(string $id, \PicturePark\API\Model\ContentMetadataUpdateRequest $requestBody, array $queryParameters = array())
+    public function __construct(string $id, \PicturePark\API\Model\ContentMetadataUpdateRequest $requestBody, array $queryParameters = [])
     {
         $this->id = $id;
         $this->body = $requestBody;
         $this->queryParameters = $queryParameters;
     }
     use \PicturePark\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'PUT';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/v1/Contents/{id}/metadata');
+        return str_replace(['{id}'], [$this->id], '/v1/Contents/{id}/metadata');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if ($this->body instanceof \PicturePark\API\Model\ContentMetadataUpdateRequest) {
-            return array(array('Content-Type' => array('application/json')), $serializer->serialize($this->body, 'json'));
+            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
         }
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('resolveBehaviors', 'allowMissingDependencies', 'timeout', 'waitSearchDocCreation'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('allowMissingDependencies' => false, 'waitSearchDocCreation' => true));
-        $optionsResolver->addAllowedTypes('resolveBehaviors', array('array', 'null'));
-        $optionsResolver->addAllowedTypes('allowMissingDependencies', array('bool'));
-        $optionsResolver->addAllowedTypes('timeout', array('string', 'null'));
-        $optionsResolver->addAllowedTypes('waitSearchDocCreation', array('bool'));
+        $optionsResolver->setDefined(['resolveBehaviors', 'allowMissingDependencies', 'timeout', 'waitSearchDocCreation']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['allowMissingDependencies' => false, 'waitSearchDocCreation' => true]);
+        $optionsResolver->addAllowedTypes('resolveBehaviors', ['array', 'null']);
+        $optionsResolver->addAllowedTypes('allowMissingDependencies', ['bool']);
+        $optionsResolver->addAllowedTypes('timeout', ['string', 'null']);
+        $optionsResolver->addAllowedTypes('waitSearchDocCreation', ['bool']);
         return $optionsResolver;
     }
     /**
@@ -78,32 +78,32 @@ class ContentUpdateMetadata extends \PicturePark\API\Runtime\Client\BaseEndpoint
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'PicturePark\\API\\Model\\ContentDetail', 'json');
+            return $serializer->deserialize($body, 'PicturePark\API\Model\ContentDetail', 'json');
         }
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentUpdateMetadataBadRequestException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkValidationException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentUpdateMetadataBadRequestException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkValidationException', 'json'), $response);
         }
         if (401 === $status) {
             throw new \PicturePark\API\Exception\ContentUpdateMetadataUnauthorizedException($response);
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentUpdateMetadataNotFoundException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkNotFoundException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentUpdateMetadataNotFoundException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkNotFoundException', 'json'), $response);
         }
         if (405 === $status) {
             throw new \PicturePark\API\Exception\ContentUpdateMetadataMethodNotAllowedException($response);
         }
         if (is_null($contentType) === false && (409 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentUpdateMetadataConflictException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkConflictException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentUpdateMetadataConflictException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkConflictException', 'json'), $response);
         }
         if (429 === $status) {
             throw new \PicturePark\API\Exception\ContentUpdateMetadataTooManyRequestsException($response);
         }
         if (is_null($contentType) === false && (500 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentUpdateMetadataInternalServerErrorException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentUpdateMetadataInternalServerErrorException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkException', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('Bearer');
+        return ['Bearer'];
     }
 }

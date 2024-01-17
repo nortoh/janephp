@@ -18,18 +18,18 @@ class TeamProjectNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\TeamProject';
+        return $type === 'Github\Model\TeamProject';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\TeamProject';
+        return is_object($data) && get_class($data) === 'Github\Model\TeamProject';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -88,7 +88,7 @@ class TeamProjectNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['state']);
         }
         if (\array_key_exists('creator', $data) && $data['creator'] !== null) {
-            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\\Model\\SimpleUser', 'json', $context));
+            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\Model\SimpleUser', 'json', $context));
             unset($data['creator']);
         }
         elseif (\array_key_exists('creator', $data) && $data['creator'] === null) {
@@ -111,7 +111,7 @@ class TeamProjectNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['private']);
         }
         if (\array_key_exists('permissions', $data)) {
-            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\\Model\\TeamProjectPermissions', 'json', $context));
+            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\Model\TeamProjectPermissions', 'json', $context));
             unset($data['permissions']);
         }
         foreach ($data as $key => $value) {
@@ -124,9 +124,9 @@ class TeamProjectNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('ownerUrl') && null !== $object->getOwnerUrl()) {
             $data['owner_url'] = $object->getOwnerUrl();
         }
@@ -158,7 +158,7 @@ class TeamProjectNormalizer implements DenormalizerInterface, NormalizerInterfac
             $data['state'] = $object->getState();
         }
         if ($object->isInitialized('creator') && null !== $object->getCreator()) {
-            $data['creator'] = $this->normalizer->normalize($object->getCreator(), 'json', $context);
+            $data['creator'] = ($object->getCreator() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCreator(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('createdAt') && null !== $object->getCreatedAt()) {
             $data['created_at'] = $object->getCreatedAt();
@@ -173,7 +173,7 @@ class TeamProjectNormalizer implements DenormalizerInterface, NormalizerInterfac
             $data['private'] = $object->getPrivate();
         }
         if ($object->isInitialized('permissions') && null !== $object->getPermissions()) {
-            $data['permissions'] = $this->normalizer->normalize($object->getPermissions(), 'json', $context);
+            $data['permissions'] = ($object->getPermissions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPermissions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -185,8 +185,8 @@ class TeamProjectNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\TeamProject' => false);
+        return ['Github\Model\TeamProject' => false];
     }
 }

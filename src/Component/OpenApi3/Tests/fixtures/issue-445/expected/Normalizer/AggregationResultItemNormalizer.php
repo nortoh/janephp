@@ -18,18 +18,18 @@ class AggregationResultItemNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\AggregationResultItem';
+        return $type === 'PicturePark\API\Model\AggregationResultItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\AggregationResultItem';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\AggregationResultItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,9 +57,9 @@ class AggregationResultItemNormalizer implements DenormalizerInterface, Normaliz
             $object->setActive($data['active']);
         }
         if (\array_key_exists('aggregationResults', $data) && $data['aggregationResults'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['aggregationResults'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\AggregationResult', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\AggregationResult', 'json', $context);
             }
             $object->setAggregationResults($values);
         }
@@ -71,9 +71,9 @@ class AggregationResultItemNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
         $data['count'] = $object->getCount();
         if ($object->isInitialized('filter') && null !== $object->getFilter()) {
@@ -81,16 +81,16 @@ class AggregationResultItemNormalizer implements DenormalizerInterface, Normaliz
         }
         $data['active'] = $object->getActive();
         if ($object->isInitialized('aggregationResults') && null !== $object->getAggregationResults()) {
-            $values = array();
+            $values = [];
             foreach ($object->getAggregationResults() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregationResults'] = $values;
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\AggregationResultItem' => false);
+        return ['PicturePark\API\Model\AggregationResultItem' => false];
     }
 }

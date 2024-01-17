@@ -18,18 +18,18 @@ class SwarmSpecCAConfigNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\SwarmSpecCAConfig';
+        return $type === 'Docker\Api\Model\SwarmSpecCAConfig';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\SwarmSpecCAConfig';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\SwarmSpecCAConfig';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,9 +48,9 @@ class SwarmSpecCAConfigNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setNodeCertExpiry($data['NodeCertExpiry']);
         }
         if (\array_key_exists('ExternalCAs', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['ExternalCAs'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Docker\\Api\\Model\\SwarmSpecCAConfigExternalCAsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Docker\Api\Model\SwarmSpecCAConfigExternalCAsItem', 'json', $context);
             }
             $object->setExternalCAs($values);
         }
@@ -68,16 +68,16 @@ class SwarmSpecCAConfigNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('nodeCertExpiry') && null !== $object->getNodeCertExpiry()) {
             $data['NodeCertExpiry'] = $object->getNodeCertExpiry();
         }
         if ($object->isInitialized('externalCAs') && null !== $object->getExternalCAs()) {
-            $values = array();
+            $values = [];
             foreach ($object->getExternalCAs() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['ExternalCAs'] = $values;
         }
@@ -95,8 +95,8 @@ class SwarmSpecCAConfigNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\SwarmSpecCAConfig' => false);
+        return ['Docker\Api\Model\SwarmSpecCAConfig' => false];
     }
 }

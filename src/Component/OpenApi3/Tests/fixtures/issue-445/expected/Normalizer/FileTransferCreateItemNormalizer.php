@@ -18,18 +18,18 @@ class FileTransferCreateItemNormalizer implements DenormalizerInterface, Normali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\FileTransferCreateItem';
+        return $type === 'PicturePark\API\Model\FileTransferCreateItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\FileTransferCreateItem';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\FileTransferCreateItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class FileTransferCreateItemNormalizer implements DenormalizerInterface, Normali
             $object->setFileId($data['fileId']);
         }
         if (\array_key_exists('layerSchemaIds', $data) && $data['layerSchemaIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['layerSchemaIds'] as $value) {
                 $values[] = $value;
             }
@@ -55,7 +55,7 @@ class FileTransferCreateItemNormalizer implements DenormalizerInterface, Normali
             $object->setLayerSchemaIds(null);
         }
         if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
-            $values_1 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['metadata'] as $key => $value_1) {
                 $values_1[$key] = $value_1;
             }
@@ -65,7 +65,7 @@ class FileTransferCreateItemNormalizer implements DenormalizerInterface, Normali
             $object->setMetadata(null);
         }
         if (\array_key_exists('contentPermissionSetIds', $data) && $data['contentPermissionSetIds'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['contentPermissionSetIds'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -79,26 +79,26 @@ class FileTransferCreateItemNormalizer implements DenormalizerInterface, Normali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['fileId'] = $object->getFileId();
         if ($object->isInitialized('layerSchemaIds') && null !== $object->getLayerSchemaIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getLayerSchemaIds() as $value) {
                 $values[] = $value;
             }
             $data['layerSchemaIds'] = $values;
         }
         if ($object->isInitialized('metadata') && null !== $object->getMetadata()) {
-            $values_1 = array();
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getMetadata() as $key => $value_1) {
                 $values_1[$key] = $value_1;
             }
             $data['metadata'] = $values_1;
         }
         if ($object->isInitialized('contentPermissionSetIds') && null !== $object->getContentPermissionSetIds()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getContentPermissionSetIds() as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -106,8 +106,8 @@ class FileTransferCreateItemNormalizer implements DenormalizerInterface, Normali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\FileTransferCreateItem' => false);
+        return ['PicturePark\API\Model\FileTransferCreateItem' => false];
     }
 }

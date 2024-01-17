@@ -18,18 +18,18 @@ class EventNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\Event';
+        return $type === 'CreditSafe\API\Model\Event';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\Event';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\Event';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -83,11 +83,11 @@ class EventNormalizer implements DenormalizerInterface, NormalizerInterface, Den
             unset($data['oldValue']);
         }
         if (\array_key_exists('eventDate', $data)) {
-            $object->setEventDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['eventDate']));
+            $object->setEventDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['eventDate']));
             unset($data['eventDate']);
         }
         if (\array_key_exists('createdDate', $data)) {
-            $object->setCreatedDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['createdDate']));
+            $object->setCreatedDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['createdDate']));
             unset($data['createdDate']);
         }
         foreach ($data as $key => $value) {
@@ -100,9 +100,9 @@ class EventNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('eventId') && null !== $object->getEventId()) {
             $data['eventId'] = $object->getEventId();
         }
@@ -128,10 +128,10 @@ class EventNormalizer implements DenormalizerInterface, NormalizerInterface, Den
             $data['oldValue'] = $object->getOldValue();
         }
         if ($object->isInitialized('eventDate') && null !== $object->getEventDate()) {
-            $data['eventDate'] = $object->getEventDate()->format('Y-m-d\\TH:i:sP');
+            $data['eventDate'] = $object->getEventDate()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('createdDate') && null !== $object->getCreatedDate()) {
-            $data['createdDate'] = $object->getCreatedDate()->format('Y-m-d\\TH:i:sP');
+            $data['createdDate'] = $object->getCreatedDate()->format('Y-m-d\TH:i:sP');
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -140,8 +140,8 @@ class EventNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\Event' => false);
+        return ['CreditSafe\API\Model\Event' => false];
     }
 }

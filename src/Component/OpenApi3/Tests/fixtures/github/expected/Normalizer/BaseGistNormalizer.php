@@ -18,18 +18,18 @@ class BaseGistNormalizer implements DenormalizerInterface, NormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\BaseGist';
+        return $type === 'Github\Model\BaseGist';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\BaseGist';
+        return is_object($data) && get_class($data) === 'Github\Model\BaseGist';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -77,9 +77,9 @@ class BaseGistNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['html_url']);
         }
         if (\array_key_exists('files', $data)) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['files'] as $key => $value) {
-                $values[$key] = $this->denormalizer->denormalize($value, 'Github\\Model\\BaseGistFilesItem', 'json', $context);
+                $values[$key] = $this->denormalizer->denormalize($value, 'Github\Model\BaseGistFilesItem', 'json', $context);
             }
             $object->setFiles($values);
             unset($data['files']);
@@ -89,11 +89,11 @@ class BaseGistNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['public']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('description', $data) && $data['description'] !== null) {
@@ -108,7 +108,7 @@ class BaseGistNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['comments']);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\BaseGistUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\BaseGistUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
@@ -119,7 +119,7 @@ class BaseGistNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['comments_url']);
         }
         if (\array_key_exists('owner', $data) && $data['owner'] !== null) {
-            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\\Model\\BaseGistOwner', 'json', $context));
+            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\Model\BaseGistOwner', 'json', $context));
             unset($data['owner']);
         }
         elseif (\array_key_exists('owner', $data) && $data['owner'] === null) {
@@ -130,7 +130,7 @@ class BaseGistNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['truncated']);
         }
         if (\array_key_exists('forks', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['forks'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -138,7 +138,7 @@ class BaseGistNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['forks']);
         }
         if (\array_key_exists('history', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['history'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -155,9 +155,9 @@ class BaseGistNormalizer implements DenormalizerInterface, NormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['forks_url'] = $object->getForksUrl();
         $data['commits_url'] = $object->getCommitsUrl();
@@ -166,33 +166,33 @@ class BaseGistNormalizer implements DenormalizerInterface, NormalizerInterface, 
         $data['git_pull_url'] = $object->getGitPullUrl();
         $data['git_push_url'] = $object->getGitPushUrl();
         $data['html_url'] = $object->getHtmlUrl();
-        $values = array();
+        $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object->getFiles() as $key => $value) {
-            $values[$key] = $this->normalizer->normalize($value, 'json', $context);
+            $values[$key] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['files'] = $values;
         $data['public'] = $object->getPublic();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['description'] = $object->getDescription();
         $data['comments'] = $object->getComments();
-        $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
+        $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['comments_url'] = $object->getCommentsUrl();
         if ($object->isInitialized('owner') && null !== $object->getOwner()) {
-            $data['owner'] = $this->normalizer->normalize($object->getOwner(), 'json', $context);
+            $data['owner'] = ($object->getOwner() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOwner(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('truncated') && null !== $object->getTruncated()) {
             $data['truncated'] = $object->getTruncated();
         }
         if ($object->isInitialized('forks') && null !== $object->getForks()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getForks() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['forks'] = $values_1;
         }
         if ($object->isInitialized('history') && null !== $object->getHistory()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getHistory() as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -208,8 +208,8 @@ class BaseGistNormalizer implements DenormalizerInterface, NormalizerInterface, 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\BaseGist' => false);
+        return ['Github\Model\BaseGist' => false];
     }
 }

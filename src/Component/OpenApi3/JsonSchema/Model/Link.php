@@ -45,7 +45,7 @@ class Link extends \ArrayObject
      *
      * @return string|null
      */
-    public function getOperationId() : ?string
+    public function getOperationId(): ?string
     {
         return $this->operationId;
     }
@@ -56,7 +56,7 @@ class Link extends \ArrayObject
      *
      * @return self
      */
-    public function setOperationId(?string $operationId) : self
+    public function setOperationId(?string $operationId): self
     {
         $this->operationId = $operationId;
         return $this;
@@ -66,7 +66,7 @@ class Link extends \ArrayObject
      *
      * @return string|null
      */
-    public function getOperationRef() : ?string
+    public function getOperationRef(): ?string
     {
         return $this->operationRef;
     }
@@ -77,7 +77,7 @@ class Link extends \ArrayObject
      *
      * @return self
      */
-    public function setOperationRef(?string $operationRef) : self
+    public function setOperationRef(?string $operationRef): self
     {
         $this->operationRef = $operationRef;
         return $this;
@@ -87,7 +87,7 @@ class Link extends \ArrayObject
      *
      * @return mixed[]|null
      */
-    public function getParameters() : ?iterable
+    public function getParameters(): ?iterable
     {
         return $this->parameters;
     }
@@ -98,7 +98,7 @@ class Link extends \ArrayObject
      *
      * @return self
      */
-    public function setParameters(?iterable $parameters) : self
+    public function setParameters(?iterable $parameters): self
     {
         $this->parameters = $parameters;
         return $this;
@@ -119,7 +119,7 @@ class Link extends \ArrayObject
      *
      * @return self
      */
-    public function setRequestBody($requestBody) : self
+    public function setRequestBody($requestBody): self
     {
         $this->requestBody = $requestBody;
         return $this;
@@ -129,7 +129,7 @@ class Link extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -140,7 +140,7 @@ class Link extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -161,7 +161,7 @@ class Link extends \ArrayObject
      *
      * @return self
      */
-    public function setServer(?Server $server) : self
+    public function setServer(?Server $server): self
     {
         $this->server = $server;
         return $this;

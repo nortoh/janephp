@@ -18,18 +18,18 @@ class UserProfileNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\UserProfile';
+        return $type === 'PicturePark\API\Model\UserProfile';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\UserProfile';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\UserProfile';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -84,7 +84,7 @@ class UserProfileNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setIsLocked($data['isLocked']);
         }
         if (\array_key_exists('userRights', $data) && $data['userRights'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['userRights'] as $value) {
                 $values[] = $value;
             }
@@ -94,7 +94,7 @@ class UserProfileNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setUserRights(null);
         }
         if (\array_key_exists('userRoleIds', $data) && $data['userRoleIds'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['userRoleIds'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -107,7 +107,7 @@ class UserProfileNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setTermsConsentExpired($data['termsConsentExpired']);
         }
         if (\array_key_exists('systemUserRoles', $data) && $data['systemUserRoles'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['systemUserRoles'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -127,9 +127,9 @@ class UserProfileNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -151,14 +151,14 @@ class UserProfileNormalizer implements DenormalizerInterface, NormalizerInterfac
         $data['authorizationState'] = $object->getAuthorizationState();
         $data['isLocked'] = $object->getIsLocked();
         if ($object->isInitialized('userRights') && null !== $object->getUserRights()) {
-            $values = array();
+            $values = [];
             foreach ($object->getUserRights() as $value) {
                 $values[] = $value;
             }
             $data['userRights'] = $values;
         }
         if ($object->isInitialized('userRoleIds') && null !== $object->getUserRoleIds()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getUserRoleIds() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -166,7 +166,7 @@ class UserProfileNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         $data['termsConsentExpired'] = $object->getTermsConsentExpired();
         if ($object->isInitialized('systemUserRoles') && null !== $object->getSystemUserRoles()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getSystemUserRoles() as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -176,8 +176,8 @@ class UserProfileNormalizer implements DenormalizerInterface, NormalizerInterfac
         $data['isFederated'] = $object->getIsFederated();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\UserProfile' => false);
+        return ['PicturePark\API\Model\UserProfile' => false];
     }
 }

@@ -56,21 +56,21 @@ class ReposCompareCommits extends \Github\Runtime\Client\BaseEndpoint implements
         $this->head = $head;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{owner}', '{repo}', '{base}', '{head}'), array($this->owner, $this->repo, $this->base, $this->head), '/repos/{owner}/{repo}/compare/{base}...{head}');
+        return str_replace(['{owner}', '{repo}', '{base}', '{head}'], [$this->owner, $this->repo, $this->base, $this->head], '/repos/{owner}/{repo}/compare/{base}...{head}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -85,17 +85,17 @@ class ReposCompareCommits extends \Github\Runtime\Client\BaseEndpoint implements
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\CommitComparison', 'json');
+            return $serializer->deserialize($body, 'Github\Model\CommitComparison', 'json');
         }
         if (is_null($contentType) === false && (500 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ReposCompareCommitsInternalServerErrorException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ReposCompareCommitsInternalServerErrorException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ReposCompareCommitsNotFoundException($serializer->deserialize($body, 'Github\\Model\\BasicError', 'json'), $response);
+            throw new \Github\Exception\ReposCompareCommitsNotFoundException($serializer->deserialize($body, 'Github\Model\BasicError', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

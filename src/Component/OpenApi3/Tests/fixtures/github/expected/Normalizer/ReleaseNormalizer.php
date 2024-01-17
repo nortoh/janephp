@@ -18,18 +18,18 @@ class ReleaseNormalizer implements DenormalizerInterface, NormalizerInterface, D
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Release';
+        return $type === 'Github\Model\Release';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Release';
+        return is_object($data) && get_class($data) === 'Github\Model\Release';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -113,27 +113,27 @@ class ReleaseNormalizer implements DenormalizerInterface, NormalizerInterface, D
             unset($data['prerelease']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('published_at', $data) && $data['published_at'] !== null) {
-            $object->setPublishedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['published_at']));
+            $object->setPublishedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['published_at']));
             unset($data['published_at']);
         }
         elseif (\array_key_exists('published_at', $data) && $data['published_at'] === null) {
             $object->setPublishedAt(null);
         }
         if (\array_key_exists('author', $data) && $data['author'] !== null) {
-            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\\Model\\SimpleUser', 'json', $context));
+            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\Model\SimpleUser', 'json', $context));
             unset($data['author']);
         }
         elseif (\array_key_exists('author', $data) && $data['author'] === null) {
             $object->setAuthor(null);
         }
         if (\array_key_exists('assets', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['assets'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\ReleaseAsset', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\ReleaseAsset', 'json', $context);
             }
             $object->setAssets($values);
             unset($data['assets']);
@@ -156,9 +156,9 @@ class ReleaseNormalizer implements DenormalizerInterface, NormalizerInterface, D
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['html_url'] = $object->getHtmlUrl();
         $data['assets_url'] = $object->getAssetsUrl();
@@ -175,12 +175,12 @@ class ReleaseNormalizer implements DenormalizerInterface, NormalizerInterface, D
         }
         $data['draft'] = $object->getDraft();
         $data['prerelease'] = $object->getPrerelease();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['published_at'] = $object->getPublishedAt()->format('Y-m-d\\TH:i:sP');
-        $data['author'] = $this->normalizer->normalize($object->getAuthor(), 'json', $context);
-        $values = array();
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['published_at'] = $object->getPublishedAt()->format('Y-m-d\TH:i:sP');
+        $data['author'] = ($object->getAuthor() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAuthor(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $values = [];
         foreach ($object->getAssets() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['assets'] = $values;
         if ($object->isInitialized('bodyHtml') && null !== $object->getBodyHtml()) {
@@ -199,8 +199,8 @@ class ReleaseNormalizer implements DenormalizerInterface, NormalizerInterface, D
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Release' => false);
+        return ['Github\Model\Release' => false];
     }
 }

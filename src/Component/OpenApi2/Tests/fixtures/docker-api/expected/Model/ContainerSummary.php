@@ -7,8 +7,8 @@ class ContainerSummary
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -17,7 +17,7 @@ class ContainerSummary
      *
      * @var string
      */
-    protected $id;
+    protected $iD;
     /**
      * The names that this container has been given
      *
@@ -107,21 +107,21 @@ class ContainerSummary
      *
      * @return string
      */
-    public function getId() : string
+    public function getID(): string
     {
-        return $this->id;
+        return $this->iD;
     }
     /**
      * The ID of this container
      *
-     * @param string $id
+     * @param string $iD
      *
      * @return self
      */
-    public function setId(string $id) : self
+    public function setID(string $iD): self
     {
-        $this->initialized['id'] = true;
-        $this->id = $id;
+        $this->initialized['iD'] = true;
+        $this->iD = $iD;
         return $this;
     }
     /**
@@ -129,7 +129,7 @@ class ContainerSummary
      *
      * @return string[]
      */
-    public function getNames() : array
+    public function getNames(): array
     {
         return $this->names;
     }
@@ -140,7 +140,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setNames(array $names) : self
+    public function setNames(array $names): self
     {
         $this->initialized['names'] = true;
         $this->names = $names;
@@ -151,7 +151,7 @@ class ContainerSummary
      *
      * @return string
      */
-    public function getImage() : string
+    public function getImage(): string
     {
         return $this->image;
     }
@@ -162,7 +162,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setImage(string $image) : self
+    public function setImage(string $image): self
     {
         $this->initialized['image'] = true;
         $this->image = $image;
@@ -173,7 +173,7 @@ class ContainerSummary
      *
      * @return string
      */
-    public function getImageID() : string
+    public function getImageID(): string
     {
         return $this->imageID;
     }
@@ -184,7 +184,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setImageID(string $imageID) : self
+    public function setImageID(string $imageID): self
     {
         $this->initialized['imageID'] = true;
         $this->imageID = $imageID;
@@ -195,7 +195,7 @@ class ContainerSummary
      *
      * @return string
      */
-    public function getCommand() : string
+    public function getCommand(): string
     {
         return $this->command;
     }
@@ -206,7 +206,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setCommand(string $command) : self
+    public function setCommand(string $command): self
     {
         $this->initialized['command'] = true;
         $this->command = $command;
@@ -217,7 +217,7 @@ class ContainerSummary
      *
      * @return int
      */
-    public function getCreated() : int
+    public function getCreated(): int
     {
         return $this->created;
     }
@@ -228,7 +228,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setCreated(int $created) : self
+    public function setCreated(int $created): self
     {
         $this->initialized['created'] = true;
         $this->created = $created;
@@ -239,7 +239,7 @@ class ContainerSummary
      *
      * @return Port[]
      */
-    public function getPorts() : array
+    public function getPorts(): array
     {
         return $this->ports;
     }
@@ -250,7 +250,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setPorts(array $ports) : self
+    public function setPorts(array $ports): self
     {
         $this->initialized['ports'] = true;
         $this->ports = $ports;
@@ -261,7 +261,7 @@ class ContainerSummary
      *
      * @return int
      */
-    public function getSizeRw() : int
+    public function getSizeRw(): int
     {
         return $this->sizeRw;
     }
@@ -272,7 +272,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setSizeRw(int $sizeRw) : self
+    public function setSizeRw(int $sizeRw): self
     {
         $this->initialized['sizeRw'] = true;
         $this->sizeRw = $sizeRw;
@@ -283,7 +283,7 @@ class ContainerSummary
      *
      * @return int
      */
-    public function getSizeRootFs() : int
+    public function getSizeRootFs(): int
     {
         return $this->sizeRootFs;
     }
@@ -294,7 +294,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setSizeRootFs(int $sizeRootFs) : self
+    public function setSizeRootFs(int $sizeRootFs): self
     {
         $this->initialized['sizeRootFs'] = true;
         $this->sizeRootFs = $sizeRootFs;
@@ -305,7 +305,7 @@ class ContainerSummary
      *
      * @return array<string, string>
      */
-    public function getLabels() : iterable
+    public function getLabels(): iterable
     {
         return $this->labels;
     }
@@ -316,7 +316,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setLabels(iterable $labels) : self
+    public function setLabels(iterable $labels): self
     {
         $this->initialized['labels'] = true;
         $this->labels = $labels;
@@ -327,7 +327,7 @@ class ContainerSummary
      *
      * @return string
      */
-    public function getState() : string
+    public function getState(): string
     {
         return $this->state;
     }
@@ -338,7 +338,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setState(string $state) : self
+    public function setState(string $state): self
     {
         $this->initialized['state'] = true;
         $this->state = $state;
@@ -349,7 +349,7 @@ class ContainerSummary
      *
      * @return string
      */
-    public function getStatus() : string
+    public function getStatus(): string
     {
         return $this->status;
     }
@@ -360,7 +360,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setStatus(string $status) : self
+    public function setStatus(string $status): self
     {
         $this->initialized['status'] = true;
         $this->status = $status;
@@ -371,7 +371,7 @@ class ContainerSummary
      *
      * @return ContainerSummaryHostConfig
      */
-    public function getHostConfig() : ContainerSummaryHostConfig
+    public function getHostConfig(): ContainerSummaryHostConfig
     {
         return $this->hostConfig;
     }
@@ -382,7 +382,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setHostConfig(ContainerSummaryHostConfig $hostConfig) : self
+    public function setHostConfig(ContainerSummaryHostConfig $hostConfig): self
     {
         $this->initialized['hostConfig'] = true;
         $this->hostConfig = $hostConfig;
@@ -393,7 +393,7 @@ class ContainerSummary
      *
      * @return ContainerSummaryNetworkSettings
      */
-    public function getNetworkSettings() : ContainerSummaryNetworkSettings
+    public function getNetworkSettings(): ContainerSummaryNetworkSettings
     {
         return $this->networkSettings;
     }
@@ -404,7 +404,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setNetworkSettings(ContainerSummaryNetworkSettings $networkSettings) : self
+    public function setNetworkSettings(ContainerSummaryNetworkSettings $networkSettings): self
     {
         $this->initialized['networkSettings'] = true;
         $this->networkSettings = $networkSettings;
@@ -415,7 +415,7 @@ class ContainerSummary
      *
      * @return Mount[]
      */
-    public function getMounts() : array
+    public function getMounts(): array
     {
         return $this->mounts;
     }
@@ -426,7 +426,7 @@ class ContainerSummary
      *
      * @return self
      */
-    public function setMounts(array $mounts) : self
+    public function setMounts(array $mounts): self
     {
         $this->initialized['mounts'] = true;
         $this->mounts = $mounts;

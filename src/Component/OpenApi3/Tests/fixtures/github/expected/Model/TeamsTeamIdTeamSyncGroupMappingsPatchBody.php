@@ -7,8 +7,8 @@ class TeamsTeamIdTeamSyncGroupMappingsPatchBody extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -29,7 +29,7 @@ class TeamsTeamIdTeamSyncGroupMappingsPatchBody extends \ArrayObject
      *
      * @return TeamsTeamIdTeamSyncGroupMappingsPatchBodyGroupsItem[]
      */
-    public function getGroups() : array
+    public function getGroups(): array
     {
         return $this->groups;
     }
@@ -40,7 +40,7 @@ class TeamsTeamIdTeamSyncGroupMappingsPatchBody extends \ArrayObject
      *
      * @return self
      */
-    public function setGroups(array $groups) : self
+    public function setGroups(array $groups): self
     {
         $this->initialized['groups'] = true;
         $this->groups = $groups;
@@ -51,7 +51,7 @@ class TeamsTeamIdTeamSyncGroupMappingsPatchBody extends \ArrayObject
      *
      * @return string
      */
-    public function getSyncedAt() : string
+    public function getSyncedAt(): string
     {
         return $this->syncedAt;
     }
@@ -62,7 +62,7 @@ class TeamsTeamIdTeamSyncGroupMappingsPatchBody extends \ArrayObject
      *
      * @return self
      */
-    public function setSyncedAt(string $syncedAt) : self
+    public function setSyncedAt(string $syncedAt): self
     {
         $this->initialized['syncedAt'] = true;
         $this->syncedAt = $syncedAt;

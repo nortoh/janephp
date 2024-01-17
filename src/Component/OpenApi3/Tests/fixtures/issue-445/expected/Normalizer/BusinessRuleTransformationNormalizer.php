@@ -18,39 +18,39 @@ class BusinessRuleTransformationNormalizer implements DenormalizerInterface, Nor
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessRuleTransformation';
+        return $type === 'PicturePark\API\Model\BusinessRuleTransformation';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessRuleTransformation';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessRuleTransformation';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'TakeDictionaryValueTransformation' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\TakeDictionaryValueTransformation', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\TakeDictionaryValueTransformation', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'TakeArrayValueTransformation' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\TakeArrayValueTransformation', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\TakeArrayValueTransformation', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'JoinByTransformation' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\JoinByTransformation', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\JoinByTransformation', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'LookupCacheTransformation' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\LookupCacheTransformation', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\LookupCacheTransformation', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'NGramTransformation' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\NGramTransformation', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\NGramTransformation', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'ProjectionTransformation' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ProjectionTransformation', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ProjectionTransformation', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'SplitTransformation' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\SplitTransformation', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\SplitTransformation', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -76,9 +76,9 @@ class BusinessRuleTransformationNormalizer implements DenormalizerInterface, Nor
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'TakeDictionaryValueTransformation' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -106,8 +106,8 @@ class BusinessRuleTransformationNormalizer implements DenormalizerInterface, Nor
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessRuleTransformation' => false);
+        return ['PicturePark\API\Model\BusinessRuleTransformation' => false];
     }
 }

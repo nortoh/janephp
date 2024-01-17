@@ -18,18 +18,18 @@ class OrgsOrgActionsSecretsSecretNameRepositoriesPutBodyNormalizer implements De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\OrgsOrgActionsSecretsSecretNameRepositoriesPutBody';
+        return $type === 'Github\Model\OrgsOrgActionsSecretsSecretNameRepositoriesPutBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\OrgsOrgActionsSecretsSecretNameRepositoriesPutBody';
+        return is_object($data) && get_class($data) === 'Github\Model\OrgsOrgActionsSecretsSecretNameRepositoriesPutBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class OrgsOrgActionsSecretsSecretNameRepositoriesPutBodyNormalizer implements De
             return $object;
         }
         if (\array_key_exists('selected_repository_ids', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['selected_repository_ids'] as $value) {
                 $values[] = $value;
             }
@@ -62,11 +62,11 @@ class OrgsOrgActionsSecretsSecretNameRepositoriesPutBodyNormalizer implements De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('selectedRepositoryIds') && null !== $object->getSelectedRepositoryIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSelectedRepositoryIds() as $value) {
                 $values[] = $value;
             }
@@ -82,8 +82,8 @@ class OrgsOrgActionsSecretsSecretNameRepositoriesPutBodyNormalizer implements De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\OrgsOrgActionsSecretsSecretNameRepositoriesPutBody' => false);
+        return ['Github\Model\OrgsOrgActionsSecretsSecretNameRepositoriesPutBody' => false];
     }
 }

@@ -18,18 +18,18 @@ class ReposOwnerRepoImportPutBodyNormalizer implements DenormalizerInterface, No
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoImportPutBody';
+        return $type === 'Github\Model\ReposOwnerRepoImportPutBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoImportPutBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoImportPutBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -74,9 +74,9 @@ class ReposOwnerRepoImportPutBodyNormalizer implements DenormalizerInterface, No
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['vcs_url'] = $object->getVcsUrl();
         if ($object->isInitialized('vcs') && null !== $object->getVcs()) {
             $data['vcs'] = $object->getVcs();
@@ -100,8 +100,8 @@ class ReposOwnerRepoImportPutBodyNormalizer implements DenormalizerInterface, No
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoImportPutBody' => false);
+        return ['Github\Model\ReposOwnerRepoImportPutBody' => false];
     }
 }

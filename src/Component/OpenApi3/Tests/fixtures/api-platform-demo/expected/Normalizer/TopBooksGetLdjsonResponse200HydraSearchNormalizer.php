@@ -18,18 +18,18 @@ class TopBooksGetLdjsonResponse200HydraSearchNormalizer implements DenormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'ApiPlatform\\Demo\\Model\\TopBooksGetLdjsonResponse200HydraSearch';
+        return $type === 'ApiPlatform\Demo\Model\TopBooksGetLdjsonResponse200HydraSearch';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'ApiPlatform\\Demo\\Model\\TopBooksGetLdjsonResponse200HydraSearch';
+        return is_object($data) && get_class($data) === 'ApiPlatform\Demo\Model\TopBooksGetLdjsonResponse200HydraSearch';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -54,9 +54,9 @@ class TopBooksGetLdjsonResponse200HydraSearchNormalizer implements DenormalizerI
             unset($data['hydra:variableRepresentation']);
         }
         if (\array_key_exists('hydra:mapping', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['hydra:mapping'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'ApiPlatform\\Demo\\Model\\TopBooksGetLdjsonResponse200HydraSearchHydraMappingItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'ApiPlatform\Demo\Model\TopBooksGetLdjsonResponse200HydraSearchHydraMappingItem', 'json', $context);
             }
             $object->setHydraMapping($values);
             unset($data['hydra:mapping']);
@@ -71,9 +71,9 @@ class TopBooksGetLdjsonResponse200HydraSearchNormalizer implements DenormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('type') && null !== $object->getType()) {
             $data['@type'] = $object->getType();
         }
@@ -84,9 +84,9 @@ class TopBooksGetLdjsonResponse200HydraSearchNormalizer implements DenormalizerI
             $data['hydra:variableRepresentation'] = $object->getHydraVariableRepresentation();
         }
         if ($object->isInitialized('hydraMapping') && null !== $object->getHydraMapping()) {
-            $values = array();
+            $values = [];
             foreach ($object->getHydraMapping() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['hydra:mapping'] = $values;
         }
@@ -97,8 +97,8 @@ class TopBooksGetLdjsonResponse200HydraSearchNormalizer implements DenormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('ApiPlatform\\Demo\\Model\\TopBooksGetLdjsonResponse200HydraSearch' => false);
+        return ['ApiPlatform\Demo\Model\TopBooksGetLdjsonResponse200HydraSearch' => false];
     }
 }

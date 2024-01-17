@@ -18,18 +18,18 @@ class StatusNormalizer implements DenormalizerInterface, NormalizerInterface, De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Status';
+        return $type === 'Github\Model\Status';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Status';
+        return is_object($data) && get_class($data) === 'Github\Model\Status';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -88,7 +88,7 @@ class StatusNormalizer implements DenormalizerInterface, NormalizerInterface, De
             unset($data['updated_at']);
         }
         if (\array_key_exists('creator', $data) && $data['creator'] !== null) {
-            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\\Model\\SimpleUser', 'json', $context));
+            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\Model\SimpleUser', 'json', $context));
             unset($data['creator']);
         }
         elseif (\array_key_exists('creator', $data) && $data['creator'] === null) {
@@ -104,9 +104,9 @@ class StatusNormalizer implements DenormalizerInterface, NormalizerInterface, De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('url') && null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
@@ -138,7 +138,7 @@ class StatusNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data['updated_at'] = $object->getUpdatedAt();
         }
         if ($object->isInitialized('creator') && null !== $object->getCreator()) {
-            $data['creator'] = $this->normalizer->normalize($object->getCreator(), 'json', $context);
+            $data['creator'] = ($object->getCreator() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCreator(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -150,8 +150,8 @@ class StatusNormalizer implements DenormalizerInterface, NormalizerInterface, De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Status' => false);
+        return ['Github\Model\Status' => false];
     }
 }

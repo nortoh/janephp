@@ -18,18 +18,18 @@ class GbCompanyReportExampleResponseReportContactInformationNormalizer implement
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportContactInformation';
+        return $type === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportContactInformation';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportContactInformation';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportContactInformation';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,19 +42,19 @@ class GbCompanyReportExampleResponseReportContactInformationNormalizer implement
             return $object;
         }
         if (\array_key_exists('mainAddress', $data)) {
-            $object->setMainAddress($this->denormalizer->denormalize($data['mainAddress'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportContactInformationMainAddress', 'json', $context));
+            $object->setMainAddress($this->denormalizer->denormalize($data['mainAddress'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportContactInformationMainAddress', 'json', $context));
             unset($data['mainAddress']);
         }
         if (\array_key_exists('otherAddresses', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['otherAddresses'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportContactInformationOtherAddressesItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportContactInformationOtherAddressesItem', 'json', $context);
             }
             $object->setOtherAddresses($values);
             unset($data['otherAddresses']);
         }
         if (\array_key_exists('websites', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['websites'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -71,21 +71,21 @@ class GbCompanyReportExampleResponseReportContactInformationNormalizer implement
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('mainAddress') && null !== $object->getMainAddress()) {
-            $data['mainAddress'] = $this->normalizer->normalize($object->getMainAddress(), 'json', $context);
+            $data['mainAddress'] = ($object->getMainAddress() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMainAddress(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('otherAddresses') && null !== $object->getOtherAddresses()) {
-            $values = array();
+            $values = [];
             foreach ($object->getOtherAddresses() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['otherAddresses'] = $values;
         }
         if ($object->isInitialized('websites') && null !== $object->getWebsites()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getWebsites() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -98,8 +98,8 @@ class GbCompanyReportExampleResponseReportContactInformationNormalizer implement
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportContactInformation' => false);
+        return ['CreditSafe\API\Model\GbCompanyReportExampleResponseReportContactInformation' => false];
     }
 }

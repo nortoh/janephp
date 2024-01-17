@@ -18,18 +18,18 @@ class BuildInfoNormalizer implements DenormalizerInterface, NormalizerInterface,
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\BuildInfo';
+        return $type === 'Docker\Api\Model\BuildInfo';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\BuildInfo';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\BuildInfo';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -44,8 +44,8 @@ class BuildInfoNormalizer implements DenormalizerInterface, NormalizerInterface,
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('id', $data)) {
-            $object->setId($data['id']);
+        if (\array_key_exists('ID', $data)) {
+            $object->setID($data['ID']);
         }
         if (\array_key_exists('stream', $data)) {
             $object->setStream($data['stream']);
@@ -54,7 +54,7 @@ class BuildInfoNormalizer implements DenormalizerInterface, NormalizerInterface,
             $object->setError($data['error']);
         }
         if (\array_key_exists('errorDetail', $data)) {
-            $object->setErrorDetail($this->denormalizer->denormalize($data['errorDetail'], 'Docker\\Api\\Model\\ErrorDetail', 'json', $context));
+            $object->setErrorDetail($this->denormalizer->denormalize($data['errorDetail'], 'Docker\Api\Model\ErrorDetail', 'json', $context));
         }
         if (\array_key_exists('status', $data)) {
             $object->setStatus($data['status']);
@@ -63,21 +63,21 @@ class BuildInfoNormalizer implements DenormalizerInterface, NormalizerInterface,
             $object->setProgress($data['progress']);
         }
         if (\array_key_exists('progressDetail', $data)) {
-            $object->setProgressDetail($this->denormalizer->denormalize($data['progressDetail'], 'Docker\\Api\\Model\\ProgressDetail', 'json', $context));
+            $object->setProgressDetail($this->denormalizer->denormalize($data['progressDetail'], 'Docker\Api\Model\ProgressDetail', 'json', $context));
         }
         if (\array_key_exists('aux', $data)) {
-            $object->setAux($this->denormalizer->denormalize($data['aux'], 'Docker\\Api\\Model\\ImageID', 'json', $context));
+            $object->setAux($this->denormalizer->denormalize($data['aux'], 'Docker\Api\Model\ImageID', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        if ($object->isInitialized('id') && null !== $object->getId()) {
-            $data['id'] = $object->getId();
+        $data = [];
+        if ($object->isInitialized('iD') && null !== $object->getID()) {
+            $data['ID'] = $object->getID();
         }
         if ($object->isInitialized('stream') && null !== $object->getStream()) {
             $data['stream'] = $object->getStream();
@@ -86,7 +86,7 @@ class BuildInfoNormalizer implements DenormalizerInterface, NormalizerInterface,
             $data['error'] = $object->getError();
         }
         if ($object->isInitialized('errorDetail') && null !== $object->getErrorDetail()) {
-            $data['errorDetail'] = $this->normalizer->normalize($object->getErrorDetail(), 'json', $context);
+            $data['errorDetail'] = ($object->getErrorDetail() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getErrorDetail(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('status') && null !== $object->getStatus()) {
             $data['status'] = $object->getStatus();
@@ -95,18 +95,18 @@ class BuildInfoNormalizer implements DenormalizerInterface, NormalizerInterface,
             $data['progress'] = $object->getProgress();
         }
         if ($object->isInitialized('progressDetail') && null !== $object->getProgressDetail()) {
-            $data['progressDetail'] = $this->normalizer->normalize($object->getProgressDetail(), 'json', $context);
+            $data['progressDetail'] = ($object->getProgressDetail() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getProgressDetail(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('aux') && null !== $object->getAux()) {
-            $data['aux'] = $this->normalizer->normalize($object->getAux(), 'json', $context);
+            $data['aux'] = ($object->getAux() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAux(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Docker\Api\Validator\BuildInfoConstraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\BuildInfo' => false);
+        return ['Docker\Api\Model\BuildInfo' => false];
     }
 }

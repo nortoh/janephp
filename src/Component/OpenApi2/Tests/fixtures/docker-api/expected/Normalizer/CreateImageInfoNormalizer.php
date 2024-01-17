@@ -18,18 +18,18 @@ class CreateImageInfoNormalizer implements DenormalizerInterface, NormalizerInte
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\CreateImageInfo';
+        return $type === 'Docker\Api\Model\CreateImageInfo';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\CreateImageInfo';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\CreateImageInfo';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -44,8 +44,8 @@ class CreateImageInfoNormalizer implements DenormalizerInterface, NormalizerInte
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('id', $data)) {
-            $object->setId($data['id']);
+        if (\array_key_exists('ID', $data)) {
+            $object->setID($data['ID']);
         }
         if (\array_key_exists('error', $data)) {
             $object->setError($data['error']);
@@ -57,18 +57,18 @@ class CreateImageInfoNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setProgress($data['progress']);
         }
         if (\array_key_exists('progressDetail', $data)) {
-            $object->setProgressDetail($this->denormalizer->denormalize($data['progressDetail'], 'Docker\\Api\\Model\\ProgressDetail', 'json', $context));
+            $object->setProgressDetail($this->denormalizer->denormalize($data['progressDetail'], 'Docker\Api\Model\ProgressDetail', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        if ($object->isInitialized('id') && null !== $object->getId()) {
-            $data['id'] = $object->getId();
+        $data = [];
+        if ($object->isInitialized('iD') && null !== $object->getID()) {
+            $data['ID'] = $object->getID();
         }
         if ($object->isInitialized('error') && null !== $object->getError()) {
             $data['error'] = $object->getError();
@@ -80,15 +80,15 @@ class CreateImageInfoNormalizer implements DenormalizerInterface, NormalizerInte
             $data['progress'] = $object->getProgress();
         }
         if ($object->isInitialized('progressDetail') && null !== $object->getProgressDetail()) {
-            $data['progressDetail'] = $this->normalizer->normalize($object->getProgressDetail(), 'json', $context);
+            $data['progressDetail'] = ($object->getProgressDetail() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getProgressDetail(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Docker\Api\Validator\CreateImageInfoConstraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\CreateImageInfo' => false);
+        return ['Docker\Api\Model\CreateImageInfo' => false];
     }
 }

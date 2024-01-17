@@ -18,18 +18,18 @@ class ReviewReviewWriteNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'ApiPlatform\\Demo\\Model\\ReviewReviewWrite';
+        return $type === 'ApiPlatform\Demo\Model\ReviewReviewWrite';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'ApiPlatform\\Demo\\Model\\ReviewReviewWrite';
+        return is_object($data) && get_class($data) === 'ApiPlatform\Demo\Model\ReviewReviewWrite';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -68,7 +68,7 @@ class ReviewReviewWriteNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setAuthor(null);
         }
         if (\array_key_exists('publicationDate', $data) && $data['publicationDate'] !== null) {
-            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['publicationDate']));
+            $object->setPublicationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['publicationDate']));
             unset($data['publicationDate']);
         }
         elseif (\array_key_exists('publicationDate', $data) && $data['publicationDate'] === null) {
@@ -84,9 +84,9 @@ class ReviewReviewWriteNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['body'] = $object->getBody();
         $data['rating'] = $object->getRating();
         if ($object->isInitialized('letter') && null !== $object->getLetter()) {
@@ -97,7 +97,7 @@ class ReviewReviewWriteNormalizer implements DenormalizerInterface, NormalizerIn
             $data['author'] = $object->getAuthor();
         }
         if ($object->isInitialized('publicationDate') && null !== $object->getPublicationDate()) {
-            $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\\TH:i:sP');
+            $data['publicationDate'] = $object->getPublicationDate()->format('Y-m-d\TH:i:sP');
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -106,8 +106,8 @@ class ReviewReviewWriteNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('ApiPlatform\\Demo\\Model\\ReviewReviewWrite' => false);
+        return ['ApiPlatform\Demo\Model\ReviewReviewWrite' => false];
     }
 }

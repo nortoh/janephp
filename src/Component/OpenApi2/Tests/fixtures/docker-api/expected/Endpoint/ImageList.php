@@ -23,36 +23,36 @@ class ImageList extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Dock
     *     @var bool $digests Show digest information as a `RepoDigests` field on each image.
     * }
     */
-    public function __construct(array $queryParameters = array())
+    public function __construct(array $queryParameters = [])
     {
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/images/json';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('all', 'filters', 'digests'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('all' => false, 'digests' => false));
-        $optionsResolver->addAllowedTypes('all', array('bool'));
-        $optionsResolver->addAllowedTypes('filters', array('string'));
-        $optionsResolver->addAllowedTypes('digests', array('bool'));
+        $optionsResolver->setDefined(['all', 'filters', 'digests']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['all' => false, 'digests' => false]);
+        $optionsResolver->addAllowedTypes('all', ['bool']);
+        $optionsResolver->addAllowedTypes('filters', ['string']);
+        $optionsResolver->addAllowedTypes('digests', ['bool']);
         return $optionsResolver;
     }
     /**
@@ -67,14 +67,14 @@ class ImageList extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Dock
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Docker\\Api\\Model\\ImageSummary[]', 'json');
+            return $serializer->deserialize($body, 'Docker\Api\Model\ImageSummary[]', 'json');
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\ImageListInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ImageListInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

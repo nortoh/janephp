@@ -18,18 +18,18 @@ class BusinessRuleConditionInvalidTriggerPointDocumentTypeExceptionNormalizer im
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessRuleConditionInvalidTriggerPointDocumentTypeException';
+        return $type === 'PicturePark\API\Model\BusinessRuleConditionInvalidTriggerPointDocumentTypeException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessRuleConditionInvalidTriggerPointDocumentTypeException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessRuleConditionInvalidTriggerPointDocumentTypeException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -96,7 +96,7 @@ class BusinessRuleConditionInvalidTriggerPointDocumentTypeExceptionNormalizer im
             $object->setUserId(null);
         }
         if (\array_key_exists('allowedDocumentTypes', $data) && $data['allowedDocumentTypes'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['allowedDocumentTypes'] as $value) {
                 $values[] = $value;
             }
@@ -116,9 +116,9 @@ class BusinessRuleConditionInvalidTriggerPointDocumentTypeExceptionNormalizer im
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -145,7 +145,7 @@ class BusinessRuleConditionInvalidTriggerPointDocumentTypeExceptionNormalizer im
             $data['userId'] = $object->getUserId();
         }
         if ($object->isInitialized('allowedDocumentTypes') && null !== $object->getAllowedDocumentTypes()) {
-            $values = array();
+            $values = [];
             foreach ($object->getAllowedDocumentTypes() as $value) {
                 $values[] = $value;
             }
@@ -158,8 +158,8 @@ class BusinessRuleConditionInvalidTriggerPointDocumentTypeExceptionNormalizer im
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessRuleConditionInvalidTriggerPointDocumentTypeException' => false);
+        return ['PicturePark\API\Model\BusinessRuleConditionInvalidTriggerPointDocumentTypeException' => false];
     }
 }

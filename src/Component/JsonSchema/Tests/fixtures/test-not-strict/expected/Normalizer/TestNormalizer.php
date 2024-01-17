@@ -18,18 +18,18 @@ class TestNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Test';
+        return $type === 'Jane\Component\JsonSchema\Tests\Expected\Model\Test';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return $data instanceof \Jane\Component\JsonSchema\Tests\Expected\Model\Test;
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -60,7 +60,7 @@ class TestNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $object->setNullOrString(null);
         }
         if (\array_key_exists('array', $data) && $data['array'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['array'] as $value_1) {
                 $values[] = $value_1;
             }
@@ -70,7 +70,7 @@ class TestNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $object->setArray(null);
         }
         if (\array_key_exists('object', $data) && $data['object'] !== null) {
-            $values_1 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['object'] as $key => $value_2) {
                 $values_1[$key] = $value_2;
             }
@@ -84,9 +84,9 @@ class TestNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('onlyNull') && null !== $object->getOnlyNull()) {
             $data['onlyNull'] = $object->getOnlyNull();
         }
@@ -100,14 +100,14 @@ class TestNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $data['nullOrString'] = $value;
         }
         if ($object->isInitialized('array') && null !== $object->getArray()) {
-            $values = array();
+            $values = [];
             foreach ($object->getArray() as $value_1) {
                 $values[] = $value_1;
             }
             $data['array'] = $values;
         }
         if ($object->isInitialized('object') && null !== $object->getObject()) {
-            $values_1 = array();
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getObject() as $key => $value_2) {
                 $values_1[$key] = $value_2;
             }
@@ -115,8 +115,8 @@ class TestNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Test' => false);
+        return ['Jane\Component\JsonSchema\Tests\Expected\Model\Test' => false];
     }
 }

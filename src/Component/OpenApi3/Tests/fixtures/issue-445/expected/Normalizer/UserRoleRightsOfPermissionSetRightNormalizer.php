@@ -18,18 +18,18 @@ class UserRoleRightsOfPermissionSetRightNormalizer implements DenormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\UserRoleRightsOfPermissionSetRight';
+        return $type === 'PicturePark\API\Model\UserRoleRightsOfPermissionSetRight';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\UserRoleRightsOfPermissionSetRight';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\UserRoleRightsOfPermissionSetRight';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class UserRoleRightsOfPermissionSetRightNormalizer implements DenormalizerInterf
             $object->setUserRoleId(null);
         }
         if (\array_key_exists('rights', $data) && $data['rights'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['rights'] as $value) {
                 $values[] = $value;
             }
@@ -62,14 +62,14 @@ class UserRoleRightsOfPermissionSetRightNormalizer implements DenormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('userRoleId') && null !== $object->getUserRoleId()) {
             $data['userRoleId'] = $object->getUserRoleId();
         }
         if ($object->isInitialized('rights') && null !== $object->getRights()) {
-            $values = array();
+            $values = [];
             foreach ($object->getRights() as $value) {
                 $values[] = $value;
             }
@@ -77,8 +77,8 @@ class UserRoleRightsOfPermissionSetRightNormalizer implements DenormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\UserRoleRightsOfPermissionSetRight' => false);
+        return ['PicturePark\API\Model\UserRoleRightsOfPermissionSetRight' => false];
     }
 }

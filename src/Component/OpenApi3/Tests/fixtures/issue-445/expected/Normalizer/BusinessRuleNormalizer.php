@@ -18,24 +18,24 @@ class BusinessRuleNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessRule';
+        return $type === 'PicturePark\API\Model\BusinessRule';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessRule';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessRule';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'BusinessRuleConfigurable' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\BusinessRuleConfigurable', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\BusinessRuleConfigurable', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'BusinessRuleScript' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\BusinessRuleScript', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\BusinessRuleScript', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -85,9 +85,9 @@ class BusinessRuleNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'BusinessRuleConfigurable' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -111,8 +111,8 @@ class BusinessRuleNormalizer implements DenormalizerInterface, NormalizerInterfa
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessRule' => false);
+        return ['PicturePark\API\Model\BusinessRule' => false];
     }
 }

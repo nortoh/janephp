@@ -18,18 +18,18 @@ class SchemaImportResultNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\SchemaImportResult';
+        return $type === 'PicturePark\API\Model\SchemaImportResult';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\SchemaImportResult';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\SchemaImportResult';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -51,7 +51,7 @@ class SchemaImportResultNormalizer implements DenormalizerInterface, NormalizerI
             $object->setTotalSchemaCount($data['totalSchemaCount']);
         }
         if (\array_key_exists('skippedSchemaIds', $data) && $data['skippedSchemaIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['skippedSchemaIds'] as $value) {
                 $values[] = $value;
             }
@@ -61,7 +61,7 @@ class SchemaImportResultNormalizer implements DenormalizerInterface, NormalizerI
             $object->setSkippedSchemaIds(null);
         }
         if (\array_key_exists('importedSchemaIds', $data) && $data['importedSchemaIds'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['importedSchemaIds'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -75,21 +75,21 @@ class SchemaImportResultNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['importedSchemaCount'] = $object->getImportedSchemaCount();
         $data['skippedSchemaCount'] = $object->getSkippedSchemaCount();
         $data['totalSchemaCount'] = $object->getTotalSchemaCount();
         if ($object->isInitialized('skippedSchemaIds') && null !== $object->getSkippedSchemaIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSkippedSchemaIds() as $value) {
                 $values[] = $value;
             }
             $data['skippedSchemaIds'] = $values;
         }
         if ($object->isInitialized('importedSchemaIds') && null !== $object->getImportedSchemaIds()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getImportedSchemaIds() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -97,8 +97,8 @@ class SchemaImportResultNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\SchemaImportResult' => false);
+        return ['PicturePark\API\Model\SchemaImportResult' => false];
     }
 }

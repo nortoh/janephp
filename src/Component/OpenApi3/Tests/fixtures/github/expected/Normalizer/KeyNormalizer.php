@@ -18,18 +18,18 @@ class KeyNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Key';
+        return $type === 'Github\Model\Key';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Key';
+        return is_object($data) && get_class($data) === 'Github\Model\Key';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -65,7 +65,7 @@ class KeyNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
             unset($data['title']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('verified', $data)) {
@@ -86,9 +86,9 @@ class KeyNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('keyId') && null !== $object->getKeyId()) {
             $data['key_id'] = $object->getKeyId();
         }
@@ -105,7 +105,7 @@ class KeyNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
             $data['title'] = $object->getTitle();
         }
         if ($object->isInitialized('createdAt') && null !== $object->getCreatedAt()) {
-            $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+            $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('verified') && null !== $object->getVerified()) {
             $data['verified'] = $object->getVerified();
@@ -123,8 +123,8 @@ class KeyNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Key' => false);
+        return ['Github\Model\Key' => false];
     }
 }

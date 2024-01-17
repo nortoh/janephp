@@ -39,7 +39,7 @@ class Encoding
      *
      * @return string|null
      */
-    public function getContentType() : ?string
+    public function getContentType(): ?string
     {
         return $this->contentType;
     }
@@ -50,7 +50,7 @@ class Encoding
      *
      * @return self
      */
-    public function setContentType(?string $contentType) : self
+    public function setContentType(?string $contentType): self
     {
         $this->contentType = $contentType;
         return $this;
@@ -60,7 +60,7 @@ class Encoding
      *
      * @return Header[]|null
      */
-    public function getHeaders() : ?iterable
+    public function getHeaders(): ?iterable
     {
         return $this->headers;
     }
@@ -71,7 +71,7 @@ class Encoding
      *
      * @return self
      */
-    public function setHeaders(?iterable $headers) : self
+    public function setHeaders(?iterable $headers): self
     {
         $this->headers = $headers;
         return $this;
@@ -81,7 +81,7 @@ class Encoding
      *
      * @return string|null
      */
-    public function getStyle() : ?string
+    public function getStyle(): ?string
     {
         return $this->style;
     }
@@ -92,7 +92,7 @@ class Encoding
      *
      * @return self
      */
-    public function setStyle(?string $style) : self
+    public function setStyle(?string $style): self
     {
         $this->style = $style;
         return $this;
@@ -102,7 +102,7 @@ class Encoding
      *
      * @return bool|null
      */
-    public function getExplode() : ?bool
+    public function getExplode(): ?bool
     {
         return $this->explode;
     }
@@ -113,7 +113,7 @@ class Encoding
      *
      * @return self
      */
-    public function setExplode(?bool $explode) : self
+    public function setExplode(?bool $explode): self
     {
         $this->explode = $explode;
         return $this;
@@ -123,7 +123,7 @@ class Encoding
      *
      * @return bool|null
      */
-    public function getAllowReserved() : ?bool
+    public function getAllowReserved(): ?bool
     {
         return $this->allowReserved;
     }
@@ -134,7 +134,7 @@ class Encoding
      *
      * @return self
      */
-    public function setAllowReserved(?bool $allowReserved) : self
+    public function setAllowReserved(?bool $allowReserved): self
     {
         $this->allowReserved = $allowReserved;
         return $this;

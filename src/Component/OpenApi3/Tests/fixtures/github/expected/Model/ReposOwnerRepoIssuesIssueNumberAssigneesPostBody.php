@@ -7,8 +7,8 @@ class ReposOwnerRepoIssuesIssueNumberAssigneesPostBody extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class ReposOwnerRepoIssuesIssueNumberAssigneesPostBody extends \ArrayObject
      *
      * @return string[]
      */
-    public function getAssignees() : array
+    public function getAssignees(): array
     {
         return $this->assignees;
     }
@@ -34,7 +34,7 @@ class ReposOwnerRepoIssuesIssueNumberAssigneesPostBody extends \ArrayObject
      *
      * @return self
      */
-    public function setAssignees(array $assignees) : self
+    public function setAssignees(array $assignees): self
     {
         $this->initialized['assignees'] = true;
         $this->assignees = $assignees;

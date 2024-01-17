@@ -123,40 +123,40 @@ class ContainerAttach extends \Docker\Api\Runtime\Client\BaseEndpoint implements
     *     @var bool $stderr Attach to `stderr`
     * }
     */
-    public function __construct(string $id, array $queryParameters = array())
+    public function __construct(string $id, array $queryParameters = [])
     {
         $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/containers/{id}/attach');
+        return str_replace(['{id}'], [$this->id], '/containers/{id}/attach');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('detachKeys', 'logs', 'stream', 'stdin', 'stdout', 'stderr'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('logs' => false, 'stream' => false, 'stdin' => false, 'stdout' => false, 'stderr' => false));
-        $optionsResolver->addAllowedTypes('detachKeys', array('string'));
-        $optionsResolver->addAllowedTypes('logs', array('bool'));
-        $optionsResolver->addAllowedTypes('stream', array('bool'));
-        $optionsResolver->addAllowedTypes('stdin', array('bool'));
-        $optionsResolver->addAllowedTypes('stdout', array('bool'));
-        $optionsResolver->addAllowedTypes('stderr', array('bool'));
+        $optionsResolver->setDefined(['detachKeys', 'logs', 'stream', 'stdin', 'stdout', 'stderr']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['logs' => false, 'stream' => false, 'stdin' => false, 'stdout' => false, 'stderr' => false]);
+        $optionsResolver->addAllowedTypes('detachKeys', ['string']);
+        $optionsResolver->addAllowedTypes('logs', ['bool']);
+        $optionsResolver->addAllowedTypes('stream', ['bool']);
+        $optionsResolver->addAllowedTypes('stdin', ['bool']);
+        $optionsResolver->addAllowedTypes('stdout', ['bool']);
+        $optionsResolver->addAllowedTypes('stderr', ['bool']);
         return $optionsResolver;
     }
     /**
@@ -179,17 +179,17 @@ class ContainerAttach extends \Docker\Api\Runtime\Client\BaseEndpoint implements
             return null;
         }
         if (400 === $status) {
-            throw new \Docker\Api\Exception\ContainerAttachBadRequestException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ContainerAttachBadRequestException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Docker\Api\Exception\ContainerAttachNotFoundException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ContainerAttachNotFoundException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\ContainerAttachInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ContainerAttachInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

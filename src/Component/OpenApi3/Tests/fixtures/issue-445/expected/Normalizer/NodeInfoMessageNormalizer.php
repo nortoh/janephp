@@ -18,18 +18,18 @@ class NodeInfoMessageNormalizer implements DenormalizerInterface, NormalizerInte
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\NodeInfoMessage';
+        return $type === 'PicturePark\API\Model\NodeInfoMessage';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\NodeInfoMessage';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\NodeInfoMessage';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -79,7 +79,7 @@ class NodeInfoMessageNormalizer implements DenormalizerInterface, NormalizerInte
             $object->setHostName(null);
         }
         if (\array_key_exists('lastResponseTime', $data)) {
-            $object->setLastResponseTime(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['lastResponseTime']));
+            $object->setLastResponseTime(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['lastResponseTime']));
             unset($data['lastResponseTime']);
         }
         if (\array_key_exists('serviceName', $data) && $data['serviceName'] !== null) {
@@ -127,9 +127,9 @@ class NodeInfoMessageNormalizer implements DenormalizerInterface, NormalizerInte
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -144,7 +144,7 @@ class NodeInfoMessageNormalizer implements DenormalizerInterface, NormalizerInte
             $data['hostName'] = $object->getHostName();
         }
         if ($object->isInitialized('lastResponseTime') && null !== $object->getLastResponseTime()) {
-            $data['lastResponseTime'] = $object->getLastResponseTime()->format('Y-m-d\\TH:i:sP');
+            $data['lastResponseTime'] = $object->getLastResponseTime()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('serviceName') && null !== $object->getServiceName()) {
             $data['serviceName'] = $object->getServiceName();
@@ -168,8 +168,8 @@ class NodeInfoMessageNormalizer implements DenormalizerInterface, NormalizerInte
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\NodeInfoMessage' => false);
+        return ['PicturePark\API\Model\NodeInfoMessage' => false];
     }
 }

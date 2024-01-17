@@ -18,18 +18,18 @@ class LanguageConfigurationNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\LanguageConfiguration';
+        return $type === 'PicturePark\API\Model\LanguageConfiguration';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\LanguageConfiguration';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\LanguageConfiguration';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class LanguageConfigurationNormalizer implements DenormalizerInterface, Normaliz
             return $object;
         }
         if (\array_key_exists('systemLanguages', $data) && $data['systemLanguages'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['systemLanguages'] as $value) {
                 $values[] = $value;
             }
@@ -52,7 +52,7 @@ class LanguageConfigurationNormalizer implements DenormalizerInterface, Normaliz
             $object->setSystemLanguages(null);
         }
         if (\array_key_exists('metadataLanguages', $data) && $data['metadataLanguages'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['metadataLanguages'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -72,18 +72,18 @@ class LanguageConfigurationNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('systemLanguages') && null !== $object->getSystemLanguages()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSystemLanguages() as $value) {
                 $values[] = $value;
             }
             $data['systemLanguages'] = $values;
         }
         if ($object->isInitialized('metadataLanguages') && null !== $object->getMetadataLanguages()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getMetadataLanguages() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -94,8 +94,8 @@ class LanguageConfigurationNormalizer implements DenormalizerInterface, Normaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\LanguageConfiguration' => false);
+        return ['PicturePark\API\Model\LanguageConfiguration' => false];
     }
 }

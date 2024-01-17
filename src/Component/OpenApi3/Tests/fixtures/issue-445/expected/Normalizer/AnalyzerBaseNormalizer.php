@@ -18,33 +18,33 @@ class AnalyzerBaseNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\AnalyzerBase';
+        return $type === 'PicturePark\API\Model\AnalyzerBase';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\AnalyzerBase';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\AnalyzerBase';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'EdgeNGramAnalyzer' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\EdgeNGramAnalyzer', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\EdgeNGramAnalyzer', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'LanguageAnalyzer' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\LanguageAnalyzer', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\LanguageAnalyzer', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'NGramAnalyzer' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\NGramAnalyzer', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\NGramAnalyzer', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'PathHierarchyAnalyzer' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\PathHierarchyAnalyzer', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\PathHierarchyAnalyzer', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'SimpleAnalyzer' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\SimpleAnalyzer', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\SimpleAnalyzer', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -64,9 +64,9 @@ class AnalyzerBaseNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'EdgeNGramAnalyzer' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -85,8 +85,8 @@ class AnalyzerBaseNormalizer implements DenormalizerInterface, NormalizerInterfa
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\AnalyzerBase' => false);
+        return ['PicturePark\API\Model\AnalyzerBase' => false];
     }
 }

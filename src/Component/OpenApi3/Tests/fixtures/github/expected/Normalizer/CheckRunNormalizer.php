@@ -18,18 +18,18 @@ class CheckRunNormalizer implements DenormalizerInterface, NormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\CheckRun';
+        return $type === 'Github\Model\CheckRun';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\CheckRun';
+        return is_object($data) && get_class($data) === 'Github\Model\CheckRun';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -93,21 +93,21 @@ class CheckRunNormalizer implements DenormalizerInterface, NormalizerInterface, 
             $object->setConclusion(null);
         }
         if (\array_key_exists('started_at', $data) && $data['started_at'] !== null) {
-            $object->setStartedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['started_at']));
+            $object->setStartedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['started_at']));
             unset($data['started_at']);
         }
         elseif (\array_key_exists('started_at', $data) && $data['started_at'] === null) {
             $object->setStartedAt(null);
         }
         if (\array_key_exists('completed_at', $data) && $data['completed_at'] !== null) {
-            $object->setCompletedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['completed_at']));
+            $object->setCompletedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['completed_at']));
             unset($data['completed_at']);
         }
         elseif (\array_key_exists('completed_at', $data) && $data['completed_at'] === null) {
             $object->setCompletedAt(null);
         }
         if (\array_key_exists('output', $data)) {
-            $object->setOutput($this->denormalizer->denormalize($data['output'], 'Github\\Model\\CheckRunOutput', 'json', $context));
+            $object->setOutput($this->denormalizer->denormalize($data['output'], 'Github\Model\CheckRunOutput', 'json', $context));
             unset($data['output']);
         }
         if (\array_key_exists('name', $data)) {
@@ -115,14 +115,14 @@ class CheckRunNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['name']);
         }
         if (\array_key_exists('check_suite', $data) && $data['check_suite'] !== null) {
-            $object->setCheckSuite($this->denormalizer->denormalize($data['check_suite'], 'Github\\Model\\CheckRunCheckSuite', 'json', $context));
+            $object->setCheckSuite($this->denormalizer->denormalize($data['check_suite'], 'Github\Model\CheckRunCheckSuite', 'json', $context));
             unset($data['check_suite']);
         }
         elseif (\array_key_exists('check_suite', $data) && $data['check_suite'] === null) {
             $object->setCheckSuite(null);
         }
         if (\array_key_exists('app', $data) && $data['app'] !== null) {
-            $object->setApp($this->denormalizer->denormalize($data['app'], 'Github\\Model\\CheckRunApp', 'json', $context));
+            $object->setApp($this->denormalizer->denormalize($data['app'], 'Github\Model\CheckRunApp', 'json', $context));
             unset($data['app']);
         }
         elseif (\array_key_exists('app', $data) && $data['app'] === null) {
@@ -142,9 +142,9 @@ class CheckRunNormalizer implements DenormalizerInterface, NormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['head_sha'] = $object->getHeadSha();
         $data['node_id'] = $object->getNodeId();
@@ -154,12 +154,12 @@ class CheckRunNormalizer implements DenormalizerInterface, NormalizerInterface, 
         $data['details_url'] = $object->getDetailsUrl();
         $data['status'] = $object->getStatus();
         $data['conclusion'] = $object->getConclusion();
-        $data['started_at'] = $object->getStartedAt()->format('Y-m-d\\TH:i:sP');
-        $data['completed_at'] = $object->getCompletedAt()->format('Y-m-d\\TH:i:sP');
-        $data['output'] = $this->normalizer->normalize($object->getOutput(), 'json', $context);
+        $data['started_at'] = $object->getStartedAt()->format('Y-m-d\TH:i:sP');
+        $data['completed_at'] = $object->getCompletedAt()->format('Y-m-d\TH:i:sP');
+        $data['output'] = ($object->getOutput() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOutput(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['name'] = $object->getName();
-        $data['check_suite'] = $this->normalizer->normalize($object->getCheckSuite(), 'json', $context);
-        $data['app'] = $this->normalizer->normalize($object->getApp(), 'json', $context);
+        $data['check_suite'] = ($object->getCheckSuite() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCheckSuite(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['app'] = ($object->getApp() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getApp(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['pull_requests'] = $object->getPullRequests();
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -171,8 +171,8 @@ class CheckRunNormalizer implements DenormalizerInterface, NormalizerInterface, 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\CheckRun' => false);
+        return ['Github\Model\CheckRun' => false];
     }
 }

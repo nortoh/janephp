@@ -18,18 +18,18 @@ class EventNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Event';
+        return $type === 'Github\Model\Event';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Event';
+        return is_object($data) && get_class($data) === 'Github\Model\Event';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -56,19 +56,19 @@ class EventNormalizer implements DenormalizerInterface, NormalizerInterface, Den
             $object->setType(null);
         }
         if (\array_key_exists('actor', $data)) {
-            $object->setActor($this->denormalizer->denormalize($data['actor'], 'Github\\Model\\Actor', 'json', $context));
+            $object->setActor($this->denormalizer->denormalize($data['actor'], 'Github\Model\Actor', 'json', $context));
             unset($data['actor']);
         }
         if (\array_key_exists('repo', $data)) {
-            $object->setRepo($this->denormalizer->denormalize($data['repo'], 'Github\\Model\\EventRepo', 'json', $context));
+            $object->setRepo($this->denormalizer->denormalize($data['repo'], 'Github\Model\EventRepo', 'json', $context));
             unset($data['repo']);
         }
         if (\array_key_exists('org', $data)) {
-            $object->setOrg($this->denormalizer->denormalize($data['org'], 'Github\\Model\\Actor', 'json', $context));
+            $object->setOrg($this->denormalizer->denormalize($data['org'], 'Github\Model\Actor', 'json', $context));
             unset($data['org']);
         }
         if (\array_key_exists('payload', $data)) {
-            $object->setPayload($this->denormalizer->denormalize($data['payload'], 'Github\\Model\\EventPayload', 'json', $context));
+            $object->setPayload($this->denormalizer->denormalize($data['payload'], 'Github\Model\EventPayload', 'json', $context));
             unset($data['payload']);
         }
         if (\array_key_exists('public', $data)) {
@@ -76,7 +76,7 @@ class EventNormalizer implements DenormalizerInterface, NormalizerInterface, Den
             unset($data['public']);
         }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         elseif (\array_key_exists('created_at', $data) && $data['created_at'] === null) {
@@ -92,19 +92,19 @@ class EventNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['type'] = $object->getType();
-        $data['actor'] = $this->normalizer->normalize($object->getActor(), 'json', $context);
-        $data['repo'] = $this->normalizer->normalize($object->getRepo(), 'json', $context);
+        $data['actor'] = ($object->getActor() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getActor(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['repo'] = ($object->getRepo() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRepo(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('org') && null !== $object->getOrg()) {
-            $data['org'] = $this->normalizer->normalize($object->getOrg(), 'json', $context);
+            $data['org'] = ($object->getOrg() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOrg(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
-        $data['payload'] = $this->normalizer->normalize($object->getPayload(), 'json', $context);
+        $data['payload'] = ($object->getPayload() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPayload(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['public'] = $object->getPublic();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -115,8 +115,8 @@ class EventNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Event' => false);
+        return ['Github\Model\Event' => false];
     }
 }

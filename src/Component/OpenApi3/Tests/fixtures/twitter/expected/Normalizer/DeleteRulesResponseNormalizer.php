@@ -18,18 +18,18 @@ class DeleteRulesResponseNormalizer implements DenormalizerInterface, Normalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DeleteRulesResponse';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\DeleteRulesResponse';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DeleteRulesResponse';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\DeleteRulesResponse';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class DeleteRulesResponseNormalizer implements DenormalizerInterface, Normalizer
             return $object;
         }
         if (\array_key_exists('meta', $data)) {
-            $object->setMeta($this->denormalizer->denormalize($data['meta'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\RulesResponseMetadata', 'json', $context));
+            $object->setMeta($this->denormalizer->denormalize($data['meta'], 'Jane\Component\OpenApi3\Tests\Expected\Model\RulesResponseMetadata', 'json', $context));
             unset($data['meta']);
         }
         foreach ($data as $key => $value) {
@@ -55,10 +55,10 @@ class DeleteRulesResponseNormalizer implements DenormalizerInterface, Normalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['meta'] = $this->normalizer->normalize($object->getMeta(), 'json', $context);
+        $data = [];
+        $data['meta'] = ($object->getMeta() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMeta(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -66,8 +66,8 @@ class DeleteRulesResponseNormalizer implements DenormalizerInterface, Normalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DeleteRulesResponse' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\DeleteRulesResponse' => false];
     }
 }

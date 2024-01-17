@@ -18,18 +18,18 @@ class ContentFieldsBatchUpdateRequestNormalizer implements DenormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ContentFieldsBatchUpdateRequest';
+        return $type === 'PicturePark\API\Model\ContentFieldsBatchUpdateRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ContentFieldsBatchUpdateRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ContentFieldsBatchUpdateRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,9 +42,9 @@ class ContentFieldsBatchUpdateRequestNormalizer implements DenormalizerInterface
             return $object;
         }
         if (\array_key_exists('changeCommands', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['changeCommands'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\MetadataValuesChangeCommandBase', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\MetadataValuesChangeCommandBase', 'json', $context);
             }
             $object->setChangeCommands($values);
             unset($data['changeCommands']);
@@ -62,7 +62,7 @@ class ContentFieldsBatchUpdateRequestNormalizer implements DenormalizerInterface
             unset($data['kind']);
         }
         if (\array_key_exists('contentIds', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['contentIds'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -79,18 +79,18 @@ class ContentFieldsBatchUpdateRequestNormalizer implements DenormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $values = array();
+        $data = [];
+        $values = [];
         foreach ($object->getChangeCommands() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['changeCommands'] = $values;
         $data['allowMissingDependencies'] = $object->getAllowMissingDependencies();
         $data['notifyProgress'] = $object->getNotifyProgress();
         $data['kind'] = $object->getKind();
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getContentIds() as $value_1) {
             $values_1[] = $value_1;
         }
@@ -102,8 +102,8 @@ class ContentFieldsBatchUpdateRequestNormalizer implements DenormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ContentFieldsBatchUpdateRequest' => false);
+        return ['PicturePark\API\Model\ContentFieldsBatchUpdateRequest' => false];
     }
 }

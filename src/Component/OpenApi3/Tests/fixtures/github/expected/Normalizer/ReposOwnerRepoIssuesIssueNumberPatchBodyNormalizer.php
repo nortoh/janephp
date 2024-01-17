@@ -18,18 +18,18 @@ class ReposOwnerRepoIssuesIssueNumberPatchBodyNormalizer implements Denormalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoIssuesIssueNumberPatchBody';
+        return $type === 'Github\Model\ReposOwnerRepoIssuesIssueNumberPatchBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoIssuesIssueNumberPatchBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoIssuesIssueNumberPatchBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -68,7 +68,7 @@ class ReposOwnerRepoIssuesIssueNumberPatchBodyNormalizer implements Denormalizer
             $object->setMilestone(null);
         }
         if (\array_key_exists('labels', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['labels'] as $value) {
                 $values[] = $value;
             }
@@ -76,7 +76,7 @@ class ReposOwnerRepoIssuesIssueNumberPatchBodyNormalizer implements Denormalizer
             unset($data['labels']);
         }
         if (\array_key_exists('assignees', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['assignees'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -93,9 +93,9 @@ class ReposOwnerRepoIssuesIssueNumberPatchBodyNormalizer implements Denormalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('title') && null !== $object->getTitle()) {
             $data['title'] = $object->getTitle();
         }
@@ -112,14 +112,14 @@ class ReposOwnerRepoIssuesIssueNumberPatchBodyNormalizer implements Denormalizer
             $data['milestone'] = $object->getMilestone();
         }
         if ($object->isInitialized('labels') && null !== $object->getLabels()) {
-            $values = array();
+            $values = [];
             foreach ($object->getLabels() as $value) {
                 $values[] = $value;
             }
             $data['labels'] = $values;
         }
         if ($object->isInitialized('assignees') && null !== $object->getAssignees()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAssignees() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -135,8 +135,8 @@ class ReposOwnerRepoIssuesIssueNumberPatchBodyNormalizer implements Denormalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoIssuesIssueNumberPatchBody' => false);
+        return ['Github\Model\ReposOwnerRepoIssuesIssueNumberPatchBody' => false];
     }
 }

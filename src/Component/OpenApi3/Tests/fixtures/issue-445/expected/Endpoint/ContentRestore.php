@@ -17,37 +17,37 @@ class ContentRestore extends \PicturePark\API\Runtime\Client\BaseEndpoint implem
                By default the endpoint waits for the search document creation. Passing false, the endpoint will return when the main entity has been created and the creation of the search document has been enqueued but not yet performed.
     * }
     */
-    public function __construct(string $id, array $queryParameters = array())
+    public function __construct(string $id, array $queryParameters = [])
     {
         $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
     use \PicturePark\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/v1/Contents/{id}/restore');
+        return str_replace(['{id}'], [$this->id], '/v1/Contents/{id}/restore');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('allowMissingDependencies', 'timeout', 'waitSearchDocCreation'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('allowMissingDependencies' => false, 'waitSearchDocCreation' => true));
-        $optionsResolver->addAllowedTypes('allowMissingDependencies', array('bool'));
-        $optionsResolver->addAllowedTypes('timeout', array('string', 'null'));
-        $optionsResolver->addAllowedTypes('waitSearchDocCreation', array('bool'));
+        $optionsResolver->setDefined(['allowMissingDependencies', 'timeout', 'waitSearchDocCreation']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['allowMissingDependencies' => false, 'waitSearchDocCreation' => true]);
+        $optionsResolver->addAllowedTypes('allowMissingDependencies', ['bool']);
+        $optionsResolver->addAllowedTypes('timeout', ['string', 'null']);
+        $optionsResolver->addAllowedTypes('waitSearchDocCreation', ['bool']);
         return $optionsResolver;
     }
     /**
@@ -71,29 +71,29 @@ class ContentRestore extends \PicturePark\API\Runtime\Client\BaseEndpoint implem
             return null;
         }
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentRestoreBadRequestException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkValidationException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentRestoreBadRequestException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkValidationException', 'json'), $response);
         }
         if (401 === $status) {
             throw new \PicturePark\API\Exception\ContentRestoreUnauthorizedException($response);
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentRestoreNotFoundException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkNotFoundException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentRestoreNotFoundException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkNotFoundException', 'json'), $response);
         }
         if (405 === $status) {
             throw new \PicturePark\API\Exception\ContentRestoreMethodNotAllowedException($response);
         }
         if (is_null($contentType) === false && (409 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentRestoreConflictException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkConflictException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentRestoreConflictException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkConflictException', 'json'), $response);
         }
         if (429 === $status) {
             throw new \PicturePark\API\Exception\ContentRestoreTooManyRequestsException($response);
         }
         if (is_null($contentType) === false && (500 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentRestoreInternalServerErrorException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentRestoreInternalServerErrorException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkException', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('Bearer');
+        return ['Bearer'];
     }
 }

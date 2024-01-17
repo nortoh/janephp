@@ -18,18 +18,18 @@ class ListCompanyImagesDataItemNormalizer implements DenormalizerInterface, Norm
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\ListCompanyImagesDataItem';
+        return $type === 'CreditSafe\API\Model\ListCompanyImagesDataItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\ListCompanyImagesDataItem';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\ListCompanyImagesDataItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,11 +46,11 @@ class ListCompanyImagesDataItemNormalizer implements DenormalizerInterface, Norm
             unset($data['imageId']);
         }
         if (\array_key_exists('company', $data)) {
-            $object->setCompany($this->denormalizer->denormalize($data['company'], 'CreditSafe\\API\\Model\\ListCompanyImagesDataItemCompany', 'json', $context));
+            $object->setCompany($this->denormalizer->denormalize($data['company'], 'CreditSafe\API\Model\ListCompanyImagesDataItemCompany', 'json', $context));
             unset($data['company']);
         }
         if (\array_key_exists('document', $data)) {
-            $object->setDocument($this->denormalizer->denormalize($data['document'], 'CreditSafe\\API\\Model\\ListCompanyImagesDataItemDocument', 'json', $context));
+            $object->setDocument($this->denormalizer->denormalize($data['document'], 'CreditSafe\API\Model\ListCompanyImagesDataItemDocument', 'json', $context));
             unset($data['document']);
         }
         if (\array_key_exists('format', $data)) {
@@ -86,7 +86,7 @@ class ListCompanyImagesDataItemNormalizer implements DenormalizerInterface, Norm
             unset($data['status']);
         }
         if (\array_key_exists('localProperties', $data)) {
-            $object->setLocalProperties($this->denormalizer->denormalize($data['localProperties'], 'CreditSafe\\API\\Model\\ListCompanyImagesDataItemLocalProperties', 'json', $context));
+            $object->setLocalProperties($this->denormalizer->denormalize($data['localProperties'], 'CreditSafe\API\Model\ListCompanyImagesDataItemLocalProperties', 'json', $context));
             unset($data['localProperties']);
         }
         foreach ($data as $key => $value) {
@@ -99,17 +99,17 @@ class ListCompanyImagesDataItemNormalizer implements DenormalizerInterface, Norm
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('imageId') && null !== $object->getImageId()) {
             $data['imageId'] = $object->getImageId();
         }
         if ($object->isInitialized('company') && null !== $object->getCompany()) {
-            $data['company'] = $this->normalizer->normalize($object->getCompany(), 'json', $context);
+            $data['company'] = ($object->getCompany() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCompany(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('document') && null !== $object->getDocument()) {
-            $data['document'] = $this->normalizer->normalize($object->getDocument(), 'json', $context);
+            $data['document'] = ($object->getDocument() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getDocument(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('format') && null !== $object->getFormat()) {
             $data['format'] = $object->getFormat();
@@ -136,7 +136,7 @@ class ListCompanyImagesDataItemNormalizer implements DenormalizerInterface, Norm
             $data['status'] = $object->getStatus();
         }
         if ($object->isInitialized('localProperties') && null !== $object->getLocalProperties()) {
-            $data['localProperties'] = $this->normalizer->normalize($object->getLocalProperties(), 'json', $context);
+            $data['localProperties'] = ($object->getLocalProperties() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLocalProperties(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -145,8 +145,8 @@ class ListCompanyImagesDataItemNormalizer implements DenormalizerInterface, Norm
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\ListCompanyImagesDataItem' => false);
+        return ['CreditSafe\API\Model\ListCompanyImagesDataItem' => false];
     }
 }

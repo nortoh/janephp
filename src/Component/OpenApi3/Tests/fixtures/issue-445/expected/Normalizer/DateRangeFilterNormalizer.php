@@ -18,18 +18,18 @@ class DateRangeFilterNormalizer implements DenormalizerInterface, NormalizerInte
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\DateRangeFilter';
+        return $type === 'PicturePark\API\Model\DateRangeFilter';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\DateRangeFilter';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\DateRangeFilter';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -63,9 +63,9 @@ class DateRangeFilterNormalizer implements DenormalizerInterface, NormalizerInte
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['kind'] = $object->getKind();
         $data['field'] = $object->getField();
         $data['range'] = $object->getRange();
@@ -76,8 +76,8 @@ class DateRangeFilterNormalizer implements DenormalizerInterface, NormalizerInte
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\DateRangeFilter' => false);
+        return ['PicturePark\API\Model\DateRangeFilter' => false];
     }
 }

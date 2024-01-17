@@ -18,18 +18,18 @@ class OrFilterNormalizer implements DenormalizerInterface, NormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\OrFilter';
+        return $type === 'PicturePark\API\Model\OrFilter';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\OrFilter';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\OrFilter';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,9 +46,9 @@ class OrFilterNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['kind']);
         }
         if (\array_key_exists('filters', $data) && $data['filters'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['filters'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\FilterBase', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\FilterBase', 'json', $context);
             }
             $object->setFilters($values);
             unset($data['filters']);
@@ -66,14 +66,14 @@ class OrFilterNormalizer implements DenormalizerInterface, NormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['kind'] = $object->getKind();
         if ($object->isInitialized('filters') && null !== $object->getFilters()) {
-            $values = array();
+            $values = [];
             foreach ($object->getFilters() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['filters'] = $values;
         }
@@ -84,8 +84,8 @@ class OrFilterNormalizer implements DenormalizerInterface, NormalizerInterface, 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\OrFilter' => false);
+        return ['PicturePark\API\Model\OrFilter' => false];
     }
 }

@@ -18,18 +18,18 @@ class TopicSearchResultItemAliasesItemNormalizer implements DenormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\TopicSearchResultItemAliasesItem';
+        return $type === 'Github\Model\TopicSearchResultItemAliasesItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\TopicSearchResultItemAliasesItem';
+        return is_object($data) && get_class($data) === 'Github\Model\TopicSearchResultItemAliasesItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class TopicSearchResultItemAliasesItemNormalizer implements DenormalizerInterfac
             return $object;
         }
         if (\array_key_exists('topic_relation', $data)) {
-            $object->setTopicRelation($this->denormalizer->denormalize($data['topic_relation'], 'Github\\Model\\TopicSearchResultItemAliasesItemTopicRelation', 'json', $context));
+            $object->setTopicRelation($this->denormalizer->denormalize($data['topic_relation'], 'Github\Model\TopicSearchResultItemAliasesItemTopicRelation', 'json', $context));
             unset($data['topic_relation']);
         }
         foreach ($data as $key => $value) {
@@ -58,11 +58,11 @@ class TopicSearchResultItemAliasesItemNormalizer implements DenormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('topicRelation') && null !== $object->getTopicRelation()) {
-            $data['topic_relation'] = $this->normalizer->normalize($object->getTopicRelation(), 'json', $context);
+            $data['topic_relation'] = ($object->getTopicRelation() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getTopicRelation(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -74,8 +74,8 @@ class TopicSearchResultItemAliasesItemNormalizer implements DenormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\TopicSearchResultItemAliasesItem' => false);
+        return ['Github\Model\TopicSearchResultItemAliasesItem' => false];
     }
 }

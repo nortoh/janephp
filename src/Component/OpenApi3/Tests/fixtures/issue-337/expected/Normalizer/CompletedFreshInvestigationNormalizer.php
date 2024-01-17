@@ -18,18 +18,18 @@ class CompletedFreshInvestigationNormalizer implements DenormalizerInterface, No
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\CompletedFreshInvestigation';
+        return $type === 'CreditSafe\API\Model\CompletedFreshInvestigation';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\CompletedFreshInvestigation';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\CompletedFreshInvestigation';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,7 +46,7 @@ class CompletedFreshInvestigationNormalizer implements DenormalizerInterface, No
             unset($data['chargeReference']);
         }
         if (\array_key_exists('contactDetails', $data)) {
-            $object->setContactDetails($this->denormalizer->denormalize($data['contactDetails'], 'CreditSafe\\API\\Model\\CompletedFreshInvestigationContactDetails', 'json', $context));
+            $object->setContactDetails($this->denormalizer->denormalize($data['contactDetails'], 'CreditSafe\API\Model\CompletedFreshInvestigationContactDetails', 'json', $context));
             unset($data['contactDetails']);
         }
         if (\array_key_exists('creationDate', $data)) {
@@ -66,11 +66,11 @@ class CompletedFreshInvestigationNormalizer implements DenormalizerInterface, No
             unset($data['reportDate']);
         }
         if (\array_key_exists('searchCriteria', $data)) {
-            $object->setSearchCriteria($this->denormalizer->denormalize($data['searchCriteria'], 'CreditSafe\\API\\Model\\CompletedFreshInvestigationSearchCriteria', 'json', $context));
+            $object->setSearchCriteria($this->denormalizer->denormalize($data['searchCriteria'], 'CreditSafe\API\Model\CompletedFreshInvestigationSearchCriteria', 'json', $context));
             unset($data['searchCriteria']);
         }
         if (\array_key_exists('sections', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['sections'] as $value) {
                 $values[] = $value;
             }
@@ -78,7 +78,7 @@ class CompletedFreshInvestigationNormalizer implements DenormalizerInterface, No
             unset($data['sections']);
         }
         if (\array_key_exists('status', $data)) {
-            $object->setStatus($this->denormalizer->denormalize($data['status'], 'CreditSafe\\API\\Model\\CompletedFreshInvestigationStatus', 'json', $context));
+            $object->setStatus($this->denormalizer->denormalize($data['status'], 'CreditSafe\API\Model\CompletedFreshInvestigationStatus', 'json', $context));
             unset($data['status']);
         }
         if (\array_key_exists('transactionID', $data)) {
@@ -95,14 +95,14 @@ class CompletedFreshInvestigationNormalizer implements DenormalizerInterface, No
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('chargeReference') && null !== $object->getChargeReference()) {
             $data['chargeReference'] = $object->getChargeReference();
         }
         if ($object->isInitialized('contactDetails') && null !== $object->getContactDetails()) {
-            $data['contactDetails'] = $this->normalizer->normalize($object->getContactDetails(), 'json', $context);
+            $data['contactDetails'] = ($object->getContactDetails() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getContactDetails(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('creationDate') && null !== $object->getCreationDate()) {
             $data['creationDate'] = $object->getCreationDate();
@@ -117,17 +117,17 @@ class CompletedFreshInvestigationNormalizer implements DenormalizerInterface, No
             $data['reportDate'] = $object->getReportDate();
         }
         if ($object->isInitialized('searchCriteria') && null !== $object->getSearchCriteria()) {
-            $data['searchCriteria'] = $this->normalizer->normalize($object->getSearchCriteria(), 'json', $context);
+            $data['searchCriteria'] = ($object->getSearchCriteria() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSearchCriteria(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('sections') && null !== $object->getSections()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSections() as $value) {
                 $values[] = $value;
             }
             $data['sections'] = $values;
         }
         if ($object->isInitialized('status') && null !== $object->getStatus()) {
-            $data['status'] = $this->normalizer->normalize($object->getStatus(), 'json', $context);
+            $data['status'] = ($object->getStatus() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getStatus(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('transactionID') && null !== $object->getTransactionID()) {
             $data['transactionID'] = $object->getTransactionID();
@@ -139,8 +139,8 @@ class CompletedFreshInvestigationNormalizer implements DenormalizerInterface, No
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\CompletedFreshInvestigation' => false);
+        return ['CreditSafe\API\Model\CompletedFreshInvestigation' => false];
     }
 }

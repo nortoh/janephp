@@ -15,35 +15,35 @@ class ImageLoad extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Dock
     *     @var bool $quiet Suppress progress details during load.
     * }
     */
-    public function __construct($imagesTarball, array $queryParameters = array())
+    public function __construct($imagesTarball, array $queryParameters = [])
     {
         $this->body = $imagesTarball;
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/images/load';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), $this->body);
+        return [[], $this->body];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('quiet'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('quiet' => false));
-        $optionsResolver->addAllowedTypes('quiet', array('bool'));
+        $optionsResolver->setDefined(['quiet']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['quiet' => false]);
+        $optionsResolver->addAllowedTypes('quiet', ['bool']);
         return $optionsResolver;
     }
     /**
@@ -61,11 +61,11 @@ class ImageLoad extends \Docker\Api\Runtime\Client\BaseEndpoint implements \Dock
             return null;
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\ImageLoadInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ImageLoadInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

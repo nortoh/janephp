@@ -18,18 +18,18 @@ class CommitCommitNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\CommitCommit';
+        return $type === 'Github\Model\CommitCommit';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\CommitCommit';
+        return is_object($data) && get_class($data) === 'Github\Model\CommitCommit';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,14 +49,14 @@ class CommitCommitNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['url']);
         }
         if (\array_key_exists('author', $data) && $data['author'] !== null) {
-            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\\Model\\CommitCommitAuthor', 'json', $context));
+            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\Model\CommitCommitAuthor', 'json', $context));
             unset($data['author']);
         }
         elseif (\array_key_exists('author', $data) && $data['author'] === null) {
             $object->setAuthor(null);
         }
         if (\array_key_exists('committer', $data) && $data['committer'] !== null) {
-            $object->setCommitter($this->denormalizer->denormalize($data['committer'], 'Github\\Model\\CommitCommitCommitter', 'json', $context));
+            $object->setCommitter($this->denormalizer->denormalize($data['committer'], 'Github\Model\CommitCommitCommitter', 'json', $context));
             unset($data['committer']);
         }
         elseif (\array_key_exists('committer', $data) && $data['committer'] === null) {
@@ -71,11 +71,11 @@ class CommitCommitNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['comment_count']);
         }
         if (\array_key_exists('tree', $data)) {
-            $object->setTree($this->denormalizer->denormalize($data['tree'], 'Github\\Model\\CommitCommitTree', 'json', $context));
+            $object->setTree($this->denormalizer->denormalize($data['tree'], 'Github\Model\CommitCommitTree', 'json', $context));
             unset($data['tree']);
         }
         if (\array_key_exists('verification', $data)) {
-            $object->setVerification($this->denormalizer->denormalize($data['verification'], 'Github\\Model\\Verification', 'json', $context));
+            $object->setVerification($this->denormalizer->denormalize($data['verification'], 'Github\Model\Verification', 'json', $context));
             unset($data['verification']);
         }
         foreach ($data as $key => $value) {
@@ -88,17 +88,17 @@ class CommitCommitNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
-        $data['author'] = $this->normalizer->normalize($object->getAuthor(), 'json', $context);
-        $data['committer'] = $this->normalizer->normalize($object->getCommitter(), 'json', $context);
+        $data['author'] = ($object->getAuthor() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAuthor(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['committer'] = ($object->getCommitter() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCommitter(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['message'] = $object->getMessage();
         $data['comment_count'] = $object->getCommentCount();
-        $data['tree'] = $this->normalizer->normalize($object->getTree(), 'json', $context);
+        $data['tree'] = ($object->getTree() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getTree(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('verification') && null !== $object->getVerification()) {
-            $data['verification'] = $this->normalizer->normalize($object->getVerification(), 'json', $context);
+            $data['verification'] = ($object->getVerification() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getVerification(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -110,8 +110,8 @@ class CommitCommitNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\CommitCommit' => false);
+        return ['Github\Model\CommitCommit' => false];
     }
 }

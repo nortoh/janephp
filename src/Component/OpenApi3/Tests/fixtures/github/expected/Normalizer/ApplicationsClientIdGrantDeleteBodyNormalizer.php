@@ -18,18 +18,18 @@ class ApplicationsClientIdGrantDeleteBodyNormalizer implements DenormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ApplicationsClientIdGrantDeleteBody';
+        return $type === 'Github\Model\ApplicationsClientIdGrantDeleteBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ApplicationsClientIdGrantDeleteBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ApplicationsClientIdGrantDeleteBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -58,9 +58,9 @@ class ApplicationsClientIdGrantDeleteBodyNormalizer implements DenormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('accessToken') && null !== $object->getAccessToken()) {
             $data['access_token'] = $object->getAccessToken();
         }
@@ -74,8 +74,8 @@ class ApplicationsClientIdGrantDeleteBodyNormalizer implements DenormalizerInter
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ApplicationsClientIdGrantDeleteBody' => false);
+        return ['Github\Model\ApplicationsClientIdGrantDeleteBody' => false];
     }
 }

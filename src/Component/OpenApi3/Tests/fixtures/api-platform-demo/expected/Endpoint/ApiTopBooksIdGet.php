@@ -12,28 +12,28 @@ class ApiTopBooksIdGet extends \ApiPlatform\Demo\Runtime\Client\BaseEndpoint imp
      * @param string $id TopBook identifier
      * @param array $accept Accept content header application/ld+json|application/hal+json|application/vnd.api+json|application/json|application/xml|text/xml|application/x-yaml|text/csv|text/html
      */
-    public function __construct(string $id, array $accept = array())
+    public function __construct(string $id, array $accept = [])
     {
         $this->id = $id;
         $this->accept = $accept;
     }
     use \ApiPlatform\Demo\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/top_books/{id}');
+        return str_replace(['{id}'], [$this->id], '/top_books/{id}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
         if (empty($this->accept)) {
-            return array('Accept' => array('application/ld+json', 'application/hal+json', 'application/vnd.api+json', 'application/json', 'application/xml', 'text/xml', 'application/x-yaml', 'text/csv'));
+            return ['Accept' => ['application/ld+json', 'application/hal+json', 'application/vnd.api+json', 'application/json', 'application/xml', 'text/xml', 'application/x-yaml', 'text/csv']];
         }
         return $this->accept;
     }
@@ -50,24 +50,24 @@ class ApiTopBooksIdGet extends \ApiPlatform\Demo\Runtime\Client\BaseEndpoint imp
         $body = (string) $response->getBody();
         if (200 === $status) {
             if (mb_strpos($contentType, 'application/ld+json') !== false) {
-                return $serializer->deserialize($body, 'ApiPlatform\\Demo\\Model\\TopBookJsonld', 'json');
+                return $serializer->deserialize($body, 'ApiPlatform\Demo\Model\TopBookJsonld', 'json');
             }
             if (mb_strpos($contentType, 'application/hal+json') !== false) {
-                return $serializer->deserialize($body, 'ApiPlatform\\Demo\\Model\\TopBookJsonhal', 'json');
+                return $serializer->deserialize($body, 'ApiPlatform\Demo\Model\TopBookJsonhal', 'json');
             }
             if (mb_strpos($contentType, 'application/vnd.api+json') !== false) {
-                return $serializer->deserialize($body, 'ApiPlatform\\Demo\\Model\\TopBook', 'json');
+                return $serializer->deserialize($body, 'ApiPlatform\Demo\Model\TopBook', 'json');
             }
             if (mb_strpos($contentType, 'application/json') !== false) {
-                return $serializer->deserialize($body, 'ApiPlatform\\Demo\\Model\\TopBook', 'json');
+                return $serializer->deserialize($body, 'ApiPlatform\Demo\Model\TopBook', 'json');
             }
         }
         if (404 === $status) {
             throw new \ApiPlatform\Demo\Exception\ApiTopBooksIdGetNotFoundException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('apiKey');
+        return ['apiKey'];
     }
 }

@@ -7,8 +7,8 @@ class SchemaUpdateManyRequest
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class SchemaUpdateManyRequest
      *
      * @return SchemaUpdateItem[]
      */
-    public function getSchemas() : array
+    public function getSchemas(): array
     {
         return $this->schemas;
     }
@@ -34,7 +34,7 @@ class SchemaUpdateManyRequest
      *
      * @return self
      */
-    public function setSchemas(array $schemas) : self
+    public function setSchemas(array $schemas): self
     {
         $this->initialized['schemas'] = true;
         $this->schemas = $schemas;

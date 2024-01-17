@@ -18,18 +18,18 @@ class DocumentHistorySearchRequestNormalizer implements DenormalizerInterface, N
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\DocumentHistorySearchRequest';
+        return $type === 'PicturePark\API\Model\DocumentHistorySearchRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\DocumentHistorySearchRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\DocumentHistorySearchRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,10 +42,10 @@ class DocumentHistorySearchRequestNormalizer implements DenormalizerInterface, N
             return $object;
         }
         if (\array_key_exists('from', $data)) {
-            $object->setFrom(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['from']));
+            $object->setFrom(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['from']));
         }
         if (\array_key_exists('to', $data)) {
-            $object->setTo(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['to']));
+            $object->setTo(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['to']));
         }
         if (\array_key_exists('limit', $data)) {
             $object->setLimit($data['limit']);
@@ -72,9 +72,9 @@ class DocumentHistorySearchRequestNormalizer implements DenormalizerInterface, N
             $object->setDocumentType(null);
         }
         if (\array_key_exists('sort', $data) && $data['sort'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['sort'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\SortInfo', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\SortInfo', 'json', $context);
             }
             $object->setSort($values);
         }
@@ -86,11 +86,11 @@ class DocumentHistorySearchRequestNormalizer implements DenormalizerInterface, N
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['from'] = $object->getFrom()->format('Y-m-d\\TH:i:sP');
-        $data['to'] = $object->getTo()->format('Y-m-d\\TH:i:sP');
+        $data = [];
+        $data['from'] = $object->getFrom()->format('Y-m-d\TH:i:sP');
+        $data['to'] = $object->getTo()->format('Y-m-d\TH:i:sP');
         $data['limit'] = $object->getLimit();
         if ($object->isInitialized('pageToken') && null !== $object->getPageToken()) {
             $data['pageToken'] = $object->getPageToken();
@@ -103,16 +103,16 @@ class DocumentHistorySearchRequestNormalizer implements DenormalizerInterface, N
             $data['documentType'] = $object->getDocumentType();
         }
         if ($object->isInitialized('sort') && null !== $object->getSort()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSort() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['sort'] = $values;
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\DocumentHistorySearchRequest' => false);
+        return ['PicturePark\API\Model\DocumentHistorySearchRequest' => false];
     }
 }

@@ -18,18 +18,18 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Project';
+        return $type === 'Github\Model\Project';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Project';
+        return is_object($data) && get_class($data) === 'Github\Model\Project';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -88,18 +88,18 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
             unset($data['state']);
         }
         if (\array_key_exists('creator', $data) && $data['creator'] !== null) {
-            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\\Model\\ProjectCreator', 'json', $context));
+            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\Model\ProjectCreator', 'json', $context));
             unset($data['creator']);
         }
         elseif (\array_key_exists('creator', $data) && $data['creator'] === null) {
             $object->setCreator(null);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('organization_permission', $data)) {
@@ -115,7 +115,7 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
             unset($data['cards_url']);
         }
         if (\array_key_exists('permissions', $data)) {
-            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\\Model\\ProjectPermissions', 'json', $context));
+            $object->setPermissions($this->denormalizer->denormalize($data['permissions'], 'Github\Model\ProjectPermissions', 'json', $context));
             unset($data['permissions']);
         }
         foreach ($data as $key => $value) {
@@ -128,9 +128,9 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['owner_url'] = $object->getOwnerUrl();
         $data['url'] = $object->getUrl();
         $data['html_url'] = $object->getHtmlUrl();
@@ -141,9 +141,9 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
         $data['body'] = $object->getBody();
         $data['number'] = $object->getNumber();
         $data['state'] = $object->getState();
-        $data['creator'] = $this->normalizer->normalize($object->getCreator(), 'json', $context);
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['creator'] = ($object->getCreator() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCreator(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('organizationPermission') && null !== $object->getOrganizationPermission()) {
             $data['organization_permission'] = $object->getOrganizationPermission();
         }
@@ -154,7 +154,7 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
             $data['cards_url'] = $object->getCardsUrl();
         }
         if ($object->isInitialized('permissions') && null !== $object->getPermissions()) {
-            $data['permissions'] = $this->normalizer->normalize($object->getPermissions(), 'json', $context);
+            $data['permissions'] = ($object->getPermissions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPermissions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -166,8 +166,8 @@ class ProjectNormalizer implements DenormalizerInterface, NormalizerInterface, D
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Project' => false);
+        return ['Github\Model\Project' => false];
     }
 }

@@ -18,18 +18,18 @@ class DeploymentStatusNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\DeploymentStatus';
+        return $type === 'Github\Model\DeploymentStatus';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\DeploymentStatus';
+        return is_object($data) && get_class($data) === 'Github\Model\DeploymentStatus';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,7 +61,7 @@ class DeploymentStatusNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['state']);
         }
         if (\array_key_exists('creator', $data) && $data['creator'] !== null) {
-            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\\Model\\DeploymentStatusCreator', 'json', $context));
+            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\Model\DeploymentStatusCreator', 'json', $context));
             unset($data['creator']);
         }
         elseif (\array_key_exists('creator', $data) && $data['creator'] === null) {
@@ -80,11 +80,11 @@ class DeploymentStatusNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['target_url']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('deployment_url', $data)) {
@@ -104,7 +104,7 @@ class DeploymentStatusNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['log_url']);
         }
         if (\array_key_exists('performed_via_github_app', $data) && $data['performed_via_github_app'] !== null) {
-            $object->setPerformedViaGithubApp($this->denormalizer->denormalize($data['performed_via_github_app'], 'Github\\Model\\DeploymentStatusPerformedViaGithubApp', 'json', $context));
+            $object->setPerformedViaGithubApp($this->denormalizer->denormalize($data['performed_via_github_app'], 'Github\Model\DeploymentStatusPerformedViaGithubApp', 'json', $context));
             unset($data['performed_via_github_app']);
         }
         elseif (\array_key_exists('performed_via_github_app', $data) && $data['performed_via_github_app'] === null) {
@@ -120,21 +120,21 @@ class DeploymentStatusNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
         $data['state'] = $object->getState();
-        $data['creator'] = $this->normalizer->normalize($object->getCreator(), 'json', $context);
+        $data['creator'] = ($object->getCreator() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCreator(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['description'] = $object->getDescription();
         if ($object->isInitialized('environment') && null !== $object->getEnvironment()) {
             $data['environment'] = $object->getEnvironment();
         }
         $data['target_url'] = $object->getTargetUrl();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['deployment_url'] = $object->getDeploymentUrl();
         $data['repository_url'] = $object->getRepositoryUrl();
         if ($object->isInitialized('environmentUrl') && null !== $object->getEnvironmentUrl()) {
@@ -144,7 +144,7 @@ class DeploymentStatusNormalizer implements DenormalizerInterface, NormalizerInt
             $data['log_url'] = $object->getLogUrl();
         }
         if ($object->isInitialized('performedViaGithubApp') && null !== $object->getPerformedViaGithubApp()) {
-            $data['performed_via_github_app'] = $this->normalizer->normalize($object->getPerformedViaGithubApp(), 'json', $context);
+            $data['performed_via_github_app'] = ($object->getPerformedViaGithubApp() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPerformedViaGithubApp(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -156,8 +156,8 @@ class DeploymentStatusNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\DeploymentStatus' => false);
+        return ['Github\Model\DeploymentStatus' => false];
     }
 }

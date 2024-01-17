@@ -7,8 +7,8 @@ class UnassignContentPermissionSetsAction extends BusinessRuleAction
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -34,7 +34,7 @@ class UnassignContentPermissionSetsAction extends BusinessRuleAction
      *
      * @return self
      */
-    public function setPermissionSetIds($permissionSetIds) : self
+    public function setPermissionSetIds($permissionSetIds): self
     {
         $this->initialized['permissionSetIds'] = true;
         $this->permissionSetIds = $permissionSetIds;

@@ -81,7 +81,7 @@ class Operation extends \ArrayObject
      *
      * @return string[]|null
      */
-    public function getTags() : ?array
+    public function getTags(): ?array
     {
         return $this->tags;
     }
@@ -92,7 +92,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setTags(?array $tags) : self
+    public function setTags(?array $tags): self
     {
         $this->tags = $tags;
         return $this;
@@ -102,7 +102,7 @@ class Operation extends \ArrayObject
      *
      * @return string|null
      */
-    public function getSummary() : ?string
+    public function getSummary(): ?string
     {
         return $this->summary;
     }
@@ -113,7 +113,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setSummary(?string $summary) : self
+    public function setSummary(?string $summary): self
     {
         $this->summary = $summary;
         return $this;
@@ -123,7 +123,7 @@ class Operation extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -134,7 +134,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -155,7 +155,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setExternalDocs(?ExternalDocumentation $externalDocs) : self
+    public function setExternalDocs(?ExternalDocumentation $externalDocs): self
     {
         $this->externalDocs = $externalDocs;
         return $this;
@@ -165,7 +165,7 @@ class Operation extends \ArrayObject
      *
      * @return string|null
      */
-    public function getOperationId() : ?string
+    public function getOperationId(): ?string
     {
         return $this->operationId;
     }
@@ -176,7 +176,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setOperationId(?string $operationId) : self
+    public function setOperationId(?string $operationId): self
     {
         $this->operationId = $operationId;
         return $this;
@@ -186,7 +186,7 @@ class Operation extends \ArrayObject
      *
      * @return Parameter[]|Reference[]|null
      */
-    public function getParameters() : ?array
+    public function getParameters(): ?array
     {
         return $this->parameters;
     }
@@ -197,7 +197,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setParameters(?array $parameters) : self
+    public function setParameters(?array $parameters): self
     {
         $this->parameters = $parameters;
         return $this;
@@ -218,7 +218,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setRequestBody($requestBody) : self
+    public function setRequestBody($requestBody): self
     {
         $this->requestBody = $requestBody;
         return $this;
@@ -239,7 +239,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setResponses(?Responses $responses) : self
+    public function setResponses(?Responses $responses): self
     {
         $this->responses = $responses;
         return $this;
@@ -249,7 +249,7 @@ class Operation extends \ArrayObject
      *
      * @return mixed[][]|Reference[]|null
      */
-    public function getCallbacks() : ?iterable
+    public function getCallbacks(): ?iterable
     {
         return $this->callbacks;
     }
@@ -260,7 +260,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setCallbacks(?iterable $callbacks) : self
+    public function setCallbacks(?iterable $callbacks): self
     {
         $this->callbacks = $callbacks;
         return $this;
@@ -270,7 +270,7 @@ class Operation extends \ArrayObject
      *
      * @return bool|null
      */
-    public function getDeprecated() : ?bool
+    public function getDeprecated(): ?bool
     {
         return $this->deprecated;
     }
@@ -281,7 +281,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setDeprecated(?bool $deprecated) : self
+    public function setDeprecated(?bool $deprecated): self
     {
         $this->deprecated = $deprecated;
         return $this;
@@ -291,7 +291,7 @@ class Operation extends \ArrayObject
      *
      * @return string[][][]|null
      */
-    public function getSecurity() : ?array
+    public function getSecurity(): ?array
     {
         return $this->security;
     }
@@ -302,7 +302,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setSecurity(?array $security) : self
+    public function setSecurity(?array $security): self
     {
         $this->security = $security;
         return $this;
@@ -312,7 +312,7 @@ class Operation extends \ArrayObject
      *
      * @return Server[]|null
      */
-    public function getServers() : ?array
+    public function getServers(): ?array
     {
         return $this->servers;
     }
@@ -323,7 +323,7 @@ class Operation extends \ArrayObject
      *
      * @return self
      */
-    public function setServers(?array $servers) : self
+    public function setServers(?array $servers): self
     {
         $this->servers = $servers;
         return $this;

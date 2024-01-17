@@ -14,7 +14,9 @@ use Jane\Component\OpenApiCommon\Generator\ModelGenerator;
 use Jane\Component\OpenApiCommon\Generator\NormalizerGenerator;
 use Jane\Component\OpenApiCommon\Generator\RuntimeGenerator;
 use Jane\Component\OpenApiCommon\JaneOpenApi as CommonJaneOpenApi;
+use PharIo\Manifest\PhpVersionRequirement;
 use PhpParser\ParserFactory;
+use PhpParser\PhpVersion;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class JaneOpenApi extends CommonJaneOpenApi
@@ -36,7 +38,8 @@ class JaneOpenApi extends CommonJaneOpenApi
     protected static function generators(DenormalizerInterface $denormalizer, array $options = []): \Generator
     {
         $naming = new Naming();
-        $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
+        // @todo
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromString('7.4'));
 
         yield new ModelGenerator($naming, $parser);
         yield new NormalizerGenerator($naming, $parser, $options['reference'] ?? false, $options['use-cacheable-supports-method'] ?? false, $options['skip-null-values'] ?? true, $options['skip-required-fields'] ?? false, $options['validation'] ?? false);

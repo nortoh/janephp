@@ -19,34 +19,34 @@ class SearchTopics extends \Github\Runtime\Client\BaseEndpoint implements \Githu
     *     @var string $q The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://developer.github.com/v3/search/#constructing-a-search-query).
     * }
     */
-    public function __construct(array $queryParameters = array())
+    public function __construct(array $queryParameters = [])
     {
         $this->queryParameters = $queryParameters;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/search/topics';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('q'));
-        $optionsResolver->setRequired(array('q'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('q', array('string'));
+        $optionsResolver->setDefined(['q']);
+        $optionsResolver->setRequired(['q']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('q', ['string']);
         return $optionsResolver;
     }
     /**
@@ -61,17 +61,17 @@ class SearchTopics extends \Github\Runtime\Client\BaseEndpoint implements \Githu
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\SearchTopicsGetResponse200', 'json');
+            return $serializer->deserialize($body, 'Github\Model\SearchTopicsGetResponse200', 'json');
         }
         if (304 === $status) {
             return null;
         }
         if (is_null($contentType) === false && (415 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\SearchTopicsUnsupportedMediaTypeException($serializer->deserialize($body, 'Github\\Model\\ResponsePreviewHeaderMissing', 'json'), $response);
+            throw new \Github\Exception\SearchTopicsUnsupportedMediaTypeException($serializer->deserialize($body, 'Github\Model\ResponsePreviewHeaderMissing', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

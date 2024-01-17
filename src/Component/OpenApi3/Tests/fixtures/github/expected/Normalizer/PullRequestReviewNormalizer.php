@@ -18,18 +18,18 @@ class PullRequestReviewNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\PullRequestReview';
+        return $type === 'Github\Model\PullRequestReview';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\PullRequestReview';
+        return is_object($data) && get_class($data) === 'Github\Model\PullRequestReview';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,7 +53,7 @@ class PullRequestReviewNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['node_id']);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\PullRequestReviewUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\PullRequestReviewUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
@@ -76,11 +76,11 @@ class PullRequestReviewNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['pull_request_url']);
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\\Model\\PullRequestReviewLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\Model\PullRequestReviewLinks', 'json', $context));
             unset($data['_links']);
         }
         if (\array_key_exists('submitted_at', $data)) {
-            $object->setSubmittedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['submitted_at']));
+            $object->setSubmittedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['submitted_at']));
             unset($data['submitted_at']);
         }
         if (\array_key_exists('commit_id', $data)) {
@@ -109,19 +109,19 @@ class PullRequestReviewNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
-        $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
+        $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['body'] = $object->getBody();
         $data['state'] = $object->getState();
         $data['html_url'] = $object->getHtmlUrl();
         $data['pull_request_url'] = $object->getPullRequestUrl();
-        $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+        $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('submittedAt') && null !== $object->getSubmittedAt()) {
-            $data['submitted_at'] = $object->getSubmittedAt()->format('Y-m-d\\TH:i:sP');
+            $data['submitted_at'] = $object->getSubmittedAt()->format('Y-m-d\TH:i:sP');
         }
         $data['commit_id'] = $object->getCommitId();
         if ($object->isInitialized('bodyHtml') && null !== $object->getBodyHtml()) {
@@ -141,8 +141,8 @@ class PullRequestReviewNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\PullRequestReview' => false);
+        return ['Github\Model\PullRequestReview' => false];
     }
 }

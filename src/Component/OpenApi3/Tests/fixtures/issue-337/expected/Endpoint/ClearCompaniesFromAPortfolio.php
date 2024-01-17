@@ -17,7 +17,7 @@ class ClearCompaniesFromAPortfolio extends \CreditSafe\API\Runtime\Client\BaseEn
      *     @var string $Authorization Bearer JWT (Authentication Token) generated from the /authenticate endpoint.
      * }
      */
-    public function __construct(string $portfolioId, ?\CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdCompaniesClearPatchBody $requestBody = null, array $queryParameters = array(), array $headerParameters = array())
+    public function __construct(string $portfolioId, ?\CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdCompaniesClearPatchBody $requestBody = null, array $queryParameters = [], array $headerParameters = [])
     {
         $this->portfolioId = $portfolioId;
         $this->body = $requestBody;
@@ -25,41 +25,41 @@ class ClearCompaniesFromAPortfolio extends \CreditSafe\API\Runtime\Client\BaseEn
         $this->headerParameters = $headerParameters;
     }
     use \CreditSafe\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'PATCH';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{portfolioId}'), array($this->portfolioId), '/monitoring/portfolios/{portfolioId}/companies/clear');
+        return str_replace(['{portfolioId}'], [$this->portfolioId], '/monitoring/portfolios/{portfolioId}/companies/clear');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if ($this->body instanceof \CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdCompaniesClearPatchBody) {
-            return array(array('Content-Type' => array('application/json')), $serializer->serialize($this->body, 'json'));
+            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
         }
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('clearAll'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('clearAll' => false));
-        $optionsResolver->addAllowedTypes('clearAll', array('bool'));
+        $optionsResolver->setDefined(['clearAll']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['clearAll' => false]);
+        $optionsResolver->addAllowedTypes('clearAll', ['bool']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('Authorization'));
-        $optionsResolver->setRequired(array('Authorization'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('Authorization', array('string'));
+        $optionsResolver->setDefined(['Authorization']);
+        $optionsResolver->setRequired(['Authorization']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('Authorization', ['string']);
         return $optionsResolver;
     }
     /**
@@ -92,8 +92,8 @@ class ClearCompaniesFromAPortfolio extends \CreditSafe\API\Runtime\Client\BaseEn
             throw new \CreditSafe\API\Exception\ClearCompaniesFromAPortfolioNotFoundException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('bearerAuth');
+        return ['bearerAuth'];
     }
 }

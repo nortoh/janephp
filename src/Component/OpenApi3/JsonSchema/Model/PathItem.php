@@ -87,7 +87,7 @@ class PathItem extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDollarRef() : ?string
+    public function getDollarRef(): ?string
     {
         return $this->dollarRef;
     }
@@ -98,7 +98,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setDollarRef(?string $dollarRef) : self
+    public function setDollarRef(?string $dollarRef): self
     {
         $this->dollarRef = $dollarRef;
         return $this;
@@ -108,7 +108,7 @@ class PathItem extends \ArrayObject
      *
      * @return string|null
      */
-    public function getSummary() : ?string
+    public function getSummary(): ?string
     {
         return $this->summary;
     }
@@ -119,7 +119,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setSummary(?string $summary) : self
+    public function setSummary(?string $summary): self
     {
         $this->summary = $summary;
         return $this;
@@ -129,7 +129,7 @@ class PathItem extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -140,7 +140,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -161,7 +161,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setGet(?Operation $get) : self
+    public function setGet(?Operation $get): self
     {
         $this->get = $get;
         return $this;
@@ -182,7 +182,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setPut(?Operation $put) : self
+    public function setPut(?Operation $put): self
     {
         $this->put = $put;
         return $this;
@@ -203,7 +203,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setPost(?Operation $post) : self
+    public function setPost(?Operation $post): self
     {
         $this->post = $post;
         return $this;
@@ -224,7 +224,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setDelete(?Operation $delete) : self
+    public function setDelete(?Operation $delete): self
     {
         $this->delete = $delete;
         return $this;
@@ -245,7 +245,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setOptions(?Operation $options) : self
+    public function setOptions(?Operation $options): self
     {
         $this->options = $options;
         return $this;
@@ -266,7 +266,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setHead(?Operation $head) : self
+    public function setHead(?Operation $head): self
     {
         $this->head = $head;
         return $this;
@@ -287,7 +287,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setPatch(?Operation $patch) : self
+    public function setPatch(?Operation $patch): self
     {
         $this->patch = $patch;
         return $this;
@@ -308,7 +308,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setTrace(?Operation $trace) : self
+    public function setTrace(?Operation $trace): self
     {
         $this->trace = $trace;
         return $this;
@@ -318,7 +318,7 @@ class PathItem extends \ArrayObject
      *
      * @return Server[]|null
      */
-    public function getServers() : ?array
+    public function getServers(): ?array
     {
         return $this->servers;
     }
@@ -329,7 +329,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setServers(?array $servers) : self
+    public function setServers(?array $servers): self
     {
         $this->servers = $servers;
         return $this;
@@ -339,7 +339,7 @@ class PathItem extends \ArrayObject
      *
      * @return Parameter[]|Reference[]|null
      */
-    public function getParameters() : ?array
+    public function getParameters(): ?array
     {
         return $this->parameters;
     }
@@ -350,7 +350,7 @@ class PathItem extends \ArrayObject
      *
      * @return self
      */
-    public function setParameters(?array $parameters) : self
+    public function setParameters(?array $parameters): self
     {
         $this->parameters = $parameters;
         return $this;

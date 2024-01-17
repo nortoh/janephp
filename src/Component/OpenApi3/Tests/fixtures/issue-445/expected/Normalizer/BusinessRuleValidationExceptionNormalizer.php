@@ -18,18 +18,18 @@ class BusinessRuleValidationExceptionNormalizer implements DenormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessRuleValidationException';
+        return $type === 'PicturePark\API\Model\BusinessRuleValidationException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessRuleValidationException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessRuleValidationException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -103,9 +103,9 @@ class BusinessRuleValidationExceptionNormalizer implements DenormalizerInterface
             $object->setRuleId(null);
         }
         if (\array_key_exists('innerExceptions', $data) && $data['innerExceptions'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['innerExceptions'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\PictureparkValidationException', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\PictureparkValidationException', 'json', $context);
             }
             $object->setInnerExceptions($values);
             unset($data['innerExceptions']);
@@ -123,9 +123,9 @@ class BusinessRuleValidationExceptionNormalizer implements DenormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -155,9 +155,9 @@ class BusinessRuleValidationExceptionNormalizer implements DenormalizerInterface
             $data['ruleId'] = $object->getRuleId();
         }
         if ($object->isInitialized('innerExceptions') && null !== $object->getInnerExceptions()) {
-            $values = array();
+            $values = [];
             foreach ($object->getInnerExceptions() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['innerExceptions'] = $values;
         }
@@ -168,8 +168,8 @@ class BusinessRuleValidationExceptionNormalizer implements DenormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessRuleValidationException' => false);
+        return ['PicturePark\API\Model\BusinessRuleValidationException' => false];
     }
 }

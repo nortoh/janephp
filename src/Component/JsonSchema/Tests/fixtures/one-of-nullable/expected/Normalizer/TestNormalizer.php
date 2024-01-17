@@ -18,18 +18,18 @@ class TestNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Test';
+        return $type === 'Jane\Component\JsonSchema\Tests\Expected\Model\Test';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return $data instanceof \Jane\Component\JsonSchema\Tests\Expected\Model\Test;
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,7 +46,7 @@ class TestNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             if (is_null($data['id'])) {
                 $value = $data['id'];
             } elseif (is_array($data['id'])) {
-                $value = $this->denormalizer->denormalize($data['id'], 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Id', 'json', $context);
+                $value = $this->denormalizer->denormalize($data['id'], 'Jane\Component\JsonSchema\Tests\Expected\Model\Id', 'json', $context);
             }
             $object->setId($value);
         }
@@ -58,22 +58,22 @@ class TestNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $value = $object->getId();
             if (is_null($object->getId())) {
                 $value = $object->getId();
             } elseif (is_object($object->getId())) {
-                $value = $this->normalizer->normalize($object->getId(), 'json', $context);
+                $value = ($object->getId() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getId(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['id'] = $value;
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\Test' => false);
+        return ['Jane\Component\JsonSchema\Tests\Expected\Model\Test' => false];
     }
 }

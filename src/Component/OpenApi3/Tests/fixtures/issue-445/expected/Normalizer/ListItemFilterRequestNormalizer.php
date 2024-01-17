@@ -18,18 +18,18 @@ class ListItemFilterRequestNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ListItemFilterRequest';
+        return $type === 'PicturePark\API\Model\ListItemFilterRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ListItemFilterRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ListItemFilterRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,7 +57,7 @@ class ListItemFilterRequestNormalizer implements DenormalizerInterface, Normaliz
             $object->setIncludeAllSchemaChildren($data['includeAllSchemaChildren']);
         }
         if (\array_key_exists('schemaIds', $data) && $data['schemaIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['schemaIds'] as $value) {
                 $values[] = $value;
             }
@@ -67,7 +67,7 @@ class ListItemFilterRequestNormalizer implements DenormalizerInterface, Normaliz
             $object->setSchemaIds(null);
         }
         if (\array_key_exists('searchLanguages', $data) && $data['searchLanguages'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['searchLanguages'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -84,9 +84,9 @@ class ListItemFilterRequestNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('searchString') && null !== $object->getSearchString()) {
             $data['searchString'] = $object->getSearchString();
         }
@@ -95,14 +95,14 @@ class ListItemFilterRequestNormalizer implements DenormalizerInterface, Normaliz
         }
         $data['includeAllSchemaChildren'] = $object->getIncludeAllSchemaChildren();
         if ($object->isInitialized('schemaIds') && null !== $object->getSchemaIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSchemaIds() as $value) {
                 $values[] = $value;
             }
             $data['schemaIds'] = $values;
         }
         if ($object->isInitialized('searchLanguages') && null !== $object->getSearchLanguages()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getSearchLanguages() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -111,8 +111,8 @@ class ListItemFilterRequestNormalizer implements DenormalizerInterface, Normaliz
         $data['brokenDependenciesFilter'] = $object->getBrokenDependenciesFilter();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ListItemFilterRequest' => false);
+        return ['PicturePark\API\Model\ListItemFilterRequest' => false];
     }
 }

@@ -7,8 +7,8 @@ class IdResponse
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -17,27 +17,27 @@ class IdResponse
      *
      * @var string
      */
-    protected $id;
+    protected $iD;
     /**
      * The id of the newly created object.
      *
      * @return string
      */
-    public function getId() : string
+    public function getID(): string
     {
-        return $this->id;
+        return $this->iD;
     }
     /**
      * The id of the newly created object.
      *
-     * @param string $id
+     * @param string $iD
      *
      * @return self
      */
-    public function setId(string $id) : self
+    public function setID(string $iD): self
     {
-        $this->initialized['id'] = true;
-        $this->id = $id;
+        $this->initialized['iD'] = true;
+        $this->iD = $iD;
         return $this;
     }
 }

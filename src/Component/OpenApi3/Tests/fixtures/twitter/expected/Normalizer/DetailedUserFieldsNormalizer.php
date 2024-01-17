@@ -18,18 +18,18 @@ class DetailedUserFieldsNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DetailedUserFields';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\DetailedUserFields';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DetailedUserFields';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\DetailedUserFields';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class DetailedUserFieldsNormalizer implements DenormalizerInterface, NormalizerI
             return $object;
         }
         if (\array_key_exists('stats', $data)) {
-            $object->setStats($this->denormalizer->denormalize($data['stats'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DetailedUserFieldsStats', 'json', $context));
+            $object->setStats($this->denormalizer->denormalize($data['stats'], 'Jane\Component\OpenApi3\Tests\Expected\Model\DetailedUserFieldsStats', 'json', $context));
             unset($data['stats']);
         }
         foreach ($data as $key => $value) {
@@ -55,11 +55,11 @@ class DetailedUserFieldsNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('stats') && null !== $object->getStats()) {
-            $data['stats'] = $this->normalizer->normalize($object->getStats(), 'json', $context);
+            $data['stats'] = ($object->getStats() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getStats(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -68,8 +68,8 @@ class DetailedUserFieldsNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DetailedUserFields' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\DetailedUserFields' => false];
     }
 }

@@ -18,18 +18,18 @@ class ReposOwnerRepoPullsPullNumberRequestedReviewersPostBodyNormalizer implemen
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoPullsPullNumberRequestedReviewersPostBody';
+        return $type === 'Github\Model\ReposOwnerRepoPullsPullNumberRequestedReviewersPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoPullsPullNumberRequestedReviewersPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoPullsPullNumberRequestedReviewersPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ReposOwnerRepoPullsPullNumberRequestedReviewersPostBodyNormalizer implemen
             return $object;
         }
         if (\array_key_exists('reviewers', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['reviewers'] as $value) {
                 $values[] = $value;
             }
@@ -53,7 +53,7 @@ class ReposOwnerRepoPullsPullNumberRequestedReviewersPostBodyNormalizer implemen
             unset($data['reviewers']);
         }
         if (\array_key_exists('team_reviewers', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['team_reviewers'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -70,18 +70,18 @@ class ReposOwnerRepoPullsPullNumberRequestedReviewersPostBodyNormalizer implemen
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('reviewers') && null !== $object->getReviewers()) {
-            $values = array();
+            $values = [];
             foreach ($object->getReviewers() as $value) {
                 $values[] = $value;
             }
             $data['reviewers'] = $values;
         }
         if ($object->isInitialized('teamReviewers') && null !== $object->getTeamReviewers()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getTeamReviewers() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -97,8 +97,8 @@ class ReposOwnerRepoPullsPullNumberRequestedReviewersPostBodyNormalizer implemen
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoPullsPullNumberRequestedReviewersPostBody' => false);
+        return ['Github\Model\ReposOwnerRepoPullsPullNumberRequestedReviewersPostBody' => false];
     }
 }

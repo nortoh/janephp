@@ -18,18 +18,18 @@ class CustomerInfoNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\CustomerInfo';
+        return $type === 'PicturePark\API\Model\CustomerInfo';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\CustomerInfo';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\CustomerInfo';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -63,30 +63,30 @@ class CustomerInfoNormalizer implements DenormalizerInterface, NormalizerInterfa
             $object->setLanguageConfiguration($data['languageConfiguration']);
         }
         if (\array_key_exists('languages', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['languages'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\Language', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\Language', 'json', $context);
             }
             $object->setLanguages($values);
         }
         if (\array_key_exists('outputFormats', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['outputFormats'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\OutputFormatInfo', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\OutputFormatInfo', 'json', $context);
             }
             $object->setOutputFormats($values_1);
         }
         if (\array_key_exists('boostValues', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['boostValues'] as $value_2) {
                 $values_2[] = $value_2;
             }
             $object->setBoostValues($values_2);
         }
         if (\array_key_exists('apps', $data) && $data['apps'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['apps'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\\API\\Model\\CustomerApp', 'json', $context);
+                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\API\Model\CustomerApp', 'json', $context);
             }
             $object->setApps($values_3);
         }
@@ -94,7 +94,7 @@ class CustomerInfoNormalizer implements DenormalizerInterface, NormalizerInterfa
             $object->setApps(null);
         }
         if (\array_key_exists('modificationDate', $data)) {
-            $object->setModificationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['modificationDate']));
+            $object->setModificationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['modificationDate']));
         }
         if (\array_key_exists('baseUrl', $data)) {
             $object->setBaseUrl($data['baseUrl']);
@@ -107,9 +107,9 @@ class CustomerInfoNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['customerId'] = $object->getCustomerId();
         $data['name'] = $object->getName();
         $data['customerAlias'] = $object->getCustomerAlias();
@@ -117,35 +117,35 @@ class CustomerInfoNormalizer implements DenormalizerInterface, NormalizerInterfa
         $data['apiUrl'] = $object->getApiUrl();
         $data['enableQueryDetails'] = $object->getEnableQueryDetails();
         $data['languageConfiguration'] = $object->getLanguageConfiguration();
-        $values = array();
+        $values = [];
         foreach ($object->getLanguages() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['languages'] = $values;
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getOutputFormats() as $value_1) {
-            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['outputFormats'] = $values_1;
-        $values_2 = array();
+        $values_2 = [];
         foreach ($object->getBoostValues() as $value_2) {
             $values_2[] = $value_2;
         }
         $data['boostValues'] = $values_2;
         if ($object->isInitialized('apps') && null !== $object->getApps()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getApps() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+                $values_3[] = ($value_3 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_3, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['apps'] = $values_3;
         }
-        $data['modificationDate'] = $object->getModificationDate()->format('Y-m-d\\TH:i:sP');
+        $data['modificationDate'] = $object->getModificationDate()->format('Y-m-d\TH:i:sP');
         $data['baseUrl'] = $object->getBaseUrl();
         $data['logosUrl'] = $object->getLogosUrl();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\CustomerInfo' => false);
+        return ['PicturePark\API\Model\CustomerInfo' => false];
     }
 }

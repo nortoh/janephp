@@ -18,18 +18,18 @@ class ReposOwnerRepoHooksHookIdPatchBodyConfigNormalizer implements Denormalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoHooksHookIdPatchBodyConfig';
+        return $type === 'Github\Model\ReposOwnerRepoHooksHookIdPatchBodyConfig';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoHooksHookIdPatchBodyConfig';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoHooksHookIdPatchBodyConfig';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -78,9 +78,9 @@ class ReposOwnerRepoHooksHookIdPatchBodyConfigNormalizer implements Denormalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         if ($object->isInitialized('contentType') && null !== $object->getContentType()) {
             $data['content_type'] = $object->getContentType();
@@ -107,8 +107,8 @@ class ReposOwnerRepoHooksHookIdPatchBodyConfigNormalizer implements Denormalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoHooksHookIdPatchBodyConfig' => false);
+        return ['Github\Model\ReposOwnerRepoHooksHookIdPatchBodyConfig' => false];
     }
 }

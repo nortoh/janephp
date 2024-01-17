@@ -23,7 +23,7 @@ class ListCompanySpecificNotificationEvents extends \CreditSafe\API\Runtime\Clie
      *     @var string $Authorization Bearer JWT (Authentication Token) generated from the /authenticate endpoint.
      * }
      */
-    public function __construct(string $portfolioId, string $id, array $queryParameters = array(), array $headerParameters = array())
+    public function __construct(string $portfolioId, string $id, array $queryParameters = [], array $headerParameters = [])
     {
         $this->portfolioId = $portfolioId;
         $this->id = $id;
@@ -31,43 +31,43 @@ class ListCompanySpecificNotificationEvents extends \CreditSafe\API\Runtime\Clie
         $this->headerParameters = $headerParameters;
     }
     use \CreditSafe\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{portfolioId}', '{id}'), array($this->portfolioId, $this->id), '/monitoring/portfolios/{portfolioId}/companies/{id}/notificationEvents');
+        return str_replace(['{portfolioId}', '{id}'], [$this->portfolioId, $this->id], '/monitoring/portfolios/{portfolioId}/companies/{id}/notificationEvents');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('searchQuery', 'sortDir', 'pageSize', 'page', 'isProcessed', 'sortBy'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('sortDir' => 'asc', 'pageSize' => 50, 'page' => 0, 'sortBy' => 'companyName'));
-        $optionsResolver->addAllowedTypes('searchQuery', array('string'));
-        $optionsResolver->addAllowedTypes('sortDir', array('string'));
-        $optionsResolver->addAllowedTypes('pageSize', array('int'));
-        $optionsResolver->addAllowedTypes('page', array('int'));
-        $optionsResolver->addAllowedTypes('isProcessed', array('bool'));
-        $optionsResolver->addAllowedTypes('sortBy', array('string'));
+        $optionsResolver->setDefined(['searchQuery', 'sortDir', 'pageSize', 'page', 'isProcessed', 'sortBy']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['sortDir' => 'asc', 'pageSize' => 50, 'page' => 0, 'sortBy' => 'companyName']);
+        $optionsResolver->addAllowedTypes('searchQuery', ['string']);
+        $optionsResolver->addAllowedTypes('sortDir', ['string']);
+        $optionsResolver->addAllowedTypes('pageSize', ['int']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
+        $optionsResolver->addAllowedTypes('isProcessed', ['bool']);
+        $optionsResolver->addAllowedTypes('sortBy', ['string']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('Authorization'));
-        $optionsResolver->setRequired(array('Authorization'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('Authorization', array('string'));
+        $optionsResolver->setDefined(['Authorization']);
+        $optionsResolver->setRequired(['Authorization']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('Authorization', ['string']);
         return $optionsResolver;
     }
     /**
@@ -100,8 +100,8 @@ class ListCompanySpecificNotificationEvents extends \CreditSafe\API\Runtime\Clie
             throw new \CreditSafe\API\Exception\ListCompanySpecificNotificationEventsNotFoundException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('bearerAuth');
+        return ['bearerAuth'];
     }
 }

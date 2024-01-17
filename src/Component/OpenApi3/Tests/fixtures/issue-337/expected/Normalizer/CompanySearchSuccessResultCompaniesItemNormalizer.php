@@ -18,18 +18,18 @@ class CompanySearchSuccessResultCompaniesItemNormalizer implements DenormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\CompanySearchSuccessResultCompaniesItem';
+        return $type === 'CreditSafe\API\Model\CompanySearchSuccessResultCompaniesItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\CompanySearchSuccessResultCompaniesItem';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\CompanySearchSuccessResultCompaniesItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -54,7 +54,7 @@ class CompanySearchSuccessResultCompaniesItemNormalizer implements DenormalizerI
             unset($data['regNo']);
         }
         if (\array_key_exists('vatNo', $data)) {
-            $object->setVatNo($this->denormalizer->denormalize($data['vatNo'], 'CreditSafe\\API\\Model\\CompanySearchSuccessResultCompaniesItemVatNo', 'json', $context));
+            $object->setVatNo($this->denormalizer->denormalize($data['vatNo'], 'CreditSafe\API\Model\CompanySearchSuccessResultCompaniesItemVatNo', 'json', $context));
             unset($data['vatNo']);
         }
         if (\array_key_exists('safeNo', $data)) {
@@ -86,19 +86,19 @@ class CompanySearchSuccessResultCompaniesItemNormalizer implements DenormalizerI
             unset($data['activityCode']);
         }
         if (\array_key_exists('tradingNames', $data)) {
-            $object->setTradingNames($this->denormalizer->denormalize($data['tradingNames'], 'CreditSafe\\API\\Model\\CompanySearchSuccessResultCompaniesItemTradingNames', 'json', $context));
+            $object->setTradingNames($this->denormalizer->denormalize($data['tradingNames'], 'CreditSafe\API\Model\CompanySearchSuccessResultCompaniesItemTradingNames', 'json', $context));
             unset($data['tradingNames']);
         }
         if (\array_key_exists('address', $data)) {
-            $object->setAddress($this->denormalizer->denormalize($data['address'], 'CreditSafe\\API\\Model\\CompanySearchSuccessResultCompaniesItemAddress', 'json', $context));
+            $object->setAddress($this->denormalizer->denormalize($data['address'], 'CreditSafe\API\Model\CompanySearchSuccessResultCompaniesItemAddress', 'json', $context));
             unset($data['address']);
         }
         if (\array_key_exists('dateOfLatestChange', $data)) {
-            $object->setDateOfLatestChange($this->denormalizer->denormalize($data['dateOfLatestChange'], 'CreditSafe\\API\\Model\\CompanySearchSuccessResultCompaniesItemDateOfLatestChange', 'json', $context));
+            $object->setDateOfLatestChange($this->denormalizer->denormalize($data['dateOfLatestChange'], 'CreditSafe\API\Model\CompanySearchSuccessResultCompaniesItemDateOfLatestChange', 'json', $context));
             unset($data['dateOfLatestChange']);
         }
         if (\array_key_exists('dateOfLatestCAccounts', $data)) {
-            $object->setDateOfLatestCAccounts($this->denormalizer->denormalize($data['dateOfLatestCAccounts'], 'CreditSafe\\API\\Model\\CompanySearchSuccessResultCompaniesItemDateOfLatestCAccounts', 'json', $context));
+            $object->setDateOfLatestCAccounts($this->denormalizer->denormalize($data['dateOfLatestCAccounts'], 'CreditSafe\API\Model\CompanySearchSuccessResultCompaniesItemDateOfLatestCAccounts', 'json', $context));
             unset($data['dateOfLatestCAccounts']);
         }
         foreach ($data as $key => $value) {
@@ -111,9 +111,9 @@ class CompanySearchSuccessResultCompaniesItemNormalizer implements DenormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -124,7 +124,7 @@ class CompanySearchSuccessResultCompaniesItemNormalizer implements DenormalizerI
             $data['regNo'] = $object->getRegNo();
         }
         if ($object->isInitialized('vatNo') && null !== $object->getVatNo()) {
-            $data['vatNo'] = $this->normalizer->normalize($object->getVatNo(), 'json', $context);
+            $data['vatNo'] = ($object->getVatNo() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getVatNo(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('safeNo') && null !== $object->getSafeNo()) {
             $data['safeNo'] = $object->getSafeNo();
@@ -148,16 +148,16 @@ class CompanySearchSuccessResultCompaniesItemNormalizer implements DenormalizerI
             $data['activityCode'] = $object->getActivityCode();
         }
         if ($object->isInitialized('tradingNames') && null !== $object->getTradingNames()) {
-            $data['tradingNames'] = $this->normalizer->normalize($object->getTradingNames(), 'json', $context);
+            $data['tradingNames'] = ($object->getTradingNames() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getTradingNames(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('address') && null !== $object->getAddress()) {
-            $data['address'] = $this->normalizer->normalize($object->getAddress(), 'json', $context);
+            $data['address'] = ($object->getAddress() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAddress(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('dateOfLatestChange') && null !== $object->getDateOfLatestChange()) {
-            $data['dateOfLatestChange'] = $this->normalizer->normalize($object->getDateOfLatestChange(), 'json', $context);
+            $data['dateOfLatestChange'] = ($object->getDateOfLatestChange() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getDateOfLatestChange(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('dateOfLatestCAccounts') && null !== $object->getDateOfLatestCAccounts()) {
-            $data['dateOfLatestCAccounts'] = $this->normalizer->normalize($object->getDateOfLatestCAccounts(), 'json', $context);
+            $data['dateOfLatestCAccounts'] = ($object->getDateOfLatestCAccounts() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getDateOfLatestCAccounts(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -166,8 +166,8 @@ class CompanySearchSuccessResultCompaniesItemNormalizer implements DenormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\CompanySearchSuccessResultCompaniesItem' => false);
+        return ['CreditSafe\API\Model\CompanySearchSuccessResultCompaniesItem' => false];
     }
 }

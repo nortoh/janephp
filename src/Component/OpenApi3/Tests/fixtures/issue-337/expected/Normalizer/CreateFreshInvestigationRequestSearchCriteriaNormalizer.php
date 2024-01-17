@@ -18,18 +18,18 @@ class CreateFreshInvestigationRequestSearchCriteriaNormalizer implements Denorma
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\CreateFreshInvestigationRequestSearchCriteria';
+        return $type === 'CreditSafe\API\Model\CreateFreshInvestigationRequestSearchCriteria';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\CreateFreshInvestigationRequestSearchCriteria';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\CreateFreshInvestigationRequestSearchCriteria';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -54,7 +54,7 @@ class CreateFreshInvestigationRequestSearchCriteriaNormalizer implements Denorma
             unset($data['telephoneNumber']);
         }
         if (\array_key_exists('address', $data)) {
-            $object->setAddress($this->denormalizer->denormalize($data['address'], 'CreditSafe\\API\\Model\\CreateFreshInvestigationRequestSearchCriteriaAddress', 'json', $context));
+            $object->setAddress($this->denormalizer->denormalize($data['address'], 'CreditSafe\API\Model\CreateFreshInvestigationRequestSearchCriteriaAddress', 'json', $context));
             unset($data['address']);
         }
         if (\array_key_exists('regNo', $data)) {
@@ -79,9 +79,9 @@ class CreateFreshInvestigationRequestSearchCriteriaNormalizer implements Denorma
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('name') && null !== $object->getName()) {
             $data['name'] = $object->getName();
         }
@@ -92,7 +92,7 @@ class CreateFreshInvestigationRequestSearchCriteriaNormalizer implements Denorma
             $data['telephoneNumber'] = $object->getTelephoneNumber();
         }
         if ($object->isInitialized('address') && null !== $object->getAddress()) {
-            $data['address'] = $this->normalizer->normalize($object->getAddress(), 'json', $context);
+            $data['address'] = ($object->getAddress() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAddress(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('regNo') && null !== $object->getRegNo()) {
             $data['regNo'] = $object->getRegNo();
@@ -110,8 +110,8 @@ class CreateFreshInvestigationRequestSearchCriteriaNormalizer implements Denorma
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\CreateFreshInvestigationRequestSearchCriteria' => false);
+        return ['CreditSafe\API\Model\CreateFreshInvestigationRequestSearchCriteria' => false];
     }
 }

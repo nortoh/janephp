@@ -18,18 +18,18 @@ class BusinessRuleTracedTransformationGroupNormalizer implements DenormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessRuleTracedTransformationGroup';
+        return $type === 'PicturePark\API\Model\BusinessRuleTracedTransformationGroup';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessRuleTracedTransformationGroup';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessRuleTracedTransformationGroup';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -60,9 +60,9 @@ class BusinessRuleTracedTransformationGroupNormalizer implements DenormalizerInt
             $object->setOutput(null);
         }
         if (\array_key_exists('transformations', $data) && $data['transformations'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['transformations'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\BusinessRuleTracedTransformation', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\BusinessRuleTracedTransformation', 'json', $context);
             }
             $object->setTransformations($values);
         }
@@ -74,9 +74,9 @@ class BusinessRuleTracedTransformationGroupNormalizer implements DenormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceRefId') && null !== $object->getTraceRefId()) {
             $data['traceRefId'] = $object->getTraceRefId();
         }
@@ -87,16 +87,16 @@ class BusinessRuleTracedTransformationGroupNormalizer implements DenormalizerInt
             $data['output'] = $object->getOutput();
         }
         if ($object->isInitialized('transformations') && null !== $object->getTransformations()) {
-            $values = array();
+            $values = [];
             foreach ($object->getTransformations() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['transformations'] = $values;
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessRuleTracedTransformationGroup' => false);
+        return ['PicturePark\API\Model\BusinessRuleTracedTransformationGroup' => false];
     }
 }

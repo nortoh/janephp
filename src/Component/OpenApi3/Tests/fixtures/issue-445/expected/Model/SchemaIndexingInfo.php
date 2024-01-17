@@ -7,8 +7,8 @@ class SchemaIndexingInfo
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class SchemaIndexingInfo
      *
      * @return FieldIndexingInfo[]|null
      */
-    public function getFields() : ?array
+    public function getFields(): ?array
     {
         return $this->fields;
     }
@@ -34,7 +34,7 @@ class SchemaIndexingInfo
      *
      * @return self
      */
-    public function setFields(?array $fields) : self
+    public function setFields(?array $fields): self
     {
         $this->initialized['fields'] = true;
         $this->fields = $fields;

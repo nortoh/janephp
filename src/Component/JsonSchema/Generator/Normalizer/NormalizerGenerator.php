@@ -65,11 +65,11 @@ trait NormalizerGenerator
     {
         return new Stmt\ClassMethod('supportsNormalization', [
             'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'bool',
+            'returnType' => new Name('bool'),
             'params' => [
                 new Param(new Expr\Variable('data')),
                 new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [new Stmt\Return_(new Expr\Instanceof_(new Expr\Variable('data'), new Name('\\' . $modelFqdn)))],
         ]);
@@ -171,11 +171,12 @@ trait NormalizerGenerator
         return new Stmt\ClassMethod('normalize', [
             'type' => Stmt\Class_::MODIFIER_PUBLIC,
             'params' => [
-                new Param($objectVariable),
-                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                new Param($objectVariable, type: new Name('mixed')),
+                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), type: new Name('string')),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => $statements,
+            'returnType' => new Name('array|string|int|float|bool|\ArrayObject|null')
         ], [
             'comments' => [new Doc(<<<EOD
 /**
@@ -195,7 +196,7 @@ EOD
     {
         return new Stmt\ClassMethod('hasCacheableSupportsMethod', [
             'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'bool',
+            'returnType' => new Name('bool'),
             'stmts' => [
                 new Stmt\Return_(new Expr\ConstFetch(new Name('true'))),
             ],

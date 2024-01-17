@@ -18,18 +18,18 @@ class WorkflowNormalizer implements DenormalizerInterface, NormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Workflow';
+        return $type === 'Github\Model\Workflow';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Workflow';
+        return is_object($data) && get_class($data) === 'Github\Model\Workflow';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -65,11 +65,11 @@ class WorkflowNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['state']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('url', $data)) {
@@ -85,7 +85,7 @@ class WorkflowNormalizer implements DenormalizerInterface, NormalizerInterface, 
             unset($data['badge_url']);
         }
         if (\array_key_exists('deleted_at', $data)) {
-            $object->setDeletedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['deleted_at']));
+            $object->setDeletedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['deleted_at']));
             unset($data['deleted_at']);
         }
         foreach ($data as $key => $value) {
@@ -98,21 +98,21 @@ class WorkflowNormalizer implements DenormalizerInterface, NormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
         $data['name'] = $object->getName();
         $data['path'] = $object->getPath();
         $data['state'] = $object->getState();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['url'] = $object->getUrl();
         $data['html_url'] = $object->getHtmlUrl();
         $data['badge_url'] = $object->getBadgeUrl();
         if ($object->isInitialized('deletedAt') && null !== $object->getDeletedAt()) {
-            $data['deleted_at'] = $object->getDeletedAt()->format('Y-m-d\\TH:i:sP');
+            $data['deleted_at'] = $object->getDeletedAt()->format('Y-m-d\TH:i:sP');
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -124,8 +124,8 @@ class WorkflowNormalizer implements DenormalizerInterface, NormalizerInterface, 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Workflow' => false);
+        return ['Github\Model\Workflow' => false];
     }
 }

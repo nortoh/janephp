@@ -17,21 +17,21 @@ class ActionsListRunnerApplicationsForOrg extends \Github\Runtime\Client\BaseEnd
         $this->org = $org;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{org}'), array($this->org), '/orgs/{org}/actions/runners/downloads');
+        return str_replace(['{org}'], [$this->org], '/orgs/{org}/actions/runners/downloads');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -44,11 +44,11 @@ class ActionsListRunnerApplicationsForOrg extends \Github\Runtime\Client\BaseEnd
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\RunnerApplication[]', 'json');
+            return $serializer->deserialize($body, 'Github\Model\RunnerApplication[]', 'json');
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

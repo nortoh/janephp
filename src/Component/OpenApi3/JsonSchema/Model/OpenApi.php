@@ -57,7 +57,7 @@ class OpenApi extends \ArrayObject
      *
      * @return string|null
      */
-    public function getOpenapi() : ?string
+    public function getOpenapi(): ?string
     {
         return $this->openapi;
     }
@@ -68,7 +68,7 @@ class OpenApi extends \ArrayObject
      *
      * @return self
      */
-    public function setOpenapi(?string $openapi) : self
+    public function setOpenapi(?string $openapi): self
     {
         $this->openapi = $openapi;
         return $this;
@@ -89,7 +89,7 @@ class OpenApi extends \ArrayObject
      *
      * @return self
      */
-    public function setInfo(?Info $info) : self
+    public function setInfo(?Info $info): self
     {
         $this->info = $info;
         return $this;
@@ -110,7 +110,7 @@ class OpenApi extends \ArrayObject
      *
      * @return self
      */
-    public function setExternalDocs(?ExternalDocumentation $externalDocs) : self
+    public function setExternalDocs(?ExternalDocumentation $externalDocs): self
     {
         $this->externalDocs = $externalDocs;
         return $this;
@@ -120,7 +120,7 @@ class OpenApi extends \ArrayObject
      *
      * @return Server[]|null
      */
-    public function getServers() : ?array
+    public function getServers(): ?array
     {
         return $this->servers;
     }
@@ -131,7 +131,7 @@ class OpenApi extends \ArrayObject
      *
      * @return self
      */
-    public function setServers(?array $servers) : self
+    public function setServers(?array $servers): self
     {
         $this->servers = $servers;
         return $this;
@@ -141,7 +141,7 @@ class OpenApi extends \ArrayObject
      *
      * @return string[][][]|null
      */
-    public function getSecurity() : ?array
+    public function getSecurity(): ?array
     {
         return $this->security;
     }
@@ -152,7 +152,7 @@ class OpenApi extends \ArrayObject
      *
      * @return self
      */
-    public function setSecurity(?array $security) : self
+    public function setSecurity(?array $security): self
     {
         $this->security = $security;
         return $this;
@@ -162,7 +162,7 @@ class OpenApi extends \ArrayObject
      *
      * @return Tag[]|null
      */
-    public function getTags() : ?array
+    public function getTags(): ?array
     {
         return $this->tags;
     }
@@ -173,7 +173,7 @@ class OpenApi extends \ArrayObject
      *
      * @return self
      */
-    public function setTags(?array $tags) : self
+    public function setTags(?array $tags): self
     {
         $this->tags = $tags;
         return $this;
@@ -194,7 +194,7 @@ class OpenApi extends \ArrayObject
      *
      * @return self
      */
-    public function setPaths($paths) : self
+    public function setPaths($paths): self
     {
         $this->paths = $paths;
         return $this;
@@ -215,7 +215,7 @@ class OpenApi extends \ArrayObject
      *
      * @return self
      */
-    public function setComponents(?Components $components) : self
+    public function setComponents(?Components $components): self
     {
         $this->components = $components;
         return $this;

@@ -18,18 +18,18 @@ class BaseResultOfSchemaNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BaseResultOfSchema';
+        return $type === 'PicturePark\API\Model\BaseResultOfSchema';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BaseResultOfSchema';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BaseResultOfSchema';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,9 +45,9 @@ class BaseResultOfSchemaNormalizer implements DenormalizerInterface, NormalizerI
             $object->setTotalResults($data['totalResults']);
         }
         if (\array_key_exists('results', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['results'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\Schema', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\Schema', 'json', $context);
             }
             $object->setResults($values);
         }
@@ -65,13 +65,13 @@ class BaseResultOfSchemaNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['totalResults'] = $object->getTotalResults();
-        $values = array();
+        $values = [];
         foreach ($object->getResults() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['results'] = $values;
         $data['elapsedMilliseconds'] = $object->getElapsedMilliseconds();
@@ -80,8 +80,8 @@ class BaseResultOfSchemaNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BaseResultOfSchema' => false);
+        return ['PicturePark\API\Model\BaseResultOfSchema' => false];
     }
 }

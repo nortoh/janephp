@@ -12,8 +12,10 @@ use Jane\Component\OpenApi3\JsonSchema\Normalizer\ResponseNormalizer;
 use Jane\Component\OpenApiCommon\Generator\ExceptionGenerator;
 use Jane\Component\OpenApiCommon\Guesser\Guess\OperationGuess;
 use PhpParser\Comment\Doc;
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Throw_;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
@@ -97,13 +99,15 @@ trait GetTransformResponseBodyTrait
             $outputStatements = array_merge(
                 $outputStatements,
                 [
-                    new Stmt\Throw_(
-                        new Expr\New_(
-                            new Name($throwType),
-                            [
-                                new Node\Arg(new Node\Expr\Variable('status')),
-                                new Node\Arg(new Node\Expr\Variable('body')),
-                            ]
+                    new Stmt\Expression(
+                        new Throw_(
+                            new Expr\New_(
+                                new Name($throwType),
+                                [
+                                    new Node\Arg(new Node\Expr\Variable('status')),
+                                    new Node\Arg(new Node\Expr\Variable('body')),
+                                ]
+                            )
                         )
                     ),
                 ]
@@ -117,7 +121,7 @@ trait GetTransformResponseBodyTrait
             . ' * @return ' . implode('|', $outputTypes);
 
         return [new Stmt\ClassMethod('transformResponseBody', [
-            'type' => Stmt\Class_::MODIFIER_PROTECTED,
+            'type' => Modifiers::PROTECTED,
             'params' => [
                 new Node\Param(new Expr\Variable('response'), null, new Name('\\Psr\\Http\\Message\\ResponseInterface')),
                 new Node\Param(new Expr\Variable('serializer'), null, new Name\FullyQualified(SerializerInterface::class)),
@@ -161,7 +165,7 @@ EOD
 
             return [$returnTypes, $throwTypes, [new Stmt\If_(
                 new Expr\BinaryOp\Identical(
-                    new Scalar\LNumber((int) $status),
+                    new Scalar\Int_((int) $status),
                     new Expr\Variable('status')
                 ),
                 [
@@ -226,7 +230,7 @@ EOD
                     ),
                     new Expr\BinaryOp\BooleanAnd(
                         new Expr\BinaryOp\Identical(
-                            new Scalar\LNumber((int) $status),
+                            new Scalar\Int_((int) $status),
                             new Expr\Variable('status')
                         ),
                         $statements[0]->cond
@@ -240,7 +244,7 @@ EOD
 
         return [$returnTypes, $throwTypes, [new Stmt\If_(
             new Expr\BinaryOp\Identical(
-                new Scalar\LNumber((int) $status),
+                new Scalar\Int_((int) $status),
                 new Expr\Variable('status')
             ),
             [
@@ -295,9 +299,9 @@ EOD
 
             $returnType = null;
             $throwType = '\\' . $context->getCurrentSchema()->getNamespace() . '\\Exception\\' . $exceptionName;
-            $contentStatement = new Stmt\Throw_(new Expr\New_(new Name($throwType), $classGuess ? [
+            $contentStatement = new Stmt\Expression(new Throw_(new Expr\New_(new Name($throwType), $classGuess ? [
                 new Node\Arg($serializeStmt), new Node\Arg(new Expr\Variable('response')),
-            ] : [new Node\Arg(new Expr\Variable('response'))]));
+            ] : [new Node\Arg(new Expr\Variable('response'))])));
         }
 
         return [$returnType, $throwType, $contentStatement];

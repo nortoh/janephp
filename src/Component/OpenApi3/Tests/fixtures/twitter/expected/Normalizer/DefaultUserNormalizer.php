@@ -18,18 +18,18 @@ class DefaultUserNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultUser';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\DefaultUser';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultUser';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\DefaultUser';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -50,7 +50,7 @@ class DefaultUserNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['id']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('name', $data)) {
@@ -70,7 +70,7 @@ class DefaultUserNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['verified']);
         }
         if (\array_key_exists('withheld', $data)) {
-            $object->setWithheld($this->denormalizer->denormalize($data['withheld'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\UserWithheld', 'json', $context));
+            $object->setWithheld($this->denormalizer->denormalize($data['withheld'], 'Jane\Component\OpenApi3\Tests\Expected\Model\UserWithheld', 'json', $context));
             unset($data['withheld']);
         }
         if (\array_key_exists('profile_image_url', $data)) {
@@ -90,7 +90,7 @@ class DefaultUserNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['description']);
         }
         if (\array_key_exists('entities', $data)) {
-            $object->setEntities($this->denormalizer->denormalize($data['entities'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultUserFieldsEntities', 'json', $context));
+            $object->setEntities($this->denormalizer->denormalize($data['entities'], 'Jane\Component\OpenApi3\Tests\Expected\Model\DefaultUserFieldsEntities', 'json', $context));
             unset($data['entities']);
         }
         if (\array_key_exists('most_recent_tweet_id', $data)) {
@@ -111,20 +111,20 @@ class DefaultUserNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('format') && null !== $object->getFormat()) {
             $data['format'] = $object->getFormat();
         }
         $data['id'] = $object->getId();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         $data['name'] = $object->getName();
         $data['username'] = $object->getUsername();
         $data['protected'] = $object->getProtected();
         $data['verified'] = $object->getVerified();
         if ($object->isInitialized('withheld') && null !== $object->getWithheld()) {
-            $data['withheld'] = $this->normalizer->normalize($object->getWithheld(), 'json', $context);
+            $data['withheld'] = ($object->getWithheld() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getWithheld(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('profileImageUrl') && null !== $object->getProfileImageUrl()) {
             $data['profile_image_url'] = $object->getProfileImageUrl();
@@ -135,7 +135,7 @@ class DefaultUserNormalizer implements DenormalizerInterface, NormalizerInterfac
         $data['url'] = $object->getUrl();
         $data['description'] = $object->getDescription();
         if ($object->isInitialized('entities') && null !== $object->getEntities()) {
-            $data['entities'] = $this->normalizer->normalize($object->getEntities(), 'json', $context);
+            $data['entities'] = ($object->getEntities() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getEntities(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('mostRecentTweetId') && null !== $object->getMostRecentTweetId()) {
             $data['most_recent_tweet_id'] = $object->getMostRecentTweetId();
@@ -150,8 +150,8 @@ class DefaultUserNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultUser' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\DefaultUser' => false];
     }
 }

@@ -18,18 +18,18 @@ class FieldStringArrayNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\FieldStringArray';
+        return $type === 'PicturePark\API\Model\FieldStringArray';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\FieldStringArray';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\FieldStringArray';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -129,9 +129,9 @@ class FieldStringArrayNormalizer implements DenormalizerInterface, NormalizerInt
             $object->setMaximumLength(null);
         }
         if (\array_key_exists('indexAnalyzers', $data) && $data['indexAnalyzers'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['indexAnalyzers'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\AnalyzerBase', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\AnalyzerBase', 'json', $context);
             }
             $object->setIndexAnalyzers($values);
             unset($data['indexAnalyzers']);
@@ -140,9 +140,9 @@ class FieldStringArrayNormalizer implements DenormalizerInterface, NormalizerInt
             $object->setIndexAnalyzers(null);
         }
         if (\array_key_exists('simpleSearchAnalyzers', $data) && $data['simpleSearchAnalyzers'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['simpleSearchAnalyzers'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\AnalyzerBase', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\AnalyzerBase', 'json', $context);
             }
             $object->setSimpleSearchAnalyzers($values_1);
             unset($data['simpleSearchAnalyzers']);
@@ -155,7 +155,7 @@ class FieldStringArrayNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['multiLine']);
         }
         if (\array_key_exists('grantedValues', $data) && $data['grantedValues'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['grantedValues'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -193,9 +193,9 @@ class FieldStringArrayNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         if ($object->isInitialized('indexId') && null !== $object->getIndexId()) {
             $data['indexId'] = $object->getIndexId();
@@ -228,16 +228,16 @@ class FieldStringArrayNormalizer implements DenormalizerInterface, NormalizerInt
             $data['maximumLength'] = $object->getMaximumLength();
         }
         if ($object->isInitialized('indexAnalyzers') && null !== $object->getIndexAnalyzers()) {
-            $values = array();
+            $values = [];
             foreach ($object->getIndexAnalyzers() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['indexAnalyzers'] = $values;
         }
         if ($object->isInitialized('simpleSearchAnalyzers') && null !== $object->getSimpleSearchAnalyzers()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getSimpleSearchAnalyzers() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['simpleSearchAnalyzers'] = $values_1;
         }
@@ -245,7 +245,7 @@ class FieldStringArrayNormalizer implements DenormalizerInterface, NormalizerInt
             $data['multiLine'] = $object->getMultiLine();
         }
         if ($object->isInitialized('grantedValues') && null !== $object->getGrantedValues()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getGrantedValues() as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -267,8 +267,8 @@ class FieldStringArrayNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\FieldStringArray' => false);
+        return ['PicturePark\API\Model\FieldStringArray' => false];
     }
 }

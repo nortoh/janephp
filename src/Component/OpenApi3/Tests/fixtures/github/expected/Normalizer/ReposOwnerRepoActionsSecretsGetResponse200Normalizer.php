@@ -18,18 +18,18 @@ class ReposOwnerRepoActionsSecretsGetResponse200Normalizer implements Denormaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoActionsSecretsGetResponse200';
+        return $type === 'Github\Model\ReposOwnerRepoActionsSecretsGetResponse200';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoActionsSecretsGetResponse200';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoActionsSecretsGetResponse200';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,9 +49,9 @@ class ReposOwnerRepoActionsSecretsGetResponse200Normalizer implements Denormaliz
             unset($data['total_count']);
         }
         if (\array_key_exists('secrets', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['secrets'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\ActionsSecret', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\ActionsSecret', 'json', $context);
             }
             $object->setSecrets($values);
             unset($data['secrets']);
@@ -66,16 +66,16 @@ class ReposOwnerRepoActionsSecretsGetResponse200Normalizer implements Denormaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('totalCount') && null !== $object->getTotalCount()) {
             $data['total_count'] = $object->getTotalCount();
         }
         if ($object->isInitialized('secrets') && null !== $object->getSecrets()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSecrets() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['secrets'] = $values;
         }
@@ -89,8 +89,8 @@ class ReposOwnerRepoActionsSecretsGetResponse200Normalizer implements Denormaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoActionsSecretsGetResponse200' => false);
+        return ['Github\Model\ReposOwnerRepoActionsSecretsGetResponse200' => false];
     }
 }

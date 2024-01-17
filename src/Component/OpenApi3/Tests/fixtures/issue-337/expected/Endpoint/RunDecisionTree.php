@@ -19,7 +19,7 @@ class RunDecisionTree extends \CreditSafe\API\Runtime\Client\BaseEndpoint implem
      *     @var string $Authorization Bearer JWT (Authentication Token) generated from the /authenticate endpoint.
      * }
      */
-    public function __construct(string $provenirId, ?\stdClass $requestBody = null, array $queryParameters = array(), array $headerParameters = array())
+    public function __construct(string $provenirId, ?\stdClass $requestBody = null, array $queryParameters = [], array $headerParameters = [])
     {
         $this->provenirId = $provenirId;
         $this->body = $requestBody;
@@ -27,43 +27,43 @@ class RunDecisionTree extends \CreditSafe\API\Runtime\Client\BaseEndpoint implem
         $this->headerParameters = $headerParameters;
     }
     use \CreditSafe\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{provenirId}'), array($this->provenirId), '/decisionEngine/{provenirId}');
+        return str_replace(['{provenirId}'], [$this->provenirId], '/decisionEngine/{provenirId}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if ($this->body instanceof \stdClass) {
-            return array(array('Content-Type' => array('application/json')), json_encode($this->body));
+            return [['Content-Type' => ['application/json']], json_encode($this->body)];
         }
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('companyId', 'originationId', 'callRef'));
-        $optionsResolver->setRequired(array('companyId'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('companyId', array('string'));
-        $optionsResolver->addAllowedTypes('originationId', array('string'));
-        $optionsResolver->addAllowedTypes('callRef', array('string'));
+        $optionsResolver->setDefined(['companyId', 'originationId', 'callRef']);
+        $optionsResolver->setRequired(['companyId']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('companyId', ['string']);
+        $optionsResolver->addAllowedTypes('originationId', ['string']);
+        $optionsResolver->addAllowedTypes('callRef', ['string']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('Authorization'));
-        $optionsResolver->setRequired(array('Authorization'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('Authorization', array('string'));
+        $optionsResolver->setDefined(['Authorization']);
+        $optionsResolver->setRequired(['Authorization']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('Authorization', ['string']);
         return $optionsResolver;
     }
     /**
@@ -96,8 +96,8 @@ class RunDecisionTree extends \CreditSafe\API\Runtime\Client\BaseEndpoint implem
             throw new \CreditSafe\API\Exception\RunDecisionTreeNotFoundException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('bearerAuth');
+        return ['bearerAuth'];
     }
 }

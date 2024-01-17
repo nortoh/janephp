@@ -18,24 +18,24 @@ class ShareDataBaseNormalizer implements DenormalizerInterface, NormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ShareDataBase';
+        return $type === 'PicturePark\API\Model\ShareDataBase';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ShareDataBase';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ShareDataBase';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'ShareDataEmbed' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ShareDataEmbed', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ShareDataEmbed', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'ShareDataBasic' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ShareDataBasic', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ShareDataBasic', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -58,9 +58,9 @@ class ShareDataBaseNormalizer implements DenormalizerInterface, NormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'ShareDataEmbed' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -71,8 +71,8 @@ class ShareDataBaseNormalizer implements DenormalizerInterface, NormalizerInterf
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ShareDataBase' => false);
+        return ['PicturePark\API\Model\ShareDataBase' => false];
     }
 }

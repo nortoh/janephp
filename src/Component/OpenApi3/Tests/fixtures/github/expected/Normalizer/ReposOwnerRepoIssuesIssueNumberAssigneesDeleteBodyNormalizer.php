@@ -18,18 +18,18 @@ class ReposOwnerRepoIssuesIssueNumberAssigneesDeleteBodyNormalizer implements De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoIssuesIssueNumberAssigneesDeleteBody';
+        return $type === 'Github\Model\ReposOwnerRepoIssuesIssueNumberAssigneesDeleteBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoIssuesIssueNumberAssigneesDeleteBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoIssuesIssueNumberAssigneesDeleteBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ReposOwnerRepoIssuesIssueNumberAssigneesDeleteBodyNormalizer implements De
             return $object;
         }
         if (\array_key_exists('assignees', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['assignees'] as $value) {
                 $values[] = $value;
             }
@@ -62,11 +62,11 @@ class ReposOwnerRepoIssuesIssueNumberAssigneesDeleteBodyNormalizer implements De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('assignees') && null !== $object->getAssignees()) {
-            $values = array();
+            $values = [];
             foreach ($object->getAssignees() as $value) {
                 $values[] = $value;
             }
@@ -82,8 +82,8 @@ class ReposOwnerRepoIssuesIssueNumberAssigneesDeleteBodyNormalizer implements De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoIssuesIssueNumberAssigneesDeleteBody' => false);
+        return ['Github\Model\ReposOwnerRepoIssuesIssueNumberAssigneesDeleteBody' => false];
     }
 }

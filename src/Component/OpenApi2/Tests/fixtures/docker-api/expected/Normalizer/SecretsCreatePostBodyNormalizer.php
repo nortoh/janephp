@@ -18,18 +18,18 @@ class SecretsCreatePostBodyNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\SecretsCreatePostBody';
+        return $type === 'Docker\Api\Model\SecretsCreatePostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\SecretsCreatePostBody';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\SecretsCreatePostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class SecretsCreatePostBodyNormalizer implements DenormalizerInterface, Normaliz
             $object->setName($data['Name']);
         }
         if (\array_key_exists('Labels', $data)) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['Labels'] as $key => $value) {
                 $values[$key] = $value;
             }
@@ -58,24 +58,24 @@ class SecretsCreatePostBodyNormalizer implements DenormalizerInterface, Normaliz
             $object->setData($data['Data']);
         }
         if (\array_key_exists('Driver', $data)) {
-            $object->setDriver($this->denormalizer->denormalize($data['Driver'], 'Docker\\Api\\Model\\Driver', 'json', $context));
+            $object->setDriver($this->denormalizer->denormalize($data['Driver'], 'Docker\Api\Model\Driver', 'json', $context));
         }
         if (\array_key_exists('Templating', $data)) {
-            $object->setTemplating($this->denormalizer->denormalize($data['Templating'], 'Docker\\Api\\Model\\Driver', 'json', $context));
+            $object->setTemplating($this->denormalizer->denormalize($data['Templating'], 'Docker\Api\Model\Driver', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('name') && null !== $object->getName()) {
             $data['Name'] = $object->getName();
         }
         if ($object->isInitialized('labels') && null !== $object->getLabels()) {
-            $values = array();
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getLabels() as $key => $value) {
                 $values[$key] = $value;
             }
@@ -85,18 +85,18 @@ class SecretsCreatePostBodyNormalizer implements DenormalizerInterface, Normaliz
             $data['Data'] = $object->getData();
         }
         if ($object->isInitialized('driver') && null !== $object->getDriver()) {
-            $data['Driver'] = $this->normalizer->normalize($object->getDriver(), 'json', $context);
+            $data['Driver'] = ($object->getDriver() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getDriver(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('templating') && null !== $object->getTemplating()) {
-            $data['Templating'] = $this->normalizer->normalize($object->getTemplating(), 'json', $context);
+            $data['Templating'] = ($object->getTemplating() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getTemplating(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Docker\Api\Validator\SecretsCreatePostBodyConstraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\SecretsCreatePostBody' => false);
+        return ['Docker\Api\Model\SecretsCreatePostBody' => false];
     }
 }

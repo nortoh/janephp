@@ -18,18 +18,18 @@ class ContentMetadataUpdateRequestNormalizer implements DenormalizerInterface, N
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ContentMetadataUpdateRequest';
+        return $type === 'PicturePark\API\Model\ContentMetadataUpdateRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ContentMetadataUpdateRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ContentMetadataUpdateRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class ContentMetadataUpdateRequestNormalizer implements DenormalizerInterface, N
             return $object;
         }
         if (\array_key_exists('layerSchemaIds', $data) && $data['layerSchemaIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['layerSchemaIds'] as $value) {
                 $values[] = $value;
             }
@@ -52,7 +52,7 @@ class ContentMetadataUpdateRequestNormalizer implements DenormalizerInterface, N
             $object->setLayerSchemaIds(null);
         }
         if (\array_key_exists('content', $data) && $data['content'] !== null) {
-            $values_1 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['content'] as $key => $value_1) {
                 $values_1[$key] = $value_1;
             }
@@ -62,7 +62,7 @@ class ContentMetadataUpdateRequestNormalizer implements DenormalizerInterface, N
             $object->setContent(null);
         }
         if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
-            $values_2 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['metadata'] as $key_1 => $value_2) {
                 $values_2[$key_1] = $value_2;
             }
@@ -85,25 +85,25 @@ class ContentMetadataUpdateRequestNormalizer implements DenormalizerInterface, N
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('layerSchemaIds') && null !== $object->getLayerSchemaIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getLayerSchemaIds() as $value) {
                 $values[] = $value;
             }
             $data['layerSchemaIds'] = $values;
         }
         if ($object->isInitialized('content') && null !== $object->getContent()) {
-            $values_1 = array();
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getContent() as $key => $value_1) {
                 $values_1[$key] = $value_1;
             }
             $data['content'] = $values_1;
         }
         if ($object->isInitialized('metadata') && null !== $object->getMetadata()) {
-            $values_2 = array();
+            $values_2 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getMetadata() as $key_1 => $value_2) {
                 $values_2[$key_1] = $value_2;
             }
@@ -114,8 +114,8 @@ class ContentMetadataUpdateRequestNormalizer implements DenormalizerInterface, N
         $data['contentFieldsUpdateOptions'] = $object->getContentFieldsUpdateOptions();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ContentMetadataUpdateRequest' => false);
+        return ['PicturePark\API\Model\ContentMetadataUpdateRequest' => false];
     }
 }

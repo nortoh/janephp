@@ -18,18 +18,18 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ContentDetail';
+        return $type === 'PicturePark\API\Model\ContentDetail';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ContentDetail';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ContentDetail';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setContentSchemaId($data['contentSchemaId']);
         }
         if (\array_key_exists('layerSchemaIds', $data) && $data['layerSchemaIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['layerSchemaIds'] as $value) {
                 $values[] = $value;
             }
@@ -55,7 +55,7 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setLayerSchemaIds(null);
         }
         if (\array_key_exists('brokenReferenceIds', $data) && $data['brokenReferenceIds'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['brokenReferenceIds'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -65,7 +65,7 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setBrokenReferenceIds(null);
         }
         if (\array_key_exists('brokenIndirectReferenceIds', $data) && $data['brokenIndirectReferenceIds'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['brokenIndirectReferenceIds'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -75,7 +75,7 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setBrokenIndirectReferenceIds(null);
         }
         if (\array_key_exists('brokenRelationTargetIds', $data) && $data['brokenRelationTargetIds'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['brokenRelationTargetIds'] as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -85,7 +85,7 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setBrokenRelationTargetIds(null);
         }
         if (\array_key_exists('content', $data) && $data['content'] !== null) {
-            $values_4 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_4 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['content'] as $key => $value_4) {
                 $values_4[$key] = $value_4;
             }
@@ -95,7 +95,7 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setContent(null);
         }
         if (\array_key_exists('metadata', $data) && $data['metadata'] !== null) {
-            $values_5 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_5 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['metadata'] as $key_1 => $value_5) {
                 $values_5[$key_1] = $value_5;
             }
@@ -108,7 +108,7 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setId($data['id']);
         }
         if (\array_key_exists('contentPermissionSetIds', $data) && $data['contentPermissionSetIds'] !== null) {
-            $values_6 = array();
+            $values_6 = [];
             foreach ($data['contentPermissionSetIds'] as $value_6) {
                 $values_6[] = $value_6;
             }
@@ -118,9 +118,9 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setContentPermissionSetIds(null);
         }
         if (\array_key_exists('outputs', $data) && $data['outputs'] !== null) {
-            $values_7 = array();
+            $values_7 = [];
             foreach ($data['outputs'] as $value_7) {
-                $values_7[] = $this->denormalizer->denormalize($value_7, 'PicturePark\\API\\Model\\Output', 'json', $context);
+                $values_7[] = $this->denormalizer->denormalize($value_7, 'PicturePark\API\Model\Output', 'json', $context);
             }
             $object->setOutputs($values_7);
         }
@@ -155,7 +155,7 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setLifeCycle($data['lifeCycle']);
         }
         if (\array_key_exists('contentRights', $data) && $data['contentRights'] !== null) {
-            $values_8 = array();
+            $values_8 = [];
             foreach ($data['contentRights'] as $value_8) {
                 $values_8[] = $value_8;
             }
@@ -175,47 +175,47 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['contentSchemaId'] = $object->getContentSchemaId();
         if ($object->isInitialized('layerSchemaIds') && null !== $object->getLayerSchemaIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getLayerSchemaIds() as $value) {
                 $values[] = $value;
             }
             $data['layerSchemaIds'] = $values;
         }
         if ($object->isInitialized('brokenReferenceIds') && null !== $object->getBrokenReferenceIds()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getBrokenReferenceIds() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['brokenReferenceIds'] = $values_1;
         }
         if ($object->isInitialized('brokenIndirectReferenceIds') && null !== $object->getBrokenIndirectReferenceIds()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getBrokenIndirectReferenceIds() as $value_2) {
                 $values_2[] = $value_2;
             }
             $data['brokenIndirectReferenceIds'] = $values_2;
         }
         if ($object->isInitialized('brokenRelationTargetIds') && null !== $object->getBrokenRelationTargetIds()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getBrokenRelationTargetIds() as $value_3) {
                 $values_3[] = $value_3;
             }
             $data['brokenRelationTargetIds'] = $values_3;
         }
         if ($object->isInitialized('content') && null !== $object->getContent()) {
-            $values_4 = array();
+            $values_4 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getContent() as $key => $value_4) {
                 $values_4[$key] = $value_4;
             }
             $data['content'] = $values_4;
         }
         if ($object->isInitialized('metadata') && null !== $object->getMetadata()) {
-            $values_5 = array();
+            $values_5 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getMetadata() as $key_1 => $value_5) {
                 $values_5[$key_1] = $value_5;
             }
@@ -223,16 +223,16 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         $data['id'] = $object->getId();
         if ($object->isInitialized('contentPermissionSetIds') && null !== $object->getContentPermissionSetIds()) {
-            $values_6 = array();
+            $values_6 = [];
             foreach ($object->getContentPermissionSetIds() as $value_6) {
                 $values_6[] = $value_6;
             }
             $data['contentPermissionSetIds'] = $values_6;
         }
         if ($object->isInitialized('outputs') && null !== $object->getOutputs()) {
-            $values_7 = array();
+            $values_7 = [];
             foreach ($object->getOutputs() as $value_7) {
-                $values_7[] = $this->normalizer->normalize($value_7, 'json', $context);
+                $values_7[] = ($value_7 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_7, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['outputs'] = $values_7;
         }
@@ -249,7 +249,7 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         $data['lifeCycle'] = $object->getLifeCycle();
         if ($object->isInitialized('contentRights') && null !== $object->getContentRights()) {
-            $values_8 = array();
+            $values_8 = [];
             foreach ($object->getContentRights() as $value_8) {
                 $values_8[] = $value_8;
             }
@@ -260,8 +260,8 @@ class ContentDetailNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ContentDetail' => false);
+        return ['PicturePark\API\Model\ContentDetail' => false];
     }
 }

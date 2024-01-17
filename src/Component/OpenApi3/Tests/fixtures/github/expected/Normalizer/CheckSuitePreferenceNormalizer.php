@@ -18,18 +18,18 @@ class CheckSuitePreferenceNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\CheckSuitePreference';
+        return $type === 'Github\Model\CheckSuitePreference';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\CheckSuitePreference';
+        return is_object($data) && get_class($data) === 'Github\Model\CheckSuitePreference';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,11 +45,11 @@ class CheckSuitePreferenceNormalizer implements DenormalizerInterface, Normalize
             return $object;
         }
         if (\array_key_exists('preferences', $data)) {
-            $object->setPreferences($this->denormalizer->denormalize($data['preferences'], 'Github\\Model\\CheckSuitePreferencePreferences', 'json', $context));
+            $object->setPreferences($this->denormalizer->denormalize($data['preferences'], 'Github\Model\CheckSuitePreferencePreferences', 'json', $context));
             unset($data['preferences']);
         }
         if (\array_key_exists('repository', $data)) {
-            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\\Model\\Repository', 'json', $context));
+            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\Model\Repository', 'json', $context));
             unset($data['repository']);
         }
         foreach ($data as $key => $value) {
@@ -62,14 +62,14 @@ class CheckSuitePreferenceNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('preferences') && null !== $object->getPreferences()) {
-            $data['preferences'] = $this->normalizer->normalize($object->getPreferences(), 'json', $context);
+            $data['preferences'] = ($object->getPreferences() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPreferences(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('repository') && null !== $object->getRepository()) {
-            $data['repository'] = $this->normalizer->normalize($object->getRepository(), 'json', $context);
+            $data['repository'] = ($object->getRepository() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRepository(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -81,8 +81,8 @@ class CheckSuitePreferenceNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\CheckSuitePreference' => false);
+        return ['Github\Model\CheckSuitePreference' => false];
     }
 }

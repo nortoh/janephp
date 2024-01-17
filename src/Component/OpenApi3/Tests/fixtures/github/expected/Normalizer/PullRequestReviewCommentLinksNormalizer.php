@@ -18,18 +18,18 @@ class PullRequestReviewCommentLinksNormalizer implements DenormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\PullRequestReviewCommentLinks';
+        return $type === 'Github\Model\PullRequestReviewCommentLinks';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\PullRequestReviewCommentLinks';
+        return is_object($data) && get_class($data) === 'Github\Model\PullRequestReviewCommentLinks';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,15 +45,15 @@ class PullRequestReviewCommentLinksNormalizer implements DenormalizerInterface, 
             return $object;
         }
         if (\array_key_exists('self', $data)) {
-            $object->setSelf($this->denormalizer->denormalize($data['self'], 'Github\\Model\\PullRequestReviewCommentLinksSelf', 'json', $context));
+            $object->setSelf($this->denormalizer->denormalize($data['self'], 'Github\Model\PullRequestReviewCommentLinksSelf', 'json', $context));
             unset($data['self']);
         }
         if (\array_key_exists('html', $data)) {
-            $object->setHtml($this->denormalizer->denormalize($data['html'], 'Github\\Model\\PullRequestReviewCommentLinksHtml', 'json', $context));
+            $object->setHtml($this->denormalizer->denormalize($data['html'], 'Github\Model\PullRequestReviewCommentLinksHtml', 'json', $context));
             unset($data['html']);
         }
         if (\array_key_exists('pull_request', $data)) {
-            $object->setPullRequest($this->denormalizer->denormalize($data['pull_request'], 'Github\\Model\\PullRequestReviewCommentLinksPullRequest', 'json', $context));
+            $object->setPullRequest($this->denormalizer->denormalize($data['pull_request'], 'Github\Model\PullRequestReviewCommentLinksPullRequest', 'json', $context));
             unset($data['pull_request']);
         }
         foreach ($data as $key => $value) {
@@ -66,12 +66,12 @@ class PullRequestReviewCommentLinksNormalizer implements DenormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['self'] = $this->normalizer->normalize($object->getSelf(), 'json', $context);
-        $data['html'] = $this->normalizer->normalize($object->getHtml(), 'json', $context);
-        $data['pull_request'] = $this->normalizer->normalize($object->getPullRequest(), 'json', $context);
+        $data = [];
+        $data['self'] = ($object->getSelf() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSelf(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['html'] = ($object->getHtml() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getHtml(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['pull_request'] = ($object->getPullRequest() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPullRequest(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -82,8 +82,8 @@ class PullRequestReviewCommentLinksNormalizer implements DenormalizerInterface, 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\PullRequestReviewCommentLinks' => false);
+        return ['Github\Model\PullRequestReviewCommentLinks' => false];
     }
 }

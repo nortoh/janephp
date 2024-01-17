@@ -18,18 +18,18 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\Schema';
+        return $type === 'PicturePark\API\Model\Schema';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\Schema';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\Schema';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -51,7 +51,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setParentSchemaId(null);
         }
         if (\array_key_exists('types', $data) && $data['types'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['types'] as $value) {
                 $values[] = $value;
             }
@@ -73,7 +73,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setDescriptions(null);
         }
         if (\array_key_exists('layerSchemaIds', $data) && $data['layerSchemaIds'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['layerSchemaIds'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -99,15 +99,15 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         if ($object->isInitialized('parentSchemaId') && null !== $object->getParentSchemaId()) {
             $data['parentSchemaId'] = $object->getParentSchemaId();
         }
         if ($object->isInitialized('types') && null !== $object->getTypes()) {
-            $values = array();
+            $values = [];
             foreach ($object->getTypes() as $value) {
                 $values[] = $value;
             }
@@ -120,7 +120,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data['descriptions'] = $object->getDescriptions();
         }
         if ($object->isInitialized('layerSchemaIds') && null !== $object->getLayerSchemaIds()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getLayerSchemaIds() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -132,8 +132,8 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
         $data['system'] = $object->getSystem();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\Schema' => false);
+        return ['PicturePark\API\Model\Schema' => false];
     }
 }

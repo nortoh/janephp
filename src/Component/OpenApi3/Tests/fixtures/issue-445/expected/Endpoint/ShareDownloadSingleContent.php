@@ -23,7 +23,7 @@ class ShareDownloadSingleContent extends \PicturePark\API\Runtime\Client\BaseEnd
      * }
      * @param array $accept Accept content header application/json|application/octet-stream
      */
-    public function __construct(string $token, string $contentId, string $outputFormatId, array $queryParameters = array(), array $headerParameters = array(), array $accept = array())
+    public function __construct(string $token, string $contentId, string $outputFormatId, array $queryParameters = [], array $headerParameters = [], array $accept = [])
     {
         $this->token = $token;
         $this->contentId = $contentId;
@@ -33,42 +33,42 @@ class ShareDownloadSingleContent extends \PicturePark\API\Runtime\Client\BaseEnd
         $this->accept = $accept;
     }
     use \PicturePark\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{token}', '{contentId}', '{outputFormatId}'), array($this->token, $this->contentId, $this->outputFormatId), '/v1/Shares/d/{token}/{contentId}/{outputFormatId}');
+        return str_replace(['{token}', '{contentId}', '{outputFormatId}'], [$this->token, $this->contentId, $this->outputFormatId], '/v1/Shares/d/{token}/{contentId}/{outputFormatId}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
         if (empty($this->accept)) {
-            return array('Accept' => array('application/json', 'application/octet-stream'));
+            return ['Accept' => ['application/json', 'application/octet-stream']];
         }
         return $this->accept;
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('width', 'height'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('width', array('int', 'null'));
-        $optionsResolver->addAllowedTypes('height', array('int', 'null'));
+        $optionsResolver->setDefined(['width', 'height']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('width', ['int', 'null']);
+        $optionsResolver->addAllowedTypes('height', ['int', 'null']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('range'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('range', array('string', 'null'));
+        $optionsResolver->setDefined(['range']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('range', ['string', 'null']);
         return $optionsResolver;
     }
     /**
@@ -90,25 +90,25 @@ class ShareDownloadSingleContent extends \PicturePark\API\Runtime\Client\BaseEnd
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ShareDownloadSingleContentBadRequestException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkValidationException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ShareDownloadSingleContentBadRequestException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkValidationException', 'json'), $response);
         }
         if (401 === $status) {
             throw new \PicturePark\API\Exception\ShareDownloadSingleContentUnauthorizedException($response);
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ShareDownloadSingleContentNotFoundException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkNotFoundException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ShareDownloadSingleContentNotFoundException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkNotFoundException', 'json'), $response);
         }
         if (405 === $status) {
             throw new \PicturePark\API\Exception\ShareDownloadSingleContentMethodNotAllowedException($response);
         }
         if (is_null($contentType) === false && (409 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ShareDownloadSingleContentConflictException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkConflictException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ShareDownloadSingleContentConflictException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkConflictException', 'json'), $response);
         }
         if (429 === $status) {
             throw new \PicturePark\API\Exception\ShareDownloadSingleContentTooManyRequestsException($response);
         }
         if (is_null($contentType) === false && (500 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ShareDownloadSingleContentInternalServerErrorException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ShareDownloadSingleContentInternalServerErrorException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkException', 'json'), $response);
         }
         if (200 === $status) {
         }
@@ -118,8 +118,8 @@ class ShareDownloadSingleContent extends \PicturePark\API\Runtime\Client\BaseEnd
             throw new \PicturePark\API\Exception\ShareDownloadSingleContentPreconditionFailedException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

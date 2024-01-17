@@ -7,8 +7,8 @@ class NotCondition extends BusinessRuleCondition
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -34,7 +34,7 @@ class NotCondition extends BusinessRuleCondition
      *
      * @return self
      */
-    public function setCondition($condition) : self
+    public function setCondition($condition): self
     {
         $this->initialized['condition'] = true;
         $this->condition = $condition;

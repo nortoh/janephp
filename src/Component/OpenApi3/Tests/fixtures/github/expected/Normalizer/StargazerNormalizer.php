@@ -18,18 +18,18 @@ class StargazerNormalizer implements DenormalizerInterface, NormalizerInterface,
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Stargazer';
+        return $type === 'Github\Model\Stargazer';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Stargazer';
+        return is_object($data) && get_class($data) === 'Github\Model\Stargazer';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,11 +45,11 @@ class StargazerNormalizer implements DenormalizerInterface, NormalizerInterface,
             return $object;
         }
         if (\array_key_exists('starred_at', $data)) {
-            $object->setStarredAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['starred_at']));
+            $object->setStarredAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['starred_at']));
             unset($data['starred_at']);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\StargazerUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\StargazerUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
@@ -65,11 +65,11 @@ class StargazerNormalizer implements DenormalizerInterface, NormalizerInterface,
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['starred_at'] = $object->getStarredAt()->format('Y-m-d\\TH:i:sP');
-        $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
+        $data = [];
+        $data['starred_at'] = $object->getStarredAt()->format('Y-m-d\TH:i:sP');
+        $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -80,8 +80,8 @@ class StargazerNormalizer implements DenormalizerInterface, NormalizerInterface,
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Stargazer' => false);
+        return ['Github\Model\Stargazer' => false];
     }
 }

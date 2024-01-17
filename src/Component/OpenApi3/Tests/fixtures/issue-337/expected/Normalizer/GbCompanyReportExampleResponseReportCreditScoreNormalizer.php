@@ -18,18 +18,18 @@ class GbCompanyReportExampleResponseReportCreditScoreNormalizer implements Denor
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCreditScore';
+        return $type === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCreditScore';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCreditScore';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCreditScore';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,15 +42,15 @@ class GbCompanyReportExampleResponseReportCreditScoreNormalizer implements Denor
             return $object;
         }
         if (\array_key_exists('currentCreditRating', $data)) {
-            $object->setCurrentCreditRating($this->denormalizer->denormalize($data['currentCreditRating'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCreditScoreCurrentCreditRating', 'json', $context));
+            $object->setCurrentCreditRating($this->denormalizer->denormalize($data['currentCreditRating'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCreditScoreCurrentCreditRating', 'json', $context));
             unset($data['currentCreditRating']);
         }
         if (\array_key_exists('currentContractLimit', $data)) {
-            $object->setCurrentContractLimit($this->denormalizer->denormalize($data['currentContractLimit'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCreditScoreCurrentContractLimit', 'json', $context));
+            $object->setCurrentContractLimit($this->denormalizer->denormalize($data['currentContractLimit'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCreditScoreCurrentContractLimit', 'json', $context));
             unset($data['currentContractLimit']);
         }
         if (\array_key_exists('previousCreditRating', $data)) {
-            $object->setPreviousCreditRating($this->denormalizer->denormalize($data['previousCreditRating'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCreditScorePreviousCreditRating', 'json', $context));
+            $object->setPreviousCreditRating($this->denormalizer->denormalize($data['previousCreditRating'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCreditScorePreviousCreditRating', 'json', $context));
             unset($data['previousCreditRating']);
         }
         if (\array_key_exists('latestRatingChangeDate', $data)) {
@@ -67,17 +67,17 @@ class GbCompanyReportExampleResponseReportCreditScoreNormalizer implements Denor
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('currentCreditRating') && null !== $object->getCurrentCreditRating()) {
-            $data['currentCreditRating'] = $this->normalizer->normalize($object->getCurrentCreditRating(), 'json', $context);
+            $data['currentCreditRating'] = ($object->getCurrentCreditRating() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCurrentCreditRating(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('currentContractLimit') && null !== $object->getCurrentContractLimit()) {
-            $data['currentContractLimit'] = $this->normalizer->normalize($object->getCurrentContractLimit(), 'json', $context);
+            $data['currentContractLimit'] = ($object->getCurrentContractLimit() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCurrentContractLimit(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('previousCreditRating') && null !== $object->getPreviousCreditRating()) {
-            $data['previousCreditRating'] = $this->normalizer->normalize($object->getPreviousCreditRating(), 'json', $context);
+            $data['previousCreditRating'] = ($object->getPreviousCreditRating() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPreviousCreditRating(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('latestRatingChangeDate') && null !== $object->getLatestRatingChangeDate()) {
             $data['latestRatingChangeDate'] = $object->getLatestRatingChangeDate();
@@ -89,8 +89,8 @@ class GbCompanyReportExampleResponseReportCreditScoreNormalizer implements Denor
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCreditScore' => false);
+        return ['CreditSafe\API\Model\GbCompanyReportExampleResponseReportCreditScore' => false];
     }
 }

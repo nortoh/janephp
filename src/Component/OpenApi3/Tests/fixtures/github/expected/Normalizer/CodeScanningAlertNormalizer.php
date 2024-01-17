@@ -18,18 +18,18 @@ class CodeScanningAlertNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\CodeScanningAlert';
+        return $type === 'Github\Model\CodeScanningAlert';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\CodeScanningAlert';
+        return is_object($data) && get_class($data) === 'Github\Model\CodeScanningAlert';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -68,7 +68,7 @@ class CodeScanningAlertNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setTool(null);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('open', $data)) {
@@ -76,14 +76,14 @@ class CodeScanningAlertNormalizer implements DenormalizerInterface, NormalizerIn
             unset($data['open']);
         }
         if (\array_key_exists('closed_by', $data) && $data['closed_by'] !== null) {
-            $object->setClosedBy($this->denormalizer->denormalize($data['closed_by'], 'Github\\Model\\CodeScanningAlertClosedBy', 'json', $context));
+            $object->setClosedBy($this->denormalizer->denormalize($data['closed_by'], 'Github\Model\CodeScanningAlertClosedBy', 'json', $context));
             unset($data['closed_by']);
         }
         elseif (\array_key_exists('closed_by', $data) && $data['closed_by'] === null) {
             $object->setClosedBy(null);
         }
         if (\array_key_exists('closed_at', $data) && $data['closed_at'] !== null) {
-            $object->setClosedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['closed_at']));
+            $object->setClosedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['closed_at']));
             unset($data['closed_at']);
         }
         elseif (\array_key_exists('closed_at', $data) && $data['closed_at'] === null) {
@@ -114,9 +114,9 @@ class CodeScanningAlertNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('number') && null !== $object->getNumber()) {
             $data['number'] = $object->getNumber();
         }
@@ -133,16 +133,16 @@ class CodeScanningAlertNormalizer implements DenormalizerInterface, NormalizerIn
             $data['tool'] = $object->getTool();
         }
         if ($object->isInitialized('createdAt') && null !== $object->getCreatedAt()) {
-            $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+            $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('open') && null !== $object->getOpen()) {
             $data['open'] = $object->getOpen();
         }
         if ($object->isInitialized('closedBy') && null !== $object->getClosedBy()) {
-            $data['closed_by'] = $this->normalizer->normalize($object->getClosedBy(), 'json', $context);
+            $data['closed_by'] = ($object->getClosedBy() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getClosedBy(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('closedAt') && null !== $object->getClosedAt()) {
-            $data['closed_at'] = $object->getClosedAt()->format('Y-m-d\\TH:i:sP');
+            $data['closed_at'] = $object->getClosedAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('url') && null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
@@ -163,8 +163,8 @@ class CodeScanningAlertNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\CodeScanningAlert' => false);
+        return ['Github\Model\CodeScanningAlert' => false];
     }
 }

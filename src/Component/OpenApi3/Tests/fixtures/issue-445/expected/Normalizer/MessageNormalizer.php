@@ -18,27 +18,27 @@ class MessageNormalizer implements DenormalizerInterface, NormalizerInterface, D
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\Message';
+        return $type === 'PicturePark\API\Model\Message';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\Message';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\Message';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'ConsoleMessage' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ConsoleMessage', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ConsoleMessage', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'NodeInfoMessage' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\NodeInfoMessage', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\NodeInfoMessage', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'LiveStreamMessage' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\LiveStreamMessage', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\LiveStreamMessage', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -73,9 +73,9 @@ class MessageNormalizer implements DenormalizerInterface, NormalizerInterface, D
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'ConsoleMessage' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -94,8 +94,8 @@ class MessageNormalizer implements DenormalizerInterface, NormalizerInterface, D
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\Message' => false);
+        return ['PicturePark\API\Model\Message' => false];
     }
 }

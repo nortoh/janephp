@@ -18,18 +18,18 @@ class PermissionSetUserPermissionRightsNormalizer implements DenormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\PermissionSetUserPermissionRights';
+        return $type === 'PicturePark\API\Model\PermissionSetUserPermissionRights';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\PermissionSetUserPermissionRights';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\PermissionSetUserPermissionRights';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class PermissionSetUserPermissionRightsNormalizer implements DenormalizerInterfa
             $object->setPermissionSetId(null);
         }
         if (\array_key_exists('permissionSetRights', $data) && $data['permissionSetRights'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['permissionSetRights'] as $value) {
                 $values[] = $value;
             }
@@ -62,14 +62,14 @@ class PermissionSetUserPermissionRightsNormalizer implements DenormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('permissionSetId') && null !== $object->getPermissionSetId()) {
             $data['permissionSetId'] = $object->getPermissionSetId();
         }
         if ($object->isInitialized('permissionSetRights') && null !== $object->getPermissionSetRights()) {
-            $values = array();
+            $values = [];
             foreach ($object->getPermissionSetRights() as $value) {
                 $values[] = $value;
             }
@@ -77,8 +77,8 @@ class PermissionSetUserPermissionRightsNormalizer implements DenormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\PermissionSetUserPermissionRights' => false);
+        return ['PicturePark\API\Model\PermissionSetUserPermissionRights' => false];
     }
 }

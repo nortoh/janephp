@@ -18,18 +18,18 @@ class PathItemNormalizer implements DenormalizerInterface, NormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, $context = []) : bool
+    public function supportsDenormalization($data, $type, $format = null, $context = []): bool
     {
         return $type === 'Jane\\Component\\OpenApi3\\JsonSchema\\Model\\PathItem';
     }
-    public function supportsNormalization($data, $format = null, $context = []) : bool
+    public function supportsNormalization($data, $format = null, $context = []): bool
     {
         return $data instanceof \Jane\Component\OpenApi3\JsonSchema\Model\PathItem;
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -119,7 +119,7 @@ class PathItemNormalizer implements DenormalizerInterface, NormalizerInterface, 
             $object->setTrace(null);
         }
         if (\array_key_exists('servers', $data) && $data['servers'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['servers'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, 'Jane\\Component\\OpenApi3\\JsonSchema\\Model\\Server', 'json', $context);
             }
@@ -130,7 +130,7 @@ class PathItemNormalizer implements DenormalizerInterface, NormalizerInterface, 
             $object->setServers(null);
         }
         if (\array_key_exists('parameters', $data) && $data['parameters'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['parameters'] as $value_1) {
                 $value_2 = $value_1;
                 if (is_array($value_1) and isset($value_1['$ref'])) {
@@ -159,9 +159,9 @@ class PathItemNormalizer implements DenormalizerInterface, NormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getDollarRef()) {
             $data['$ref'] = $object->getDollarRef();
         }
@@ -196,14 +196,14 @@ class PathItemNormalizer implements DenormalizerInterface, NormalizerInterface, 
             $data['trace'] = $this->normalizer->normalize($object->getTrace(), 'json', $context);
         }
         if (null !== $object->getServers()) {
-            $values = array();
+            $values = [];
             foreach ($object->getServers() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['servers'] = $values;
         }
         if (null !== $object->getParameters()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getParameters() as $value_1) {
                 $value_2 = $value_1;
                 if (is_object($value_1)) {
@@ -224,5 +224,9 @@ class PathItemNormalizer implements DenormalizerInterface, NormalizerInterface, 
             }
         }
         return $data;
+    }
+    public function getSupportedTypes(?string $format): array
+    {
+        return ['*' => false];
     }
 }

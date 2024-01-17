@@ -33,7 +33,7 @@ class Response extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -44,7 +44,7 @@ class Response extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -54,7 +54,7 @@ class Response extends \ArrayObject
      *
      * @return Header[]|Reference[]|null
      */
-    public function getHeaders() : ?iterable
+    public function getHeaders(): ?iterable
     {
         return $this->headers;
     }
@@ -65,7 +65,7 @@ class Response extends \ArrayObject
      *
      * @return self
      */
-    public function setHeaders(?iterable $headers) : self
+    public function setHeaders(?iterable $headers): self
     {
         $this->headers = $headers;
         return $this;
@@ -75,7 +75,7 @@ class Response extends \ArrayObject
      *
      * @return MediaType[]|null
      */
-    public function getContent() : ?iterable
+    public function getContent(): ?iterable
     {
         return $this->content;
     }
@@ -86,7 +86,7 @@ class Response extends \ArrayObject
      *
      * @return self
      */
-    public function setContent(?iterable $content) : self
+    public function setContent(?iterable $content): self
     {
         $this->content = $content;
         return $this;
@@ -96,7 +96,7 @@ class Response extends \ArrayObject
      *
      * @return Link[]|Reference[]|null
      */
-    public function getLinks() : ?iterable
+    public function getLinks(): ?iterable
     {
         return $this->links;
     }
@@ -107,7 +107,7 @@ class Response extends \ArrayObject
      *
      * @return self
      */
-    public function setLinks(?iterable $links) : self
+    public function setLinks(?iterable $links): self
     {
         $this->links = $links;
         return $this;

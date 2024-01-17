@@ -18,18 +18,18 @@ class UserMarketplacePurchaseNormalizer implements DenormalizerInterface, Normal
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\UserMarketplacePurchase';
+        return $type === 'Github\Model\UserMarketplacePurchase';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\UserMarketplacePurchase';
+        return is_object($data) && get_class($data) === 'Github\Model\UserMarketplacePurchase';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,7 +49,7 @@ class UserMarketplacePurchaseNormalizer implements DenormalizerInterface, Normal
             unset($data['billing_cycle']);
         }
         if (\array_key_exists('next_billing_date', $data) && $data['next_billing_date'] !== null) {
-            $object->setNextBillingDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['next_billing_date']));
+            $object->setNextBillingDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['next_billing_date']));
             unset($data['next_billing_date']);
         }
         elseif (\array_key_exists('next_billing_date', $data) && $data['next_billing_date'] === null) {
@@ -67,25 +67,25 @@ class UserMarketplacePurchaseNormalizer implements DenormalizerInterface, Normal
             unset($data['on_free_trial']);
         }
         if (\array_key_exists('free_trial_ends_on', $data) && $data['free_trial_ends_on'] !== null) {
-            $object->setFreeTrialEndsOn(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['free_trial_ends_on']));
+            $object->setFreeTrialEndsOn(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['free_trial_ends_on']));
             unset($data['free_trial_ends_on']);
         }
         elseif (\array_key_exists('free_trial_ends_on', $data) && $data['free_trial_ends_on'] === null) {
             $object->setFreeTrialEndsOn(null);
         }
         if (\array_key_exists('updated_at', $data) && $data['updated_at'] !== null) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         elseif (\array_key_exists('updated_at', $data) && $data['updated_at'] === null) {
             $object->setUpdatedAt(null);
         }
         if (\array_key_exists('account', $data)) {
-            $object->setAccount($this->denormalizer->denormalize($data['account'], 'Github\\Model\\MarketplaceAccount', 'json', $context));
+            $object->setAccount($this->denormalizer->denormalize($data['account'], 'Github\Model\MarketplaceAccount', 'json', $context));
             unset($data['account']);
         }
         if (\array_key_exists('plan', $data)) {
-            $object->setPlan($this->denormalizer->denormalize($data['plan'], 'Github\\Model\\MarketplaceListingPlan', 'json', $context));
+            $object->setPlan($this->denormalizer->denormalize($data['plan'], 'Github\Model\MarketplaceListingPlan', 'json', $context));
             unset($data['plan']);
         }
         foreach ($data as $key => $value) {
@@ -98,17 +98,17 @@ class UserMarketplacePurchaseNormalizer implements DenormalizerInterface, Normal
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['billing_cycle'] = $object->getBillingCycle();
-        $data['next_billing_date'] = $object->getNextBillingDate()->format('Y-m-d\\TH:i:sP');
+        $data['next_billing_date'] = $object->getNextBillingDate()->format('Y-m-d\TH:i:sP');
         $data['unit_count'] = $object->getUnitCount();
         $data['on_free_trial'] = $object->getOnFreeTrial();
-        $data['free_trial_ends_on'] = $object->getFreeTrialEndsOn()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['account'] = $this->normalizer->normalize($object->getAccount(), 'json', $context);
-        $data['plan'] = $this->normalizer->normalize($object->getPlan(), 'json', $context);
+        $data['free_trial_ends_on'] = $object->getFreeTrialEndsOn()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
+        $data['account'] = ($object->getAccount() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAccount(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['plan'] = ($object->getPlan() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPlan(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -119,8 +119,8 @@ class UserMarketplacePurchaseNormalizer implements DenormalizerInterface, Normal
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\UserMarketplacePurchase' => false);
+        return ['Github\Model\UserMarketplacePurchase' => false];
     }
 }

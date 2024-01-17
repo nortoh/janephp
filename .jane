@@ -1,0 +1,8 @@
+<?php
+
+return [
+    'directory' => 'src',
+    'namespace' => 'Docker\\API',
+    'openapi-file' => __DIR__ . '/openapi.json',
+    'strict' => false,
+];

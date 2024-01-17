@@ -18,18 +18,18 @@ class ReposOwnerRepoDeploymentsPostBodyNormalizer implements DenormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoDeploymentsPostBody';
+        return $type === 'Github\Model\ReposOwnerRepoDeploymentsPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoDeploymentsPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoDeploymentsPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,7 +57,7 @@ class ReposOwnerRepoDeploymentsPostBodyNormalizer implements DenormalizerInterfa
             unset($data['auto_merge']);
         }
         if (\array_key_exists('required_contexts', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['required_contexts'] as $value) {
                 $values[] = $value;
             }
@@ -101,9 +101,9 @@ class ReposOwnerRepoDeploymentsPostBodyNormalizer implements DenormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['ref'] = $object->getRef();
         if ($object->isInitialized('task') && null !== $object->getTask()) {
             $data['task'] = $object->getTask();
@@ -112,7 +112,7 @@ class ReposOwnerRepoDeploymentsPostBodyNormalizer implements DenormalizerInterfa
             $data['auto_merge'] = $object->getAutoMerge();
         }
         if ($object->isInitialized('requiredContexts') && null !== $object->getRequiredContexts()) {
-            $values = array();
+            $values = [];
             foreach ($object->getRequiredContexts() as $value) {
                 $values[] = $value;
             }
@@ -146,8 +146,8 @@ class ReposOwnerRepoDeploymentsPostBodyNormalizer implements DenormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoDeploymentsPostBody' => false);
+        return ['Github\Model\ReposOwnerRepoDeploymentsPostBody' => false];
     }
 }

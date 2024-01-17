@@ -15,21 +15,21 @@ class ShowPetById extends \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client
         $this->petId = $petId;
     }
     use \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{petId}'), array($this->petId), '/pets/{petId}');
+        return str_replace(['{petId}'], [$this->petId], '/pets/{petId}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -42,14 +42,14 @@ class ShowPetById extends \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Pet', 'json');
+            return $serializer->deserialize($body, 'Jane\Component\OpenApi3\Tests\Expected\Model\Pet', 'json');
         }
         if (mb_strpos($contentType, 'application/json') !== false) {
-            return $serializer->deserialize($body, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Error', 'json');
+            return $serializer->deserialize($body, 'Jane\Component\OpenApi3\Tests\Expected\Model\Error', 'json');
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

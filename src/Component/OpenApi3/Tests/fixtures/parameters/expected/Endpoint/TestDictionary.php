@@ -11,30 +11,30 @@ class TestDictionary extends \Jane\Component\OpenApi3\Tests\Expected\Runtime\Cli
      *     @var string $input 
      * }
      */
-    public function __construct(array $queryParameters = array())
+    public function __construct(array $queryParameters = [])
     {
         $this->queryParameters = $queryParameters;
     }
     use \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/test-dictionary';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('input'));
-        $optionsResolver->setRequired(array('input'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('input', array('string'));
+        $optionsResolver->setDefined(['input']);
+        $optionsResolver->setRequired(['input']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('input', ['string']);
         return $optionsResolver;
     }
     /**
@@ -48,8 +48,8 @@ class TestDictionary extends \Jane\Component\OpenApi3\Tests\Expected\Runtime\Cli
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

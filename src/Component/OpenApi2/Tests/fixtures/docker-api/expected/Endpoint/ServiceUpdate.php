@@ -34,7 +34,7 @@ class ServiceUpdate extends \Docker\Api\Runtime\Client\BaseEndpoint implements \
     
     * }
     */
-    public function __construct(string $id, \Docker\Api\Model\ServicesIdUpdatePostBody $body, array $queryParameters = array(), array $headerParameters = array())
+    public function __construct(string $id, \Docker\Api\Model\ServicesIdUpdatePostBody $body, array $queryParameters = [], array $headerParameters = [])
     {
         $this->id = $id;
         $this->body = $body;
@@ -42,40 +42,40 @@ class ServiceUpdate extends \Docker\Api\Runtime\Client\BaseEndpoint implements \
         $this->headerParameters = $headerParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/services/{id}/update');
+        return str_replace(['{id}'], [$this->id], '/services/{id}/update');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         return $this->getSerializedBody($serializer);
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('version', 'registryAuthFrom', 'rollback'));
-        $optionsResolver->setRequired(array('version'));
-        $optionsResolver->setDefaults(array('registryAuthFrom' => 'spec'));
-        $optionsResolver->addAllowedTypes('version', array('int'));
-        $optionsResolver->addAllowedTypes('registryAuthFrom', array('string'));
-        $optionsResolver->addAllowedTypes('rollback', array('string'));
+        $optionsResolver->setDefined(['version', 'registryAuthFrom', 'rollback']);
+        $optionsResolver->setRequired(['version']);
+        $optionsResolver->setDefaults(['registryAuthFrom' => 'spec']);
+        $optionsResolver->addAllowedTypes('version', ['int']);
+        $optionsResolver->addAllowedTypes('registryAuthFrom', ['string']);
+        $optionsResolver->addAllowedTypes('rollback', ['string']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('X-Registry-Auth'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('X-Registry-Auth', array('string'));
+        $optionsResolver->setDefined(['X-Registry-Auth']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('X-Registry-Auth', ['string']);
         return $optionsResolver;
     }
     /**
@@ -93,23 +93,23 @@ class ServiceUpdate extends \Docker\Api\Runtime\Client\BaseEndpoint implements \
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Docker\\Api\\Model\\ServiceUpdateResponse', 'json');
+            return $serializer->deserialize($body, 'Docker\Api\Model\ServiceUpdateResponse', 'json');
         }
         if (400 === $status) {
-            throw new \Docker\Api\Exception\ServiceUpdateBadRequestException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ServiceUpdateBadRequestException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Docker\Api\Exception\ServiceUpdateNotFoundException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ServiceUpdateNotFoundException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\ServiceUpdateInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ServiceUpdateInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (503 === $status) {
-            throw new \Docker\Api\Exception\ServiceUpdateServiceUnavailableException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ServiceUpdateServiceUnavailableException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

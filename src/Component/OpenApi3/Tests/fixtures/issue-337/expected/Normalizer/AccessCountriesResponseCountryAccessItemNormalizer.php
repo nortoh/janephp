@@ -18,18 +18,18 @@ class AccessCountriesResponseCountryAccessItemNormalizer implements Denormalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\AccessCountriesResponseCountryAccessItem';
+        return $type === 'CreditSafe\API\Model\AccessCountriesResponseCountryAccessItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\AccessCountriesResponseCountryAccessItem';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\AccessCountriesResponseCountryAccessItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,57 +42,57 @@ class AccessCountriesResponseCountryAccessItemNormalizer implements Denormalizer
             return $object;
         }
         if (\array_key_exists('creditsafeConnectOnlineReports', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['creditsafeConnectOnlineReports'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\\API\\Model\\AccessCountriesResponseCountryAccessItemCreditsafeConnectOnlineReportsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\API\Model\AccessCountriesResponseCountryAccessItemCreditsafeConnectOnlineReportsItem', 'json', $context);
             }
             $object->setCreditsafeConnectOnlineReports($values);
             unset($data['creditsafeConnectOnlineReports']);
         }
         if (\array_key_exists('creditsafeConnectOfflineReports', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['creditsafeConnectOfflineReports'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'CreditSafe\\API\\Model\\AccessCountriesResponseCountryAccessItemCreditsafeConnectOfflineReportsItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'CreditSafe\API\Model\AccessCountriesResponseCountryAccessItemCreditsafeConnectOfflineReportsItem', 'json', $context);
             }
             $object->setCreditsafeConnectOfflineReports($values_1);
             unset($data['creditsafeConnectOfflineReports']);
         }
         if (\array_key_exists('creditsafeConnectMonitoring', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['creditsafeConnectMonitoring'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'CreditSafe\\API\\Model\\AccessCountriesResponseCountryAccessItemCreditsafeConnectMonitoringItem', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'CreditSafe\API\Model\AccessCountriesResponseCountryAccessItemCreditsafeConnectMonitoringItem', 'json', $context);
             }
             $object->setCreditsafeConnectMonitoring($values_2);
             unset($data['creditsafeConnectMonitoring']);
         }
         if (\array_key_exists('creditsafeConnectDirectorReports', $data)) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['creditsafeConnectDirectorReports'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, 'CreditSafe\\API\\Model\\AccessCountriesResponseCountryAccessItemCreditsafeConnectDirectorReportsItem', 'json', $context);
+                $values_3[] = $this->denormalizer->denormalize($value_3, 'CreditSafe\API\Model\AccessCountriesResponseCountryAccessItemCreditsafeConnectDirectorReportsItem', 'json', $context);
             }
             $object->setCreditsafeConnectDirectorReports($values_3);
             unset($data['creditsafeConnectDirectorReports']);
         }
         if (\array_key_exists('creditsafeConnectImageDocuments', $data)) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($data['creditsafeConnectImageDocuments'] as $value_4) {
-                $values_4[] = $this->denormalizer->denormalize($value_4, 'CreditSafe\\API\\Model\\AccessCountriesResponseCountryAccessItemCreditsafeConnectImageDocumentsItem', 'json', $context);
+                $values_4[] = $this->denormalizer->denormalize($value_4, 'CreditSafe\API\Model\AccessCountriesResponseCountryAccessItemCreditsafeConnectImageDocumentsItem', 'json', $context);
             }
             $object->setCreditsafeConnectImageDocuments($values_4);
             unset($data['creditsafeConnectImageDocuments']);
         }
         if (\array_key_exists('creditsafeConnectBankValidation', $data)) {
-            $values_5 = array();
+            $values_5 = [];
             foreach ($data['creditsafeConnectBankValidation'] as $value_5) {
-                $values_5[] = $this->denormalizer->denormalize($value_5, 'CreditSafe\\API\\Model\\AccessCountriesResponseCountryAccessItemCreditsafeConnectBankValidationItem', 'json', $context);
+                $values_5[] = $this->denormalizer->denormalize($value_5, 'CreditSafe\API\Model\AccessCountriesResponseCountryAccessItemCreditsafeConnectBankValidationItem', 'json', $context);
             }
             $object->setCreditsafeConnectBankValidation($values_5);
             unset($data['creditsafeConnectBankValidation']);
         }
         if (\array_key_exists('creditsafeConnectBankVerification', $data)) {
-            $values_6 = array();
+            $values_6 = [];
             foreach ($data['creditsafeConnectBankVerification'] as $value_6) {
-                $values_6[] = $this->denormalizer->denormalize($value_6, 'CreditSafe\\API\\Model\\AccessCountriesResponseCountryAccessItemCreditsafeConnectBankVerificationItem', 'json', $context);
+                $values_6[] = $this->denormalizer->denormalize($value_6, 'CreditSafe\API\Model\AccessCountriesResponseCountryAccessItemCreditsafeConnectBankVerificationItem', 'json', $context);
             }
             $object->setCreditsafeConnectBankVerification($values_6);
             unset($data['creditsafeConnectBankVerification']);
@@ -107,55 +107,55 @@ class AccessCountriesResponseCountryAccessItemNormalizer implements Denormalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('creditsafeConnectOnlineReports') && null !== $object->getCreditsafeConnectOnlineReports()) {
-            $values = array();
+            $values = [];
             foreach ($object->getCreditsafeConnectOnlineReports() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['creditsafeConnectOnlineReports'] = $values;
         }
         if ($object->isInitialized('creditsafeConnectOfflineReports') && null !== $object->getCreditsafeConnectOfflineReports()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getCreditsafeConnectOfflineReports() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['creditsafeConnectOfflineReports'] = $values_1;
         }
         if ($object->isInitialized('creditsafeConnectMonitoring') && null !== $object->getCreditsafeConnectMonitoring()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getCreditsafeConnectMonitoring() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['creditsafeConnectMonitoring'] = $values_2;
         }
         if ($object->isInitialized('creditsafeConnectDirectorReports') && null !== $object->getCreditsafeConnectDirectorReports()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getCreditsafeConnectDirectorReports() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+                $values_3[] = ($value_3 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_3, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['creditsafeConnectDirectorReports'] = $values_3;
         }
         if ($object->isInitialized('creditsafeConnectImageDocuments') && null !== $object->getCreditsafeConnectImageDocuments()) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($object->getCreditsafeConnectImageDocuments() as $value_4) {
-                $values_4[] = $this->normalizer->normalize($value_4, 'json', $context);
+                $values_4[] = ($value_4 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_4, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['creditsafeConnectImageDocuments'] = $values_4;
         }
         if ($object->isInitialized('creditsafeConnectBankValidation') && null !== $object->getCreditsafeConnectBankValidation()) {
-            $values_5 = array();
+            $values_5 = [];
             foreach ($object->getCreditsafeConnectBankValidation() as $value_5) {
-                $values_5[] = $this->normalizer->normalize($value_5, 'json', $context);
+                $values_5[] = ($value_5 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_5, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['creditsafeConnectBankValidation'] = $values_5;
         }
         if ($object->isInitialized('creditsafeConnectBankVerification') && null !== $object->getCreditsafeConnectBankVerification()) {
-            $values_6 = array();
+            $values_6 = [];
             foreach ($object->getCreditsafeConnectBankVerification() as $value_6) {
-                $values_6[] = $this->normalizer->normalize($value_6, 'json', $context);
+                $values_6[] = ($value_6 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_6, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['creditsafeConnectBankVerification'] = $values_6;
         }
@@ -166,8 +166,8 @@ class AccessCountriesResponseCountryAccessItemNormalizer implements Denormalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\AccessCountriesResponseCountryAccessItem' => false);
+        return ['CreditSafe\API\Model\AccessCountriesResponseCountryAccessItem' => false];
     }
 }

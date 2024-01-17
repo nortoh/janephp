@@ -18,18 +18,18 @@ class GitRefNormalizer implements DenormalizerInterface, NormalizerInterface, De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GitRef';
+        return $type === 'Github\Model\GitRef';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GitRef';
+        return is_object($data) && get_class($data) === 'Github\Model\GitRef';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,7 +57,7 @@ class GitRefNormalizer implements DenormalizerInterface, NormalizerInterface, De
             unset($data['url']);
         }
         if (\array_key_exists('object', $data)) {
-            $object->setObject($this->denormalizer->denormalize($data['object'], 'Github\\Model\\GitRefObject', 'json', $context));
+            $object->setObject($this->denormalizer->denormalize($data['object'], 'Github\Model\GitRefObject', 'json', $context));
             unset($data['object']);
         }
         foreach ($data as $key => $value) {
@@ -70,9 +70,9 @@ class GitRefNormalizer implements DenormalizerInterface, NormalizerInterface, De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('ref') && null !== $object->getRef()) {
             $data['ref'] = $object->getRef();
         }
@@ -83,7 +83,7 @@ class GitRefNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data['url'] = $object->getUrl();
         }
         if ($object->isInitialized('object') && null !== $object->getObject()) {
-            $data['object'] = $this->normalizer->normalize($object->getObject(), 'json', $context);
+            $data['object'] = ($object->getObject() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getObject(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -95,8 +95,8 @@ class GitRefNormalizer implements DenormalizerInterface, NormalizerInterface, De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GitRef' => false);
+        return ['Github\Model\GitRef' => false];
     }
 }

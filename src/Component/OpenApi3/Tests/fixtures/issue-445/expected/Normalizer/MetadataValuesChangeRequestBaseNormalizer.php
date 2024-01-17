@@ -18,24 +18,24 @@ class MetadataValuesChangeRequestBaseNormalizer implements DenormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\MetadataValuesChangeRequestBase';
+        return $type === 'PicturePark\API\Model\MetadataValuesChangeRequestBase';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\MetadataValuesChangeRequestBase';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\MetadataValuesChangeRequestBase';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'ContentFieldsBatchUpdateFilterRequest' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ContentFieldsBatchUpdateFilterRequest', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ContentFieldsBatchUpdateFilterRequest', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'ContentFieldsBatchUpdateRequest' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\ContentFieldsBatchUpdateRequest', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\ContentFieldsBatchUpdateRequest', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,9 +48,9 @@ class MetadataValuesChangeRequestBaseNormalizer implements DenormalizerInterface
             return $object;
         }
         if (\array_key_exists('changeCommands', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['changeCommands'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\MetadataValuesChangeCommandBase', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\MetadataValuesChangeCommandBase', 'json', $context);
             }
             $object->setChangeCommands($values);
         }
@@ -68,18 +68,18 @@ class MetadataValuesChangeRequestBaseNormalizer implements DenormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'ContentFieldsBatchUpdateFilterRequest' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
         if (null !== $object->getKind() and 'ContentFieldsBatchUpdateRequest' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
-        $values = array();
+        $values = [];
         foreach ($object->getChangeCommands() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['changeCommands'] = $values;
         $data['allowMissingDependencies'] = $object->getAllowMissingDependencies();
@@ -87,8 +87,8 @@ class MetadataValuesChangeRequestBaseNormalizer implements DenormalizerInterface
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\MetadataValuesChangeRequestBase' => false);
+        return ['PicturePark\API\Model\MetadataValuesChangeRequestBase' => false];
     }
 }

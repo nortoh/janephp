@@ -18,18 +18,18 @@ class ShareNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\Share';
+        return $type === 'PicturePark\API\Model\Share';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\Share';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\Share';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -51,7 +51,7 @@ class ShareNormalizer implements DenormalizerInterface, NormalizerInterface, Den
             $object->setName(null);
         }
         if (\array_key_exists('contentIds', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['contentIds'] as $value) {
                 $values[] = $value;
             }
@@ -61,7 +61,7 @@ class ShareNormalizer implements DenormalizerInterface, NormalizerInterface, Den
             $object->setAudit($data['audit']);
         }
         if (\array_key_exists('expirationDate', $data) && $data['expirationDate'] !== null) {
-            $object->setExpirationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['expirationDate']));
+            $object->setExpirationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['expirationDate']));
         }
         elseif (\array_key_exists('expirationDate', $data) && $data['expirationDate'] === null) {
             $object->setExpirationDate(null);
@@ -77,28 +77,28 @@ class ShareNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         if ($object->isInitialized('name') && null !== $object->getName()) {
             $data['name'] = $object->getName();
         }
-        $values = array();
+        $values = [];
         foreach ($object->getContentIds() as $value) {
             $values[] = $value;
         }
         $data['contentIds'] = $values;
         $data['audit'] = $object->getAudit();
         if ($object->isInitialized('expirationDate') && null !== $object->getExpirationDate()) {
-            $data['expirationDate'] = $object->getExpirationDate()->format('Y-m-d\\TH:i:sP');
+            $data['expirationDate'] = $object->getExpirationDate()->format('Y-m-d\TH:i:sP');
         }
         $data['shareType'] = $object->getShareType();
         $data['isReadOnly'] = $object->getIsReadOnly();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\Share' => false);
+        return ['PicturePark\API\Model\Share' => false];
     }
 }

@@ -18,18 +18,18 @@ class ActivityNormalizer implements DenormalizerInterface, NormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\Activity';
+        return $type === 'PicturePark\API\Model\Activity';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\Activity';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\Activity';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,13 +42,13 @@ class ActivityNormalizer implements DenormalizerInterface, NormalizerInterface, 
             return $object;
         }
         if (\array_key_exists('creationDate', $data) && $data['creationDate'] !== null) {
-            $object->setCreationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['creationDate']));
+            $object->setCreationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['creationDate']));
         }
         elseif (\array_key_exists('creationDate', $data) && $data['creationDate'] === null) {
             $object->setCreationDate(null);
         }
         if (\array_key_exists('modificationDate', $data) && $data['modificationDate'] !== null) {
-            $object->setModificationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['modificationDate']));
+            $object->setModificationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['modificationDate']));
         }
         elseif (\array_key_exists('modificationDate', $data) && $data['modificationDate'] === null) {
             $object->setModificationDate(null);
@@ -58,19 +58,19 @@ class ActivityNormalizer implements DenormalizerInterface, NormalizerInterface, 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('creationDate') && null !== $object->getCreationDate()) {
-            $data['creationDate'] = $object->getCreationDate()->format('Y-m-d\\TH:i:sP');
+            $data['creationDate'] = $object->getCreationDate()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('modificationDate') && null !== $object->getModificationDate()) {
-            $data['modificationDate'] = $object->getModificationDate()->format('Y-m-d\\TH:i:sP');
+            $data['modificationDate'] = $object->getModificationDate()->format('Y-m-d\TH:i:sP');
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\Activity' => false);
+        return ['PicturePark\API\Model\Activity' => false];
     }
 }

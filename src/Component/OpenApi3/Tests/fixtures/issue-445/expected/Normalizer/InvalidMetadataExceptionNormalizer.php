@@ -18,18 +18,18 @@ class InvalidMetadataExceptionNormalizer implements DenormalizerInterface, Norma
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\InvalidMetadataException';
+        return $type === 'PicturePark\API\Model\InvalidMetadataException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\InvalidMetadataException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\InvalidMetadataException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -96,9 +96,9 @@ class InvalidMetadataExceptionNormalizer implements DenormalizerInterface, Norma
             $object->setUserId(null);
         }
         if (\array_key_exists('metadataErrors', $data) && $data['metadataErrors'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['metadataErrors'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\MetadataError', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\MetadataError', 'json', $context);
             }
             $object->setMetadataErrors($values);
             unset($data['metadataErrors']);
@@ -107,9 +107,9 @@ class InvalidMetadataExceptionNormalizer implements DenormalizerInterface, Norma
             $object->setMetadataErrors(null);
         }
         if (\array_key_exists('validationErrors', $data) && $data['validationErrors'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['validationErrors'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\PictureparkBusinessException', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\PictureparkBusinessException', 'json', $context);
             }
             $object->setValidationErrors($values_1);
             unset($data['validationErrors']);
@@ -127,9 +127,9 @@ class InvalidMetadataExceptionNormalizer implements DenormalizerInterface, Norma
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -156,16 +156,16 @@ class InvalidMetadataExceptionNormalizer implements DenormalizerInterface, Norma
             $data['userId'] = $object->getUserId();
         }
         if ($object->isInitialized('metadataErrors') && null !== $object->getMetadataErrors()) {
-            $values = array();
+            $values = [];
             foreach ($object->getMetadataErrors() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['metadataErrors'] = $values;
         }
         if ($object->isInitialized('validationErrors') && null !== $object->getValidationErrors()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getValidationErrors() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['validationErrors'] = $values_1;
         }
@@ -176,8 +176,8 @@ class InvalidMetadataExceptionNormalizer implements DenormalizerInterface, Norma
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\InvalidMetadataException' => false);
+        return ['PicturePark\API\Model\InvalidMetadataException' => false];
     }
 }

@@ -18,18 +18,18 @@ class DocumentMetadataNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\DocumentMetadata';
+        return $type === 'PicturePark\API\Model\DocumentMetadata';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\DocumentMetadata';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\DocumentMetadata';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -189,7 +189,7 @@ class DocumentMetadataNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['revisionNumber']);
         }
         if (\array_key_exists('titles', $data) && $data['titles'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['titles'] as $value) {
                 $values[] = $value;
             }
@@ -200,7 +200,7 @@ class DocumentMetadataNormalizer implements DenormalizerInterface, NormalizerInt
             $object->setTitles(null);
         }
         if (\array_key_exists('imageTitles', $data) && $data['imageTitles'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['imageTitles'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -227,9 +227,9 @@ class DocumentMetadataNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('names') && null !== $object->getNames()) {
             $data['names'] = $object->getNames();
         }
@@ -303,14 +303,14 @@ class DocumentMetadataNormalizer implements DenormalizerInterface, NormalizerInt
             $data['revisionNumber'] = $object->getRevisionNumber();
         }
         if ($object->isInitialized('titles') && null !== $object->getTitles()) {
-            $values = array();
+            $values = [];
             foreach ($object->getTitles() as $value) {
                 $values[] = $value;
             }
             $data['titles'] = $values;
         }
         if ($object->isInitialized('imageTitles') && null !== $object->getImageTitles()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getImageTitles() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -326,8 +326,8 @@ class DocumentMetadataNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\DocumentMetadata' => false);
+        return ['PicturePark\API\Model\DocumentMetadata' => false];
     }
 }

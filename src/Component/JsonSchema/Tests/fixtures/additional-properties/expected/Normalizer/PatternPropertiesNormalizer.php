@@ -18,18 +18,18 @@ class PatternPropertiesNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\PatternProperties';
+        return $type === 'Jane\Component\JsonSchema\Tests\Expected\Model\PatternProperties';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return $data instanceof \Jane\Component\JsonSchema\Tests\Expected\Model\PatternProperties;
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -50,7 +50,7 @@ class PatternPropertiesNormalizer implements DenormalizerInterface, NormalizerIn
                 $object[$key] = $value;
             }
             if (preg_match('/xxxx-.*/', (string) $key)) {
-                $object[$key] = $this->denormalizer->denormalize($value, 'Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\AdditionalProperties', 'json', $context);
+                $object[$key] = $this->denormalizer->denormalize($value, 'Jane\Component\JsonSchema\Tests\Expected\Model\AdditionalProperties', 'json', $context);
             }
         }
         return $object;
@@ -58,9 +58,9 @@ class PatternPropertiesNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('foo') && null !== $object->getFoo()) {
             $data['foo'] = $object->getFoo();
         }
@@ -69,13 +69,13 @@ class PatternPropertiesNormalizer implements DenormalizerInterface, NormalizerIn
                 $data[$key] = $value;
             }
             if (preg_match('/xxxx-.*/', (string) $key)) {
-                $data[$key] = $this->normalizer->normalize($value, 'json', $context);
+                $data[$key] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\JsonSchema\\Tests\\Expected\\Model\\PatternProperties' => false);
+        return ['Jane\Component\JsonSchema\Tests\Expected\Model\PatternProperties' => false];
     }
 }

@@ -18,18 +18,18 @@ class ContentPermissionSetCreateRequestNormalizer implements DenormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ContentPermissionSetCreateRequest';
+        return $type === 'PicturePark\API\Model\ContentPermissionSetCreateRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ContentPermissionSetCreateRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ContentPermissionSetCreateRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -46,9 +46,9 @@ class ContentPermissionSetCreateRequestNormalizer implements DenormalizerInterfa
             unset($data['names']);
         }
         if (\array_key_exists('userRolesRights', $data) && $data['userRolesRights'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['userRolesRights'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\UserRoleRightsOfContentRight', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\UserRoleRightsOfContentRight', 'json', $context);
             }
             $object->setUserRolesRights($values);
             unset($data['userRolesRights']);
@@ -57,9 +57,9 @@ class ContentPermissionSetCreateRequestNormalizer implements DenormalizerInterfa
             $object->setUserRolesRights(null);
         }
         if (\array_key_exists('userRolesPermissionSetRights', $data) && $data['userRolesPermissionSetRights'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['userRolesPermissionSetRights'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\UserRoleRightsOfPermissionSetRight', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\UserRoleRightsOfPermissionSetRight', 'json', $context);
             }
             $object->setUserRolesPermissionSetRights($values_1);
             unset($data['userRolesPermissionSetRights']);
@@ -88,21 +88,21 @@ class ContentPermissionSetCreateRequestNormalizer implements DenormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['names'] = $object->getNames();
         if ($object->isInitialized('userRolesRights') && null !== $object->getUserRolesRights()) {
-            $values = array();
+            $values = [];
             foreach ($object->getUserRolesRights() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['userRolesRights'] = $values;
         }
         if ($object->isInitialized('userRolesPermissionSetRights') && null !== $object->getUserRolesPermissionSetRights()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getUserRolesPermissionSetRights() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['userRolesPermissionSetRights'] = $values_1;
         }
@@ -117,8 +117,8 @@ class ContentPermissionSetCreateRequestNormalizer implements DenormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ContentPermissionSetCreateRequest' => false);
+        return ['PicturePark\API\Model\ContentPermissionSetCreateRequest' => false];
     }
 }

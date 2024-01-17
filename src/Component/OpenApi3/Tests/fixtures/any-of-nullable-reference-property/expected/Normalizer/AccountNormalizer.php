@@ -18,18 +18,18 @@ class AccountNormalizer implements DenormalizerInterface, NormalizerInterface, D
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Account';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\Account';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Account';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\Account';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -56,7 +56,7 @@ class AccountNormalizer implements DenormalizerInterface, NormalizerInterface, D
         if (\array_key_exists('countryOfBirth', $data) && $data['countryOfBirth'] !== null) {
             $value = $data['countryOfBirth'];
             if (is_array($data['countryOfBirth'])) {
-                $value = $this->denormalizer->denormalize($data['countryOfBirth'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Country', 'json', $context);
+                $value = $this->denormalizer->denormalize($data['countryOfBirth'], 'Jane\Component\OpenApi3\Tests\Expected\Model\Country', 'json', $context);
             }
             $object->setCountryOfBirth($value);
             unset($data['countryOfBirth']);
@@ -65,17 +65,17 @@ class AccountNormalizer implements DenormalizerInterface, NormalizerInterface, D
             $object->setCountryOfBirth(null);
         }
         if (\array_key_exists('country', $data)) {
-            $object->setCountry($this->denormalizer->denormalize($data['country'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Country', 'json', $context));
+            $object->setCountry($this->denormalizer->denormalize($data['country'], 'Jane\Component\OpenApi3\Tests\Expected\Model\Country', 'json', $context));
             unset($data['country']);
         }
         if (\array_key_exists('nationality', $data) && $data['nationality'] !== null) {
             $value_1 = $data['nationality'];
             if (is_array($data['nationality'])) {
-                $value_1 = $this->denormalizer->denormalize($data['nationality'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Country', 'json', $context);
+                $value_1 = $this->denormalizer->denormalize($data['nationality'], 'Jane\Component\OpenApi3\Tests\Expected\Model\Country', 'json', $context);
             } elseif (is_array($data['nationality']) && $this->isOnlyNumericKeys($data['nationality'])) {
-                $values = array();
+                $values = [];
                 foreach ($data['nationality'] as $value_2) {
-                    $values[] = $this->denormalizer->denormalize($value_2, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Country', 'json', $context);
+                    $values[] = $this->denormalizer->denormalize($value_2, 'Jane\Component\OpenApi3\Tests\Expected\Model\Country', 'json', $context);
                 }
                 $value_1 = $values;
             }
@@ -95,9 +95,9 @@ class AccountNormalizer implements DenormalizerInterface, NormalizerInterface, D
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('firstname') && null !== $object->getFirstname()) {
             $data['firstname'] = $object->getFirstname();
         }
@@ -107,21 +107,21 @@ class AccountNormalizer implements DenormalizerInterface, NormalizerInterface, D
         if ($object->isInitialized('countryOfBirth') && null !== $object->getCountryOfBirth()) {
             $value = $object->getCountryOfBirth();
             if (is_object($object->getCountryOfBirth())) {
-                $value = $this->normalizer->normalize($object->getCountryOfBirth(), 'json', $context);
+                $value = ($object->getCountryOfBirth() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCountryOfBirth(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['countryOfBirth'] = $value;
         }
         if ($object->isInitialized('country') && null !== $object->getCountry()) {
-            $data['country'] = $this->normalizer->normalize($object->getCountry(), 'json', $context);
+            $data['country'] = ($object->getCountry() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCountry(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('nationality') && null !== $object->getNationality()) {
             $value_1 = $object->getNationality();
             if (is_object($object->getNationality())) {
-                $value_1 = $this->normalizer->normalize($object->getNationality(), 'json', $context);
+                $value_1 = ($object->getNationality() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getNationality(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             } elseif (is_array($object->getNationality())) {
-                $values = array();
+                $values = [];
                 foreach ($object->getNationality() as $value_2) {
-                    $values[] = $this->normalizer->normalize($value_2, 'json', $context);
+                    $values[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
                 }
                 $value_1 = $values;
             }
@@ -134,8 +134,8 @@ class AccountNormalizer implements DenormalizerInterface, NormalizerInterface, D
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Account' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\Account' => false];
     }
 }

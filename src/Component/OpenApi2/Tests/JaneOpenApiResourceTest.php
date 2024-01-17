@@ -74,7 +74,7 @@ class JaneOpenApiResourceTest extends TestCase
         }
     }
 
-    public function resourceProvider(): array
+    public static function resourceProvider(): array
     {
         $finder = new Finder();
         $finder->directories()->in(__DIR__ . '/fixtures');

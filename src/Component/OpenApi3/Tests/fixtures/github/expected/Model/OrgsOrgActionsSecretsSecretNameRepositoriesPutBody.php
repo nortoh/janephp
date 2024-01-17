@@ -7,8 +7,8 @@ class OrgsOrgActionsSecretsSecretNameRepositoriesPutBody extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class OrgsOrgActionsSecretsSecretNameRepositoriesPutBody extends \ArrayObject
      *
      * @return int[]
      */
-    public function getSelectedRepositoryIds() : array
+    public function getSelectedRepositoryIds(): array
     {
         return $this->selectedRepositoryIds;
     }
@@ -34,7 +34,7 @@ class OrgsOrgActionsSecretsSecretNameRepositoriesPutBody extends \ArrayObject
      *
      * @return self
      */
-    public function setSelectedRepositoryIds(array $selectedRepositoryIds) : self
+    public function setSelectedRepositoryIds(array $selectedRepositoryIds): self
     {
         $this->initialized['selectedRepositoryIds'] = true;
         $this->selectedRepositoryIds = $selectedRepositoryIds;

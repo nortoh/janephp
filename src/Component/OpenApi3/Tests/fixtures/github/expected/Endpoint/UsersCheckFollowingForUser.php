@@ -18,17 +18,17 @@ class UsersCheckFollowingForUser extends \Github\Runtime\Client\BaseEndpoint imp
         $this->target_user = $targetUser;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{username}', '{target_user}'), array($this->username, $this->target_user), '/users/{username}/following/{target_user}');
+        return str_replace(['{username}', '{target_user}'], [$this->username, $this->target_user], '/users/{username}/following/{target_user}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     /**
      * {@inheritdoc}
@@ -48,8 +48,8 @@ class UsersCheckFollowingForUser extends \Github\Runtime\Client\BaseEndpoint imp
             throw new \Github\Exception\UsersCheckFollowingForUserNotFoundException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

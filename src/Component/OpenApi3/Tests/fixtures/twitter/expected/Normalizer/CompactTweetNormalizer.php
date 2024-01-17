@@ -18,18 +18,18 @@ class CompactTweetNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\CompactTweet';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\CompactTweet';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\CompactTweet';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\CompactTweet';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -50,7 +50,7 @@ class CompactTweetNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['id']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('text', $data)) {
@@ -66,19 +66,19 @@ class CompactTweetNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['in_reply_to_user_id']);
         }
         if (\array_key_exists('referenced_tweets', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['referenced_tweets'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\CompactTweetFieldsReferencedTweetsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Jane\Component\OpenApi3\Tests\Expected\Model\CompactTweetFieldsReferencedTweetsItem', 'json', $context);
             }
             $object->setReferencedTweets($values);
             unset($data['referenced_tweets']);
         }
         if (\array_key_exists('attachments', $data)) {
-            $object->setAttachments($this->denormalizer->denormalize($data['attachments'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\CompactTweetFieldsAttachments', 'json', $context));
+            $object->setAttachments($this->denormalizer->denormalize($data['attachments'], 'Jane\Component\OpenApi3\Tests\Expected\Model\CompactTweetFieldsAttachments', 'json', $context));
             unset($data['attachments']);
         }
         if (\array_key_exists('withheld', $data)) {
-            $object->setWithheld($this->denormalizer->denormalize($data['withheld'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\TweetWithheld', 'json', $context));
+            $object->setWithheld($this->denormalizer->denormalize($data['withheld'], 'Jane\Component\OpenApi3\Tests\Expected\Model\TweetWithheld', 'json', $context));
             unset($data['withheld']);
         }
         foreach ($data as $key => $value_1) {
@@ -91,31 +91,31 @@ class CompactTweetNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('format') && null !== $object->getFormat()) {
             $data['format'] = $object->getFormat();
         }
         $data['id'] = $object->getId();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         $data['text'] = $object->getText();
         $data['author_id'] = $object->getAuthorId();
         if ($object->isInitialized('inReplyToUserId') && null !== $object->getInReplyToUserId()) {
             $data['in_reply_to_user_id'] = $object->getInReplyToUserId();
         }
         if ($object->isInitialized('referencedTweets') && null !== $object->getReferencedTweets()) {
-            $values = array();
+            $values = [];
             foreach ($object->getReferencedTweets() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['referenced_tweets'] = $values;
         }
         if ($object->isInitialized('attachments') && null !== $object->getAttachments()) {
-            $data['attachments'] = $this->normalizer->normalize($object->getAttachments(), 'json', $context);
+            $data['attachments'] = ($object->getAttachments() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAttachments(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('withheld') && null !== $object->getWithheld()) {
-            $data['withheld'] = $this->normalizer->normalize($object->getWithheld(), 'json', $context);
+            $data['withheld'] = ($object->getWithheld() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getWithheld(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -124,8 +124,8 @@ class CompactTweetNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\CompactTweet' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\CompactTweet' => false];
     }
 }

@@ -18,18 +18,18 @@ class BusinessProcessDefinitionCreateExceptionNormalizer implements Denormalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessProcessDefinitionCreateException';
+        return $type === 'PicturePark\API\Model\BusinessProcessDefinitionCreateException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessProcessDefinitionCreateException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessProcessDefinitionCreateException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -96,7 +96,7 @@ class BusinessProcessDefinitionCreateExceptionNormalizer implements Denormalizer
             $object->setUserId(null);
         }
         if (\array_key_exists('processDefinitionIds', $data) && $data['processDefinitionIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['processDefinitionIds'] as $value) {
                 $values[] = $value;
             }
@@ -116,9 +116,9 @@ class BusinessProcessDefinitionCreateExceptionNormalizer implements Denormalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -145,7 +145,7 @@ class BusinessProcessDefinitionCreateExceptionNormalizer implements Denormalizer
             $data['userId'] = $object->getUserId();
         }
         if ($object->isInitialized('processDefinitionIds') && null !== $object->getProcessDefinitionIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getProcessDefinitionIds() as $value) {
                 $values[] = $value;
             }
@@ -158,8 +158,8 @@ class BusinessProcessDefinitionCreateExceptionNormalizer implements Denormalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessProcessDefinitionCreateException' => false);
+        return ['PicturePark\API\Model\BusinessProcessDefinitionCreateException' => false];
     }
 }

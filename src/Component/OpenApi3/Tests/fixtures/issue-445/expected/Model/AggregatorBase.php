@@ -7,8 +7,8 @@ class AggregatorBase
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -47,7 +47,7 @@ class AggregatorBase
      *
      * @return string
      */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -85,7 +85,7 @@ class AggregatorBase
      *
      * @return AggregatorBase[]|null
      */
-    public function getAggregators() : ?array
+    public function getAggregators(): ?array
     {
         return $this->aggregators;
     }
@@ -123,7 +123,7 @@ class AggregatorBase
      *
      * @return string
      */
-    public function getKind() : string
+    public function getKind(): string
     {
         return $this->kind;
     }

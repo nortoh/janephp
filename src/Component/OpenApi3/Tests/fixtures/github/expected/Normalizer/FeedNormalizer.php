@@ -18,18 +18,18 @@ class FeedNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Feed';
+        return $type === 'Github\Model\Feed';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Feed';
+        return is_object($data) && get_class($data) === 'Github\Model\Feed';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -69,7 +69,7 @@ class FeedNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             unset($data['current_user_organization_url']);
         }
         if (\array_key_exists('current_user_organization_urls', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['current_user_organization_urls'] as $value) {
                 $values[] = $value;
             }
@@ -81,7 +81,7 @@ class FeedNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             unset($data['security_advisories_url']);
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\\Model\\FeedLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\Model\FeedLinks', 'json', $context));
             unset($data['_links']);
         }
         foreach ($data as $key => $value_1) {
@@ -94,9 +94,9 @@ class FeedNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['timeline_url'] = $object->getTimelineUrl();
         $data['user_url'] = $object->getUserUrl();
         if ($object->isInitialized('currentUserPublicUrl') && null !== $object->getCurrentUserPublicUrl()) {
@@ -112,7 +112,7 @@ class FeedNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             $data['current_user_organization_url'] = $object->getCurrentUserOrganizationUrl();
         }
         if ($object->isInitialized('currentUserOrganizationUrls') && null !== $object->getCurrentUserOrganizationUrls()) {
-            $values = array();
+            $values = [];
             foreach ($object->getCurrentUserOrganizationUrls() as $value) {
                 $values[] = $value;
             }
@@ -121,7 +121,7 @@ class FeedNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         if ($object->isInitialized('securityAdvisoriesUrl') && null !== $object->getSecurityAdvisoriesUrl()) {
             $data['security_advisories_url'] = $object->getSecurityAdvisoriesUrl();
         }
-        $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+        $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value_1;
@@ -132,8 +132,8 @@ class FeedNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Feed' => false);
+        return ['Github\Model\Feed' => false];
     }
 }

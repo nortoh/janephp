@@ -18,18 +18,18 @@ class ReposOwnerRepoKeysPostBodyNormalizer implements DenormalizerInterface, Nor
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoKeysPostBody';
+        return $type === 'Github\Model\ReposOwnerRepoKeysPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoKeysPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoKeysPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -66,9 +66,9 @@ class ReposOwnerRepoKeysPostBodyNormalizer implements DenormalizerInterface, Nor
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('title') && null !== $object->getTitle()) {
             $data['title'] = $object->getTitle();
         }
@@ -86,8 +86,8 @@ class ReposOwnerRepoKeysPostBodyNormalizer implements DenormalizerInterface, Nor
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoKeysPostBody' => false);
+        return ['Github\Model\ReposOwnerRepoKeysPostBody' => false];
     }
 }

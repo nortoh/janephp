@@ -18,18 +18,18 @@ class TopBooksGetLdjsonResponse200Normalizer implements DenormalizerInterface, N
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'ApiPlatform\\Demo\\Model\\TopBooksGetLdjsonResponse200';
+        return $type === 'ApiPlatform\Demo\Model\TopBooksGetLdjsonResponse200';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'ApiPlatform\\Demo\\Model\\TopBooksGetLdjsonResponse200';
+        return is_object($data) && get_class($data) === 'ApiPlatform\Demo\Model\TopBooksGetLdjsonResponse200';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,9 +42,9 @@ class TopBooksGetLdjsonResponse200Normalizer implements DenormalizerInterface, N
             return $object;
         }
         if (\array_key_exists('hydra:member', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['hydra:member'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'ApiPlatform\\Demo\\Model\\TopBookJsonld', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'ApiPlatform\Demo\Model\TopBookJsonld', 'json', $context);
             }
             $object->setHydraMember($values);
             unset($data['hydra:member']);
@@ -54,11 +54,11 @@ class TopBooksGetLdjsonResponse200Normalizer implements DenormalizerInterface, N
             unset($data['hydra:totalItems']);
         }
         if (\array_key_exists('hydra:view', $data)) {
-            $object->setHydraView($this->denormalizer->denormalize($data['hydra:view'], 'ApiPlatform\\Demo\\Model\\TopBooksGetLdjsonResponse200HydraView', 'json', $context));
+            $object->setHydraView($this->denormalizer->denormalize($data['hydra:view'], 'ApiPlatform\Demo\Model\TopBooksGetLdjsonResponse200HydraView', 'json', $context));
             unset($data['hydra:view']);
         }
         if (\array_key_exists('hydra:search', $data)) {
-            $object->setHydraSearch($this->denormalizer->denormalize($data['hydra:search'], 'ApiPlatform\\Demo\\Model\\TopBooksGetLdjsonResponse200HydraSearch', 'json', $context));
+            $object->setHydraSearch($this->denormalizer->denormalize($data['hydra:search'], 'ApiPlatform\Demo\Model\TopBooksGetLdjsonResponse200HydraSearch', 'json', $context));
             unset($data['hydra:search']);
         }
         foreach ($data as $key => $value_1) {
@@ -71,22 +71,22 @@ class TopBooksGetLdjsonResponse200Normalizer implements DenormalizerInterface, N
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $values = array();
+        $data = [];
+        $values = [];
         foreach ($object->getHydraMember() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['hydra:member'] = $values;
         if ($object->isInitialized('hydraTotalItems') && null !== $object->getHydraTotalItems()) {
             $data['hydra:totalItems'] = $object->getHydraTotalItems();
         }
         if ($object->isInitialized('hydraView') && null !== $object->getHydraView()) {
-            $data['hydra:view'] = $this->normalizer->normalize($object->getHydraView(), 'json', $context);
+            $data['hydra:view'] = ($object->getHydraView() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getHydraView(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('hydraSearch') && null !== $object->getHydraSearch()) {
-            $data['hydra:search'] = $this->normalizer->normalize($object->getHydraSearch(), 'json', $context);
+            $data['hydra:search'] = ($object->getHydraSearch() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getHydraSearch(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -95,8 +95,8 @@ class TopBooksGetLdjsonResponse200Normalizer implements DenormalizerInterface, N
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('ApiPlatform\\Demo\\Model\\TopBooksGetLdjsonResponse200' => false);
+        return ['ApiPlatform\Demo\Model\TopBooksGetLdjsonResponse200' => false];
     }
 }

@@ -14,20 +14,20 @@ class TestMixedRequestBody extends \Jane\Component\OpenApi3\Tests\Expected\Runti
         $this->body = $requestBody;
     }
     use \Jane\Component\OpenApi3\Tests\Expected\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/test-simple';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if (isset($this->body)) {
-            return array(array('Content-Type' => array('application/json')), json_encode($this->body));
+            return [['Content-Type' => ['application/json']], json_encode($this->body)];
         }
-        return array(array(), null);
+        return [[], null];
     }
     /**
      * {@inheritdoc}
@@ -43,8 +43,8 @@ class TestMixedRequestBody extends \Jane\Component\OpenApi3\Tests\Expected\Runti
             return null;
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

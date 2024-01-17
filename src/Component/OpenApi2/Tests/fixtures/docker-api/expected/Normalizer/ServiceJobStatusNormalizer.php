@@ -18,18 +18,18 @@ class ServiceJobStatusNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\ServiceJobStatus';
+        return $type === 'Docker\Api\Model\ServiceJobStatus';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\ServiceJobStatus';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\ServiceJobStatus';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class ServiceJobStatusNormalizer implements DenormalizerInterface, NormalizerInt
             return $object;
         }
         if (\array_key_exists('JobIteration', $data)) {
-            $object->setJobIteration($this->denormalizer->denormalize($data['JobIteration'], 'Docker\\Api\\Model\\ObjectVersion', 'json', $context));
+            $object->setJobIteration($this->denormalizer->denormalize($data['JobIteration'], 'Docker\Api\Model\ObjectVersion', 'json', $context));
         }
         if (\array_key_exists('LastExecution', $data)) {
             $object->setLastExecution($data['LastExecution']);
@@ -55,11 +55,11 @@ class ServiceJobStatusNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('jobIteration') && null !== $object->getJobIteration()) {
-            $data['JobIteration'] = $this->normalizer->normalize($object->getJobIteration(), 'json', $context);
+            $data['JobIteration'] = ($object->getJobIteration() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getJobIteration(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('lastExecution') && null !== $object->getLastExecution()) {
             $data['LastExecution'] = $object->getLastExecution();
@@ -69,8 +69,8 @@ class ServiceJobStatusNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\ServiceJobStatus' => false);
+        return ['Docker\Api\Model\ServiceJobStatus' => false];
     }
 }

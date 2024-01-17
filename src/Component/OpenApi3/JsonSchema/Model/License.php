@@ -21,7 +21,7 @@ class License extends \ArrayObject
      *
      * @return string|null
      */
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -32,7 +32,7 @@ class License extends \ArrayObject
      *
      * @return self
      */
-    public function setName(?string $name) : self
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
@@ -42,7 +42,7 @@ class License extends \ArrayObject
      *
      * @return string|null
      */
-    public function getUrl() : ?string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
@@ -53,7 +53,7 @@ class License extends \ArrayObject
      *
      * @return self
      */
-    public function setUrl(?string $url) : self
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
         return $this;

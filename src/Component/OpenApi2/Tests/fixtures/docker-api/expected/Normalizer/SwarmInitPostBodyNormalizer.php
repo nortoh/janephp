@@ -18,18 +18,18 @@ class SwarmInitPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\SwarmInitPostBody';
+        return $type === 'Docker\Api\Model\SwarmInitPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\SwarmInitPostBody';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\SwarmInitPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,7 +57,7 @@ class SwarmInitPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setDataPathPort($data['DataPathPort']);
         }
         if (\array_key_exists('DefaultAddrPool', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['DefaultAddrPool'] as $value) {
                 $values[] = $value;
             }
@@ -70,16 +70,16 @@ class SwarmInitPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
             $object->setSubnetSize($data['SubnetSize']);
         }
         if (\array_key_exists('Spec', $data)) {
-            $object->setSpec($this->denormalizer->denormalize($data['Spec'], 'Docker\\Api\\Model\\SwarmSpec', 'json', $context));
+            $object->setSpec($this->denormalizer->denormalize($data['Spec'], 'Docker\Api\Model\SwarmSpec', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('listenAddr') && null !== $object->getListenAddr()) {
             $data['ListenAddr'] = $object->getListenAddr();
         }
@@ -93,7 +93,7 @@ class SwarmInitPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
             $data['DataPathPort'] = $object->getDataPathPort();
         }
         if ($object->isInitialized('defaultAddrPool') && null !== $object->getDefaultAddrPool()) {
-            $values = array();
+            $values = [];
             foreach ($object->getDefaultAddrPool() as $value) {
                 $values[] = $value;
             }
@@ -106,15 +106,15 @@ class SwarmInitPostBodyNormalizer implements DenormalizerInterface, NormalizerIn
             $data['SubnetSize'] = $object->getSubnetSize();
         }
         if ($object->isInitialized('spec') && null !== $object->getSpec()) {
-            $data['Spec'] = $this->normalizer->normalize($object->getSpec(), 'json', $context);
+            $data['Spec'] = ($object->getSpec() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSpec(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Docker\Api\Validator\SwarmInitPostBodyConstraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\SwarmInitPostBody' => false);
+        return ['Docker\Api\Model\SwarmInitPostBody' => false];
     }
 }

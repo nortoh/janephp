@@ -27,7 +27,7 @@ class Contact extends \ArrayObject
      *
      * @return string|null
      */
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -38,7 +38,7 @@ class Contact extends \ArrayObject
      *
      * @return self
      */
-    public function setName(?string $name) : self
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
@@ -48,7 +48,7 @@ class Contact extends \ArrayObject
      *
      * @return string|null
      */
-    public function getUrl() : ?string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
@@ -59,7 +59,7 @@ class Contact extends \ArrayObject
      *
      * @return self
      */
-    public function setUrl(?string $url) : self
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
         return $this;
@@ -69,7 +69,7 @@ class Contact extends \ArrayObject
      *
      * @return string|null
      */
-    public function getEmail() : ?string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -80,7 +80,7 @@ class Contact extends \ArrayObject
      *
      * @return self
      */
-    public function setEmail(?string $email) : self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
         return $this;

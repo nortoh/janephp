@@ -18,18 +18,18 @@ class OrgsOrgActionsRunnersGetResponse200Normalizer implements DenormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\OrgsOrgActionsRunnersGetResponse200';
+        return $type === 'Github\Model\OrgsOrgActionsRunnersGetResponse200';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\OrgsOrgActionsRunnersGetResponse200';
+        return is_object($data) && get_class($data) === 'Github\Model\OrgsOrgActionsRunnersGetResponse200';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,9 +49,9 @@ class OrgsOrgActionsRunnersGetResponse200Normalizer implements DenormalizerInter
             unset($data['total_count']);
         }
         if (\array_key_exists('runners', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['runners'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\Runner', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\Runner', 'json', $context);
             }
             $object->setRunners($values);
             unset($data['runners']);
@@ -66,16 +66,16 @@ class OrgsOrgActionsRunnersGetResponse200Normalizer implements DenormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('totalCount') && null !== $object->getTotalCount()) {
             $data['total_count'] = $object->getTotalCount();
         }
         if ($object->isInitialized('runners') && null !== $object->getRunners()) {
-            $values = array();
+            $values = [];
             foreach ($object->getRunners() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['runners'] = $values;
         }
@@ -89,8 +89,8 @@ class OrgsOrgActionsRunnersGetResponse200Normalizer implements DenormalizerInter
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\OrgsOrgActionsRunnersGetResponse200' => false);
+        return ['Github\Model\OrgsOrgActionsRunnersGetResponse200' => false];
     }
 }

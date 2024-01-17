@@ -7,8 +7,8 @@ class Test
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class Test
      *
      * @return null|Id
      */
-    public function getId() : ?Id
+    public function getId(): ?Id
     {
         return $this->id;
     }
@@ -34,7 +34,7 @@ class Test
      *
      * @return self
      */
-    public function setId(?Id $id) : self
+    public function setId(?Id $id): self
     {
         $this->initialized['id'] = true;
         $this->id = $id;

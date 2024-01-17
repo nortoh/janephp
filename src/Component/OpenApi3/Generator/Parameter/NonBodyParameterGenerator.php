@@ -10,6 +10,7 @@ use Jane\Component\OpenApi3\JsonSchema\Model\Schema;
 use Jane\Component\OpenApiCommon\Generator\Parameter\ParameterGenerator;
 use Jane\Component\OpenApiCommon\Generator\Traits\OptionResolverNormalizationTrait;
 use PhpParser\Node;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
@@ -72,7 +73,7 @@ class NonBodyParameterGenerator extends ParameterGenerator
             }
 
             if (!\array_key_exists($parameterName, $defined)) {
-                $defined[$parameterName] = new Expr\ArrayItem(new Scalar\String_($parameterName));
+                $defined[$parameterName] = new ArrayItem(new Scalar\String_($parameterName));
             }
 
             $schema = $parameter->getSchema();
@@ -82,7 +83,7 @@ class NonBodyParameterGenerator extends ParameterGenerator
             }
 
             if ($parameter->getRequired() && (null !== $schema && null === $schema->getDefault())) {
-                $required[] = new Expr\ArrayItem(new Scalar\String_($parameterName));
+                $required[] = new ArrayItem(new Scalar\String_($parameterName));
             }
 
             $matchGenericResolver = null;
@@ -94,11 +95,11 @@ class NonBodyParameterGenerator extends ParameterGenerator
                         $matchGenericResolver = $typeString;
                     }
 
-                    $types[] = new Expr\ArrayItem(new Scalar\String_($typeString));
+                    $types[] = new ArrayItem(new Scalar\String_($typeString));
                 }
 
                 if ($schema->getNullable()) {
-                    $types[] = new Expr\ArrayItem(new Scalar\String_('null'));
+                    $types[] = new ArrayItem(new Scalar\String_('null'));
                 }
 
                 $allowedTypes[] = new Stmt\Expression(new Expr\MethodCall($optionsResolverVariable, 'addAllowedTypes', [
@@ -108,7 +109,7 @@ class NonBodyParameterGenerator extends ParameterGenerator
             }
 
             if (!$parameter->getRequired() && null !== $schema && null !== $schema->getDefault()) {
-                $defaults[] = new Expr\ArrayItem($this->getDefaultAsExpr($parameter), new Scalar\String_($parameterName));
+                $defaults[] = new ArrayItem($this->getDefaultAsExpr($parameter), new Scalar\String_($parameterName));
             }
 
             if (null !== $matchGenericResolver) {

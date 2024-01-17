@@ -18,18 +18,18 @@ class DeviceRequestNormalizer implements DenormalizerInterface, NormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\DeviceRequest';
+        return $type === 'Docker\Api\Model\DeviceRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\DeviceRequest';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\DeviceRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -51,16 +51,16 @@ class DeviceRequestNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setCount($data['Count']);
         }
         if (\array_key_exists('DeviceIDs', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['DeviceIDs'] as $value) {
                 $values[] = $value;
             }
             $object->setDeviceIDs($values);
         }
         if (\array_key_exists('Capabilities', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['Capabilities'] as $value_1) {
-                $values_2 = array();
+                $values_2 = [];
                 foreach ($value_1 as $value_2) {
                     $values_2[] = $value_2;
                 }
@@ -69,7 +69,7 @@ class DeviceRequestNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setCapabilities($values_1);
         }
         if (\array_key_exists('Options', $data)) {
-            $values_3 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_3 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['Options'] as $key => $value_3) {
                 $values_3[$key] = $value_3;
             }
@@ -80,9 +80,9 @@ class DeviceRequestNormalizer implements DenormalizerInterface, NormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('driver') && null !== $object->getDriver()) {
             $data['Driver'] = $object->getDriver();
         }
@@ -90,16 +90,16 @@ class DeviceRequestNormalizer implements DenormalizerInterface, NormalizerInterf
             $data['Count'] = $object->getCount();
         }
         if ($object->isInitialized('deviceIDs') && null !== $object->getDeviceIDs()) {
-            $values = array();
+            $values = [];
             foreach ($object->getDeviceIDs() as $value) {
                 $values[] = $value;
             }
             $data['DeviceIDs'] = $values;
         }
         if ($object->isInitialized('capabilities') && null !== $object->getCapabilities()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getCapabilities() as $value_1) {
-                $values_2 = array();
+                $values_2 = [];
                 foreach ($value_1 as $value_2) {
                     $values_2[] = $value_2;
                 }
@@ -108,7 +108,7 @@ class DeviceRequestNormalizer implements DenormalizerInterface, NormalizerInterf
             $data['Capabilities'] = $values_1;
         }
         if ($object->isInitialized('options') && null !== $object->getOptions()) {
-            $values_3 = array();
+            $values_3 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getOptions() as $key => $value_3) {
                 $values_3[$key] = $value_3;
             }
@@ -119,8 +119,8 @@ class DeviceRequestNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\DeviceRequest' => false);
+        return ['Docker\Api\Model\DeviceRequest' => false];
     }
 }

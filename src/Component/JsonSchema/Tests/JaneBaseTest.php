@@ -56,7 +56,7 @@ class JaneBaseTest extends TestCase
         }
     }
 
-    public function schemaProvider(): array
+    public static function schemaProvider(): array
     {
         $finder = new Finder();
         $finder->directories()->in(__DIR__ . '/fixtures');

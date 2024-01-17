@@ -18,18 +18,18 @@ class NotificationsPutBodyNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\NotificationsPutBody';
+        return $type === 'Github\Model\NotificationsPutBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\NotificationsPutBody';
+        return is_object($data) && get_class($data) === 'Github\Model\NotificationsPutBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class NotificationsPutBodyNormalizer implements DenormalizerInterface, Normalize
             return $object;
         }
         if (\array_key_exists('last_read_at', $data)) {
-            $object->setLastReadAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['last_read_at']));
+            $object->setLastReadAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['last_read_at']));
             unset($data['last_read_at']);
         }
         if (\array_key_exists('read', $data)) {
@@ -62,11 +62,11 @@ class NotificationsPutBodyNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('lastReadAt') && null !== $object->getLastReadAt()) {
-            $data['last_read_at'] = $object->getLastReadAt()->format('Y-m-d\\TH:i:sP');
+            $data['last_read_at'] = $object->getLastReadAt()->format('Y-m-d\TH:i:sP');
         }
         if ($object->isInitialized('read') && null !== $object->getRead()) {
             $data['read'] = $object->getRead();
@@ -81,8 +81,8 @@ class NotificationsPutBodyNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\NotificationsPutBody' => false);
+        return ['Github\Model\NotificationsPutBody' => false];
     }
 }

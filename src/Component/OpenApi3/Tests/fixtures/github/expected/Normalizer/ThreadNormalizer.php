@@ -18,18 +18,18 @@ class ThreadNormalizer implements DenormalizerInterface, NormalizerInterface, De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Thread';
+        return $type === 'Github\Model\Thread';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Thread';
+        return is_object($data) && get_class($data) === 'Github\Model\Thread';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,11 +49,11 @@ class ThreadNormalizer implements DenormalizerInterface, NormalizerInterface, De
             unset($data['id']);
         }
         if (\array_key_exists('repository', $data)) {
-            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\\Model\\MinimalRepository', 'json', $context));
+            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\Model\MinimalRepository', 'json', $context));
             unset($data['repository']);
         }
         if (\array_key_exists('subject', $data)) {
-            $object->setSubject($this->denormalizer->denormalize($data['subject'], 'Github\\Model\\ThreadSubject', 'json', $context));
+            $object->setSubject($this->denormalizer->denormalize($data['subject'], 'Github\Model\ThreadSubject', 'json', $context));
             unset($data['subject']);
         }
         if (\array_key_exists('reason', $data)) {
@@ -93,17 +93,17 @@ class ThreadNormalizer implements DenormalizerInterface, NormalizerInterface, De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
         if ($object->isInitialized('repository') && null !== $object->getRepository()) {
-            $data['repository'] = $this->normalizer->normalize($object->getRepository(), 'json', $context);
+            $data['repository'] = ($object->getRepository() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRepository(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('subject') && null !== $object->getSubject()) {
-            $data['subject'] = $this->normalizer->normalize($object->getSubject(), 'json', $context);
+            $data['subject'] = ($object->getSubject() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getSubject(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('reason') && null !== $object->getReason()) {
             $data['reason'] = $object->getReason();
@@ -133,8 +133,8 @@ class ThreadNormalizer implements DenormalizerInterface, NormalizerInterface, De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Thread' => false);
+        return ['Github\Model\Thread' => false];
     }
 }

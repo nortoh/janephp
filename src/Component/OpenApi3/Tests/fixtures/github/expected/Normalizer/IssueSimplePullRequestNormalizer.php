@@ -18,18 +18,18 @@ class IssueSimplePullRequestNormalizer implements DenormalizerInterface, Normali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\IssueSimplePullRequest';
+        return $type === 'Github\Model\IssueSimplePullRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\IssueSimplePullRequest';
+        return is_object($data) && get_class($data) === 'Github\Model\IssueSimplePullRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class IssueSimplePullRequestNormalizer implements DenormalizerInterface, Normali
             return $object;
         }
         if (\array_key_exists('merged_at', $data) && $data['merged_at'] !== null) {
-            $object->setMergedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['merged_at']));
+            $object->setMergedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['merged_at']));
             unset($data['merged_at']);
         }
         elseif (\array_key_exists('merged_at', $data) && $data['merged_at'] === null) {
@@ -89,11 +89,11 @@ class IssueSimplePullRequestNormalizer implements DenormalizerInterface, Normali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('mergedAt') && null !== $object->getMergedAt()) {
-            $data['merged_at'] = $object->getMergedAt()->format('Y-m-d\\TH:i:sP');
+            $data['merged_at'] = $object->getMergedAt()->format('Y-m-d\TH:i:sP');
         }
         $data['diff_url'] = $object->getDiffUrl();
         $data['html_url'] = $object->getHtmlUrl();
@@ -109,8 +109,8 @@ class IssueSimplePullRequestNormalizer implements DenormalizerInterface, Normali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\IssueSimplePullRequest' => false);
+        return ['Github\Model\IssueSimplePullRequest' => false];
     }
 }

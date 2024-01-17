@@ -18,18 +18,18 @@ class JobNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Job';
+        return $type === 'Github\Model\Job';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Job';
+        return is_object($data) && get_class($data) === 'Github\Model\Job';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -87,11 +87,11 @@ class JobNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
             $object->setConclusion(null);
         }
         if (\array_key_exists('started_at', $data)) {
-            $object->setStartedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['started_at']));
+            $object->setStartedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['started_at']));
             unset($data['started_at']);
         }
         if (\array_key_exists('completed_at', $data) && $data['completed_at'] !== null) {
-            $object->setCompletedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['completed_at']));
+            $object->setCompletedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['completed_at']));
             unset($data['completed_at']);
         }
         elseif (\array_key_exists('completed_at', $data) && $data['completed_at'] === null) {
@@ -102,9 +102,9 @@ class JobNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
             unset($data['name']);
         }
         if (\array_key_exists('steps', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['steps'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\JobStepsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\JobStepsItem', 'json', $context);
             }
             $object->setSteps($values);
             unset($data['steps']);
@@ -123,9 +123,9 @@ class JobNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['run_id'] = $object->getRunId();
         $data['run_url'] = $object->getRunUrl();
@@ -135,13 +135,13 @@ class JobNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
         $data['html_url'] = $object->getHtmlUrl();
         $data['status'] = $object->getStatus();
         $data['conclusion'] = $object->getConclusion();
-        $data['started_at'] = $object->getStartedAt()->format('Y-m-d\\TH:i:sP');
-        $data['completed_at'] = $object->getCompletedAt()->format('Y-m-d\\TH:i:sP');
+        $data['started_at'] = $object->getStartedAt()->format('Y-m-d\TH:i:sP');
+        $data['completed_at'] = $object->getCompletedAt()->format('Y-m-d\TH:i:sP');
         $data['name'] = $object->getName();
         if ($object->isInitialized('steps') && null !== $object->getSteps()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSteps() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['steps'] = $values;
         }
@@ -156,8 +156,8 @@ class JobNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Job' => false);
+        return ['Github\Model\Job' => false];
     }
 }

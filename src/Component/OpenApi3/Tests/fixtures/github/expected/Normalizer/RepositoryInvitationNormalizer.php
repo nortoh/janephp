@@ -18,18 +18,18 @@ class RepositoryInvitationNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\RepositoryInvitation';
+        return $type === 'Github\Model\RepositoryInvitation';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\RepositoryInvitation';
+        return is_object($data) && get_class($data) === 'Github\Model\RepositoryInvitation';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,18 +49,18 @@ class RepositoryInvitationNormalizer implements DenormalizerInterface, Normalize
             unset($data['id']);
         }
         if (\array_key_exists('repository', $data)) {
-            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\\Model\\MinimalRepository', 'json', $context));
+            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\Model\MinimalRepository', 'json', $context));
             unset($data['repository']);
         }
         if (\array_key_exists('invitee', $data) && $data['invitee'] !== null) {
-            $object->setInvitee($this->denormalizer->denormalize($data['invitee'], 'Github\\Model\\RepositoryInvitationInvitee', 'json', $context));
+            $object->setInvitee($this->denormalizer->denormalize($data['invitee'], 'Github\Model\RepositoryInvitationInvitee', 'json', $context));
             unset($data['invitee']);
         }
         elseif (\array_key_exists('invitee', $data) && $data['invitee'] === null) {
             $object->setInvitee(null);
         }
         if (\array_key_exists('inviter', $data) && $data['inviter'] !== null) {
-            $object->setInviter($this->denormalizer->denormalize($data['inviter'], 'Github\\Model\\RepositoryInvitationInviter', 'json', $context));
+            $object->setInviter($this->denormalizer->denormalize($data['inviter'], 'Github\Model\RepositoryInvitationInviter', 'json', $context));
             unset($data['inviter']);
         }
         elseif (\array_key_exists('inviter', $data) && $data['inviter'] === null) {
@@ -71,7 +71,7 @@ class RepositoryInvitationNormalizer implements DenormalizerInterface, Normalize
             unset($data['permissions']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('url', $data)) {
@@ -96,15 +96,15 @@ class RepositoryInvitationNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
-        $data['repository'] = $this->normalizer->normalize($object->getRepository(), 'json', $context);
-        $data['invitee'] = $this->normalizer->normalize($object->getInvitee(), 'json', $context);
-        $data['inviter'] = $this->normalizer->normalize($object->getInviter(), 'json', $context);
+        $data['repository'] = ($object->getRepository() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRepository(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['invitee'] = ($object->getInvitee() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getInvitee(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['inviter'] = ($object->getInviter() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getInviter(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['permissions'] = $object->getPermissions();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         $data['url'] = $object->getUrl();
         $data['html_url'] = $object->getHtmlUrl();
         $data['node_id'] = $object->getNodeId();
@@ -118,8 +118,8 @@ class RepositoryInvitationNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\RepositoryInvitation' => false);
+        return ['Github\Model\RepositoryInvitation' => false];
     }
 }

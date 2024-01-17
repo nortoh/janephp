@@ -18,18 +18,18 @@ class XmpMappingEntrySearchRequestNormalizer implements DenormalizerInterface, N
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\XmpMappingEntrySearchRequest';
+        return $type === 'PicturePark\API\Model\XmpMappingEntrySearchRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\XmpMappingEntrySearchRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\XmpMappingEntrySearchRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,9 +45,9 @@ class XmpMappingEntrySearchRequestNormalizer implements DenormalizerInterface, N
             $object->setDebugMode($data['debugMode']);
         }
         if (\array_key_exists('aggregationFilters', $data) && $data['aggregationFilters'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['aggregationFilters'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\AggregationFilter', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\AggregationFilter', 'json', $context);
             }
             $object->setAggregationFilters($values);
         }
@@ -55,9 +55,9 @@ class XmpMappingEntrySearchRequestNormalizer implements DenormalizerInterface, N
             $object->setAggregationFilters(null);
         }
         if (\array_key_exists('aggregators', $data) && $data['aggregators'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['aggregators'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\AggregatorBase', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\AggregatorBase', 'json', $context);
             }
             $object->setAggregators($values_1);
         }
@@ -86,7 +86,7 @@ class XmpMappingEntrySearchRequestNormalizer implements DenormalizerInterface, N
             $object->setSearchString(null);
         }
         if (\array_key_exists('searchBehaviors', $data) && $data['searchBehaviors'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['searchBehaviors'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -96,9 +96,9 @@ class XmpMappingEntrySearchRequestNormalizer implements DenormalizerInterface, N
             $object->setSearchBehaviors(null);
         }
         if (\array_key_exists('sort', $data) && $data['sort'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['sort'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\\API\\Model\\SortInfo', 'json', $context);
+                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\API\Model\SortInfo', 'json', $context);
             }
             $object->setSort($values_3);
         }
@@ -110,21 +110,21 @@ class XmpMappingEntrySearchRequestNormalizer implements DenormalizerInterface, N
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['debugMode'] = $object->getDebugMode();
         if ($object->isInitialized('aggregationFilters') && null !== $object->getAggregationFilters()) {
-            $values = array();
+            $values = [];
             foreach ($object->getAggregationFilters() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregationFilters'] = $values;
         }
         if ($object->isInitialized('aggregators') && null !== $object->getAggregators()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAggregators() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregators'] = $values_1;
         }
@@ -139,23 +139,23 @@ class XmpMappingEntrySearchRequestNormalizer implements DenormalizerInterface, N
             $data['searchString'] = $object->getSearchString();
         }
         if ($object->isInitialized('searchBehaviors') && null !== $object->getSearchBehaviors()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getSearchBehaviors() as $value_2) {
                 $values_2[] = $value_2;
             }
             $data['searchBehaviors'] = $values_2;
         }
         if ($object->isInitialized('sort') && null !== $object->getSort()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getSort() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+                $values_3[] = ($value_3 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_3, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['sort'] = $values_3;
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\XmpMappingEntrySearchRequest' => false);
+        return ['PicturePark\API\Model\XmpMappingEntrySearchRequest' => false];
     }
 }

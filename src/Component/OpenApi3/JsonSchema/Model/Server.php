@@ -27,7 +27,7 @@ class Server extends \ArrayObject
      *
      * @return string|null
      */
-    public function getUrl() : ?string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
@@ -38,7 +38,7 @@ class Server extends \ArrayObject
      *
      * @return self
      */
-    public function setUrl(?string $url) : self
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
         return $this;
@@ -48,7 +48,7 @@ class Server extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -59,7 +59,7 @@ class Server extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -69,7 +69,7 @@ class Server extends \ArrayObject
      *
      * @return ServerVariable[]|null
      */
-    public function getVariables() : ?iterable
+    public function getVariables(): ?iterable
     {
         return $this->variables;
     }
@@ -80,7 +80,7 @@ class Server extends \ArrayObject
      *
      * @return self
      */
-    public function setVariables(?iterable $variables) : self
+    public function setVariables(?iterable $variables): self
     {
         $this->variables = $variables;
         return $this;

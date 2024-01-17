@@ -74,7 +74,7 @@ class Components extends \ArrayObject
      *
      * @return self
      */
-    public function setSchemas($schemas) : self
+    public function setSchemas($schemas): self
     {
         $this->schemas = $schemas;
         return $this;
@@ -95,7 +95,7 @@ class Components extends \ArrayObject
      *
      * @return self
      */
-    public function setResponses($responses) : self
+    public function setResponses($responses): self
     {
         $this->responses = $responses;
         return $this;
@@ -116,7 +116,7 @@ class Components extends \ArrayObject
      *
      * @return self
      */
-    public function setParameters($parameters) : self
+    public function setParameters($parameters): self
     {
         $this->parameters = $parameters;
         return $this;
@@ -137,7 +137,7 @@ class Components extends \ArrayObject
      *
      * @return self
      */
-    public function setExamples($examples) : self
+    public function setExamples($examples): self
     {
         $this->examples = $examples;
         return $this;
@@ -158,7 +158,7 @@ class Components extends \ArrayObject
      *
      * @return self
      */
-    public function setRequestBodies($requestBodies) : self
+    public function setRequestBodies($requestBodies): self
     {
         $this->requestBodies = $requestBodies;
         return $this;
@@ -179,7 +179,7 @@ class Components extends \ArrayObject
      *
      * @return self
      */
-    public function setHeaders($headers) : self
+    public function setHeaders($headers): self
     {
         $this->headers = $headers;
         return $this;
@@ -200,7 +200,7 @@ class Components extends \ArrayObject
      *
      * @return self
      */
-    public function setSecuritySchemes($securitySchemes) : self
+    public function setSecuritySchemes($securitySchemes): self
     {
         $this->securitySchemes = $securitySchemes;
         return $this;
@@ -221,7 +221,7 @@ class Components extends \ArrayObject
      *
      * @return self
      */
-    public function setLinks($links) : self
+    public function setLinks($links): self
     {
         $this->links = $links;
         return $this;
@@ -242,7 +242,7 @@ class Components extends \ArrayObject
      *
      * @return self
      */
-    public function setCallbacks($callbacks) : self
+    public function setCallbacks($callbacks): self
     {
         $this->callbacks = $callbacks;
         return $this;

@@ -18,18 +18,18 @@ class GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationN
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformation';
+        return $type === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformation';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformation';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformation';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -62,19 +62,19 @@ class GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationN
             unset($data['companyRegistrationDate']);
         }
         if (\array_key_exists('legalForm', $data)) {
-            $object->setLegalForm($this->denormalizer->denormalize($data['legalForm'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationLegalForm', 'json', $context));
+            $object->setLegalForm($this->denormalizer->denormalize($data['legalForm'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationLegalForm', 'json', $context));
             unset($data['legalForm']);
         }
         if (\array_key_exists('companyStatus', $data)) {
-            $object->setCompanyStatus($this->denormalizer->denormalize($data['companyStatus'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationCompanyStatus', 'json', $context));
+            $object->setCompanyStatus($this->denormalizer->denormalize($data['companyStatus'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationCompanyStatus', 'json', $context));
             unset($data['companyStatus']);
         }
         if (\array_key_exists('principalActivity', $data)) {
-            $object->setPrincipalActivity($this->denormalizer->denormalize($data['principalActivity'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationPrincipalActivity', 'json', $context));
+            $object->setPrincipalActivity($this->denormalizer->denormalize($data['principalActivity'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationPrincipalActivity', 'json', $context));
             unset($data['principalActivity']);
         }
         if (\array_key_exists('contactAddress', $data)) {
-            $object->setContactAddress($this->denormalizer->denormalize($data['contactAddress'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationContactAddress', 'json', $context));
+            $object->setContactAddress($this->denormalizer->denormalize($data['contactAddress'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationContactAddress', 'json', $context));
             unset($data['contactAddress']);
         }
         foreach ($data as $key => $value) {
@@ -87,9 +87,9 @@ class GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationN
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('businessName') && null !== $object->getBusinessName()) {
             $data['businessName'] = $object->getBusinessName();
         }
@@ -106,16 +106,16 @@ class GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationN
             $data['companyRegistrationDate'] = $object->getCompanyRegistrationDate();
         }
         if ($object->isInitialized('legalForm') && null !== $object->getLegalForm()) {
-            $data['legalForm'] = $this->normalizer->normalize($object->getLegalForm(), 'json', $context);
+            $data['legalForm'] = ($object->getLegalForm() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLegalForm(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('companyStatus') && null !== $object->getCompanyStatus()) {
-            $data['companyStatus'] = $this->normalizer->normalize($object->getCompanyStatus(), 'json', $context);
+            $data['companyStatus'] = ($object->getCompanyStatus() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCompanyStatus(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('principalActivity') && null !== $object->getPrincipalActivity()) {
-            $data['principalActivity'] = $this->normalizer->normalize($object->getPrincipalActivity(), 'json', $context);
+            $data['principalActivity'] = ($object->getPrincipalActivity() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPrincipalActivity(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('contactAddress') && null !== $object->getContactAddress()) {
-            $data['contactAddress'] = $this->normalizer->normalize($object->getContactAddress(), 'json', $context);
+            $data['contactAddress'] = ($object->getContactAddress() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getContactAddress(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -124,8 +124,8 @@ class GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationN
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformation' => false);
+        return ['CreditSafe\API\Model\GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformation' => false];
     }
 }

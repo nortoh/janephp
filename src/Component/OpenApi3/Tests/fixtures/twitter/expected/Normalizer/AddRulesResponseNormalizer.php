@@ -18,18 +18,18 @@ class AddRulesResponseNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\AddRulesResponse';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\AddRulesResponse';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\AddRulesResponse';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\AddRulesResponse';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,15 +42,15 @@ class AddRulesResponseNormalizer implements DenormalizerInterface, NormalizerInt
             return $object;
         }
         if (\array_key_exists('data', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Rule', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Jane\Component\OpenApi3\Tests\Expected\Model\Rule', 'json', $context);
             }
             $object->setData($values);
             unset($data['data']);
         }
         if (\array_key_exists('meta', $data)) {
-            $object->setMeta($this->denormalizer->denormalize($data['meta'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\RulesResponseMetadata', 'json', $context));
+            $object->setMeta($this->denormalizer->denormalize($data['meta'], 'Jane\Component\OpenApi3\Tests\Expected\Model\RulesResponseMetadata', 'json', $context));
             unset($data['meta']);
         }
         foreach ($data as $key => $value_1) {
@@ -63,15 +63,15 @@ class AddRulesResponseNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $values = array();
+        $data = [];
+        $values = [];
         foreach ($object->getData() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['data'] = $values;
-        $data['meta'] = $this->normalizer->normalize($object->getMeta(), 'json', $context);
+        $data['meta'] = ($object->getMeta() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMeta(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value_1;
@@ -79,8 +79,8 @@ class AddRulesResponseNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\AddRulesResponse' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\AddRulesResponse' => false];
     }
 }

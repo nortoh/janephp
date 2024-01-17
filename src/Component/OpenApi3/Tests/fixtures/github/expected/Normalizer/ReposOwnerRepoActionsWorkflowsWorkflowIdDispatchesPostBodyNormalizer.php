@@ -18,18 +18,18 @@ class ReposOwnerRepoActionsWorkflowsWorkflowIdDispatchesPostBodyNormalizer imple
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoActionsWorkflowsWorkflowIdDispatchesPostBody';
+        return $type === 'Github\Model\ReposOwnerRepoActionsWorkflowsWorkflowIdDispatchesPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoActionsWorkflowsWorkflowIdDispatchesPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoActionsWorkflowsWorkflowIdDispatchesPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,7 +49,7 @@ class ReposOwnerRepoActionsWorkflowsWorkflowIdDispatchesPostBodyNormalizer imple
             unset($data['ref']);
         }
         if (\array_key_exists('inputs', $data)) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['inputs'] as $key => $value) {
                 $values[$key] = $value;
             }
@@ -66,12 +66,12 @@ class ReposOwnerRepoActionsWorkflowsWorkflowIdDispatchesPostBodyNormalizer imple
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['ref'] = $object->getRef();
         if ($object->isInitialized('inputs') && null !== $object->getInputs()) {
-            $values = array();
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getInputs() as $key => $value) {
                 $values[$key] = $value;
             }
@@ -87,8 +87,8 @@ class ReposOwnerRepoActionsWorkflowsWorkflowIdDispatchesPostBodyNormalizer imple
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoActionsWorkflowsWorkflowIdDispatchesPostBody' => false);
+        return ['Github\Model\ReposOwnerRepoActionsWorkflowsWorkflowIdDispatchesPostBody' => false];
     }
 }

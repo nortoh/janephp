@@ -7,8 +7,8 @@ class ContentPermissionsUpdateRequest
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -25,7 +25,7 @@ class ContentPermissionsUpdateRequest
     *
     * @return string[]|null
     */
-    public function getContentPermissionSetIds() : ?array
+    public function getContentPermissionSetIds(): ?array
     {
         return $this->contentPermissionSetIds;
     }
@@ -37,7 +37,7 @@ class ContentPermissionsUpdateRequest
     *
     * @return self
     */
-    public function setContentPermissionSetIds(?array $contentPermissionSetIds) : self
+    public function setContentPermissionSetIds(?array $contentPermissionSetIds): self
     {
         $this->initialized['contentPermissionSetIds'] = true;
         $this->contentPermissionSetIds = $contentPermissionSetIds;

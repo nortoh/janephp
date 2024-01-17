@@ -15,35 +15,35 @@ class ContainerTop extends \Docker\Api\Runtime\Client\BaseEndpoint implements \D
     *     @var string $ps_args The arguments to pass to `ps`. For example, `aux`
     * }
     */
-    public function __construct(string $id, array $queryParameters = array())
+    public function __construct(string $id, array $queryParameters = [])
     {
         $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/containers/{id}/top');
+        return str_replace(['{id}'], [$this->id], '/containers/{id}/top');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('ps_args'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('ps_args' => '-ef'));
-        $optionsResolver->addAllowedTypes('ps_args', array('string'));
+        $optionsResolver->setDefined(['ps_args']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['ps_args' => '-ef']);
+        $optionsResolver->addAllowedTypes('ps_args', ['string']);
         return $optionsResolver;
     }
     /**
@@ -59,17 +59,17 @@ class ContainerTop extends \Docker\Api\Runtime\Client\BaseEndpoint implements \D
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Docker\\Api\\Model\\ContainersIdTopGetResponse200', 'json');
+            return $serializer->deserialize($body, 'Docker\Api\Model\ContainersIdTopGetResponse200', 'json');
         }
         if (404 === $status) {
-            throw new \Docker\Api\Exception\ContainerTopNotFoundException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ContainerTopNotFoundException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\ContainerTopInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\ContainerTopInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

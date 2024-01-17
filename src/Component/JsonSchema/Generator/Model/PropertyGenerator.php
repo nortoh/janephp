@@ -6,6 +6,8 @@ use Jane\Component\JsonSchema\Generator\Naming;
 use Jane\Component\JsonSchema\Guesser\Guess\Property;
 use Jane\Component\JsonSchema\Guesser\Guess\Type;
 use PhpParser\Comment\Doc;
+use PhpParser\Modifiers;
+use PhpParser\Node\PropertyItem;
 use PhpParser\Node\Stmt;
 use PhpParser\Parser;
 
@@ -24,7 +26,7 @@ trait PropertyGenerator
     protected function createProperty(Property $property, string $namespace, $default = null, bool $strict = true): Stmt
     {
         $propertyName = $property->getPhpName();
-        $propertyStmt = new Stmt\PropertyProperty($propertyName);
+        $propertyStmt = new PropertyItem($propertyName);
 
         if (null === $default) {
             $default = $property->getDefault();
@@ -34,7 +36,7 @@ trait PropertyGenerator
             $propertyStmt->default = $this->getDefaultAsExpr($default)->expr;
         }
 
-        return new Stmt\Property(Stmt\Class_::MODIFIER_PROTECTED, [
+        return new Stmt\Property(Modifiers::PROTECTED, [
             $propertyStmt,
         ], [
             'comments' => [$this->createPropertyDoc($property, $namespace, $strict)],

@@ -20,17 +20,17 @@ class ActionsDeleteSelfHostedRunnerFromOrg extends \Github\Runtime\Client\BaseEn
         $this->runner_id = $runnerId;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'DELETE';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{org}', '{runner_id}'), array($this->org, $this->runner_id), '/orgs/{org}/actions/runners/{runner_id}');
+        return str_replace(['{org}', '{runner_id}'], [$this->org, $this->runner_id], '/orgs/{org}/actions/runners/{runner_id}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     /**
      * {@inheritdoc}
@@ -46,8 +46,8 @@ class ActionsDeleteSelfHostedRunnerFromOrg extends \Github\Runtime\Client\BaseEn
             return null;
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

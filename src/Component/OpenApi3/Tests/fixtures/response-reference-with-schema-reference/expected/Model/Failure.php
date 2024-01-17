@@ -7,8 +7,8 @@ class Failure
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class Failure
      *
      * @return Error[]
      */
-    public function getErrors() : array
+    public function getErrors(): array
     {
         return $this->errors;
     }
@@ -34,7 +34,7 @@ class Failure
      *
      * @return self
      */
-    public function setErrors(array $errors) : self
+    public function setErrors(array $errors): self
     {
         $this->initialized['errors'] = true;
         $this->errors = $errors;

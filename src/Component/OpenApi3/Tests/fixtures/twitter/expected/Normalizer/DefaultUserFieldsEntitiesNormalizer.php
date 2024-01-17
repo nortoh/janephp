@@ -18,18 +18,18 @@ class DefaultUserFieldsEntitiesNormalizer implements DenormalizerInterface, Norm
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultUserFieldsEntities';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\DefaultUserFieldsEntities';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultUserFieldsEntities';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\DefaultUserFieldsEntities';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,11 +42,11 @@ class DefaultUserFieldsEntitiesNormalizer implements DenormalizerInterface, Norm
             return $object;
         }
         if (\array_key_exists('url', $data)) {
-            $object->setUrl($this->denormalizer->denormalize($data['url'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultUserFieldsEntitiesUrl', 'json', $context));
+            $object->setUrl($this->denormalizer->denormalize($data['url'], 'Jane\Component\OpenApi3\Tests\Expected\Model\DefaultUserFieldsEntitiesUrl', 'json', $context));
             unset($data['url']);
         }
         if (\array_key_exists('description', $data)) {
-            $object->setDescription($this->denormalizer->denormalize($data['description'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\FullTextEntities', 'json', $context));
+            $object->setDescription($this->denormalizer->denormalize($data['description'], 'Jane\Component\OpenApi3\Tests\Expected\Model\FullTextEntities', 'json', $context));
             unset($data['description']);
         }
         foreach ($data as $key => $value) {
@@ -59,14 +59,14 @@ class DefaultUserFieldsEntitiesNormalizer implements DenormalizerInterface, Norm
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('url') && null !== $object->getUrl()) {
-            $data['url'] = $this->normalizer->normalize($object->getUrl(), 'json', $context);
+            $data['url'] = ($object->getUrl() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUrl(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('description') && null !== $object->getDescription()) {
-            $data['description'] = $this->normalizer->normalize($object->getDescription(), 'json', $context);
+            $data['description'] = ($object->getDescription() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getDescription(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -75,8 +75,8 @@ class DefaultUserFieldsEntitiesNormalizer implements DenormalizerInterface, Norm
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultUserFieldsEntities' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\DefaultUserFieldsEntities' => false];
     }
 }

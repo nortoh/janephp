@@ -18,18 +18,18 @@ class ContentFilterRequestNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ContentFilterRequest';
+        return $type === 'PicturePark\API\Model\ContentFilterRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ContentFilterRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ContentFilterRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class ContentFilterRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setChannelId(null);
         }
         if (\array_key_exists('searchLanguages', $data) && $data['searchLanguages'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['searchLanguages'] as $value) {
                 $values[] = $value;
             }
@@ -85,7 +85,7 @@ class ContentFilterRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setBrokenDependenciesFilter($data['brokenDependenciesFilter']);
         }
         if (\array_key_exists('rightsFilter', $data) && $data['rightsFilter'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['rightsFilter'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -99,14 +99,14 @@ class ContentFilterRequestNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('channelId') && null !== $object->getChannelId()) {
             $data['channelId'] = $object->getChannelId();
         }
         if ($object->isInitialized('searchLanguages') && null !== $object->getSearchLanguages()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSearchLanguages() as $value) {
                 $values[] = $value;
             }
@@ -125,7 +125,7 @@ class ContentFilterRequestNormalizer implements DenormalizerInterface, Normalize
         $data['lifeCycleFilter'] = $object->getLifeCycleFilter();
         $data['brokenDependenciesFilter'] = $object->getBrokenDependenciesFilter();
         if ($object->isInitialized('rightsFilter') && null !== $object->getRightsFilter()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getRightsFilter() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -133,8 +133,8 @@ class ContentFilterRequestNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ContentFilterRequest' => false);
+        return ['PicturePark\API\Model\ContentFilterRequest' => false];
     }
 }

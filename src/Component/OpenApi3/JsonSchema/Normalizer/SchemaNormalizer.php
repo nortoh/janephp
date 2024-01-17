@@ -18,18 +18,18 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, $context = []) : bool
+    public function supportsDenormalization($data, $type, $format = null, $context = []): bool
     {
         return $type === 'Jane\\Component\\OpenApi3\\JsonSchema\\Model\\Schema';
     }
-    public function supportsNormalization($data, $format = null, $context = []) : bool
+    public function supportsNormalization($data, $format = null, $context = []): bool
     {
         return $data instanceof \Jane\Component\OpenApi3\JsonSchema\Model\Schema;
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -149,7 +149,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setMinProperties(null);
         }
         if (\array_key_exists('required', $data) && $data['required'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['required'] as $value) {
                 $values[] = $value;
             }
@@ -160,7 +160,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setRequired(null);
         }
         if (\array_key_exists('enum', $data) && $data['enum'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['enum'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -191,7 +191,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setNot(null);
         }
         if (\array_key_exists('allOf', $data) && $data['allOf'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['allOf'] as $value_3) {
                 $value_4 = $value_3;
                 if (is_array($value_3) and isset($value_3['$ref'])) {
@@ -208,7 +208,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setAllOf(null);
         }
         if (\array_key_exists('oneOf', $data) && $data['oneOf'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['oneOf'] as $value_5) {
                 $value_6 = $value_5;
                 if (is_array($value_5) and isset($value_5['$ref'])) {
@@ -225,7 +225,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setOneOf(null);
         }
         if (\array_key_exists('anyOf', $data) && $data['anyOf'] !== null) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($data['anyOf'] as $value_7) {
                 $value_8 = $value_7;
                 if (is_array($value_7) and isset($value_7['$ref'])) {
@@ -255,7 +255,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setItems(null);
         }
         if (\array_key_exists('properties', $data) && $data['properties'] !== null) {
-            $values_5 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_5 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['properties'] as $key => $value_10) {
                 $value_11 = $value_10;
                 if (is_array($value_10) and isset($value_10['$ref'])) {
@@ -373,9 +373,9 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getTitle()) {
             $data['title'] = $object->getTitle();
         }
@@ -419,14 +419,14 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data['minProperties'] = $object->getMinProperties();
         }
         if (null !== $object->getRequired()) {
-            $values = array();
+            $values = [];
             foreach ($object->getRequired() as $value) {
                 $values[] = $value;
             }
             $data['required'] = $values;
         }
         if (null !== $object->getEnum()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getEnum() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -445,7 +445,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data['not'] = $value_2;
         }
         if (null !== $object->getAllOf()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getAllOf() as $value_3) {
                 $value_4 = $value_3;
                 if (is_object($value_3)) {
@@ -458,7 +458,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data['allOf'] = $values_2;
         }
         if (null !== $object->getOneOf()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getOneOf() as $value_5) {
                 $value_6 = $value_5;
                 if (is_object($value_5)) {
@@ -471,7 +471,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data['oneOf'] = $values_3;
         }
         if (null !== $object->getAnyOf()) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($object->getAnyOf() as $value_7) {
                 $value_8 = $value_7;
                 if (is_object($value_7)) {
@@ -493,7 +493,7 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data['items'] = $value_9;
         }
         if (null !== $object->getProperties()) {
-            $values_5 = array();
+            $values_5 = [];
             foreach ($object->getProperties() as $key => $value_10) {
                 $value_11 = $value_10;
                 if (is_object($value_10)) {
@@ -555,5 +555,9 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             }
         }
         return $data;
+    }
+    public function getSupportedTypes(?string $format): array
+    {
+        return ['*' => false];
     }
 }

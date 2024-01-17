@@ -33,7 +33,7 @@ class HTTPSecurityScheme extends \ArrayObject
      *
      * @return string|null
      */
-    public function getScheme() : ?string
+    public function getScheme(): ?string
     {
         return $this->scheme;
     }
@@ -44,7 +44,7 @@ class HTTPSecurityScheme extends \ArrayObject
      *
      * @return self
      */
-    public function setScheme(?string $scheme) : self
+    public function setScheme(?string $scheme): self
     {
         $this->scheme = $scheme;
         return $this;
@@ -54,7 +54,7 @@ class HTTPSecurityScheme extends \ArrayObject
      *
      * @return string|null
      */
-    public function getBearerFormat() : ?string
+    public function getBearerFormat(): ?string
     {
         return $this->bearerFormat;
     }
@@ -65,7 +65,7 @@ class HTTPSecurityScheme extends \ArrayObject
      *
      * @return self
      */
-    public function setBearerFormat(?string $bearerFormat) : self
+    public function setBearerFormat(?string $bearerFormat): self
     {
         $this->bearerFormat = $bearerFormat;
         return $this;
@@ -75,7 +75,7 @@ class HTTPSecurityScheme extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -86,7 +86,7 @@ class HTTPSecurityScheme extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -96,7 +96,7 @@ class HTTPSecurityScheme extends \ArrayObject
      *
      * @return string|null
      */
-    public function getType() : ?string
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -107,7 +107,7 @@ class HTTPSecurityScheme extends \ArrayObject
      *
      * @return self
      */
-    public function setType(?string $type) : self
+    public function setType(?string $type): self
     {
         $this->type = $type;
         return $this;

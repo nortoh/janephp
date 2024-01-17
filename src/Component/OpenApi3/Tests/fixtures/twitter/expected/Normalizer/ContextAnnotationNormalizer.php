@@ -18,18 +18,18 @@ class ContextAnnotationNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\ContextAnnotation';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\ContextAnnotation';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\ContextAnnotation';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\ContextAnnotation';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,11 +42,11 @@ class ContextAnnotationNormalizer implements DenormalizerInterface, NormalizerIn
             return $object;
         }
         if (\array_key_exists('domain', $data)) {
-            $object->setDomain($this->denormalizer->denormalize($data['domain'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\ContextAnnotationDomainFields', 'json', $context));
+            $object->setDomain($this->denormalizer->denormalize($data['domain'], 'Jane\Component\OpenApi3\Tests\Expected\Model\ContextAnnotationDomainFields', 'json', $context));
             unset($data['domain']);
         }
         if (\array_key_exists('entity', $data)) {
-            $object->setEntity($this->denormalizer->denormalize($data['entity'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\ContextAnnotationEntityFields', 'json', $context));
+            $object->setEntity($this->denormalizer->denormalize($data['entity'], 'Jane\Component\OpenApi3\Tests\Expected\Model\ContextAnnotationEntityFields', 'json', $context));
             unset($data['entity']);
         }
         foreach ($data as $key => $value) {
@@ -59,11 +59,11 @@ class ContextAnnotationNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['domain'] = $this->normalizer->normalize($object->getDomain(), 'json', $context);
-        $data['entity'] = $this->normalizer->normalize($object->getEntity(), 'json', $context);
+        $data = [];
+        $data['domain'] = ($object->getDomain() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getDomain(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['entity'] = ($object->getEntity() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getEntity(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -71,8 +71,8 @@ class ContextAnnotationNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\ContextAnnotation' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\ContextAnnotation' => false];
     }
 }

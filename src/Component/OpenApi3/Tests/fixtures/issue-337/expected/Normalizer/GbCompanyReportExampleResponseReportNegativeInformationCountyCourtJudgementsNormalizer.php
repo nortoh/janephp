@@ -18,18 +18,18 @@ class GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgemen
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgements';
+        return $type === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgements';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgements';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgements';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgemen
             return $object;
         }
         if (\array_key_exists('registered', $data)) {
-            $object->setRegistered($this->denormalizer->denormalize($data['registered'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgementsRegistered', 'json', $context));
+            $object->setRegistered($this->denormalizer->denormalize($data['registered'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgementsRegistered', 'json', $context));
             unset($data['registered']);
         }
         foreach ($data as $key => $value) {
@@ -55,11 +55,11 @@ class GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgemen
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('registered') && null !== $object->getRegistered()) {
-            $data['registered'] = $this->normalizer->normalize($object->getRegistered(), 'json', $context);
+            $data['registered'] = ($object->getRegistered() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRegistered(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -68,8 +68,8 @@ class GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgemen
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgements' => false);
+        return ['CreditSafe\API\Model\GbCompanyReportExampleResponseReportNegativeInformationCountyCourtJudgements' => false];
     }
 }

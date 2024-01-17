@@ -18,18 +18,18 @@ class CreateTransferRequestNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\CreateTransferRequest';
+        return $type === 'PicturePark\API\Model\CreateTransferRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\CreateTransferRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\CreateTransferRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,9 +48,9 @@ class CreateTransferRequestNormalizer implements DenormalizerInterface, Normaliz
             $object->setTransferType($data['transferType']);
         }
         if (\array_key_exists('files', $data) && $data['files'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['files'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\TransferUploadFile', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\TransferUploadFile', 'json', $context);
             }
             $object->setFiles($values);
         }
@@ -58,9 +58,9 @@ class CreateTransferRequestNormalizer implements DenormalizerInterface, Normaliz
             $object->setFiles(null);
         }
         if (\array_key_exists('webLinks', $data) && $data['webLinks'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['webLinks'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\TransferWebLink', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\TransferWebLink', 'json', $context);
             }
             $object->setWebLinks($values_1);
         }
@@ -81,22 +81,22 @@ class CreateTransferRequestNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
         $data['transferType'] = $object->getTransferType();
         if ($object->isInitialized('files') && null !== $object->getFiles()) {
-            $values = array();
+            $values = [];
             foreach ($object->getFiles() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['files'] = $values;
         }
         if ($object->isInitialized('webLinks') && null !== $object->getWebLinks()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getWebLinks() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['webLinks'] = $values_1;
         }
@@ -106,8 +106,8 @@ class CreateTransferRequestNormalizer implements DenormalizerInterface, Normaliz
         $data['createCollection'] = $object->getCreateCollection();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\CreateTransferRequest' => false);
+        return ['PicturePark\API\Model\CreateTransferRequest' => false];
     }
 }

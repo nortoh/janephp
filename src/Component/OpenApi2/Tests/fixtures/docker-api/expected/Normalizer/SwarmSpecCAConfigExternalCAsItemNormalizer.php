@@ -18,18 +18,18 @@ class SwarmSpecCAConfigExternalCAsItemNormalizer implements DenormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\SwarmSpecCAConfigExternalCAsItem';
+        return $type === 'Docker\Api\Model\SwarmSpecCAConfigExternalCAsItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\SwarmSpecCAConfigExternalCAsItem';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\SwarmSpecCAConfigExternalCAsItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -51,7 +51,7 @@ class SwarmSpecCAConfigExternalCAsItemNormalizer implements DenormalizerInterfac
             $object->setURL($data['URL']);
         }
         if (\array_key_exists('Options', $data)) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['Options'] as $key => $value) {
                 $values[$key] = $value;
             }
@@ -65,9 +65,9 @@ class SwarmSpecCAConfigExternalCAsItemNormalizer implements DenormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('protocol') && null !== $object->getProtocol()) {
             $data['Protocol'] = $object->getProtocol();
         }
@@ -75,7 +75,7 @@ class SwarmSpecCAConfigExternalCAsItemNormalizer implements DenormalizerInterfac
             $data['URL'] = $object->getURL();
         }
         if ($object->isInitialized('options') && null !== $object->getOptions()) {
-            $values = array();
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getOptions() as $key => $value) {
                 $values[$key] = $value;
             }
@@ -89,8 +89,8 @@ class SwarmSpecCAConfigExternalCAsItemNormalizer implements DenormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\SwarmSpecCAConfigExternalCAsItem' => false);
+        return ['Docker\Api\Model\SwarmSpecCAConfigExternalCAsItem' => false];
     }
 }

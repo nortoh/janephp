@@ -18,18 +18,18 @@ class CompanyEventsResponseNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\CompanyEventsResponse';
+        return $type === 'CreditSafe\API\Model\CompanyEventsResponse';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\CompanyEventsResponse';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\CompanyEventsResponse';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,15 +49,15 @@ class CompanyEventsResponseNormalizer implements DenormalizerInterface, Normaliz
             unset($data['totalCount']);
         }
         if (\array_key_exists('data', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\\API\\Model\\Event', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\API\Model\Event', 'json', $context);
             }
             $object->setData($values);
             unset($data['data']);
         }
         if (\array_key_exists('paging', $data)) {
-            $object->setPaging($this->denormalizer->denormalize($data['paging'], 'CreditSafe\\API\\Model\\Paging', 'json', $context));
+            $object->setPaging($this->denormalizer->denormalize($data['paging'], 'CreditSafe\API\Model\Paging', 'json', $context));
             unset($data['paging']);
         }
         foreach ($data as $key => $value_1) {
@@ -70,21 +70,21 @@ class CompanyEventsResponseNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('totalCount') && null !== $object->getTotalCount()) {
             $data['totalCount'] = $object->getTotalCount();
         }
         if ($object->isInitialized('data') && null !== $object->getData()) {
-            $values = array();
+            $values = [];
             foreach ($object->getData() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['data'] = $values;
         }
         if ($object->isInitialized('paging') && null !== $object->getPaging()) {
-            $data['paging'] = $this->normalizer->normalize($object->getPaging(), 'json', $context);
+            $data['paging'] = ($object->getPaging() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPaging(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -93,8 +93,8 @@ class CompanyEventsResponseNormalizer implements DenormalizerInterface, Normaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\CompanyEventsResponse' => false);
+        return ['CreditSafe\API\Model\CompanyEventsResponse' => false];
     }
 }

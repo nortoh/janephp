@@ -18,18 +18,18 @@ class MonitoringPortfoliosPortfolioIdEventRulesCountryCodePutBodyItemNormalizer 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\MonitoringPortfoliosPortfolioIdEventRulesCountryCodePutBodyItem';
+        return $type === 'CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdEventRulesCountryCodePutBodyItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\MonitoringPortfoliosPortfolioIdEventRulesCountryCodePutBodyItem';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdEventRulesCountryCodePutBodyItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -71,9 +71,9 @@ class MonitoringPortfoliosPortfolioIdEventRulesCountryCodePutBodyItemNormalizer 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['ruleCode'] = $object->getRuleCode();
         $data['isActive'] = $object->getIsActive();
         if ($object->isInitialized('param0') && null !== $object->getParam0()) {
@@ -92,8 +92,8 @@ class MonitoringPortfoliosPortfolioIdEventRulesCountryCodePutBodyItemNormalizer 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\MonitoringPortfoliosPortfolioIdEventRulesCountryCodePutBodyItem' => false);
+        return ['CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdEventRulesCountryCodePutBodyItem' => false];
     }
 }

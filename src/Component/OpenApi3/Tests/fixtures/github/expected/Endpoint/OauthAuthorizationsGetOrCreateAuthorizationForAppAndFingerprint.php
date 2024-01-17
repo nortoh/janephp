@@ -26,24 +26,24 @@ class OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprint extends \G
         $this->body = $requestBody;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'PUT';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{client_id}', '{fingerprint}'), array($this->client_id, $this->fingerprint), '/authorizations/clients/{client_id}/{fingerprint}');
+        return str_replace(['{client_id}', '{fingerprint}'], [$this->client_id, $this->fingerprint], '/authorizations/clients/{client_id}/{fingerprint}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if ($this->body instanceof \Github\Model\AuthorizationsClientsClientIdFingerprintPutBody) {
-            return array(array('Content-Type' => array('application/json')), $serializer->serialize($this->body, 'json'));
+            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
         }
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -57,17 +57,17 @@ class OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprint extends \G
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\Authorization', 'json');
+            return $serializer->deserialize($body, 'Github\Model\Authorization', 'json');
         }
         if (is_null($contentType) === false && (201 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Github\\Model\\Authorization', 'json');
+            return $serializer->deserialize($body, 'Github\Model\Authorization', 'json');
         }
         if (is_null($contentType) === false && (422 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintUnprocessableEntityException($serializer->deserialize($body, 'Github\\Model\\ValidationError', 'json'), $response);
+            throw new \Github\Exception\OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintUnprocessableEntityException($serializer->deserialize($body, 'Github\Model\ValidationError', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

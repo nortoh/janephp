@@ -18,18 +18,18 @@ class ApplicationGrantNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ApplicationGrant';
+        return $type === 'Github\Model\ApplicationGrant';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ApplicationGrant';
+        return is_object($data) && get_class($data) === 'Github\Model\ApplicationGrant';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,19 +53,19 @@ class ApplicationGrantNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['url']);
         }
         if (\array_key_exists('app', $data)) {
-            $object->setApp($this->denormalizer->denormalize($data['app'], 'Github\\Model\\ApplicationGrantApp', 'json', $context));
+            $object->setApp($this->denormalizer->denormalize($data['app'], 'Github\Model\ApplicationGrantApp', 'json', $context));
             unset($data['app']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('scopes', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['scopes'] as $value) {
                 $values[] = $value;
             }
@@ -73,7 +73,7 @@ class ApplicationGrantNormalizer implements DenormalizerInterface, NormalizerInt
             unset($data['scopes']);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\ApplicationGrantUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\ApplicationGrantUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
@@ -89,21 +89,21 @@ class ApplicationGrantNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['url'] = $object->getUrl();
-        $data['app'] = $this->normalizer->normalize($object->getApp(), 'json', $context);
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
-        $values = array();
+        $data['app'] = ($object->getApp() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getApp(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
+        $values = [];
         foreach ($object->getScopes() as $value) {
             $values[] = $value;
         }
         $data['scopes'] = $values;
         if ($object->isInitialized('user') && null !== $object->getUser()) {
-            $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
+            $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -115,8 +115,8 @@ class ApplicationGrantNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ApplicationGrant' => false);
+        return ['Github\Model\ApplicationGrant' => false];
     }
 }

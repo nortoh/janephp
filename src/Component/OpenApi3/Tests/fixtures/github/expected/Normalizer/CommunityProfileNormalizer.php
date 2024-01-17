@@ -18,18 +18,18 @@ class CommunityProfileNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\CommunityProfile';
+        return $type === 'Github\Model\CommunityProfile';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\CommunityProfile';
+        return is_object($data) && get_class($data) === 'Github\Model\CommunityProfile';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -63,11 +63,11 @@ class CommunityProfileNormalizer implements DenormalizerInterface, NormalizerInt
             $object->setDocumentation(null);
         }
         if (\array_key_exists('files', $data)) {
-            $object->setFiles($this->denormalizer->denormalize($data['files'], 'Github\\Model\\CommunityProfileFiles', 'json', $context));
+            $object->setFiles($this->denormalizer->denormalize($data['files'], 'Github\Model\CommunityProfileFiles', 'json', $context));
             unset($data['files']);
         }
         if (\array_key_exists('updated_at', $data) && $data['updated_at'] !== null) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         elseif (\array_key_exists('updated_at', $data) && $data['updated_at'] === null) {
@@ -83,14 +83,14 @@ class CommunityProfileNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['health_percentage'] = $object->getHealthPercentage();
         $data['description'] = $object->getDescription();
         $data['documentation'] = $object->getDocumentation();
-        $data['files'] = $this->normalizer->normalize($object->getFiles(), 'json', $context);
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['files'] = ($object->getFiles() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getFiles(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -101,8 +101,8 @@ class CommunityProfileNormalizer implements DenormalizerInterface, NormalizerInt
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\CommunityProfile' => false);
+        return ['Github\Model\CommunityProfile' => false];
     }
 }

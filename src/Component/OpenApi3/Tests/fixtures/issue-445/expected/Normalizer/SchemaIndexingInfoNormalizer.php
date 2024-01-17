@@ -18,18 +18,18 @@ class SchemaIndexingInfoNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\SchemaIndexingInfo';
+        return $type === 'PicturePark\API\Model\SchemaIndexingInfo';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\SchemaIndexingInfo';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\SchemaIndexingInfo';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,9 +42,9 @@ class SchemaIndexingInfoNormalizer implements DenormalizerInterface, NormalizerI
             return $object;
         }
         if (\array_key_exists('fields', $data) && $data['fields'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['fields'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\FieldIndexingInfo', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\FieldIndexingInfo', 'json', $context);
             }
             $object->setFields($values);
         }
@@ -56,20 +56,20 @@ class SchemaIndexingInfoNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('fields') && null !== $object->getFields()) {
-            $values = array();
+            $values = [];
             foreach ($object->getFields() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['fields'] = $values;
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\SchemaIndexingInfo' => false);
+        return ['PicturePark\API\Model\SchemaIndexingInfo' => false];
     }
 }

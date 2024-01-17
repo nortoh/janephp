@@ -18,18 +18,18 @@ class MarketplacePurchaseMarketplacePendingChangeNormalizer implements Denormali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\MarketplacePurchaseMarketplacePendingChange';
+        return $type === 'Github\Model\MarketplacePurchaseMarketplacePendingChange';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\MarketplacePurchaseMarketplacePendingChange';
+        return is_object($data) && get_class($data) === 'Github\Model\MarketplacePurchaseMarketplacePendingChange';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -64,7 +64,7 @@ class MarketplacePurchaseMarketplacePendingChangeNormalizer implements Denormali
             unset($data['id']);
         }
         if (\array_key_exists('plan', $data)) {
-            $object->setPlan($this->denormalizer->denormalize($data['plan'], 'Github\\Model\\MarketplaceListingPlan', 'json', $context));
+            $object->setPlan($this->denormalizer->denormalize($data['plan'], 'Github\Model\MarketplaceListingPlan', 'json', $context));
             unset($data['plan']);
         }
         foreach ($data as $key => $value) {
@@ -77,9 +77,9 @@ class MarketplacePurchaseMarketplacePendingChangeNormalizer implements Denormali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('isInstalled') && null !== $object->getIsInstalled()) {
             $data['is_installed'] = $object->getIsInstalled();
         }
@@ -93,7 +93,7 @@ class MarketplacePurchaseMarketplacePendingChangeNormalizer implements Denormali
             $data['id'] = $object->getId();
         }
         if ($object->isInitialized('plan') && null !== $object->getPlan()) {
-            $data['plan'] = $this->normalizer->normalize($object->getPlan(), 'json', $context);
+            $data['plan'] = ($object->getPlan() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPlan(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -105,8 +105,8 @@ class MarketplacePurchaseMarketplacePendingChangeNormalizer implements Denormali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\MarketplacePurchaseMarketplacePendingChange' => false);
+        return ['Github\Model\MarketplacePurchaseMarketplacePendingChange' => false];
     }
 }

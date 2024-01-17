@@ -18,18 +18,18 @@ class ShareDetailNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ShareDetail';
+        return $type === 'PicturePark\API\Model\ShareDetail';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ShareDetail';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ShareDetail';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -60,14 +60,14 @@ class ShareDetailNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setAudit($data['audit']);
         }
         if (\array_key_exists('contentSelections', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['contentSelections'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\ShareContentDetail', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\ShareContentDetail', 'json', $context);
             }
             $object->setContentSelections($values);
         }
         if (\array_key_exists('layerSchemaIds', $data) && $data['layerSchemaIds'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['layerSchemaIds'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -83,7 +83,7 @@ class ShareDetailNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setData(null);
         }
         if (\array_key_exists('expirationDate', $data) && $data['expirationDate'] !== null) {
-            $object->setExpirationDate(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['expirationDate']));
+            $object->setExpirationDate(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['expirationDate']));
         }
         elseif (\array_key_exists('expirationDate', $data) && $data['expirationDate'] === null) {
             $object->setExpirationDate(null);
@@ -98,9 +98,9 @@ class ShareDetailNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setShareType($data['shareType']);
         }
         if (\array_key_exists('schemas', $data) && $data['schemas'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['schemas'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\\API\\Model\\SchemaDetail', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'PicturePark\API\Model\SchemaDetail', 'json', $context);
             }
             $object->setSchemas($values_2);
         }
@@ -112,9 +112,9 @@ class ShareDetailNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['name'] = $object->getName();
         if ($object->isInitialized('description') && null !== $object->getDescription()) {
@@ -122,13 +122,13 @@ class ShareDetailNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         $data['creator'] = $object->getCreator();
         $data['audit'] = $object->getAudit();
-        $values = array();
+        $values = [];
         foreach ($object->getContentSelections() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['contentSelections'] = $values;
         if ($object->isInitialized('layerSchemaIds') && null !== $object->getLayerSchemaIds()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getLayerSchemaIds() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -138,22 +138,22 @@ class ShareDetailNormalizer implements DenormalizerInterface, NormalizerInterfac
             $data['data'] = $object->getData();
         }
         if ($object->isInitialized('expirationDate') && null !== $object->getExpirationDate()) {
-            $data['expirationDate'] = $object->getExpirationDate()->format('Y-m-d\\TH:i:sP');
+            $data['expirationDate'] = $object->getExpirationDate()->format('Y-m-d\TH:i:sP');
         }
         $data['expired'] = $object->getExpired();
         $data['outputAccess'] = $object->getOutputAccess();
         $data['shareType'] = $object->getShareType();
         if ($object->isInitialized('schemas') && null !== $object->getSchemas()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getSchemas() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['schemas'] = $values_2;
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ShareDetail' => false);
+        return ['PicturePark\API\Model\ShareDetail' => false];
     }
 }

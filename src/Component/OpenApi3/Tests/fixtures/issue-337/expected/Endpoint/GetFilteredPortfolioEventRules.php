@@ -15,36 +15,36 @@ class GetFilteredPortfolioEventRules extends \CreditSafe\API\Runtime\Client\Base
      *     @var string $Authorization Bearer JWT (Authentication Token) generated from the /authenticate endpoint.
      * }
      */
-    public function __construct(string $portfolioId, string $countryCode, array $headerParameters = array())
+    public function __construct(string $portfolioId, string $countryCode, array $headerParameters = [])
     {
         $this->portfolioId = $portfolioId;
         $this->countryCode = $countryCode;
         $this->headerParameters = $headerParameters;
     }
     use \CreditSafe\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{portfolioId}', '{countryCode}'), array($this->portfolioId, $this->countryCode), '/monitoring/portfolios/{portfolioId}/eventRules/{countryCode}');
+        return str_replace(['{portfolioId}', '{countryCode}'], [$this->portfolioId, $this->countryCode], '/monitoring/portfolios/{portfolioId}/eventRules/{countryCode}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('Authorization'));
-        $optionsResolver->setRequired(array('Authorization'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('Authorization', array('string'));
+        $optionsResolver->setDefined(['Authorization']);
+        $optionsResolver->setRequired(['Authorization']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('Authorization', ['string']);
         return $optionsResolver;
     }
     /**
@@ -77,8 +77,8 @@ class GetFilteredPortfolioEventRules extends \CreditSafe\API\Runtime\Client\Base
             throw new \CreditSafe\API\Exception\GetFilteredPortfolioEventRulesNotFoundException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('bearerAuth');
+        return ['bearerAuth'];
     }
 }

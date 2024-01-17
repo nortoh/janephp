@@ -18,18 +18,18 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ContentSearchRequest';
+        return $type === 'PicturePark\API\Model\ContentSearchRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ContentSearchRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ContentSearchRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,7 +49,7 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setSearchString(null);
         }
         if (\array_key_exists('searchBehaviors', $data) && $data['searchBehaviors'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['searchBehaviors'] as $value) {
                 $values[] = $value;
             }
@@ -67,9 +67,9 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setFilter(null);
         }
         if (\array_key_exists('aggregationFilters', $data) && $data['aggregationFilters'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['aggregationFilters'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\AggregationFilter', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\AggregationFilter', 'json', $context);
             }
             $object->setAggregationFilters($values_1);
             unset($data['aggregationFilters']);
@@ -85,7 +85,7 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setChannelId(null);
         }
         if (\array_key_exists('searchLanguages', $data) && $data['searchLanguages'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['searchLanguages'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -115,7 +115,7 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             unset($data['searchType']);
         }
         if (\array_key_exists('displayPatternIds', $data) && $data['displayPatternIds'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['displayPatternIds'] as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -126,9 +126,9 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setDisplayPatternIds(null);
         }
         if (\array_key_exists('sort', $data) && $data['sort'] !== null) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($data['sort'] as $value_4) {
-                $values_4[] = $this->denormalizer->denormalize($value_4, 'PicturePark\\API\\Model\\SortInfo', 'json', $context);
+                $values_4[] = $this->denormalizer->denormalize($value_4, 'PicturePark\API\Model\SortInfo', 'json', $context);
             }
             $object->setSort($values_4);
             unset($data['sort']);
@@ -148,7 +148,7 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setPageToken(null);
         }
         if (\array_key_exists('rightsFilter', $data) && $data['rightsFilter'] !== null) {
-            $values_5 = array();
+            $values_5 = [];
             foreach ($data['rightsFilter'] as $value_5) {
                 $values_5[] = $value_5;
             }
@@ -159,7 +159,7 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setRightsFilter(null);
         }
         if (\array_key_exists('rightsAggregations', $data) && $data['rightsAggregations'] !== null) {
-            $values_6 = array();
+            $values_6 = [];
             foreach ($data['rightsAggregations'] as $value_6) {
                 $values_6[] = $value_6;
             }
@@ -174,9 +174,9 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             unset($data['debugMode']);
         }
         if (\array_key_exists('aggregators', $data) && $data['aggregators'] !== null) {
-            $values_7 = array();
+            $values_7 = [];
             foreach ($data['aggregators'] as $value_7) {
-                $values_7[] = $this->denormalizer->denormalize($value_7, 'PicturePark\\API\\Model\\AggregatorBase', 'json', $context);
+                $values_7[] = $this->denormalizer->denormalize($value_7, 'PicturePark\API\Model\AggregatorBase', 'json', $context);
             }
             $object->setAggregators($values_7);
             unset($data['aggregators']);
@@ -194,14 +194,14 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('searchString') && null !== $object->getSearchString()) {
             $data['searchString'] = $object->getSearchString();
         }
         if ($object->isInitialized('searchBehaviors') && null !== $object->getSearchBehaviors()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSearchBehaviors() as $value) {
                 $values[] = $value;
             }
@@ -211,9 +211,9 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             $data['filter'] = $object->getFilter();
         }
         if ($object->isInitialized('aggregationFilters') && null !== $object->getAggregationFilters()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getAggregationFilters() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregationFilters'] = $values_1;
         }
@@ -221,7 +221,7 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             $data['channelId'] = $object->getChannelId();
         }
         if ($object->isInitialized('searchLanguages') && null !== $object->getSearchLanguages()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getSearchLanguages() as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -234,16 +234,16 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
         $data['brokenDependenciesFilter'] = $object->getBrokenDependenciesFilter();
         $data['searchType'] = $object->getSearchType();
         if ($object->isInitialized('displayPatternIds') && null !== $object->getDisplayPatternIds()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getDisplayPatternIds() as $value_3) {
                 $values_3[] = $value_3;
             }
             $data['displayPatternIds'] = $values_3;
         }
         if ($object->isInitialized('sort') && null !== $object->getSort()) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($object->getSort() as $value_4) {
-                $values_4[] = $this->normalizer->normalize($value_4, 'json', $context);
+                $values_4[] = ($value_4 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_4, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['sort'] = $values_4;
         }
@@ -254,14 +254,14 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             $data['pageToken'] = $object->getPageToken();
         }
         if ($object->isInitialized('rightsFilter') && null !== $object->getRightsFilter()) {
-            $values_5 = array();
+            $values_5 = [];
             foreach ($object->getRightsFilter() as $value_5) {
                 $values_5[] = $value_5;
             }
             $data['rightsFilter'] = $values_5;
         }
         if ($object->isInitialized('rightsAggregations') && null !== $object->getRightsAggregations()) {
-            $values_6 = array();
+            $values_6 = [];
             foreach ($object->getRightsAggregations() as $value_6) {
                 $values_6[] = $value_6;
             }
@@ -271,9 +271,9 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
             $data['debugMode'] = $object->getDebugMode();
         }
         if ($object->isInitialized('aggregators') && null !== $object->getAggregators()) {
-            $values_7 = array();
+            $values_7 = [];
             foreach ($object->getAggregators() as $value_7) {
-                $values_7[] = $this->normalizer->normalize($value_7, 'json', $context);
+                $values_7[] = ($value_7 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_7, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregators'] = $values_7;
         }
@@ -284,8 +284,8 @@ class ContentSearchRequestNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ContentSearchRequest' => false);
+        return ['PicturePark\API\Model\ContentSearchRequest' => false];
     }
 }

@@ -18,18 +18,18 @@ class ReposOwnerRepoPullsPullNumberReviewsReviewIdEventsPostBodyNormalizer imple
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoPullsPullNumberReviewsReviewIdEventsPostBody';
+        return $type === 'Github\Model\ReposOwnerRepoPullsPullNumberReviewsReviewIdEventsPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoPullsPullNumberReviewsReviewIdEventsPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoPullsPullNumberReviewsReviewIdEventsPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -62,9 +62,9 @@ class ReposOwnerRepoPullsPullNumberReviewsReviewIdEventsPostBodyNormalizer imple
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('body') && null !== $object->getBody()) {
             $data['body'] = $object->getBody();
         }
@@ -79,8 +79,8 @@ class ReposOwnerRepoPullsPullNumberReviewsReviewIdEventsPostBodyNormalizer imple
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoPullsPullNumberReviewsReviewIdEventsPostBody' => false);
+        return ['Github\Model\ReposOwnerRepoPullsPullNumberReviewsReviewIdEventsPostBody' => false];
     }
 }

@@ -18,18 +18,18 @@ class DeploymentNormalizer implements DenormalizerInterface, NormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Deployment';
+        return $type === 'Github\Model\Deployment';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Deployment';
+        return is_object($data) && get_class($data) === 'Github\Model\Deployment';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -69,7 +69,7 @@ class DeploymentNormalizer implements DenormalizerInterface, NormalizerInterface
             unset($data['task']);
         }
         if (\array_key_exists('payload', $data)) {
-            $object->setPayload($this->denormalizer->denormalize($data['payload'], 'Github\\Model\\DeploymentPayload', 'json', $context));
+            $object->setPayload($this->denormalizer->denormalize($data['payload'], 'Github\Model\DeploymentPayload', 'json', $context));
             unset($data['payload']);
         }
         if (\array_key_exists('original_environment', $data)) {
@@ -88,18 +88,18 @@ class DeploymentNormalizer implements DenormalizerInterface, NormalizerInterface
             $object->setDescription(null);
         }
         if (\array_key_exists('creator', $data) && $data['creator'] !== null) {
-            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\\Model\\DeploymentCreator', 'json', $context));
+            $object->setCreator($this->denormalizer->denormalize($data['creator'], 'Github\Model\DeploymentCreator', 'json', $context));
             unset($data['creator']);
         }
         elseif (\array_key_exists('creator', $data) && $data['creator'] === null) {
             $object->setCreator(null);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('statuses_url', $data)) {
@@ -119,7 +119,7 @@ class DeploymentNormalizer implements DenormalizerInterface, NormalizerInterface
             unset($data['production_environment']);
         }
         if (\array_key_exists('performed_via_github_app', $data) && $data['performed_via_github_app'] !== null) {
-            $object->setPerformedViaGithubApp($this->denormalizer->denormalize($data['performed_via_github_app'], 'Github\\Model\\DeploymentPerformedViaGithubApp', 'json', $context));
+            $object->setPerformedViaGithubApp($this->denormalizer->denormalize($data['performed_via_github_app'], 'Github\Model\DeploymentPerformedViaGithubApp', 'json', $context));
             unset($data['performed_via_github_app']);
         }
         elseif (\array_key_exists('performed_via_github_app', $data) && $data['performed_via_github_app'] === null) {
@@ -135,24 +135,24 @@ class DeploymentNormalizer implements DenormalizerInterface, NormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
         $data['sha'] = $object->getSha();
         $data['ref'] = $object->getRef();
         $data['task'] = $object->getTask();
-        $data['payload'] = $this->normalizer->normalize($object->getPayload(), 'json', $context);
+        $data['payload'] = ($object->getPayload() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPayload(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('originalEnvironment') && null !== $object->getOriginalEnvironment()) {
             $data['original_environment'] = $object->getOriginalEnvironment();
         }
         $data['environment'] = $object->getEnvironment();
         $data['description'] = $object->getDescription();
-        $data['creator'] = $this->normalizer->normalize($object->getCreator(), 'json', $context);
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['creator'] = ($object->getCreator() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCreator(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['statuses_url'] = $object->getStatusesUrl();
         $data['repository_url'] = $object->getRepositoryUrl();
         if ($object->isInitialized('transientEnvironment') && null !== $object->getTransientEnvironment()) {
@@ -162,7 +162,7 @@ class DeploymentNormalizer implements DenormalizerInterface, NormalizerInterface
             $data['production_environment'] = $object->getProductionEnvironment();
         }
         if ($object->isInitialized('performedViaGithubApp') && null !== $object->getPerformedViaGithubApp()) {
-            $data['performed_via_github_app'] = $this->normalizer->normalize($object->getPerformedViaGithubApp(), 'json', $context);
+            $data['performed_via_github_app'] = ($object->getPerformedViaGithubApp() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getPerformedViaGithubApp(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -174,8 +174,8 @@ class DeploymentNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Deployment' => false);
+        return ['Github\Model\Deployment' => false];
     }
 }

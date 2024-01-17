@@ -18,18 +18,18 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi2\\Tests\\Expected\\Model\\Schema';
+        return $type === 'Jane\Component\OpenApi2\Tests\Expected\Model\Schema';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi2\\Tests\\Expected\\Model\\Schema';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi2\Tests\Expected\Model\Schema';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -54,33 +54,33 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $object->setFloatProperty($data['floatProperty']);
         }
         if (\array_key_exists('arrayProperty', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['arrayProperty'] as $value) {
                 $values[] = $value;
             }
             $object->setArrayProperty($values);
         }
         if (\array_key_exists('mapProperty', $data)) {
-            $values_1 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['mapProperty'] as $key => $value_1) {
                 $values_1[$key] = $value_1;
             }
             $object->setMapProperty($values_1);
         }
         if (\array_key_exists('objectProperty', $data)) {
-            $object->setObjectProperty($this->denormalizer->denormalize($data['objectProperty'], 'Jane\\Component\\OpenApi2\\Tests\\Expected\\Model\\SchemaObjectProperty', 'json', $context));
+            $object->setObjectProperty($this->denormalizer->denormalize($data['objectProperty'], 'Jane\Component\OpenApi2\Tests\Expected\Model\SchemaObjectProperty', 'json', $context));
         }
         if (\array_key_exists('objectRefProperty', $data)) {
-            $object->setObjectRefProperty($this->denormalizer->denormalize($data['objectRefProperty'], 'Jane\\Component\\OpenApi2\\Tests\\Expected\\Model\\Schema', 'json', $context));
+            $object->setObjectRefProperty($this->denormalizer->denormalize($data['objectRefProperty'], 'Jane\Component\OpenApi2\Tests\Expected\Model\Schema', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('stringProperty') && null !== $object->getStringProperty()) {
             $data['stringProperty'] = $object->getStringProperty();
         }
@@ -91,29 +91,29 @@ class SchemaNormalizer implements DenormalizerInterface, NormalizerInterface, De
             $data['floatProperty'] = $object->getFloatProperty();
         }
         if ($object->isInitialized('arrayProperty') && null !== $object->getArrayProperty()) {
-            $values = array();
+            $values = [];
             foreach ($object->getArrayProperty() as $value) {
                 $values[] = $value;
             }
             $data['arrayProperty'] = $values;
         }
         if ($object->isInitialized('mapProperty') && null !== $object->getMapProperty()) {
-            $values_1 = array();
+            $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getMapProperty() as $key => $value_1) {
                 $values_1[$key] = $value_1;
             }
             $data['mapProperty'] = $values_1;
         }
         if ($object->isInitialized('objectProperty') && null !== $object->getObjectProperty()) {
-            $data['objectProperty'] = $this->normalizer->normalize($object->getObjectProperty(), 'json', $context);
+            $data['objectProperty'] = ($object->getObjectProperty() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getObjectProperty(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('objectRefProperty') && null !== $object->getObjectRefProperty()) {
-            $data['objectRefProperty'] = $this->normalizer->normalize($object->getObjectRefProperty(), 'json', $context);
+            $data['objectRefProperty'] = ($object->getObjectRefProperty() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getObjectRefProperty(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi2\\Tests\\Expected\\Model\\Schema' => false);
+        return ['Jane\Component\OpenApi2\Tests\Expected\Model\Schema' => false];
     }
 }

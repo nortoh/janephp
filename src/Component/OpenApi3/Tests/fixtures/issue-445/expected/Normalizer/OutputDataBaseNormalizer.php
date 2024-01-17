@@ -18,36 +18,36 @@ class OutputDataBaseNormalizer implements DenormalizerInterface, NormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\OutputDataBase';
+        return $type === 'PicturePark\API\Model\OutputDataBase';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\OutputDataBase';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\OutputDataBase';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'OutputDataImage' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\OutputDataImage', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\OutputDataImage', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'OutputDataAudio' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\OutputDataAudio', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\OutputDataAudio', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'OutputDataVideo' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\OutputDataVideo', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\OutputDataVideo', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'OutputDataDocument' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\OutputDataDocument', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\OutputDataDocument', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'OutputDataVector' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\OutputDataVector', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\OutputDataVector', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'OutputDataDefault' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\OutputDataDefault', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\OutputDataDefault', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -97,9 +97,9 @@ class OutputDataBaseNormalizer implements DenormalizerInterface, NormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'OutputDataImage' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -136,8 +136,8 @@ class OutputDataBaseNormalizer implements DenormalizerInterface, NormalizerInter
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\OutputDataBase' => false);
+        return ['PicturePark\API\Model\OutputDataBase' => false];
     }
 }

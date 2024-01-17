@@ -1506,7 +1506,7 @@ definitions:
   Image:
     type: "object"
     required:
-      - Id
+      - ID
       - Parent
       - Comment
       - Created
@@ -1520,7 +1520,7 @@ definitions:
       - GraphDriver
       - RootFS
     properties:
-      Id:
+      ID:
         type: "string"
         x-nullable: false
       RepoTags:
@@ -1594,7 +1594,7 @@ definitions:
   ImageSummary:
     type: "object"
     required:
-      - Id
+      - ID
       - ParentId
       - RepoTags
       - RepoDigests
@@ -1605,7 +1605,7 @@ definitions:
       - Labels
       - Containers
     properties:
-      Id:
+      ID:
         type: "string"
         x-nullable: false
       ParentId:
@@ -1767,7 +1767,7 @@ definitions:
     properties:
       Name:
         type: "string"
-      Id:
+      ID:
         type: "string"
       Created:
         type: "string"
@@ -1800,7 +1800,7 @@ definitions:
           type: "string"
     example:
       Name: "net01"
-      Id: "7d86d31b1478e7cca9ebed7e73aa0fdeec46c5ca29497431d3007d2d9e15ed99"
+      ID: "7d86d31b1478e7cca9ebed7e73aa0fdeec46c5ca29497431d3007d2d9e15ed99"
       Created: "2016-10-19T04:33:30.360899459Z"
       Scope: "local"
       Driver: "bridge"
@@ -1874,7 +1874,7 @@ definitions:
   BuildInfo:
     type: "object"
     properties:
-      id:
+      ID:
         type: "string"
       stream:
         type: "string"
@@ -1940,7 +1940,7 @@ definitions:
   CreateImageInfo:
     type: "object"
     properties:
-      id:
+      ID:
         type: "string"
       error:
         type: "string"
@@ -1992,11 +1992,11 @@ definitions:
       message: "Something went wrong."
 
   IdResponse:
-    description: "Response to an API call that returns just an Id"
+    description: "Response to an API call that returns just an ID"
     type: "object"
-    required: ["Id"]
+    required: ["ID"]
     properties:
-      Id:
+      ID:
         description: "The id of the newly created object."
         type: "string"
         x-nullable: false
@@ -2214,7 +2214,7 @@ definitions:
     type: "object"
     required: [Settings, Enabled, Config, Name]
     properties:
-      Id:
+      ID:
         type: "string"
         example: "5724e2c8652da337ab2eedd19fc6fc0ec908e4bd907c7421bf6a8dfc70c4c078"
       Name:
@@ -4033,7 +4033,7 @@ definitions:
   ContainerSummary:
     type: "object"
     properties:
-      Id:
+      ID:
         description: "The ID of this container"
         type: "string"
         x-go-name: "ID"
@@ -5424,7 +5424,7 @@ paths:
               $ref: "#/definitions/ContainerSummary"
           examples:
             application/json:
-              - Id: "8dfafdbc3a40"
+              - ID: "8dfafdbc3a40"
                 Names:
                   - "/boring_feynman"
                 Image: "ubuntu:latest"
@@ -5465,7 +5465,7 @@ paths:
                     Mode: "ro,Z"
                     RW: false
                     Propagation: ""
-              - Id: "9cd87474be90"
+              - ID: "9cd87474be90"
                 Names:
                   - "/coolName"
                 Image: "ubuntu:latest"
@@ -5493,7 +5493,7 @@ paths:
                       GlobalIPv6PrefixLen: 0
                       MacAddress: "02:42:ac:11:00:08"
                 Mounts: []
-              - Id: "3176a2479c92"
+              - ID: "3176a2479c92"
                 Names:
                   - "/sleepy_dog"
                 Image: "ubuntu:latest"
@@ -5521,7 +5521,7 @@ paths:
                       GlobalIPv6PrefixLen: 0
                       MacAddress: "02:42:ac:11:00:06"
                 Mounts: []
-              - Id: "4cb07b47f9fb"
+              - ID: "4cb07b47f9fb"
                 Names:
                   - "/running_cat"
                 Image: "ubuntu:latest"
@@ -5722,9 +5722,9 @@ paths:
             type: "object"
             title: "ContainerCreateResponse"
             description: "OK response to ContainerCreate operation"
-            required: [Id, Warnings]
+            required: [ID, Warnings]
             properties:
-              Id:
+              ID:
                 description: "The ID of the created container"
                 type: "string"
                 x-nullable: false
@@ -5736,7 +5736,7 @@ paths:
                   type: "string"
           examples:
             application/json:
-              Id: "e90e34656806"
+              ID: "e90e34656806"
               Warnings: []
         400:
           description: "bad parameter"
@@ -5772,7 +5772,7 @@ paths:
             type: "object"
             title: "ContainerInspectResponse"
             properties:
-              Id:
+              ID:
                 description: "The ID of the container"
                 type: "string"
               Created:
@@ -5941,7 +5941,7 @@ paths:
               HostnamePath: "/var/lib/docker/containers/ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39/hostname"
               HostsPath: "/var/lib/docker/containers/ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39/hosts"
               LogPath: "/var/lib/docker/containers/1eb5fabf5a03807136561b3c00adcd2992b535d624d5e18b6cdc6a6844d9767b/1eb5fabf5a03807136561b3c00adcd2992b535d624d5e18b6cdc6a6844d9767b-json.log"
-              Id: "ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39"
+              ID: "ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39"
               Image: "04c5d3b7b0656168630d3ba35d8889bd0e9caafcaeb3004d2bfbc47e7c5d35d2"
               MountLabel: ""
               Name: "/boring_euclid"
@@ -7310,7 +7310,7 @@ paths:
               $ref: "#/definitions/ImageSummary"
           examples:
             application/json:
-              - Id: "sha256:e216a057b1cb1efc11f8a268f37ef62083e70b1b38323ba252e25ac88904a7e8"
+              - ID: "sha256:e216a057b1cb1efc11f8a268f37ef62083e70b1b38323ba252e25ac88904a7e8"
                 ParentId: ""
                 RepoTags:
                   - "ubuntu:12.04"
@@ -7323,7 +7323,7 @@ paths:
                 SharedSize: 0
                 Labels: {}
                 Containers: 2
-              - Id: "sha256:3e314f95dcace0f5e4fd37b10862fe8398e3c60ed36600bc0ca5fda78b087175"
+              - ID: "sha256:3e314f95dcace0f5e4fd37b10862fe8398e3c60ed36600bc0ca5fda78b087175"
                 ParentId: ""
                 RepoTags:
                   - "ubuntu:12.10"
@@ -7691,7 +7691,7 @@ paths:
             $ref: "#/definitions/Image"
           examples:
             application/json:
-              Id: "sha256:85f05633ddc1c50679be2b16a0479ab6f7637f8884e0cfe0f4d20e1ebb3d6e7c"
+              ID: "sha256:85f05633ddc1c50679be2b16a0479ab6f7637f8884e0cfe0f4d20e1ebb3d6e7c"
               Container: "cb91e48a60d01f1e27028b4fc6819f4f290b3cf12496c8176ec714d0d390984a"
               Comment: ""
               Os: "linux"
@@ -7800,9 +7800,9 @@ paths:
               x-go-name: HistoryResponseItem
               title: "HistoryResponseItem"
               description: "individual image layer information in response to ImageHistory operation"
-              required: [Id, Created, CreatedBy, Tags, Size, Comment]
+              required: [ID, Created, CreatedBy, Tags, Size, Comment]
               properties:
-                Id:
+                ID:
                   type: "string"
                   x-nullable: false
                 Created:
@@ -7825,7 +7825,7 @@ paths:
                   x-nullable: false
           examples:
             application/json:
-              - Id: "3db9c44f45209632d6050b35958829c3a2aa256d81b9a7be45b362ff85c54710"
+              - ID: "3db9c44f45209632d6050b35958829c3a2aa256d81b9a7be45b362ff85c54710"
                 Created: 1398108230
                 CreatedBy: "/bin/sh -c #(nop) ADD file:eb15dbd63394e063b805a3c32ca7bf0266ef64676d5a6fab4801f2e81e2a5148 in /"
                 Tags:
@@ -7833,13 +7833,13 @@ paths:
                   - "ubuntu:10.04"
                 Size: 182964289
                 Comment: ""
-              - Id: "6cfa4d1f33fb861d4d114f43b25abd0ac737509268065cdfd69d544a59c85ab8"
+              - ID: "6cfa4d1f33fb861d4d114f43b25abd0ac737509268065cdfd69d544a59c85ab8"
                 Created: 1398108222
                 CreatedBy: "/bin/sh -c #(nop) MAINTAINER Tianon Gravi <admwiggin@gmail.com> - mkimage-debootstrap.sh -i iproute,iputils-ping,ubuntu-minimal -t lucid.tar.xz lucid http://archive.ubuntu.com/ubuntu/"
                 Tags: []
                 Size: 0
                 Comment: ""
-              - Id: "511136ea3c5a64f264b78b5433614aec563103b4d4702f3ba7d4d2698e22c158"
+              - ID: "511136ea3c5a64f264b78b5433614aec563103b4d4702f3ba7d4d2698e22c158"
                 Created: 1371157430
                 CreatedBy: ""
                 Tags:
@@ -8418,7 +8418,7 @@ paths:
               LayersSize: 1092588
               Images:
                 -
-                  Id: "sha256:2b8fd9751c4c0f5dd266fcae00707e67a2545ef34f9a29354585f93dac906749"
+                  ID: "sha256:2b8fd9751c4c0f5dd266fcae00707e67a2545ef34f9a29354585f93dac906749"
                   ParentId: ""
                   RepoTags:
                     - "busybox:latest"
@@ -8432,7 +8432,7 @@ paths:
                   Containers: 1
               Containers:
                 -
-                  Id: "e575172ed11dc01bfce087fb27bee502db149e1a0fad7c296ad300bbff178148"
+                  ID: "e575172ed11dc01bfce087fb27bee502db149e1a0fad7c296ad300bbff178148"
                   Names:
                     - "/top"
                   Image: "busybox"
@@ -9083,7 +9083,7 @@ paths:
           examples:
             application/json:
               - Name: "bridge"
-                Id: "f2de39df4171b0dc801e8002d1d999b77256983dfc63041c0f34030aa3977566"
+                ID: "f2de39df4171b0dc801e8002d1d999b77256983dfc63041c0f34030aa3977566"
                 Created: "2016-10-19T06:21:00.416543526Z"
                 Scope: "local"
                 Driver: "bridge"
@@ -9104,7 +9104,7 @@ paths:
                   com.docker.network.bridge.name: "docker0"
                   com.docker.network.driver.mtu: "1500"
               - Name: "none"
-                Id: "e086a3893b05ab69242d3c44e49483a3bbbd3a26b46baa8f61ab797c1088d794"
+                ID: "e086a3893b05ab69242d3c44e49483a3bbbd3a26b46baa8f61ab797c1088d794"
                 Created: "0001-01-01T00:00:00Z"
                 Scope: "local"
                 Driver: "null"
@@ -9118,7 +9118,7 @@ paths:
                 Containers: {}
                 Options: {}
               - Name: "host"
-                Id: "13e871235c677f196c4e1ecebb9dc733b9b2d2ab589e30c539efeda84a24215e"
+                ID: "13e871235c677f196c4e1ecebb9dc733b9b2d2ab589e30c539efeda84a24215e"
                 Created: "0001-01-01T00:00:00Z"
                 Scope: "local"
                 Driver: "host"
@@ -9234,13 +9234,13 @@ paths:
             type: "object"
             title: "NetworkCreateResponse"
             properties:
-              Id:
+              ID:
                 description: "The ID of the created network."
                 type: "string"
               Warning:
                 type: "string"
             example:
-              Id: "22be93d5babb089c5aab8dbc369042fad48ff791584ca2da2100db837a1c7c30"
+              ID: "22be93d5babb089c5aab8dbc369042fad48ff791584ca2da2100db837a1c7c30"
               Warning: ""
         403:
           description: "operation not supported for pre-defined networks"

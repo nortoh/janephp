@@ -18,18 +18,18 @@ class ContentNotFoundExceptionNormalizer implements DenormalizerInterface, Norma
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ContentNotFoundException';
+        return $type === 'PicturePark\API\Model\ContentNotFoundException';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ContentNotFoundException';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ContentNotFoundException';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -103,7 +103,7 @@ class ContentNotFoundExceptionNormalizer implements DenormalizerInterface, Norma
             $object->setReference(null);
         }
         if (\array_key_exists('contentIds', $data) && $data['contentIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['contentIds'] as $value) {
                 $values[] = $value;
             }
@@ -123,9 +123,9 @@ class ContentNotFoundExceptionNormalizer implements DenormalizerInterface, Norma
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('traceLevel') && null !== $object->getTraceLevel()) {
             $data['traceLevel'] = $object->getTraceLevel();
         }
@@ -155,7 +155,7 @@ class ContentNotFoundExceptionNormalizer implements DenormalizerInterface, Norma
             $data['reference'] = $object->getReference();
         }
         if ($object->isInitialized('contentIds') && null !== $object->getContentIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getContentIds() as $value) {
                 $values[] = $value;
             }
@@ -168,8 +168,8 @@ class ContentNotFoundExceptionNormalizer implements DenormalizerInterface, Norma
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ContentNotFoundException' => false);
+        return ['PicturePark\API\Model\ContentNotFoundException' => false];
     }
 }

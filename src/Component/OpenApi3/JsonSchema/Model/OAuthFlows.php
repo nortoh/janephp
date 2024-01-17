@@ -44,7 +44,7 @@ class OAuthFlows extends \ArrayObject
      *
      * @return self
      */
-    public function setImplicit(?ImplicitOAuthFlow $implicit) : self
+    public function setImplicit(?ImplicitOAuthFlow $implicit): self
     {
         $this->implicit = $implicit;
         return $this;
@@ -65,7 +65,7 @@ class OAuthFlows extends \ArrayObject
      *
      * @return self
      */
-    public function setPassword(?PasswordOAuthFlow $password) : self
+    public function setPassword(?PasswordOAuthFlow $password): self
     {
         $this->password = $password;
         return $this;
@@ -86,7 +86,7 @@ class OAuthFlows extends \ArrayObject
      *
      * @return self
      */
-    public function setClientCredentials(?ClientCredentialsFlow $clientCredentials) : self
+    public function setClientCredentials(?ClientCredentialsFlow $clientCredentials): self
     {
         $this->clientCredentials = $clientCredentials;
         return $this;
@@ -107,7 +107,7 @@ class OAuthFlows extends \ArrayObject
      *
      * @return self
      */
-    public function setAuthorizationCode(?AuthorizationCodeOAuthFlow $authorizationCode) : self
+    public function setAuthorizationCode(?AuthorizationCodeOAuthFlow $authorizationCode): self
     {
         $this->authorizationCode = $authorizationCode;
         return $this;

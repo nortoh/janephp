@@ -18,18 +18,18 @@ class TopicSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\TopicSearchResultItem';
+        return $type === 'Github\Model\TopicSearchResultItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\TopicSearchResultItem';
+        return is_object($data) && get_class($data) === 'Github\Model\TopicSearchResultItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -84,11 +84,11 @@ class TopicSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             $object->setReleased(null);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('featured', $data)) {
@@ -118,17 +118,17 @@ class TopicSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             $object->setLogoUrl(null);
         }
         if (\array_key_exists('text_matches', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['text_matches'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\SearchResultTextMatchesItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\SearchResultTextMatchesItem', 'json', $context);
             }
             $object->setTextMatches($values);
             unset($data['text_matches']);
         }
         if (\array_key_exists('related', $data) && $data['related'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['related'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\\Model\\TopicSearchResultItemRelatedItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\Model\TopicSearchResultItemRelatedItem', 'json', $context);
             }
             $object->setRelated($values_1);
             unset($data['related']);
@@ -137,9 +137,9 @@ class TopicSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             $object->setRelated(null);
         }
         if (\array_key_exists('aliases', $data) && $data['aliases'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['aliases'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'Github\\Model\\TopicSearchResultItemAliasesItem', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'Github\Model\TopicSearchResultItemAliasesItem', 'json', $context);
             }
             $object->setAliases($values_2);
             unset($data['aliases']);
@@ -157,17 +157,17 @@ class TopicSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
         $data['display_name'] = $object->getDisplayName();
         $data['short_description'] = $object->getShortDescription();
         $data['description'] = $object->getDescription();
         $data['created_by'] = $object->getCreatedBy();
         $data['released'] = $object->getReleased();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['featured'] = $object->getFeatured();
         $data['curated'] = $object->getCurated();
         $data['score'] = $object->getScore();
@@ -178,23 +178,23 @@ class TopicSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
             $data['logo_url'] = $object->getLogoUrl();
         }
         if ($object->isInitialized('textMatches') && null !== $object->getTextMatches()) {
-            $values = array();
+            $values = [];
             foreach ($object->getTextMatches() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['text_matches'] = $values;
         }
         if ($object->isInitialized('related') && null !== $object->getRelated()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getRelated() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['related'] = $values_1;
         }
         if ($object->isInitialized('aliases') && null !== $object->getAliases()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getAliases() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aliases'] = $values_2;
         }
@@ -208,8 +208,8 @@ class TopicSearchResultItemNormalizer implements DenormalizerInterface, Normaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\TopicSearchResultItem' => false);
+        return ['Github\Model\TopicSearchResultItem' => false];
     }
 }

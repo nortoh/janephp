@@ -18,18 +18,18 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemN
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItem';
+        return $type === 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItem';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -86,11 +86,11 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemN
             unset($data['checkSum']);
         }
         if (\array_key_exists('conflicts', $data)) {
-            $object->setConflicts($this->denormalizer->denormalize($data['conflicts'], 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemConflicts', 'json', $context));
+            $object->setConflicts($this->denormalizer->denormalize($data['conflicts'], 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemConflicts', 'json', $context));
             unset($data['conflicts']);
         }
         if (\array_key_exists('entityDetails', $data)) {
-            $object->setEntityDetails($this->denormalizer->denormalize($data['entityDetails'], 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemEntityDetails', 'json', $context));
+            $object->setEntityDetails($this->denormalizer->denormalize($data['entityDetails'], 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemEntityDetails', 'json', $context));
             unset($data['entityDetails']);
         }
         if (\array_key_exists('entityName', $data)) {
@@ -110,7 +110,7 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemN
             unset($data['falsePositive']);
         }
         if (\array_key_exists('file', $data)) {
-            $object->setFile($this->denormalizer->denormalize($data['file'], 'CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemFile', 'json', $context));
+            $object->setFile($this->denormalizer->denormalize($data['file'], 'CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemFile', 'json', $context));
             unset($data['file']);
         }
         if (\array_key_exists('gatewayOFACScreeningIndicatorMatch', $data)) {
@@ -155,9 +155,9 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemN
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('acceptListID') && null !== $object->getAcceptListID()) {
             $data['acceptListID'] = $object->getAcceptListID();
         }
@@ -192,10 +192,10 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemN
             $data['checkSum'] = $object->getCheckSum();
         }
         if ($object->isInitialized('conflicts') && null !== $object->getConflicts()) {
-            $data['conflicts'] = $this->normalizer->normalize($object->getConflicts(), 'json', $context);
+            $data['conflicts'] = ($object->getConflicts() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getConflicts(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('entityDetails') && null !== $object->getEntityDetails()) {
-            $data['entityDetails'] = $this->normalizer->normalize($object->getEntityDetails(), 'json', $context);
+            $data['entityDetails'] = ($object->getEntityDetails() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getEntityDetails(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('entityName') && null !== $object->getEntityName()) {
             $data['entityName'] = $object->getEntityName();
@@ -210,7 +210,7 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemN
             $data['falsePositive'] = $object->getFalsePositive();
         }
         if ($object->isInitialized('file') && null !== $object->getFile()) {
-            $data['file'] = $this->normalizer->normalize($object->getFile(), 'json', $context);
+            $data['file'] = ($object->getFile() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getFile(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('gatewayOFACScreeningIndicatorMatch') && null !== $object->getGatewayOFACScreeningIndicatorMatch()) {
             $data['gatewayOFACScreeningIndicatorMatch'] = $object->getGatewayOFACScreeningIndicatorMatch();
@@ -243,8 +243,8 @@ class ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItemN
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItem' => false);
+        return ['CreditSafe\API\Model\ComplianceSearchResultDataBodySearchResultRecordsItemWatchlistMatchesItem' => false];
     }
 }

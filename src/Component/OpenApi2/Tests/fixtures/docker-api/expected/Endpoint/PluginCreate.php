@@ -14,35 +14,35 @@ class PluginCreate extends \Docker\Api\Runtime\Client\BaseEndpoint implements \D
     
     * }
     */
-    public function __construct($tarContext, array $queryParameters = array())
+    public function __construct($tarContext, array $queryParameters = [])
     {
         $this->body = $tarContext;
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/plugins/create';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), $this->body);
+        return [[], $this->body];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('name'));
-        $optionsResolver->setRequired(array('name'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('name', array('string'));
+        $optionsResolver->setDefined(['name']);
+        $optionsResolver->setRequired(['name']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('name', ['string']);
         return $optionsResolver;
     }
     /**
@@ -60,11 +60,11 @@ class PluginCreate extends \Docker\Api\Runtime\Client\BaseEndpoint implements \D
             return null;
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\PluginCreateInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\PluginCreateInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

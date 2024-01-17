@@ -18,18 +18,18 @@ class ReposOwnerRepoContentsPathDeleteBodyNormalizer implements DenormalizerInte
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ReposOwnerRepoContentsPathDeleteBody';
+        return $type === 'Github\Model\ReposOwnerRepoContentsPathDeleteBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ReposOwnerRepoContentsPathDeleteBody';
+        return is_object($data) && get_class($data) === 'Github\Model\ReposOwnerRepoContentsPathDeleteBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,11 +57,11 @@ class ReposOwnerRepoContentsPathDeleteBodyNormalizer implements DenormalizerInte
             unset($data['branch']);
         }
         if (\array_key_exists('committer', $data)) {
-            $object->setCommitter($this->denormalizer->denormalize($data['committer'], 'Github\\Model\\ReposOwnerRepoContentsPathDeleteBodyCommitter', 'json', $context));
+            $object->setCommitter($this->denormalizer->denormalize($data['committer'], 'Github\Model\ReposOwnerRepoContentsPathDeleteBodyCommitter', 'json', $context));
             unset($data['committer']);
         }
         if (\array_key_exists('author', $data)) {
-            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\\Model\\ReposOwnerRepoContentsPathDeleteBodyAuthor', 'json', $context));
+            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\Model\ReposOwnerRepoContentsPathDeleteBodyAuthor', 'json', $context));
             unset($data['author']);
         }
         foreach ($data as $key => $value) {
@@ -74,19 +74,19 @@ class ReposOwnerRepoContentsPathDeleteBodyNormalizer implements DenormalizerInte
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['message'] = $object->getMessage();
         $data['sha'] = $object->getSha();
         if ($object->isInitialized('branch') && null !== $object->getBranch()) {
             $data['branch'] = $object->getBranch();
         }
         if ($object->isInitialized('committer') && null !== $object->getCommitter()) {
-            $data['committer'] = $this->normalizer->normalize($object->getCommitter(), 'json', $context);
+            $data['committer'] = ($object->getCommitter() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCommitter(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('author') && null !== $object->getAuthor()) {
-            $data['author'] = $this->normalizer->normalize($object->getAuthor(), 'json', $context);
+            $data['author'] = ($object->getAuthor() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAuthor(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -98,8 +98,8 @@ class ReposOwnerRepoContentsPathDeleteBodyNormalizer implements DenormalizerInte
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ReposOwnerRepoContentsPathDeleteBody' => false);
+        return ['Github\Model\ReposOwnerRepoContentsPathDeleteBody' => false];
     }
 }

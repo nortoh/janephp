@@ -18,18 +18,18 @@ class SchemaSearchRequestNormalizer implements DenormalizerInterface, Normalizer
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\SchemaSearchRequest';
+        return $type === 'PicturePark\API\Model\SchemaSearchRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\SchemaSearchRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\SchemaSearchRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,7 +48,7 @@ class SchemaSearchRequestNormalizer implements DenormalizerInterface, Normalizer
             $object->setSearchString(null);
         }
         if (\array_key_exists('searchBehaviors', $data) && $data['searchBehaviors'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['searchBehaviors'] as $value) {
                 $values[] = $value;
             }
@@ -58,9 +58,9 @@ class SchemaSearchRequestNormalizer implements DenormalizerInterface, Normalizer
             $object->setSearchBehaviors(null);
         }
         if (\array_key_exists('sort', $data) && $data['sort'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['sort'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\SortInfo', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\SortInfo', 'json', $context);
             }
             $object->setSort($values_1);
         }
@@ -86,7 +86,7 @@ class SchemaSearchRequestNormalizer implements DenormalizerInterface, Normalizer
             $object->setDebugMode($data['debugMode']);
         }
         if (\array_key_exists('searchLanguages', $data) && $data['searchLanguages'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['searchLanguages'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -96,7 +96,7 @@ class SchemaSearchRequestNormalizer implements DenormalizerInterface, Normalizer
             $object->setSearchLanguages(null);
         }
         if (\array_key_exists('rightsFilter', $data) && $data['rightsFilter'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['rightsFilter'] as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -110,23 +110,23 @@ class SchemaSearchRequestNormalizer implements DenormalizerInterface, Normalizer
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('searchString') && null !== $object->getSearchString()) {
             $data['searchString'] = $object->getSearchString();
         }
         if ($object->isInitialized('searchBehaviors') && null !== $object->getSearchBehaviors()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSearchBehaviors() as $value) {
                 $values[] = $value;
             }
             $data['searchBehaviors'] = $values;
         }
         if ($object->isInitialized('sort') && null !== $object->getSort()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getSort() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['sort'] = $values_1;
         }
@@ -139,14 +139,14 @@ class SchemaSearchRequestNormalizer implements DenormalizerInterface, Normalizer
         }
         $data['debugMode'] = $object->getDebugMode();
         if ($object->isInitialized('searchLanguages') && null !== $object->getSearchLanguages()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getSearchLanguages() as $value_2) {
                 $values_2[] = $value_2;
             }
             $data['searchLanguages'] = $values_2;
         }
         if ($object->isInitialized('rightsFilter') && null !== $object->getRightsFilter()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getRightsFilter() as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -154,8 +154,8 @@ class SchemaSearchRequestNormalizer implements DenormalizerInterface, Normalizer
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\SchemaSearchRequest' => false);
+        return ['PicturePark\API\Model\SchemaSearchRequest' => false];
     }
 }

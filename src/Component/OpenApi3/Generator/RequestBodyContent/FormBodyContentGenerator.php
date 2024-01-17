@@ -6,6 +6,7 @@ use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Jane\Component\JsonSchema\Generator\Context\Context;
 use Jane\Component\OpenApi3\JsonSchema\Model\MediaType;
 use PhpParser\Node\Arg;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar;
@@ -45,8 +46,8 @@ class FormBodyContentGenerator extends AbstractBodyContentGenerator
                 ]),
                 new Stmt\Return_(new Expr\Array_([
                     new Expr\Array_([
-                        new Expr\ArrayItem(
-                            new Expr\Array_([new Expr\ArrayItem(
+                        new ArrayItem(
+                            new Expr\Array_([new ArrayItem(
                                 new Expr\BinaryOp\Concat(
                                     new Scalar\String_('multipart/form-data; boundary="'),
                                     new Expr\BinaryOp\Concat(
@@ -65,8 +66,8 @@ class FormBodyContentGenerator extends AbstractBodyContentGenerator
 
         return [new Stmt\Return_(new Expr\Array_([
             new Expr\Array_([
-                new Expr\ArrayItem(
-                    new Expr\Array_([new Expr\ArrayItem(new Scalar\String_($contentType))]),
+                new ArrayItem(
+                    new Expr\Array_([new ArrayItem(new Scalar\String_($contentType))]),
                     new Scalar\String_('Content-Type')
                 ),
             ]),

@@ -18,18 +18,18 @@ class MonitoringPortfoliosPortfolioIdCompaniesCopyPostBodyNormalizer implements 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\MonitoringPortfoliosPortfolioIdCompaniesCopyPostBody';
+        return $type === 'CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdCompaniesCopyPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\MonitoringPortfoliosPortfolioIdCompaniesCopyPostBody';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdCompaniesCopyPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class MonitoringPortfoliosPortfolioIdCompaniesCopyPostBodyNormalizer implements 
             return $object;
         }
         if (\array_key_exists('portfolios', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['portfolios'] as $value) {
                 $values[] = $value;
             }
@@ -50,9 +50,9 @@ class MonitoringPortfoliosPortfolioIdCompaniesCopyPostBodyNormalizer implements 
             unset($data['portfolios']);
         }
         if (\array_key_exists('companies', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['companies'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'CreditSafe\\API\\Model\\MonitoringPortfoliosPortfolioIdCompaniesCopyPostBodyCompaniesItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdCompaniesCopyPostBodyCompaniesItem', 'json', $context);
             }
             $object->setCompanies($values_1);
             unset($data['companies']);
@@ -67,20 +67,20 @@ class MonitoringPortfoliosPortfolioIdCompaniesCopyPostBodyNormalizer implements 
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('portfolios') && null !== $object->getPortfolios()) {
-            $values = array();
+            $values = [];
             foreach ($object->getPortfolios() as $value) {
                 $values[] = $value;
             }
             $data['portfolios'] = $values;
         }
         if ($object->isInitialized('companies') && null !== $object->getCompanies()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getCompanies() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['companies'] = $values_1;
         }
@@ -91,8 +91,8 @@ class MonitoringPortfoliosPortfolioIdCompaniesCopyPostBodyNormalizer implements 
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\MonitoringPortfoliosPortfolioIdCompaniesCopyPostBody' => false);
+        return ['CreditSafe\API\Model\MonitoringPortfoliosPortfolioIdCompaniesCopyPostBody' => false];
     }
 }

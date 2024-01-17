@@ -27,7 +27,7 @@ class ServerVariable extends \ArrayObject
      *
      * @return string[]|null
      */
-    public function getEnum() : ?array
+    public function getEnum(): ?array
     {
         return $this->enum;
     }
@@ -38,7 +38,7 @@ class ServerVariable extends \ArrayObject
      *
      * @return self
      */
-    public function setEnum(?array $enum) : self
+    public function setEnum(?array $enum): self
     {
         $this->enum = $enum;
         return $this;
@@ -48,7 +48,7 @@ class ServerVariable extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDefault() : ?string
+    public function getDefault(): ?string
     {
         return $this->default;
     }
@@ -59,7 +59,7 @@ class ServerVariable extends \ArrayObject
      *
      * @return self
      */
-    public function setDefault(?string $default) : self
+    public function setDefault(?string $default): self
     {
         $this->default = $default;
         return $this;
@@ -69,7 +69,7 @@ class ServerVariable extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -80,7 +80,7 @@ class ServerVariable extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;

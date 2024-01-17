@@ -18,18 +18,18 @@ class StarredRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\StarredRepository';
+        return $type === 'Github\Model\StarredRepository';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\StarredRepository';
+        return is_object($data) && get_class($data) === 'Github\Model\StarredRepository';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,11 +45,11 @@ class StarredRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
             return $object;
         }
         if (\array_key_exists('starred_at', $data)) {
-            $object->setStarredAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['starred_at']));
+            $object->setStarredAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['starred_at']));
             unset($data['starred_at']);
         }
         if (\array_key_exists('repo', $data)) {
-            $object->setRepo($this->denormalizer->denormalize($data['repo'], 'Github\\Model\\Repository', 'json', $context));
+            $object->setRepo($this->denormalizer->denormalize($data['repo'], 'Github\Model\Repository', 'json', $context));
             unset($data['repo']);
         }
         foreach ($data as $key => $value) {
@@ -62,11 +62,11 @@ class StarredRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['starred_at'] = $object->getStarredAt()->format('Y-m-d\\TH:i:sP');
-        $data['repo'] = $this->normalizer->normalize($object->getRepo(), 'json', $context);
+        $data = [];
+        $data['starred_at'] = $object->getStarredAt()->format('Y-m-d\TH:i:sP');
+        $data['repo'] = ($object->getRepo() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRepo(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value;
@@ -77,8 +77,8 @@ class StarredRepositoryNormalizer implements DenormalizerInterface, NormalizerIn
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\StarredRepository' => false);
+        return ['Github\Model\StarredRepository' => false];
     }
 }

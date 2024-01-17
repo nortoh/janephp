@@ -18,18 +18,18 @@ class ProjectsNormalizer implements DenormalizerInterface, NormalizerInterface, 
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\OpenApi2\\Tests\\Expected\\Model\\Projects';
+        return $type === 'Jane\OpenApi2\Tests\Expected\Model\Projects';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\OpenApi2\\Tests\\Expected\\Model\\Projects';
+        return is_object($data) && get_class($data) === 'Jane\OpenApi2\Tests\Expected\Model\Projects';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,9 +42,9 @@ class ProjectsNormalizer implements DenormalizerInterface, NormalizerInterface, 
             return $object;
         }
         if (\array_key_exists('projects', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['projects'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jane\\OpenApi2\\Tests\\Expected\\Model\\Project', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Jane\OpenApi2\Tests\Expected\Model\Project', 'json', $context);
             }
             $object->setProjects($values);
         }
@@ -67,19 +67,19 @@ class ProjectsNormalizer implements DenormalizerInterface, NormalizerInterface, 
             $object->setPage($data['page']);
         }
         if (\array_key_exists('links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['links'], 'Jane\\OpenApi2\\Tests\\Expected\\Model\\PaginationLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['links'], 'Jane\OpenApi2\Tests\Expected\Model\PaginationLinks', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $values = array();
+        $data = [];
+        $values = [];
         foreach ($object->getProjects() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['projects'] = $values;
         $data['per_page'] = $object->getPerPage();
@@ -88,11 +88,11 @@ class ProjectsNormalizer implements DenormalizerInterface, NormalizerInterface, 
         $data['next_page'] = $object->getNextPage();
         $data['previous_page'] = $object->getPreviousPage();
         $data['page'] = $object->getPage();
-        $data['links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+        $data['links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\OpenApi2\\Tests\\Expected\\Model\\Projects' => false);
+        return ['Jane\OpenApi2\Tests\Expected\Model\Projects' => false];
     }
 }

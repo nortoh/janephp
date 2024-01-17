@@ -18,18 +18,18 @@ class GbCompanyReportExampleResponseReportAdditionalInformationNormalizer implem
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformation';
+        return $type === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformation';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformation';
+        return is_object($data) && get_class($data) === 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformation';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,53 +42,53 @@ class GbCompanyReportExampleResponseReportAdditionalInformationNormalizer implem
             return $object;
         }
         if (\array_key_exists('companyHistory', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['companyHistory'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformationCompanyHistoryItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformationCompanyHistoryItem', 'json', $context);
             }
             $object->setCompanyHistory($values);
             unset($data['companyHistory']);
         }
         if (\array_key_exists('mortgageSummary', $data)) {
-            $object->setMortgageSummary($this->denormalizer->denormalize($data['mortgageSummary'], 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformationMortgageSummary', 'json', $context));
+            $object->setMortgageSummary($this->denormalizer->denormalize($data['mortgageSummary'], 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformationMortgageSummary', 'json', $context));
             unset($data['mortgageSummary']);
         }
         if (\array_key_exists('mortgageDetails', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['mortgageDetails'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformationMortgageDetailsItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformationMortgageDetailsItem', 'json', $context);
             }
             $object->setMortgageDetails($values_1);
             unset($data['mortgageDetails']);
         }
         if (\array_key_exists('commentaries', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['commentaries'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformationCommentariesItem', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformationCommentariesItem', 'json', $context);
             }
             $object->setCommentaries($values_2);
             unset($data['commentaries']);
         }
         if (\array_key_exists('ratingHistory', $data)) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['ratingHistory'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformationRatingHistoryItem', 'json', $context);
+                $values_3[] = $this->denormalizer->denormalize($value_3, 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformationRatingHistoryItem', 'json', $context);
             }
             $object->setRatingHistory($values_3);
             unset($data['ratingHistory']);
         }
         if (\array_key_exists('creditLimitHistory', $data)) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($data['creditLimitHistory'] as $value_4) {
-                $values_4[] = $this->denormalizer->denormalize($value_4, 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformationCreditLimitHistoryItem', 'json', $context);
+                $values_4[] = $this->denormalizer->denormalize($value_4, 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformationCreditLimitHistoryItem', 'json', $context);
             }
             $object->setCreditLimitHistory($values_4);
             unset($data['creditLimitHistory']);
         }
         if (\array_key_exists('badDebtDetails', $data)) {
-            $values_5 = array();
+            $values_5 = [];
             foreach ($data['badDebtDetails'] as $value_5) {
-                $values_5[] = $this->denormalizer->denormalize($value_5, 'CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsItem', 'json', $context);
+                $values_5[] = $this->denormalizer->denormalize($value_5, 'CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformationBadDebtDetailsItem', 'json', $context);
             }
             $object->setBadDebtDetails($values_5);
             unset($data['badDebtDetails']);
@@ -103,51 +103,51 @@ class GbCompanyReportExampleResponseReportAdditionalInformationNormalizer implem
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('companyHistory') && null !== $object->getCompanyHistory()) {
-            $values = array();
+            $values = [];
             foreach ($object->getCompanyHistory() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['companyHistory'] = $values;
         }
         if ($object->isInitialized('mortgageSummary') && null !== $object->getMortgageSummary()) {
-            $data['mortgageSummary'] = $this->normalizer->normalize($object->getMortgageSummary(), 'json', $context);
+            $data['mortgageSummary'] = ($object->getMortgageSummary() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getMortgageSummary(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('mortgageDetails') && null !== $object->getMortgageDetails()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getMortgageDetails() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['mortgageDetails'] = $values_1;
         }
         if ($object->isInitialized('commentaries') && null !== $object->getCommentaries()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getCommentaries() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+                $values_2[] = ($value_2 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_2, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['commentaries'] = $values_2;
         }
         if ($object->isInitialized('ratingHistory') && null !== $object->getRatingHistory()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getRatingHistory() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+                $values_3[] = ($value_3 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_3, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['ratingHistory'] = $values_3;
         }
         if ($object->isInitialized('creditLimitHistory') && null !== $object->getCreditLimitHistory()) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($object->getCreditLimitHistory() as $value_4) {
-                $values_4[] = $this->normalizer->normalize($value_4, 'json', $context);
+                $values_4[] = ($value_4 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_4, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['creditLimitHistory'] = $values_4;
         }
         if ($object->isInitialized('badDebtDetails') && null !== $object->getBadDebtDetails()) {
-            $values_5 = array();
+            $values_5 = [];
             foreach ($object->getBadDebtDetails() as $value_5) {
-                $values_5[] = $this->normalizer->normalize($value_5, 'json', $context);
+                $values_5[] = ($value_5 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_5, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['badDebtDetails'] = $values_5;
         }
@@ -158,8 +158,8 @@ class GbCompanyReportExampleResponseReportAdditionalInformationNormalizer implem
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('CreditSafe\\API\\Model\\GbCompanyReportExampleResponseReportAdditionalInformation' => false);
+        return ['CreditSafe\API\Model\GbCompanyReportExampleResponseReportAdditionalInformation' => false];
     }
 }

@@ -18,18 +18,18 @@ class ExpansionsNormalizer implements DenormalizerInterface, NormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\OpenApi3\\Tests\\Expected\\Model\\Expansions';
+        return $type === 'Jane\OpenApi3\Tests\Expected\Model\Expansions';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\OpenApi3\\Tests\\Expected\\Model\\Expansions';
+        return is_object($data) && get_class($data) === 'Jane\OpenApi3\Tests\Expected\Model\Expansions';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class ExpansionsNormalizer implements DenormalizerInterface, NormalizerInterface
             return $object;
         }
         if (\array_key_exists('users', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['users'] as $value) {
                 $values[] = $value;
             }
@@ -50,7 +50,7 @@ class ExpansionsNormalizer implements DenormalizerInterface, NormalizerInterface
             unset($data['users']);
         }
         if (\array_key_exists('tweets', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['tweets'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -58,7 +58,7 @@ class ExpansionsNormalizer implements DenormalizerInterface, NormalizerInterface
             unset($data['tweets']);
         }
         if (\array_key_exists('places', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['places'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -66,7 +66,7 @@ class ExpansionsNormalizer implements DenormalizerInterface, NormalizerInterface
             unset($data['places']);
         }
         if (\array_key_exists('media', $data)) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['media'] as $value_3) {
                 $values_3[] = $value_3;
             }
@@ -74,9 +74,9 @@ class ExpansionsNormalizer implements DenormalizerInterface, NormalizerInterface
             unset($data['media']);
         }
         if (\array_key_exists('polls', $data)) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($data['polls'] as $value_4) {
-                $values_4[] = $this->denormalizer->denormalize($value_4, 'Jane\\OpenApi3\\Tests\\Expected\\Model\\Poll', 'json', $context);
+                $values_4[] = $this->denormalizer->denormalize($value_4, 'Jane\OpenApi3\Tests\Expected\Model\Poll', 'json', $context);
             }
             $object->setPolls($values_4);
             unset($data['polls']);
@@ -91,41 +91,41 @@ class ExpansionsNormalizer implements DenormalizerInterface, NormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('users') && null !== $object->getUsers()) {
-            $values = array();
+            $values = [];
             foreach ($object->getUsers() as $value) {
                 $values[] = $value;
             }
             $data['users'] = $values;
         }
         if ($object->isInitialized('tweets') && null !== $object->getTweets()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getTweets() as $value_1) {
                 $values_1[] = $value_1;
             }
             $data['tweets'] = $values_1;
         }
         if ($object->isInitialized('places') && null !== $object->getPlaces()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getPlaces() as $value_2) {
                 $values_2[] = $value_2;
             }
             $data['places'] = $values_2;
         }
         if ($object->isInitialized('media') && null !== $object->getMedia()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getMedia() as $value_3) {
                 $values_3[] = $value_3;
             }
             $data['media'] = $values_3;
         }
         if ($object->isInitialized('polls') && null !== $object->getPolls()) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($object->getPolls() as $value_4) {
-                $values_4[] = $this->normalizer->normalize($value_4, 'json', $context);
+                $values_4[] = ($value_4 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_4, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['polls'] = $values_4;
         }
@@ -136,8 +136,8 @@ class ExpansionsNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\OpenApi3\\Tests\\Expected\\Model\\Expansions' => false);
+        return ['Jane\OpenApi3\Tests\Expected\Model\Expansions' => false];
     }
 }

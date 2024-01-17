@@ -18,18 +18,18 @@ class TaskSpecPluginSpecNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\TaskSpecPluginSpec';
+        return $type === 'Docker\Api\Model\TaskSpecPluginSpec';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\TaskSpecPluginSpec';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\TaskSpecPluginSpec';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -54,9 +54,9 @@ class TaskSpecPluginSpecNormalizer implements DenormalizerInterface, NormalizerI
             $object->setDisabled($data['Disabled']);
         }
         if (\array_key_exists('PluginPrivilege', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['PluginPrivilege'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Docker\\Api\\Model\\PluginPrivilege', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Docker\Api\Model\PluginPrivilege', 'json', $context);
             }
             $object->setPluginPrivilege($values);
         }
@@ -65,9 +65,9 @@ class TaskSpecPluginSpecNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('name') && null !== $object->getName()) {
             $data['Name'] = $object->getName();
         }
@@ -78,9 +78,9 @@ class TaskSpecPluginSpecNormalizer implements DenormalizerInterface, NormalizerI
             $data['Disabled'] = $object->getDisabled();
         }
         if ($object->isInitialized('pluginPrivilege') && null !== $object->getPluginPrivilege()) {
-            $values = array();
+            $values = [];
             foreach ($object->getPluginPrivilege() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['PluginPrivilege'] = $values;
         }
@@ -89,8 +89,8 @@ class TaskSpecPluginSpecNormalizer implements DenormalizerInterface, NormalizerI
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\TaskSpecPluginSpec' => false);
+        return ['Docker\Api\Model\TaskSpecPluginSpec' => false];
     }
 }

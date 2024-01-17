@@ -18,7 +18,7 @@ class ContentDownloadThumbnail extends \PicturePark\API\Runtime\Client\BaseEndpo
      * }
      * @param array $accept Accept content header application/json|application/octet-stream
      */
-    public function __construct(string $id, string $size, array $queryParameters = array(), array $accept = array())
+    public function __construct(string $id, string $size, array $queryParameters = [], array $accept = [])
     {
         $this->id = $id;
         $this->size = $size;
@@ -26,33 +26,33 @@ class ContentDownloadThumbnail extends \PicturePark\API\Runtime\Client\BaseEndpo
         $this->accept = $accept;
     }
     use \PicturePark\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{id}', '{size}'), array($this->id, $this->size), '/v1/Contents/thumbnails/{id}/{size}');
+        return str_replace(['{id}', '{size}'], [$this->id, $this->size], '/v1/Contents/thumbnails/{id}/{size}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
         if (empty($this->accept)) {
-            return array('Accept' => array('application/json', 'application/octet-stream'));
+            return ['Accept' => ['application/json', 'application/octet-stream']];
         }
         return $this->accept;
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('width', 'height'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('width', array('int', 'null'));
-        $optionsResolver->addAllowedTypes('height', array('int', 'null'));
+        $optionsResolver->setDefined(['width', 'height']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('width', ['int', 'null']);
+        $optionsResolver->addAllowedTypes('height', ['int', 'null']);
         return $optionsResolver;
     }
     /**
@@ -74,25 +74,25 @@ class ContentDownloadThumbnail extends \PicturePark\API\Runtime\Client\BaseEndpo
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentDownloadThumbnailBadRequestException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkValidationException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentDownloadThumbnailBadRequestException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkValidationException', 'json'), $response);
         }
         if (401 === $status) {
             throw new \PicturePark\API\Exception\ContentDownloadThumbnailUnauthorizedException($response);
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentDownloadThumbnailNotFoundException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkNotFoundException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentDownloadThumbnailNotFoundException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkNotFoundException', 'json'), $response);
         }
         if (405 === $status) {
             throw new \PicturePark\API\Exception\ContentDownloadThumbnailMethodNotAllowedException($response);
         }
         if (is_null($contentType) === false && (409 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentDownloadThumbnailConflictException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkConflictException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentDownloadThumbnailConflictException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkConflictException', 'json'), $response);
         }
         if (429 === $status) {
             throw new \PicturePark\API\Exception\ContentDownloadThumbnailTooManyRequestsException($response);
         }
         if (is_null($contentType) === false && (500 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \PicturePark\API\Exception\ContentDownloadThumbnailInternalServerErrorException($serializer->deserialize($body, 'PicturePark\\API\\Model\\PictureparkException', 'json'), $response);
+            throw new \PicturePark\API\Exception\ContentDownloadThumbnailInternalServerErrorException($serializer->deserialize($body, 'PicturePark\API\Model\PictureparkException', 'json'), $response);
         }
         if (200 === $status) {
         }
@@ -100,8 +100,8 @@ class ContentDownloadThumbnail extends \PicturePark\API\Runtime\Client\BaseEndpo
             throw new \PicturePark\API\Exception\ContentDownloadThumbnailPreconditionFailedException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('Bearer');
+        return ['Bearer'];
     }
 }

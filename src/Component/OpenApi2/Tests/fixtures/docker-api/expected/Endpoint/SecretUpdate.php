@@ -19,36 +19,36 @@ class SecretUpdate extends \Docker\Api\Runtime\Client\BaseEndpoint implements \D
     
     * }
     */
-    public function __construct(string $id, \Docker\Api\Model\SecretSpec $body, array $queryParameters = array())
+    public function __construct(string $id, \Docker\Api\Model\SecretSpec $body, array $queryParameters = [])
     {
         $this->id = $id;
         $this->body = $body;
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'POST';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/secrets/{id}/update');
+        return str_replace(['{id}'], [$this->id], '/secrets/{id}/update');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         return $this->getSerializedBody($serializer);
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('version'));
-        $optionsResolver->setRequired(array('version'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('version', array('int'));
+        $optionsResolver->setDefined(['version']);
+        $optionsResolver->setRequired(['version']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('version', ['int']);
         return $optionsResolver;
     }
     /**
@@ -69,20 +69,20 @@ class SecretUpdate extends \Docker\Api\Runtime\Client\BaseEndpoint implements \D
             return null;
         }
         if (400 === $status) {
-            throw new \Docker\Api\Exception\SecretUpdateBadRequestException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\SecretUpdateBadRequestException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Docker\Api\Exception\SecretUpdateNotFoundException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\SecretUpdateNotFoundException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\SecretUpdateInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\SecretUpdateInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (503 === $status) {
-            throw new \Docker\Api\Exception\SecretUpdateServiceUnavailableException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\SecretUpdateServiceUnavailableException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

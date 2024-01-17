@@ -7,8 +7,8 @@ class ProtectedBranchAllowDeletions
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class ProtectedBranchAllowDeletions
      *
      * @return bool
      */
-    public function getEnabled() : bool
+    public function getEnabled(): bool
     {
         return $this->enabled;
     }
@@ -34,7 +34,7 @@ class ProtectedBranchAllowDeletions
      *
      * @return self
      */
-    public function setEnabled(bool $enabled) : self
+    public function setEnabled(bool $enabled): self
     {
         $this->initialized['enabled'] = true;
         $this->enabled = $enabled;

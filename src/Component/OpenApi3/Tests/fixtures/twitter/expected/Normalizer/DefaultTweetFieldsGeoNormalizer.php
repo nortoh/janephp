@@ -18,18 +18,18 @@ class DefaultTweetFieldsGeoNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultTweetFieldsGeo';
+        return $type === 'Jane\Component\OpenApi3\Tests\Expected\Model\DefaultTweetFieldsGeo';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultTweetFieldsGeo';
+        return is_object($data) && get_class($data) === 'Jane\Component\OpenApi3\Tests\Expected\Model\DefaultTweetFieldsGeo';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class DefaultTweetFieldsGeoNormalizer implements DenormalizerInterface, Normaliz
             return $object;
         }
         if (\array_key_exists('coordinates', $data)) {
-            $object->setCoordinates($this->denormalizer->denormalize($data['coordinates'], 'Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\Point', 'json', $context));
+            $object->setCoordinates($this->denormalizer->denormalize($data['coordinates'], 'Jane\Component\OpenApi3\Tests\Expected\Model\Point', 'json', $context));
             unset($data['coordinates']);
         }
         if (\array_key_exists('place_id', $data)) {
@@ -59,11 +59,11 @@ class DefaultTweetFieldsGeoNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('coordinates') && null !== $object->getCoordinates()) {
-            $data['coordinates'] = $this->normalizer->normalize($object->getCoordinates(), 'json', $context);
+            $data['coordinates'] = ($object->getCoordinates() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCoordinates(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('placeId') && null !== $object->getPlaceId()) {
             $data['place_id'] = $object->getPlaceId();
@@ -75,8 +75,8 @@ class DefaultTweetFieldsGeoNormalizer implements DenormalizerInterface, Normaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\Component\\OpenApi3\\Tests\\Expected\\Model\\DefaultTweetFieldsGeo' => false);
+        return ['Jane\Component\OpenApi3\Tests\Expected\Model\DefaultTweetFieldsGeo' => false];
     }
 }

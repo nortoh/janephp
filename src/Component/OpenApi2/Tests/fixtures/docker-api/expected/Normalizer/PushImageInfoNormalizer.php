@@ -18,18 +18,18 @@ class PushImageInfoNormalizer implements DenormalizerInterface, NormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\PushImageInfo';
+        return $type === 'Docker\Api\Model\PushImageInfo';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\PushImageInfo';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\PushImageInfo';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -54,16 +54,16 @@ class PushImageInfoNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setProgress($data['progress']);
         }
         if (\array_key_exists('progressDetail', $data)) {
-            $object->setProgressDetail($this->denormalizer->denormalize($data['progressDetail'], 'Docker\\Api\\Model\\ProgressDetail', 'json', $context));
+            $object->setProgressDetail($this->denormalizer->denormalize($data['progressDetail'], 'Docker\Api\Model\ProgressDetail', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('error') && null !== $object->getError()) {
             $data['error'] = $object->getError();
         }
@@ -74,15 +74,15 @@ class PushImageInfoNormalizer implements DenormalizerInterface, NormalizerInterf
             $data['progress'] = $object->getProgress();
         }
         if ($object->isInitialized('progressDetail') && null !== $object->getProgressDetail()) {
-            $data['progressDetail'] = $this->normalizer->normalize($object->getProgressDetail(), 'json', $context);
+            $data['progressDetail'] = ($object->getProgressDetail() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getProgressDetail(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Docker\Api\Validator\PushImageInfoConstraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\PushImageInfo' => false);
+        return ['Docker\Api\Model\PushImageInfo' => false];
     }
 }

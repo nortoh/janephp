@@ -44,7 +44,7 @@ class MediaType extends \ArrayObject
      *
      * @return self
      */
-    public function setSchema($schema) : self
+    public function setSchema($schema): self
     {
         $this->schema = $schema;
         return $this;
@@ -65,7 +65,7 @@ class MediaType extends \ArrayObject
      *
      * @return self
      */
-    public function setExample($example) : self
+    public function setExample($example): self
     {
         $this->example = $example;
         return $this;
@@ -75,7 +75,7 @@ class MediaType extends \ArrayObject
      *
      * @return Example[]|Reference[]|null
      */
-    public function getExamples() : ?iterable
+    public function getExamples(): ?iterable
     {
         return $this->examples;
     }
@@ -86,7 +86,7 @@ class MediaType extends \ArrayObject
      *
      * @return self
      */
-    public function setExamples(?iterable $examples) : self
+    public function setExamples(?iterable $examples): self
     {
         $this->examples = $examples;
         return $this;
@@ -96,7 +96,7 @@ class MediaType extends \ArrayObject
      *
      * @return Encoding[]|null
      */
-    public function getEncoding() : ?iterable
+    public function getEncoding(): ?iterable
     {
         return $this->encoding;
     }
@@ -107,7 +107,7 @@ class MediaType extends \ArrayObject
      *
      * @return self
      */
-    public function setEncoding(?iterable $encoding) : self
+    public function setEncoding(?iterable $encoding): self
     {
         $this->encoding = $encoding;
         return $this;

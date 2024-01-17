@@ -18,18 +18,18 @@ class GpgKeyNormalizer implements DenormalizerInterface, NormalizerInterface, De
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GpgKey';
+        return $type === 'Github\Model\GpgKey';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GpgKey';
+        return is_object($data) && get_class($data) === 'Github\Model\GpgKey';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -64,17 +64,17 @@ class GpgKeyNormalizer implements DenormalizerInterface, NormalizerInterface, De
             unset($data['public_key']);
         }
         if (\array_key_exists('emails', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['emails'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\GpgKeyEmailsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\GpgKeyEmailsItem', 'json', $context);
             }
             $object->setEmails($values);
             unset($data['emails']);
         }
         if (\array_key_exists('subkeys', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['subkeys'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\\Model\\GpgKeySubkeysItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\Model\GpgKeySubkeysItem', 'json', $context);
             }
             $object->setSubkeys($values_1);
             unset($data['subkeys']);
@@ -96,11 +96,11 @@ class GpgKeyNormalizer implements DenormalizerInterface, NormalizerInterface, De
             unset($data['can_certify']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('expires_at', $data) && $data['expires_at'] !== null) {
-            $object->setExpiresAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['expires_at']));
+            $object->setExpiresAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['expires_at']));
             unset($data['expires_at']);
         }
         elseif (\array_key_exists('expires_at', $data) && $data['expires_at'] === null) {
@@ -123,29 +123,29 @@ class GpgKeyNormalizer implements DenormalizerInterface, NormalizerInterface, De
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['primary_key_id'] = $object->getPrimaryKeyId();
         $data['key_id'] = $object->getKeyId();
         $data['public_key'] = $object->getPublicKey();
-        $values = array();
+        $values = [];
         foreach ($object->getEmails() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['emails'] = $values;
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getSubkeys() as $value_1) {
-            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['subkeys'] = $values_1;
         $data['can_sign'] = $object->getCanSign();
         $data['can_encrypt_comms'] = $object->getCanEncryptComms();
         $data['can_encrypt_storage'] = $object->getCanEncryptStorage();
         $data['can_certify'] = $object->getCanCertify();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['expires_at'] = $object->getExpiresAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['expires_at'] = $object->getExpiresAt()->format('Y-m-d\TH:i:sP');
         $data['raw_key'] = $object->getRawKey();
         foreach ($object as $key => $value_2) {
             if (preg_match('/.*/', (string) $key)) {
@@ -157,8 +157,8 @@ class GpgKeyNormalizer implements DenormalizerInterface, NormalizerInterface, De
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GpgKey' => false);
+        return ['Github\Model\GpgKey' => false];
     }
 }

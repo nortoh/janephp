@@ -18,18 +18,18 @@ class FileCommitNormalizer implements DenormalizerInterface, NormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\FileCommit';
+        return $type === 'Github\Model\FileCommit';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\FileCommit';
+        return is_object($data) && get_class($data) === 'Github\Model\FileCommit';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,14 +45,14 @@ class FileCommitNormalizer implements DenormalizerInterface, NormalizerInterface
             return $object;
         }
         if (\array_key_exists('content', $data) && $data['content'] !== null) {
-            $object->setContent($this->denormalizer->denormalize($data['content'], 'Github\\Model\\FileCommitContent', 'json', $context));
+            $object->setContent($this->denormalizer->denormalize($data['content'], 'Github\Model\FileCommitContent', 'json', $context));
             unset($data['content']);
         }
         elseif (\array_key_exists('content', $data) && $data['content'] === null) {
             $object->setContent(null);
         }
         if (\array_key_exists('commit', $data)) {
-            $object->setCommit($this->denormalizer->denormalize($data['commit'], 'Github\\Model\\FileCommitCommit', 'json', $context));
+            $object->setCommit($this->denormalizer->denormalize($data['commit'], 'Github\Model\FileCommitCommit', 'json', $context));
             unset($data['commit']);
         }
         foreach ($data as $key => $value) {
@@ -65,14 +65,14 @@ class FileCommitNormalizer implements DenormalizerInterface, NormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('content') && null !== $object->getContent()) {
-            $data['content'] = $this->normalizer->normalize($object->getContent(), 'json', $context);
+            $data['content'] = ($object->getContent() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getContent(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('commit') && null !== $object->getCommit()) {
-            $data['commit'] = $this->normalizer->normalize($object->getCommit(), 'json', $context);
+            $data['commit'] = ($object->getCommit() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCommit(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -84,8 +84,8 @@ class FileCommitNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\FileCommit' => false);
+        return ['Github\Model\FileCommit' => false];
     }
 }

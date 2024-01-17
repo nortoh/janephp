@@ -18,18 +18,18 @@ class BranchWithProtectionNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\BranchWithProtection';
+        return $type === 'Github\Model\BranchWithProtection';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\BranchWithProtection';
+        return is_object($data) && get_class($data) === 'Github\Model\BranchWithProtection';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -49,11 +49,11 @@ class BranchWithProtectionNormalizer implements DenormalizerInterface, Normalize
             unset($data['name']);
         }
         if (\array_key_exists('commit', $data)) {
-            $object->setCommit($this->denormalizer->denormalize($data['commit'], 'Github\\Model\\Commit', 'json', $context));
+            $object->setCommit($this->denormalizer->denormalize($data['commit'], 'Github\Model\Commit', 'json', $context));
             unset($data['commit']);
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\\Model\\BranchWithProtectionLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\Model\BranchWithProtectionLinks', 'json', $context));
             unset($data['_links']);
         }
         if (\array_key_exists('protected', $data)) {
@@ -61,7 +61,7 @@ class BranchWithProtectionNormalizer implements DenormalizerInterface, Normalize
             unset($data['protected']);
         }
         if (\array_key_exists('protection', $data)) {
-            $object->setProtection($this->denormalizer->denormalize($data['protection'], 'Github\\Model\\BranchProtection', 'json', $context));
+            $object->setProtection($this->denormalizer->denormalize($data['protection'], 'Github\Model\BranchProtection', 'json', $context));
             unset($data['protection']);
         }
         if (\array_key_exists('protection_url', $data)) {
@@ -86,14 +86,14 @@ class BranchWithProtectionNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
-        $data['commit'] = $this->normalizer->normalize($object->getCommit(), 'json', $context);
-        $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+        $data['commit'] = ($object->getCommit() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCommit(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['protected'] = $object->getProtected();
-        $data['protection'] = $this->normalizer->normalize($object->getProtection(), 'json', $context);
+        $data['protection'] = ($object->getProtection() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getProtection(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['protection_url'] = $object->getProtectionUrl();
         if ($object->isInitialized('pattern') && null !== $object->getPattern()) {
             $data['pattern'] = $object->getPattern();
@@ -111,8 +111,8 @@ class BranchWithProtectionNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\BranchWithProtection' => false);
+        return ['Github\Model\BranchWithProtection' => false];
     }
 }

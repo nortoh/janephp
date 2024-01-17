@@ -27,7 +27,7 @@ class Tag extends \ArrayObject
      *
      * @return string|null
      */
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -38,7 +38,7 @@ class Tag extends \ArrayObject
      *
      * @return self
      */
-    public function setName(?string $name) : self
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
@@ -48,7 +48,7 @@ class Tag extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -59,7 +59,7 @@ class Tag extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;
@@ -80,7 +80,7 @@ class Tag extends \ArrayObject
      *
      * @return self
      */
-    public function setExternalDocs(?ExternalDocumentation $externalDocs) : self
+    public function setExternalDocs(?ExternalDocumentation $externalDocs): self
     {
         $this->externalDocs = $externalDocs;
         return $this;

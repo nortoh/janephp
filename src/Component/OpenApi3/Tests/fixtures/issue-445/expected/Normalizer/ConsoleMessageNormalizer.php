@@ -18,18 +18,18 @@ class ConsoleMessageNormalizer implements DenormalizerInterface, NormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ConsoleMessage';
+        return $type === 'PicturePark\API\Model\ConsoleMessage';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ConsoleMessage';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ConsoleMessage';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -72,9 +72,9 @@ class ConsoleMessageNormalizer implements DenormalizerInterface, NormalizerInter
             $object->setCommand(null);
         }
         if (\array_key_exists('arguments', $data) && $data['arguments'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['arguments'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\TupleOfStringAndString', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\TupleOfStringAndString', 'json', $context);
             }
             $object->setArguments($values);
             unset($data['arguments']);
@@ -99,9 +99,9 @@ class ConsoleMessageNormalizer implements DenormalizerInterface, NormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
@@ -113,9 +113,9 @@ class ConsoleMessageNormalizer implements DenormalizerInterface, NormalizerInter
             $data['command'] = $object->getCommand();
         }
         if ($object->isInitialized('arguments') && null !== $object->getArguments()) {
-            $values = array();
+            $values = [];
             foreach ($object->getArguments() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['arguments'] = $values;
         }
@@ -129,8 +129,8 @@ class ConsoleMessageNormalizer implements DenormalizerInterface, NormalizerInter
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ConsoleMessage' => false);
+        return ['PicturePark\API\Model\ConsoleMessage' => false];
     }
 }

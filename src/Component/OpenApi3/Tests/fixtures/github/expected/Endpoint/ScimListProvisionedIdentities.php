@@ -38,41 +38,41 @@ class ScimListProvisionedIdentities extends \Github\Runtime\Client\BaseEndpoint 
     * }
     * @param array $accept Accept content header application/scim+json|application/json
     */
-    public function __construct(string $org, array $queryParameters = array(), array $accept = array())
+    public function __construct(string $org, array $queryParameters = [], array $accept = [])
     {
         $this->org = $org;
         $this->queryParameters = $queryParameters;
         $this->accept = $accept;
     }
     use \Github\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{org}'), array($this->org), '/scim/v2/organizations/{org}/Users');
+        return str_replace(['{org}'], [$this->org], '/scim/v2/organizations/{org}/Users');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
         if (empty($this->accept)) {
-            return array('Accept' => array('application/scim+json', 'application/json'));
+            return ['Accept' => ['application/scim+json', 'application/json']];
         }
         return $this->accept;
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('startIndex', 'count', 'filter'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('startIndex', array('int'));
-        $optionsResolver->addAllowedTypes('count', array('int'));
-        $optionsResolver->addAllowedTypes('filter', array('string'));
+        $optionsResolver->setDefined(['startIndex', 'count', 'filter']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('startIndex', ['int']);
+        $optionsResolver->addAllowedTypes('count', ['int']);
+        $optionsResolver->addAllowedTypes('filter', ['string']);
         return $optionsResolver;
     }
     /**
@@ -94,17 +94,17 @@ class ScimListProvisionedIdentities extends \Github\Runtime\Client\BaseEndpoint 
             return null;
         }
         if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ScimListProvisionedIdentitiesNotFoundException($serializer->deserialize($body, 'Github\\Model\\ScimError', 'json'), $response);
+            throw new \Github\Exception\ScimListProvisionedIdentitiesNotFoundException($serializer->deserialize($body, 'Github\Model\ScimError', 'json'), $response);
         }
         if (is_null($contentType) === false && (403 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ScimListProvisionedIdentitiesForbiddenException($serializer->deserialize($body, 'Github\\Model\\ScimError', 'json'), $response);
+            throw new \Github\Exception\ScimListProvisionedIdentitiesForbiddenException($serializer->deserialize($body, 'Github\Model\ScimError', 'json'), $response);
         }
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Github\Exception\ScimListProvisionedIdentitiesBadRequestException($serializer->deserialize($body, 'Github\\Model\\ScimError', 'json'), $response);
+            throw new \Github\Exception\ScimListProvisionedIdentitiesBadRequestException($serializer->deserialize($body, 'Github\Model\ScimError', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

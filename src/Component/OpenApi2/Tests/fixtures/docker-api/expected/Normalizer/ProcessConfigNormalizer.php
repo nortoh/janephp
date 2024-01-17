@@ -18,18 +18,18 @@ class ProcessConfigNormalizer implements DenormalizerInterface, NormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\ProcessConfig';
+        return $type === 'Docker\Api\Model\ProcessConfig';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\ProcessConfig';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\ProcessConfig';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -57,7 +57,7 @@ class ProcessConfigNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setEntrypoint($data['entrypoint']);
         }
         if (\array_key_exists('arguments', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['arguments'] as $value) {
                 $values[] = $value;
             }
@@ -68,9 +68,9 @@ class ProcessConfigNormalizer implements DenormalizerInterface, NormalizerInterf
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('privileged') && null !== $object->getPrivileged()) {
             $data['privileged'] = $object->getPrivileged();
         }
@@ -84,7 +84,7 @@ class ProcessConfigNormalizer implements DenormalizerInterface, NormalizerInterf
             $data['entrypoint'] = $object->getEntrypoint();
         }
         if ($object->isInitialized('arguments') && null !== $object->getArguments()) {
-            $values = array();
+            $values = [];
             foreach ($object->getArguments() as $value) {
                 $values[] = $value;
             }
@@ -95,8 +95,8 @@ class ProcessConfigNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\ProcessConfig' => false);
+        return ['Docker\Api\Model\ProcessConfig' => false];
     }
 }

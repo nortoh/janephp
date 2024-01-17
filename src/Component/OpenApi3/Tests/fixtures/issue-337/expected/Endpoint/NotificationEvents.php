@@ -20,50 +20,50 @@ class NotificationEvents extends \CreditSafe\API\Runtime\Client\BaseEndpoint imp
      *     @var string $Authorization Bearer JWT (Authentication Token) generated from the /authenticate endpoint.
      * }
      */
-    public function __construct(array $queryParameters = array(), array $headerParameters = array())
+    public function __construct(array $queryParameters = [], array $headerParameters = [])
     {
         $this->queryParameters = $queryParameters;
         $this->headerParameters = $headerParameters;
     }
     use \CreditSafe\API\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
         return '/monitoring/notificationEvents';
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('searchQuery', 'sortBy', 'sortDir', 'startDate', 'endDate', 'page', 'pageSize'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('sortBy' => 'companyName', 'sortDir' => 'asc', 'page' => 0, 'pageSize' => 50));
-        $optionsResolver->addAllowedTypes('searchQuery', array('string'));
-        $optionsResolver->addAllowedTypes('sortBy', array('string'));
-        $optionsResolver->addAllowedTypes('sortDir', array('string'));
-        $optionsResolver->addAllowedTypes('startDate', array('string'));
-        $optionsResolver->addAllowedTypes('endDate', array('string'));
-        $optionsResolver->addAllowedTypes('page', array('int'));
-        $optionsResolver->addAllowedTypes('pageSize', array('int'));
+        $optionsResolver->setDefined(['searchQuery', 'sortBy', 'sortDir', 'startDate', 'endDate', 'page', 'pageSize']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['sortBy' => 'companyName', 'sortDir' => 'asc', 'page' => 0, 'pageSize' => 50]);
+        $optionsResolver->addAllowedTypes('searchQuery', ['string']);
+        $optionsResolver->addAllowedTypes('sortBy', ['string']);
+        $optionsResolver->addAllowedTypes('sortDir', ['string']);
+        $optionsResolver->addAllowedTypes('startDate', ['string']);
+        $optionsResolver->addAllowedTypes('endDate', ['string']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
+        $optionsResolver->addAllowedTypes('pageSize', ['int']);
         return $optionsResolver;
     }
-    protected function getHeadersOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('Authorization'));
-        $optionsResolver->setRequired(array('Authorization'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('Authorization', array('string'));
+        $optionsResolver->setDefined(['Authorization']);
+        $optionsResolver->setRequired(['Authorization']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('Authorization', ['string']);
         return $optionsResolver;
     }
     /**
@@ -81,7 +81,7 @@ class NotificationEvents extends \CreditSafe\API\Runtime\Client\BaseEndpoint imp
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'CreditSafe\\API\\Model\\NotificationEventsResponse', 'json');
+            return $serializer->deserialize($body, 'CreditSafe\API\Model\NotificationEventsResponse', 'json');
         }
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \CreditSafe\API\Exception\NotificationEventsBadRequestException($response);
@@ -96,8 +96,8 @@ class NotificationEvents extends \CreditSafe\API\Runtime\Client\BaseEndpoint imp
             throw new \CreditSafe\API\Exception\NotificationEventsNotFoundException($response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array('bearerAuth');
+        return ['bearerAuth'];
     }
 }

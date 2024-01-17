@@ -7,8 +7,8 @@ class GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationL
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationL
      *
      * @return string
      */
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -34,7 +34,7 @@ class GbCompanyReportExampleResponseReportCompanyIdentificationBasicInformationL
      *
      * @return self
      */
-    public function setDescription(string $description) : self
+    public function setDescription(string $description): self
     {
         $this->initialized['description'] = true;
         $this->description = $description;

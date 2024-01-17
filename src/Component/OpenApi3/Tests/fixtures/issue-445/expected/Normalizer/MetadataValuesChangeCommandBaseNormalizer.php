@@ -18,39 +18,39 @@ class MetadataValuesChangeCommandBaseNormalizer implements DenormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\MetadataValuesChangeCommandBase';
+        return $type === 'PicturePark\API\Model\MetadataValuesChangeCommandBase';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\MetadataValuesChangeCommandBase';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\MetadataValuesChangeCommandBase';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'MetadataValuesSchemaUpdateCommand' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\MetadataValuesSchemaUpdateCommand', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\MetadataValuesSchemaUpdateCommand', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'MetadataValuesSchemaUpsertCommand' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\MetadataValuesSchemaUpsertCommand', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\MetadataValuesSchemaUpsertCommand', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'MetadataValuesSchemaRemoveCommand' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\MetadataValuesSchemaRemoveCommand', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\MetadataValuesSchemaRemoveCommand', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'MetadataValuesSchemaReplaceCommand' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\MetadataValuesSchemaReplaceCommand', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\MetadataValuesSchemaReplaceCommand', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'MetadataValuesFieldRemoveCommand' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\MetadataValuesFieldRemoveCommand', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\MetadataValuesFieldRemoveCommand', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'MetadataValuesSchemaItemAddCommand' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\MetadataValuesSchemaItemAddCommand', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\MetadataValuesSchemaItemAddCommand', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'MetadataValuesSchemaItemRemoveCommand' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\MetadataValuesSchemaItemRemoveCommand', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\MetadataValuesSchemaItemRemoveCommand', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -73,9 +73,9 @@ class MetadataValuesChangeCommandBaseNormalizer implements DenormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'MetadataValuesSchemaUpdateCommand' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -101,8 +101,8 @@ class MetadataValuesChangeCommandBaseNormalizer implements DenormalizerInterface
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\MetadataValuesChangeCommandBase' => false);
+        return ['PicturePark\API\Model\MetadataValuesChangeCommandBase' => false];
     }
 }

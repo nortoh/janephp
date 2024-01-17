@@ -18,18 +18,18 @@ class BuildPrunePostResponse200Normalizer implements DenormalizerInterface, Norm
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\BuildPrunePostResponse200';
+        return $type === 'Docker\Api\Model\BuildPrunePostResponse200';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\BuildPrunePostResponse200';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\BuildPrunePostResponse200';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class BuildPrunePostResponse200Normalizer implements DenormalizerInterface, Norm
             return $object;
         }
         if (\array_key_exists('CachesDeleted', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['CachesDeleted'] as $value) {
                 $values[] = $value;
             }
@@ -59,11 +59,11 @@ class BuildPrunePostResponse200Normalizer implements DenormalizerInterface, Norm
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('cachesDeleted') && null !== $object->getCachesDeleted()) {
-            $values = array();
+            $values = [];
             foreach ($object->getCachesDeleted() as $value) {
                 $values[] = $value;
             }
@@ -77,8 +77,8 @@ class BuildPrunePostResponse200Normalizer implements DenormalizerInterface, Norm
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\BuildPrunePostResponse200' => false);
+        return ['Docker\Api\Model\BuildPrunePostResponse200' => false];
     }
 }

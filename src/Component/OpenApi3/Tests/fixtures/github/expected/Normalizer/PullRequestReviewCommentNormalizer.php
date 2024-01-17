@@ -18,18 +18,18 @@ class PullRequestReviewCommentNormalizer implements DenormalizerInterface, Norma
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\PullRequestReviewComment';
+        return $type === 'Github\Model\PullRequestReviewComment';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\PullRequestReviewComment';
+        return is_object($data) && get_class($data) === 'Github\Model\PullRequestReviewComment';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -92,7 +92,7 @@ class PullRequestReviewCommentNormalizer implements DenormalizerInterface, Norma
             unset($data['in_reply_to_id']);
         }
         if (\array_key_exists('user', $data) && $data['user'] !== null) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\\Model\\SimpleUser', 'json', $context));
+            $object->setUser($this->denormalizer->denormalize($data['user'], 'Github\Model\SimpleUser', 'json', $context));
             unset($data['user']);
         }
         elseif (\array_key_exists('user', $data) && $data['user'] === null) {
@@ -103,11 +103,11 @@ class PullRequestReviewCommentNormalizer implements DenormalizerInterface, Norma
             unset($data['body']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('html_url', $data)) {
@@ -123,7 +123,7 @@ class PullRequestReviewCommentNormalizer implements DenormalizerInterface, Norma
             unset($data['author_association']);
         }
         if (\array_key_exists('_links', $data)) {
-            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\\Model\\PullRequestReviewCommentLinks', 'json', $context));
+            $object->setLinks($this->denormalizer->denormalize($data['_links'], 'Github\Model\PullRequestReviewCommentLinks', 'json', $context));
             unset($data['_links']);
         }
         if (\array_key_exists('start_line', $data) && $data['start_line'] !== null) {
@@ -160,7 +160,7 @@ class PullRequestReviewCommentNormalizer implements DenormalizerInterface, Norma
             unset($data['side']);
         }
         if (\array_key_exists('reactions', $data)) {
-            $object->setReactions($this->denormalizer->denormalize($data['reactions'], 'Github\\Model\\ReactionRollup', 'json', $context));
+            $object->setReactions($this->denormalizer->denormalize($data['reactions'], 'Github\Model\ReactionRollup', 'json', $context));
             unset($data['reactions']);
         }
         if (\array_key_exists('body_html', $data)) {
@@ -181,9 +181,9 @@ class PullRequestReviewCommentNormalizer implements DenormalizerInterface, Norma
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['pull_request_review_id'] = $object->getPullRequestReviewId();
         $data['id'] = $object->getId();
@@ -197,14 +197,14 @@ class PullRequestReviewCommentNormalizer implements DenormalizerInterface, Norma
         if ($object->isInitialized('inReplyToId') && null !== $object->getInReplyToId()) {
             $data['in_reply_to_id'] = $object->getInReplyToId();
         }
-        $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
+        $data['user'] = ($object->getUser() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getUser(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['body'] = $object->getBody();
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['html_url'] = $object->getHtmlUrl();
         $data['pull_request_url'] = $object->getPullRequestUrl();
         $data['author_association'] = $object->getAuthorAssociation();
-        $data['_links'] = $this->normalizer->normalize($object->getLinks(), 'json', $context);
+        $data['_links'] = ($object->getLinks() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLinks(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('startLine') && null !== $object->getStartLine()) {
             $data['start_line'] = $object->getStartLine();
         }
@@ -224,7 +224,7 @@ class PullRequestReviewCommentNormalizer implements DenormalizerInterface, Norma
             $data['side'] = $object->getSide();
         }
         if ($object->isInitialized('reactions') && null !== $object->getReactions()) {
-            $data['reactions'] = $this->normalizer->normalize($object->getReactions(), 'json', $context);
+            $data['reactions'] = ($object->getReactions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getReactions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('bodyHtml') && null !== $object->getBodyHtml()) {
             $data['body_html'] = $object->getBodyHtml();
@@ -242,8 +242,8 @@ class PullRequestReviewCommentNormalizer implements DenormalizerInterface, Norma
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\PullRequestReviewComment' => false);
+        return ['Github\Model\PullRequestReviewComment' => false];
     }
 }

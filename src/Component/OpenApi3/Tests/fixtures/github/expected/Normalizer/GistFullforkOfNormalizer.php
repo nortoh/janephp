@@ -18,18 +18,18 @@ class GistFullforkOfNormalizer implements DenormalizerInterface, NormalizerInter
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\GistFullforkOf';
+        return $type === 'Github\Model\GistFullforkOf';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\GistFullforkOf';
+        return is_object($data) && get_class($data) === 'Github\Model\GistFullforkOf';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -77,9 +77,9 @@ class GistFullforkOfNormalizer implements DenormalizerInterface, NormalizerInter
             unset($data['html_url']);
         }
         if (\array_key_exists('files', $data)) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($data['files'] as $key => $value) {
-                $values[$key] = $this->denormalizer->denormalize($value, 'Github\\Model\\GistSimpleFilesItem', 'json', $context);
+                $values[$key] = $this->denormalizer->denormalize($value, 'Github\Model\GistSimpleFilesItem', 'json', $context);
             }
             $object->setFiles($values);
             unset($data['files']);
@@ -119,7 +119,7 @@ class GistFullforkOfNormalizer implements DenormalizerInterface, NormalizerInter
             unset($data['comments_url']);
         }
         if (\array_key_exists('owner', $data) && $data['owner'] !== null) {
-            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\\Model\\SimpleUser', 'json', $context));
+            $object->setOwner($this->denormalizer->denormalize($data['owner'], 'Github\Model\SimpleUser', 'json', $context));
             unset($data['owner']);
         }
         elseif (\array_key_exists('owner', $data) && $data['owner'] === null) {
@@ -139,9 +139,9 @@ class GistFullforkOfNormalizer implements DenormalizerInterface, NormalizerInter
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('url') && null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
@@ -167,9 +167,9 @@ class GistFullforkOfNormalizer implements DenormalizerInterface, NormalizerInter
             $data['html_url'] = $object->getHtmlUrl();
         }
         if ($object->isInitialized('files') && null !== $object->getFiles()) {
-            $values = array();
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
             foreach ($object->getFiles() as $key => $value) {
-                $values[$key] = $this->normalizer->normalize($value, 'json', $context);
+                $values[$key] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['files'] = $values;
         }
@@ -195,7 +195,7 @@ class GistFullforkOfNormalizer implements DenormalizerInterface, NormalizerInter
             $data['comments_url'] = $object->getCommentsUrl();
         }
         if ($object->isInitialized('owner') && null !== $object->getOwner()) {
-            $data['owner'] = $this->normalizer->normalize($object->getOwner(), 'json', $context);
+            $data['owner'] = ($object->getOwner() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getOwner(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('truncated') && null !== $object->getTruncated()) {
             $data['truncated'] = $object->getTruncated();
@@ -210,8 +210,8 @@ class GistFullforkOfNormalizer implements DenormalizerInterface, NormalizerInter
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\GistFullforkOf' => false);
+        return ['Github\Model\GistFullforkOf' => false];
     }
 }

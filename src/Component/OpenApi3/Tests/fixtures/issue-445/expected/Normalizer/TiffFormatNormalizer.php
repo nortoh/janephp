@@ -18,18 +18,18 @@ class TiffFormatNormalizer implements DenormalizerInterface, NormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\TiffFormat';
+        return $type === 'PicturePark\API\Model\TiffFormat';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\TiffFormat';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\TiffFormat';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -88,9 +88,9 @@ class TiffFormatNormalizer implements DenormalizerInterface, NormalizerInterface
             $object->setResizeAction(null);
         }
         if (\array_key_exists('actions', $data) && $data['actions'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['actions'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\ImageActionBase', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\ImageActionBase', 'json', $context);
             }
             $object->setActions($values);
             unset($data['actions']);
@@ -127,9 +127,9 @@ class TiffFormatNormalizer implements DenormalizerInterface, NormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['kind'] = $object->getKind();
         if ($object->isInitialized('colorProfile') && null !== $object->getColorProfile()) {
             $data['colorProfile'] = $object->getColorProfile();
@@ -150,9 +150,9 @@ class TiffFormatNormalizer implements DenormalizerInterface, NormalizerInterface
             $data['resizeAction'] = $object->getResizeAction();
         }
         if ($object->isInitialized('actions') && null !== $object->getActions()) {
-            $values = array();
+            $values = [];
             foreach ($object->getActions() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['actions'] = $values;
         }
@@ -175,8 +175,8 @@ class TiffFormatNormalizer implements DenormalizerInterface, NormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\TiffFormat' => false);
+        return ['PicturePark\API\Model\TiffFormat' => false];
     }
 }

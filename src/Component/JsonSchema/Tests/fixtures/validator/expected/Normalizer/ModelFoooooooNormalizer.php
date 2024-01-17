@@ -18,18 +18,18 @@ class ModelFoooooooNormalizer implements DenormalizerInterface, NormalizerInterf
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Jane\\JsonSchema\\Tests\\Expected\\Model\\ModelFooooooo';
+        return $type === 'Jane\JsonSchema\Tests\Expected\Model\ModelFooooooo';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return $data instanceof \Jane\JsonSchema\Tests\Expected\Model\ModelFooooooo;
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -73,28 +73,28 @@ class ModelFoooooooNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setPatternString($data['patternString']);
         }
         if (\array_key_exists('arrayMinItems', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['arrayMinItems'] as $value_1) {
                 $values[] = $value_1;
             }
             $object->setArrayMinItems($values);
         }
         if (\array_key_exists('arrayMaxItems', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['arrayMaxItems'] as $value_2) {
                 $values_1[] = $value_2;
             }
             $object->setArrayMaxItems($values_1);
         }
         if (\array_key_exists('arrayMinMaxItems', $data)) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['arrayMinMaxItems'] as $value_3) {
                 $values_2[] = $value_3;
             }
             $object->setArrayMinMaxItems($values_2);
         }
         if (\array_key_exists('arrayUnique', $data)) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['arrayUnique'] as $value_4) {
                 $values_3[] = $value_4;
             }
@@ -134,16 +134,16 @@ class ModelFoooooooNormalizer implements DenormalizerInterface, NormalizerInterf
             $object->setUuidFormat($data['uuidFormat']);
         }
         if (\array_key_exists('foo', $data)) {
-            $object->setFoo($this->denormalizer->denormalize($data['foo'], 'Jane\\JsonSchema\\Tests\\Expected\\Model\\FooFooFoo', 'json', $context));
+            $object->setFoo($this->denormalizer->denormalize($data['foo'], 'Jane\JsonSchema\Tests\Expected\Model\FooFooFoo', 'json', $context));
         }
         return $object;
     }
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('enumString') && null !== $object->getEnumString()) {
             $data['enumString'] = $object->getEnumString();
         }
@@ -169,28 +169,28 @@ class ModelFoooooooNormalizer implements DenormalizerInterface, NormalizerInterf
         }
         $data['patternString'] = $object->getPatternString();
         if ($object->isInitialized('arrayMinItems') && null !== $object->getArrayMinItems()) {
-            $values = array();
+            $values = [];
             foreach ($object->getArrayMinItems() as $value_1) {
                 $values[] = $value_1;
             }
             $data['arrayMinItems'] = $values;
         }
         if ($object->isInitialized('arrayMaxItems') && null !== $object->getArrayMaxItems()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getArrayMaxItems() as $value_2) {
                 $values_1[] = $value_2;
             }
             $data['arrayMaxItems'] = $values_1;
         }
         if ($object->isInitialized('arrayMinMaxItems') && null !== $object->getArrayMinMaxItems()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getArrayMinMaxItems() as $value_3) {
                 $values_2[] = $value_3;
             }
             $data['arrayMinMaxItems'] = $values_2;
         }
         if ($object->isInitialized('arrayUnique') && null !== $object->getArrayUnique()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getArrayUnique() as $value_4) {
                 $values_3[] = $value_4;
             }
@@ -230,15 +230,15 @@ class ModelFoooooooNormalizer implements DenormalizerInterface, NormalizerInterf
             $data['uuidFormat'] = $object->getUuidFormat();
         }
         if ($object->isInitialized('foo') && null !== $object->getFoo()) {
-            $data['foo'] = $this->normalizer->normalize($object->getFoo(), 'json', $context);
+            $data['foo'] = ($object->getFoo() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getFoo(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if (!($context['skip_validation'] ?? false)) {
             $this->validate($data, new \Jane\JsonSchema\Tests\Expected\Validator\ModelFoooooooConstraint());
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Jane\\JsonSchema\\Tests\\Expected\\Model\\ModelFooooooo' => false);
+        return ['Jane\JsonSchema\Tests\Expected\Model\ModelFooooooo' => false];
     }
 }

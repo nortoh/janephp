@@ -18,18 +18,18 @@ class LiveStreamSearchRequestNormalizer implements DenormalizerInterface, Normal
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\LiveStreamSearchRequest';
+        return $type === 'PicturePark\API\Model\LiveStreamSearchRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\LiveStreamSearchRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\LiveStreamSearchRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,10 +42,10 @@ class LiveStreamSearchRequestNormalizer implements DenormalizerInterface, Normal
             return $object;
         }
         if (\array_key_exists('from', $data)) {
-            $object->setFrom(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['from']));
+            $object->setFrom(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['from']));
         }
         if (\array_key_exists('to', $data)) {
-            $object->setTo(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['to']));
+            $object->setTo(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['to']));
         }
         if (\array_key_exists('scopeType', $data) && $data['scopeType'] !== null) {
             $object->setScopeType($data['scopeType']);
@@ -73,11 +73,11 @@ class LiveStreamSearchRequestNormalizer implements DenormalizerInterface, Normal
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        $data['from'] = $object->getFrom()->format('Y-m-d\\TH:i:sP');
-        $data['to'] = $object->getTo()->format('Y-m-d\\TH:i:sP');
+        $data = [];
+        $data['from'] = $object->getFrom()->format('Y-m-d\TH:i:sP');
+        $data['to'] = $object->getTo()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('scopeType') && null !== $object->getScopeType()) {
             $data['scopeType'] = $object->getScopeType();
         }
@@ -90,8 +90,8 @@ class LiveStreamSearchRequestNormalizer implements DenormalizerInterface, Normal
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\LiveStreamSearchRequest' => false);
+        return ['PicturePark\API\Model\LiveStreamSearchRequest' => false];
     }
 }

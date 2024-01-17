@@ -18,18 +18,18 @@ class CommitSearchResultItemNormalizer implements DenormalizerInterface, Normali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\CommitSearchResultItem';
+        return $type === 'Github\Model\CommitSearchResultItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\CommitSearchResultItem';
+        return is_object($data) && get_class($data) === 'Github\Model\CommitSearchResultItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,33 +61,33 @@ class CommitSearchResultItemNormalizer implements DenormalizerInterface, Normali
             unset($data['comments_url']);
         }
         if (\array_key_exists('commit', $data)) {
-            $object->setCommit($this->denormalizer->denormalize($data['commit'], 'Github\\Model\\CommitSearchResultItemCommit', 'json', $context));
+            $object->setCommit($this->denormalizer->denormalize($data['commit'], 'Github\Model\CommitSearchResultItemCommit', 'json', $context));
             unset($data['commit']);
         }
         if (\array_key_exists('author', $data) && $data['author'] !== null) {
-            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\\Model\\CommitSearchResultItemAuthor', 'json', $context));
+            $object->setAuthor($this->denormalizer->denormalize($data['author'], 'Github\Model\CommitSearchResultItemAuthor', 'json', $context));
             unset($data['author']);
         }
         elseif (\array_key_exists('author', $data) && $data['author'] === null) {
             $object->setAuthor(null);
         }
         if (\array_key_exists('committer', $data) && $data['committer'] !== null) {
-            $object->setCommitter($this->denormalizer->denormalize($data['committer'], 'Github\\Model\\CommitSearchResultItemCommitter', 'json', $context));
+            $object->setCommitter($this->denormalizer->denormalize($data['committer'], 'Github\Model\CommitSearchResultItemCommitter', 'json', $context));
             unset($data['committer']);
         }
         elseif (\array_key_exists('committer', $data) && $data['committer'] === null) {
             $object->setCommitter(null);
         }
         if (\array_key_exists('parents', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['parents'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\CommitSearchResultItemParentsItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\CommitSearchResultItemParentsItem', 'json', $context);
             }
             $object->setParents($values);
             unset($data['parents']);
         }
         if (\array_key_exists('repository', $data)) {
-            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\\Model\\MinimalRepository', 'json', $context));
+            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\Model\MinimalRepository', 'json', $context));
             unset($data['repository']);
         }
         if (\array_key_exists('score', $data)) {
@@ -99,9 +99,9 @@ class CommitSearchResultItemNormalizer implements DenormalizerInterface, Normali
             unset($data['node_id']);
         }
         if (\array_key_exists('text_matches', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['text_matches'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\\Model\\SearchResultTextMatchesItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'Github\Model\SearchResultTextMatchesItem', 'json', $context);
             }
             $object->setTextMatches($values_1);
             unset($data['text_matches']);
@@ -116,28 +116,28 @@ class CommitSearchResultItemNormalizer implements DenormalizerInterface, Normali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         $data['sha'] = $object->getSha();
         $data['html_url'] = $object->getHtmlUrl();
         $data['comments_url'] = $object->getCommentsUrl();
-        $data['commit'] = $this->normalizer->normalize($object->getCommit(), 'json', $context);
-        $data['author'] = $this->normalizer->normalize($object->getAuthor(), 'json', $context);
-        $data['committer'] = $this->normalizer->normalize($object->getCommitter(), 'json', $context);
-        $values = array();
+        $data['commit'] = ($object->getCommit() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCommit(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['author'] = ($object->getAuthor() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getAuthor(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['committer'] = ($object->getCommitter() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getCommitter(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $values = [];
         foreach ($object->getParents() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['parents'] = $values;
-        $data['repository'] = $this->normalizer->normalize($object->getRepository(), 'json', $context);
+        $data['repository'] = ($object->getRepository() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRepository(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         $data['score'] = $object->getScore();
         $data['node_id'] = $object->getNodeId();
         if ($object->isInitialized('textMatches') && null !== $object->getTextMatches()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getTextMatches() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['text_matches'] = $values_1;
         }
@@ -151,8 +151,8 @@ class CommitSearchResultItemNormalizer implements DenormalizerInterface, Normali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\CommitSearchResultItem' => false);
+        return ['Github\Model\CommitSearchResultItem' => false];
     }
 }

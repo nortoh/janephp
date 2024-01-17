@@ -18,18 +18,18 @@ class UserRoleEditableNormalizer implements DenormalizerInterface, NormalizerInt
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\UserRoleEditable';
+        return $type === 'PicturePark\API\Model\UserRoleEditable';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\UserRoleEditable';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\UserRoleEditable';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -45,7 +45,7 @@ class UserRoleEditableNormalizer implements DenormalizerInterface, NormalizerInt
             $object->setNames($data['names']);
         }
         if (\array_key_exists('userRights', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['userRights'] as $value) {
                 $values[] = $value;
             }
@@ -56,19 +56,19 @@ class UserRoleEditableNormalizer implements DenormalizerInterface, NormalizerInt
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['names'] = $object->getNames();
-        $values = array();
+        $values = [];
         foreach ($object->getUserRights() as $value) {
             $values[] = $value;
         }
         $data['userRights'] = $values;
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\UserRoleEditable' => false);
+        return ['PicturePark\API\Model\UserRoleEditable' => false];
     }
 }

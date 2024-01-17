@@ -18,18 +18,18 @@ class HookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\Hook';
+        return $type === 'Github\Model\Hook';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\Hook';
+        return is_object($data) && get_class($data) === 'Github\Model\Hook';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,7 +61,7 @@ class HookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             unset($data['active']);
         }
         if (\array_key_exists('events', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['events'] as $value) {
                 $values[] = $value;
             }
@@ -69,15 +69,15 @@ class HookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             unset($data['events']);
         }
         if (\array_key_exists('config', $data)) {
-            $object->setConfig($this->denormalizer->denormalize($data['config'], 'Github\\Model\\HookConfig', 'json', $context));
+            $object->setConfig($this->denormalizer->denormalize($data['config'], 'Github\Model\HookConfig', 'json', $context));
             unset($data['config']);
         }
         if (\array_key_exists('updated_at', $data)) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         if (\array_key_exists('created_at', $data)) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         if (\array_key_exists('url', $data)) {
@@ -93,7 +93,7 @@ class HookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             unset($data['ping_url']);
         }
         if (\array_key_exists('last_response', $data)) {
-            $object->setLastResponse($this->denormalizer->denormalize($data['last_response'], 'Github\\Model\\HookResponse', 'json', $context));
+            $object->setLastResponse($this->denormalizer->denormalize($data['last_response'], 'Github\Model\HookResponse', 'json', $context));
             unset($data['last_response']);
         }
         foreach ($data as $key => $value_1) {
@@ -106,25 +106,25 @@ class HookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['type'] = $object->getType();
         $data['id'] = $object->getId();
         $data['name'] = $object->getName();
         $data['active'] = $object->getActive();
-        $values = array();
+        $values = [];
         foreach ($object->getEvents() as $value) {
             $values[] = $value;
         }
         $data['events'] = $values;
-        $data['config'] = $this->normalizer->normalize($object->getConfig(), 'json', $context);
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['config'] = ($object->getConfig() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getConfig(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
         $data['url'] = $object->getUrl();
         $data['test_url'] = $object->getTestUrl();
         $data['ping_url'] = $object->getPingUrl();
-        $data['last_response'] = $this->normalizer->normalize($object->getLastResponse(), 'json', $context);
+        $data['last_response'] = ($object->getLastResponse() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getLastResponse(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value_1;
@@ -135,8 +135,8 @@ class HookNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\Hook' => false);
+        return ['Github\Model\Hook' => false];
     }
 }

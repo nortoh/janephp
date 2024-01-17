@@ -27,7 +27,7 @@ class OpenIdConnectSecurityScheme extends \ArrayObject
      *
      * @return string|null
      */
-    public function getType() : ?string
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -38,7 +38,7 @@ class OpenIdConnectSecurityScheme extends \ArrayObject
      *
      * @return self
      */
-    public function setType(?string $type) : self
+    public function setType(?string $type): self
     {
         $this->type = $type;
         return $this;
@@ -48,7 +48,7 @@ class OpenIdConnectSecurityScheme extends \ArrayObject
      *
      * @return string|null
      */
-    public function getOpenIdConnectUrl() : ?string
+    public function getOpenIdConnectUrl(): ?string
     {
         return $this->openIdConnectUrl;
     }
@@ -59,7 +59,7 @@ class OpenIdConnectSecurityScheme extends \ArrayObject
      *
      * @return self
      */
-    public function setOpenIdConnectUrl(?string $openIdConnectUrl) : self
+    public function setOpenIdConnectUrl(?string $openIdConnectUrl): self
     {
         $this->openIdConnectUrl = $openIdConnectUrl;
         return $this;
@@ -69,7 +69,7 @@ class OpenIdConnectSecurityScheme extends \ArrayObject
      *
      * @return string|null
      */
-    public function getDescription() : ?string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -80,7 +80,7 @@ class OpenIdConnectSecurityScheme extends \ArrayObject
      *
      * @return self
      */
-    public function setDescription(?string $description) : self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
         return $this;

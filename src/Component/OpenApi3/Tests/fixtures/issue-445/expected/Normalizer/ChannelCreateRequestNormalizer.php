@@ -18,18 +18,18 @@ class ChannelCreateRequestNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ChannelCreateRequest';
+        return $type === 'PicturePark\API\Model\ChannelCreateRequest';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ChannelCreateRequest';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ChannelCreateRequest';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -48,9 +48,9 @@ class ChannelCreateRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setId(null);
         }
         if (\array_key_exists('sort', $data) && $data['sort'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['sort'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\SortInfo', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\SortInfo', 'json', $context);
             }
             $object->setSort($values);
         }
@@ -61,9 +61,9 @@ class ChannelCreateRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setSortOrder($data['sortOrder']);
         }
         if (\array_key_exists('sortFields', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['sortFields'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\SortField', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\SortField', 'json', $context);
             }
             $object->setSortFields($values_1);
         }
@@ -77,7 +77,7 @@ class ChannelCreateRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setSearchIndexId(null);
         }
         if (\array_key_exists('grantedUserRoleIds', $data) && $data['grantedUserRoleIds'] !== null) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($data['grantedUserRoleIds'] as $value_2) {
                 $values_2[] = $value_2;
             }
@@ -87,9 +87,9 @@ class ChannelCreateRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setGrantedUserRoleIds(null);
         }
         if (\array_key_exists('aggregations', $data) && $data['aggregations'] !== null) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($data['aggregations'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\\API\\Model\\AggregatorBase', 'json', $context);
+                $values_3[] = $this->denormalizer->denormalize($value_3, 'PicturePark\API\Model\AggregatorBase', 'json', $context);
             }
             $object->setAggregations($values_3);
         }
@@ -103,7 +103,7 @@ class ChannelCreateRequestNormalizer implements DenormalizerInterface, Normalize
             $object->setFilter(null);
         }
         if (\array_key_exists('extendedSimpleSearchFields', $data) && $data['extendedSimpleSearchFields'] !== null) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($data['extendedSimpleSearchFields'] as $value_4) {
                 $values_4[] = $value_4;
             }
@@ -126,23 +126,23 @@ class ChannelCreateRequestNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('id') && null !== $object->getId()) {
             $data['id'] = $object->getId();
         }
         if ($object->isInitialized('sort') && null !== $object->getSort()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSort() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['sort'] = $values;
         }
         $data['sortOrder'] = $object->getSortOrder();
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getSortFields() as $value_1) {
-            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['sortFields'] = $values_1;
         $data['names'] = $object->getNames();
@@ -150,16 +150,16 @@ class ChannelCreateRequestNormalizer implements DenormalizerInterface, Normalize
             $data['searchIndexId'] = $object->getSearchIndexId();
         }
         if ($object->isInitialized('grantedUserRoleIds') && null !== $object->getGrantedUserRoleIds()) {
-            $values_2 = array();
+            $values_2 = [];
             foreach ($object->getGrantedUserRoleIds() as $value_2) {
                 $values_2[] = $value_2;
             }
             $data['grantedUserRoleIds'] = $values_2;
         }
         if ($object->isInitialized('aggregations') && null !== $object->getAggregations()) {
-            $values_3 = array();
+            $values_3 = [];
             foreach ($object->getAggregations() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+                $values_3[] = ($value_3 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_3, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregations'] = $values_3;
         }
@@ -167,7 +167,7 @@ class ChannelCreateRequestNormalizer implements DenormalizerInterface, Normalize
             $data['filter'] = $object->getFilter();
         }
         if ($object->isInitialized('extendedSimpleSearchFields') && null !== $object->getExtendedSimpleSearchFields()) {
-            $values_4 = array();
+            $values_4 = [];
             foreach ($object->getExtendedSimpleSearchFields() as $value_4) {
                 $values_4[] = $value_4;
             }
@@ -179,8 +179,8 @@ class ChannelCreateRequestNormalizer implements DenormalizerInterface, Normalize
         $data['viewForAll'] = $object->getViewForAll();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ChannelCreateRequest' => false);
+        return ['PicturePark\API\Model\ChannelCreateRequest' => false];
     }
 }

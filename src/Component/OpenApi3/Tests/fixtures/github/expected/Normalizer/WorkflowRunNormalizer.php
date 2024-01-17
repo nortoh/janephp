@@ -18,18 +18,18 @@ class WorkflowRunNormalizer implements DenormalizerInterface, NormalizerInterfac
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\WorkflowRun';
+        return $type === 'Github\Model\WorkflowRun';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\WorkflowRun';
+        return is_object($data) && get_class($data) === 'Github\Model\WorkflowRun';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -98,9 +98,9 @@ class WorkflowRunNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['html_url']);
         }
         if (\array_key_exists('pull_requests', $data) && $data['pull_requests'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['pull_requests'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Github\\Model\\PullRequestMinimal', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Github\Model\PullRequestMinimal', 'json', $context);
             }
             $object->setPullRequests($values);
             unset($data['pull_requests']);
@@ -109,14 +109,14 @@ class WorkflowRunNormalizer implements DenormalizerInterface, NormalizerInterfac
             $object->setPullRequests(null);
         }
         if (\array_key_exists('created_at', $data) && $data['created_at'] !== null) {
-            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['created_at']));
+            $object->setCreatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['created_at']));
             unset($data['created_at']);
         }
         elseif (\array_key_exists('created_at', $data) && $data['created_at'] === null) {
             $object->setCreatedAt(null);
         }
         if (\array_key_exists('updated_at', $data) && $data['updated_at'] !== null) {
-            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['updated_at']));
+            $object->setUpdatedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['updated_at']));
             unset($data['updated_at']);
         }
         elseif (\array_key_exists('updated_at', $data) && $data['updated_at'] === null) {
@@ -151,15 +151,15 @@ class WorkflowRunNormalizer implements DenormalizerInterface, NormalizerInterfac
             unset($data['workflow_url']);
         }
         if (\array_key_exists('head_commit', $data)) {
-            $object->setHeadCommit($this->denormalizer->denormalize($data['head_commit'], 'Github\\Model\\SimpleCommit', 'json', $context));
+            $object->setHeadCommit($this->denormalizer->denormalize($data['head_commit'], 'Github\Model\SimpleCommit', 'json', $context));
             unset($data['head_commit']);
         }
         if (\array_key_exists('repository', $data)) {
-            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\\Model\\MinimalRepository', 'json', $context));
+            $object->setRepository($this->denormalizer->denormalize($data['repository'], 'Github\Model\MinimalRepository', 'json', $context));
             unset($data['repository']);
         }
         if (\array_key_exists('head_repository', $data)) {
-            $object->setHeadRepository($this->denormalizer->denormalize($data['head_repository'], 'Github\\Model\\MinimalRepository', 'json', $context));
+            $object->setHeadRepository($this->denormalizer->denormalize($data['head_repository'], 'Github\Model\MinimalRepository', 'json', $context));
             unset($data['head_repository']);
         }
         if (\array_key_exists('head_repository_id', $data)) {
@@ -176,9 +176,9 @@ class WorkflowRunNormalizer implements DenormalizerInterface, NormalizerInterfac
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['id'] = $object->getId();
         $data['node_id'] = $object->getNodeId();
         $data['head_branch'] = $object->getHeadBranch();
@@ -190,13 +190,13 @@ class WorkflowRunNormalizer implements DenormalizerInterface, NormalizerInterfac
         $data['workflow_id'] = $object->getWorkflowId();
         $data['url'] = $object->getUrl();
         $data['html_url'] = $object->getHtmlUrl();
-        $values = array();
+        $values = [];
         foreach ($object->getPullRequests() as $value) {
-            $values[] = $this->normalizer->normalize($value, 'json', $context);
+            $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['pull_requests'] = $values;
-        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\\TH:i:sP');
-        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\\TH:i:sP');
+        $data['created_at'] = $object->getCreatedAt()->format('Y-m-d\TH:i:sP');
+        $data['updated_at'] = $object->getUpdatedAt()->format('Y-m-d\TH:i:sP');
         $data['jobs_url'] = $object->getJobsUrl();
         $data['logs_url'] = $object->getLogsUrl();
         $data['check_suite_url'] = $object->getCheckSuiteUrl();
@@ -204,9 +204,9 @@ class WorkflowRunNormalizer implements DenormalizerInterface, NormalizerInterfac
         $data['cancel_url'] = $object->getCancelUrl();
         $data['rerun_url'] = $object->getRerunUrl();
         $data['workflow_url'] = $object->getWorkflowUrl();
-        $data['head_commit'] = $this->normalizer->normalize($object->getHeadCommit(), 'json', $context);
-        $data['repository'] = $this->normalizer->normalize($object->getRepository(), 'json', $context);
-        $data['head_repository'] = $this->normalizer->normalize($object->getHeadRepository(), 'json', $context);
+        $data['head_commit'] = ($object->getHeadCommit() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getHeadCommit(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['repository'] = ($object->getRepository() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getRepository(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
+        $data['head_repository'] = ($object->getHeadRepository() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getHeadRepository(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         if ($object->isInitialized('headRepositoryId') && null !== $object->getHeadRepositoryId()) {
             $data['head_repository_id'] = $object->getHeadRepositoryId();
         }
@@ -220,8 +220,8 @@ class WorkflowRunNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\WorkflowRun' => false);
+        return ['Github\Model\WorkflowRun' => false];
     }
 }

@@ -18,18 +18,18 @@ class UserMigrationsPostBodyNormalizer implements DenormalizerInterface, Normali
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\UserMigrationsPostBody';
+        return $type === 'Github\Model\UserMigrationsPostBody';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\UserMigrationsPostBody';
+        return is_object($data) && get_class($data) === 'Github\Model\UserMigrationsPostBody';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,7 +53,7 @@ class UserMigrationsPostBodyNormalizer implements DenormalizerInterface, Normali
             unset($data['exclude_attachments']);
         }
         if (\array_key_exists('exclude', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['exclude'] as $value) {
                 $values[] = $value;
             }
@@ -61,7 +61,7 @@ class UserMigrationsPostBodyNormalizer implements DenormalizerInterface, Normali
             unset($data['exclude']);
         }
         if (\array_key_exists('repositories', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['repositories'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -78,9 +78,9 @@ class UserMigrationsPostBodyNormalizer implements DenormalizerInterface, Normali
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('lockRepositories') && null !== $object->getLockRepositories()) {
             $data['lock_repositories'] = $object->getLockRepositories();
         }
@@ -88,13 +88,13 @@ class UserMigrationsPostBodyNormalizer implements DenormalizerInterface, Normali
             $data['exclude_attachments'] = $object->getExcludeAttachments();
         }
         if ($object->isInitialized('exclude') && null !== $object->getExclude()) {
-            $values = array();
+            $values = [];
             foreach ($object->getExclude() as $value) {
                 $values[] = $value;
             }
             $data['exclude'] = $values;
         }
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getRepositories() as $value_1) {
             $values_1[] = $value_1;
         }
@@ -109,8 +109,8 @@ class UserMigrationsPostBodyNormalizer implements DenormalizerInterface, Normali
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\UserMigrationsPostBody' => false);
+        return ['Github\Model\UserMigrationsPostBody' => false];
     }
 }

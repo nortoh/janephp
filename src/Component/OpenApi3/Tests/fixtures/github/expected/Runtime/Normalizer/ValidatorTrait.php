@@ -5,7 +5,7 @@ namespace Github\Runtime\Normalizer;
 use Symfony\Component\Validator\Constraint;
 trait ValidatorTrait
 {
-    protected function validate(array $data, Constraint $constraint) : void
+    protected function validate(array $data, Constraint $constraint): void
     {
         $validator = \Symfony\Component\Validator\Validation::createValidator();
         $violations = $validator->validate($data, $constraint);

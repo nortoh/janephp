@@ -18,18 +18,18 @@ class GeoDistanceAggregatorNormalizer implements DenormalizerInterface, Normaliz
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\GeoDistanceAggregator';
+        return $type === 'PicturePark\API\Model\GeoDistanceAggregator';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\GeoDistanceAggregator';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\GeoDistanceAggregator';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,9 +53,9 @@ class GeoDistanceAggregatorNormalizer implements DenormalizerInterface, Normaliz
             $object->setNames(null);
         }
         if (\array_key_exists('aggregators', $data) && $data['aggregators'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['aggregators'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\\API\\Model\\AggregatorBase', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'PicturePark\API\Model\AggregatorBase', 'json', $context);
             }
             $object->setAggregators($values);
             unset($data['aggregators']);
@@ -83,9 +83,9 @@ class GeoDistanceAggregatorNormalizer implements DenormalizerInterface, Normaliz
             unset($data['location']);
         }
         if (\array_key_exists('ranges', $data)) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['ranges'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\GeoDistance', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\GeoDistance', 'json', $context);
             }
             $object->setRanges($values_1);
             unset($data['ranges']);
@@ -100,17 +100,17 @@ class GeoDistanceAggregatorNormalizer implements DenormalizerInterface, Normaliz
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['name'] = $object->getName();
         if ($object->isInitialized('names') && null !== $object->getNames()) {
             $data['names'] = $object->getNames();
         }
         if ($object->isInitialized('aggregators') && null !== $object->getAggregators()) {
-            $values = array();
+            $values = [];
             foreach ($object->getAggregators() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $values[] = ($value == null) ? null : new \ArrayObject($this->normalizer->normalize($value, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['aggregators'] = $values;
         }
@@ -120,9 +120,9 @@ class GeoDistanceAggregatorNormalizer implements DenormalizerInterface, Normaliz
         $data['kind'] = $object->getKind();
         $data['field'] = $object->getField();
         $data['location'] = $object->getLocation();
-        $values_1 = array();
+        $values_1 = [];
         foreach ($object->getRanges() as $value_1) {
-            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         $data['ranges'] = $values_1;
         foreach ($object as $key => $value_2) {
@@ -132,8 +132,8 @@ class GeoDistanceAggregatorNormalizer implements DenormalizerInterface, Normaliz
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\GeoDistanceAggregator' => false);
+        return ['PicturePark\API\Model\GeoDistanceAggregator' => false];
     }
 }

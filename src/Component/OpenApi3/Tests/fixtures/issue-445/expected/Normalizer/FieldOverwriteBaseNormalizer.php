@@ -18,24 +18,24 @@ class FieldOverwriteBaseNormalizer implements DenormalizerInterface, NormalizerI
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\FieldOverwriteBase';
+        return $type === 'PicturePark\API\Model\FieldOverwriteBase';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\FieldOverwriteBase';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\FieldOverwriteBase';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (array_key_exists('kind', $data) and 'FieldOverwriteSingleTagbox' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\FieldOverwriteSingleTagbox', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\FieldOverwriteSingleTagbox', $format, $context);
         }
         if (array_key_exists('kind', $data) and 'FieldOverwriteMultiTagbox' === $data['kind']) {
-            return $this->denormalizer->denormalize($data, 'PicturePark\\API\\Model\\FieldOverwriteMultiTagbox', $format, $context);
+            return $this->denormalizer->denormalize($data, 'PicturePark\API\Model\FieldOverwriteMultiTagbox', $format, $context);
         }
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -67,9 +67,9 @@ class FieldOverwriteBaseNormalizer implements DenormalizerInterface, NormalizerI
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if (null !== $object->getKind() and 'FieldOverwriteSingleTagbox' === $object->getKind()) {
             return $this->normalizer->normalize($object, $format, $context);
         }
@@ -84,8 +84,8 @@ class FieldOverwriteBaseNormalizer implements DenormalizerInterface, NormalizerI
         $data['kind'] = $object->getKind();
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\FieldOverwriteBase' => false);
+        return ['PicturePark\API\Model\FieldOverwriteBase' => false];
     }
 }

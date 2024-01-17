@@ -14,36 +14,36 @@ class NetworkInspect extends \Docker\Api\Runtime\Client\BaseEndpoint implements 
      *     @var string $scope Filter the network by scope (swarm, global, or local)
      * }
      */
-    public function __construct(string $id, array $queryParameters = array())
+    public function __construct(string $id, array $queryParameters = [])
     {
         $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
     use \Docker\Api\Runtime\Client\EndpointTrait;
-    public function getMethod() : string
+    public function getMethod(): string
     {
         return 'GET';
     }
-    public function getUri() : string
+    public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/networks/{id}');
+        return str_replace(['{id}'], [$this->id], '/networks/{id}');
     }
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
-    public function getExtraHeaders() : array
+    public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
-    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('verbose', 'scope'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('verbose' => false));
-        $optionsResolver->addAllowedTypes('verbose', array('bool'));
-        $optionsResolver->addAllowedTypes('scope', array('string'));
+        $optionsResolver->setDefined(['verbose', 'scope']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['verbose' => false]);
+        $optionsResolver->addAllowedTypes('verbose', ['bool']);
+        $optionsResolver->addAllowedTypes('scope', ['string']);
         return $optionsResolver;
     }
     /**
@@ -59,17 +59,17 @@ class NetworkInspect extends \Docker\Api\Runtime\Client\BaseEndpoint implements 
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Docker\\Api\\Model\\Network', 'json');
+            return $serializer->deserialize($body, 'Docker\Api\Model\Network', 'json');
         }
         if (404 === $status) {
-            throw new \Docker\Api\Exception\NetworkInspectNotFoundException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\NetworkInspectNotFoundException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Docker\Api\Exception\NetworkInspectInternalServerErrorException($serializer->deserialize($body, 'Docker\\Api\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Docker\Api\Exception\NetworkInspectInternalServerErrorException($serializer->deserialize($body, 'Docker\Api\Model\ErrorResponse', 'json'), $response);
         }
     }
-    public function getAuthenticationScopes() : array
+    public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

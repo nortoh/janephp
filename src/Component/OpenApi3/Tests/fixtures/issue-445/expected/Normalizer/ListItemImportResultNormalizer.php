@@ -18,18 +18,18 @@ class ListItemImportResultNormalizer implements DenormalizerInterface, Normalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\ListItemImportResult';
+        return $type === 'PicturePark\API\Model\ListItemImportResult';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\ListItemImportResult';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\ListItemImportResult';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -51,7 +51,7 @@ class ListItemImportResultNormalizer implements DenormalizerInterface, Normalize
             $object->setTotalListItemCount($data['totalListItemCount']);
         }
         if (\array_key_exists('skippedListItemIds', $data) && $data['skippedListItemIds'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['skippedListItemIds'] as $value) {
                 $values[] = $value;
             }
@@ -61,7 +61,7 @@ class ListItemImportResultNormalizer implements DenormalizerInterface, Normalize
             $object->setSkippedListItemIds(null);
         }
         if (\array_key_exists('importedListItemIds', $data) && $data['importedListItemIds'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['importedListItemIds'] as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -75,21 +75,21 @@ class ListItemImportResultNormalizer implements DenormalizerInterface, Normalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['importedListItemCount'] = $object->getImportedListItemCount();
         $data['skippedListItemCount'] = $object->getSkippedListItemCount();
         $data['totalListItemCount'] = $object->getTotalListItemCount();
         if ($object->isInitialized('skippedListItemIds') && null !== $object->getSkippedListItemIds()) {
-            $values = array();
+            $values = [];
             foreach ($object->getSkippedListItemIds() as $value) {
                 $values[] = $value;
             }
             $data['skippedListItemIds'] = $values;
         }
         if ($object->isInitialized('importedListItemIds') && null !== $object->getImportedListItemIds()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getImportedListItemIds() as $value_1) {
                 $values_1[] = $value_1;
             }
@@ -97,8 +97,8 @@ class ListItemImportResultNormalizer implements DenormalizerInterface, Normalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\ListItemImportResult' => false);
+        return ['PicturePark\API\Model\ListItemImportResult' => false];
     }
 }

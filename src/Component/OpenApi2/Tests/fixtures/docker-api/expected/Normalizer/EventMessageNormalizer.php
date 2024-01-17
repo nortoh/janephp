@@ -18,18 +18,18 @@ class EventMessageNormalizer implements DenormalizerInterface, NormalizerInterfa
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Docker\\Api\\Model\\EventMessage';
+        return $type === 'Docker\Api\Model\EventMessage';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Docker\\Api\\Model\\EventMessage';
+        return is_object($data) && get_class($data) === 'Docker\Api\Model\EventMessage';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -51,7 +51,7 @@ class EventMessageNormalizer implements DenormalizerInterface, NormalizerInterfa
             $object->setAction($data['Action']);
         }
         if (\array_key_exists('Actor', $data)) {
-            $object->setActor($this->denormalizer->denormalize($data['Actor'], 'Docker\\Api\\Model\\EventActor', 'json', $context));
+            $object->setActor($this->denormalizer->denormalize($data['Actor'], 'Docker\Api\Model\EventActor', 'json', $context));
         }
         if (\array_key_exists('scope', $data)) {
             $object->setScope($data['scope']);
@@ -67,9 +67,9 @@ class EventMessageNormalizer implements DenormalizerInterface, NormalizerInterfa
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('type') && null !== $object->getType()) {
             $data['Type'] = $object->getType();
         }
@@ -77,7 +77,7 @@ class EventMessageNormalizer implements DenormalizerInterface, NormalizerInterfa
             $data['Action'] = $object->getAction();
         }
         if ($object->isInitialized('actor') && null !== $object->getActor()) {
-            $data['Actor'] = $this->normalizer->normalize($object->getActor(), 'json', $context);
+            $data['Actor'] = ($object->getActor() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getActor(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         if ($object->isInitialized('scope') && null !== $object->getScope()) {
             $data['scope'] = $object->getScope();
@@ -93,8 +93,8 @@ class EventMessageNormalizer implements DenormalizerInterface, NormalizerInterfa
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Docker\\Api\\Model\\EventMessage' => false);
+        return ['Docker\Api\Model\EventMessage' => false];
     }
 }

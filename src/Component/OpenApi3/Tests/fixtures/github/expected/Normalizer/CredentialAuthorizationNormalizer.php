@@ -18,18 +18,18 @@ class CredentialAuthorizationNormalizer implements DenormalizerInterface, Normal
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\CredentialAuthorization';
+        return $type === 'Github\Model\CredentialAuthorization';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\CredentialAuthorization';
+        return is_object($data) && get_class($data) === 'Github\Model\CredentialAuthorization';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,11 +61,11 @@ class CredentialAuthorizationNormalizer implements DenormalizerInterface, Normal
             unset($data['token_last_eight']);
         }
         if (\array_key_exists('credential_authorized_at', $data)) {
-            $object->setCredentialAuthorizedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['credential_authorized_at']));
+            $object->setCredentialAuthorizedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['credential_authorized_at']));
             unset($data['credential_authorized_at']);
         }
         if (\array_key_exists('scopes', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['scopes'] as $value) {
                 $values[] = $value;
             }
@@ -77,7 +77,7 @@ class CredentialAuthorizationNormalizer implements DenormalizerInterface, Normal
             unset($data['fingerprint']);
         }
         if (\array_key_exists('credential_accessed_at', $data) && $data['credential_accessed_at'] !== null) {
-            $object->setCredentialAccessedAt(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['credential_accessed_at']));
+            $object->setCredentialAccessedAt(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['credential_accessed_at']));
             unset($data['credential_accessed_at']);
         }
         elseif (\array_key_exists('credential_accessed_at', $data) && $data['credential_accessed_at'] === null) {
@@ -93,18 +93,18 @@ class CredentialAuthorizationNormalizer implements DenormalizerInterface, Normal
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['login'] = $object->getLogin();
         $data['credential_id'] = $object->getCredentialId();
         $data['credential_type'] = $object->getCredentialType();
         if ($object->isInitialized('tokenLastEight') && null !== $object->getTokenLastEight()) {
             $data['token_last_eight'] = $object->getTokenLastEight();
         }
-        $data['credential_authorized_at'] = $object->getCredentialAuthorizedAt()->format('Y-m-d\\TH:i:sP');
+        $data['credential_authorized_at'] = $object->getCredentialAuthorizedAt()->format('Y-m-d\TH:i:sP');
         if ($object->isInitialized('scopes') && null !== $object->getScopes()) {
-            $values = array();
+            $values = [];
             foreach ($object->getScopes() as $value) {
                 $values[] = $value;
             }
@@ -114,7 +114,7 @@ class CredentialAuthorizationNormalizer implements DenormalizerInterface, Normal
             $data['fingerprint'] = $object->getFingerprint();
         }
         if ($object->isInitialized('credentialAccessedAt') && null !== $object->getCredentialAccessedAt()) {
-            $data['credential_accessed_at'] = $object->getCredentialAccessedAt()->format('Y-m-d\\TH:i:sP');
+            $data['credential_accessed_at'] = $object->getCredentialAccessedAt()->format('Y-m-d\TH:i:sP');
         }
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -126,8 +126,8 @@ class CredentialAuthorizationNormalizer implements DenormalizerInterface, Normal
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\CredentialAuthorization' => false);
+        return ['Github\Model\CredentialAuthorization' => false];
     }
 }

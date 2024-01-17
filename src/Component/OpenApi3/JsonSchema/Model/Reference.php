@@ -15,7 +15,7 @@ class Reference
      *
      * @return string|null
      */
-    public function getDollarRef() : ?string
+    public function getDollarRef(): ?string
     {
         return $this->dollarRef;
     }
@@ -26,7 +26,7 @@ class Reference
      *
      * @return self
      */
-    public function setDollarRef(?string $dollarRef) : self
+    public function setDollarRef(?string $dollarRef): self
     {
         $this->dollarRef = $dollarRef;
         return $this;

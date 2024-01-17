@@ -18,18 +18,18 @@ class BusinessRuleTransformationGroupNormalizer implements DenormalizerInterface
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'PicturePark\\API\\Model\\BusinessRuleTransformationGroup';
+        return $type === 'PicturePark\API\Model\BusinessRuleTransformationGroup';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'PicturePark\\API\\Model\\BusinessRuleTransformationGroup';
+        return is_object($data) && get_class($data) === 'PicturePark\API\Model\BusinessRuleTransformationGroup';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -42,7 +42,7 @@ class BusinessRuleTransformationGroupNormalizer implements DenormalizerInterface
             return $object;
         }
         if (\array_key_exists('inputs', $data) && $data['inputs'] !== null) {
-            $values = array();
+            $values = [];
             foreach ($data['inputs'] as $value) {
                 $values[] = $value;
             }
@@ -52,9 +52,9 @@ class BusinessRuleTransformationGroupNormalizer implements DenormalizerInterface
             $object->setInputs(null);
         }
         if (\array_key_exists('transformations', $data) && $data['transformations'] !== null) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($data['transformations'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\\API\\Model\\BusinessRuleTransformation', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, 'PicturePark\API\Model\BusinessRuleTransformation', 'json', $context);
             }
             $object->setTransformations($values_1);
         }
@@ -78,20 +78,20 @@ class BusinessRuleTransformationGroupNormalizer implements DenormalizerInterface
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         if ($object->isInitialized('inputs') && null !== $object->getInputs()) {
-            $values = array();
+            $values = [];
             foreach ($object->getInputs() as $value) {
                 $values[] = $value;
             }
             $data['inputs'] = $values;
         }
         if ($object->isInitialized('transformations') && null !== $object->getTransformations()) {
-            $values_1 = array();
+            $values_1 = [];
             foreach ($object->getTransformations() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                $values_1[] = ($value_1 == null) ? null : new \ArrayObject($this->normalizer->normalize($value_1, 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
             }
             $data['transformations'] = $values_1;
         }
@@ -103,8 +103,8 @@ class BusinessRuleTransformationGroupNormalizer implements DenormalizerInterface
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('PicturePark\\API\\Model\\BusinessRuleTransformationGroup' => false);
+        return ['PicturePark\API\Model\BusinessRuleTransformationGroup' => false];
     }
 }

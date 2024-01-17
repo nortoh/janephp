@@ -18,18 +18,18 @@ class ProtectedBranchRequiredPullRequestReviewsNormalizer implements Denormalize
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\ProtectedBranchRequiredPullRequestReviews';
+        return $type === 'Github\Model\ProtectedBranchRequiredPullRequestReviews';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\ProtectedBranchRequiredPullRequestReviews';
+        return is_object($data) && get_class($data) === 'Github\Model\ProtectedBranchRequiredPullRequestReviews';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -61,7 +61,7 @@ class ProtectedBranchRequiredPullRequestReviewsNormalizer implements Denormalize
             unset($data['required_approving_review_count']);
         }
         if (\array_key_exists('dismissal_restrictions', $data)) {
-            $object->setDismissalRestrictions($this->denormalizer->denormalize($data['dismissal_restrictions'], 'Github\\Model\\ProtectedBranchRequiredPullRequestReviewsDismissalRestrictions', 'json', $context));
+            $object->setDismissalRestrictions($this->denormalizer->denormalize($data['dismissal_restrictions'], 'Github\Model\ProtectedBranchRequiredPullRequestReviewsDismissalRestrictions', 'json', $context));
             unset($data['dismissal_restrictions']);
         }
         foreach ($data as $key => $value) {
@@ -74,9 +74,9 @@ class ProtectedBranchRequiredPullRequestReviewsNormalizer implements Denormalize
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['url'] = $object->getUrl();
         if ($object->isInitialized('dismissStaleReviews') && null !== $object->getDismissStaleReviews()) {
             $data['dismiss_stale_reviews'] = $object->getDismissStaleReviews();
@@ -88,7 +88,7 @@ class ProtectedBranchRequiredPullRequestReviewsNormalizer implements Denormalize
             $data['required_approving_review_count'] = $object->getRequiredApprovingReviewCount();
         }
         if ($object->isInitialized('dismissalRestrictions') && null !== $object->getDismissalRestrictions()) {
-            $data['dismissal_restrictions'] = $this->normalizer->normalize($object->getDismissalRestrictions(), 'json', $context);
+            $data['dismissal_restrictions'] = ($object->getDismissalRestrictions() == null) ? null : new \ArrayObject($this->normalizer->normalize($object->getDismissalRestrictions(), 'json', $context), \ArrayObject::ARRAY_AS_PROPS);
         }
         foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -100,8 +100,8 @@ class ProtectedBranchRequiredPullRequestReviewsNormalizer implements Denormalize
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\ProtectedBranchRequiredPullRequestReviews' => false);
+        return ['Github\Model\ProtectedBranchRequiredPullRequestReviews' => false];
     }
 }

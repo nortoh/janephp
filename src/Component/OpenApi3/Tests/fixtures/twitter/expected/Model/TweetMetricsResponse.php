@@ -7,8 +7,8 @@ class TweetMetricsResponse extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -29,7 +29,7 @@ class TweetMetricsResponse extends \ArrayObject
      *
      * @return TweetMetrics[]
      */
-    public function getData() : array
+    public function getData(): array
     {
         return $this->data;
     }
@@ -40,7 +40,7 @@ class TweetMetricsResponse extends \ArrayObject
      *
      * @return self
      */
-    public function setData(array $data) : self
+    public function setData(array $data): self
     {
         $this->initialized['data'] = true;
         $this->data = $data;
@@ -51,7 +51,7 @@ class TweetMetricsResponse extends \ArrayObject
      *
      * @return mixed[]
      */
-    public function getErrors() : array
+    public function getErrors(): array
     {
         return $this->errors;
     }
@@ -62,7 +62,7 @@ class TweetMetricsResponse extends \ArrayObject
      *
      * @return self
      */
-    public function setErrors(array $errors) : self
+    public function setErrors(array $errors): self
     {
         $this->initialized['errors'] = true;
         $this->errors = $errors;

@@ -18,18 +18,18 @@ class OrgsOrgTeamsTeamSlugTeamSyncGroupMappingsPatchBodyGroupsItemNormalizer imp
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $type === 'Github\\Model\\OrgsOrgTeamsTeamSlugTeamSyncGroupMappingsPatchBodyGroupsItem';
+        return $type === 'Github\Model\OrgsOrgTeamsTeamSlugTeamSyncGroupMappingsPatchBodyGroupsItem';
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Github\\Model\\OrgsOrgTeamsTeamSlugTeamSyncGroupMappingsPatchBodyGroupsItem';
+        return is_object($data) && get_class($data) === 'Github\Model\OrgsOrgTeamsTeamSlugTeamSyncGroupMappingsPatchBodyGroupsItem';
     }
     /**
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $class, string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -66,9 +66,9 @@ class OrgsOrgTeamsTeamSlugTeamSyncGroupMappingsPatchBodyGroupsItemNormalizer imp
     /**
      * @return array|string|int|float|bool|\ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
+        $data = [];
         $data['group_id'] = $object->getGroupId();
         $data['group_name'] = $object->getGroupName();
         $data['group_description'] = $object->getGroupDescription();
@@ -82,8 +82,8 @@ class OrgsOrgTeamsTeamSlugTeamSyncGroupMappingsPatchBodyGroupsItemNormalizer imp
         }
         return $data;
     }
-    public function getSupportedTypes(?string $format = null) : array
+    public function getSupportedTypes(?string $format = null): array
     {
-        return array('Github\\Model\\OrgsOrgTeamsTeamSlugTeamSyncGroupMappingsPatchBodyGroupsItem' => false);
+        return ['Github\Model\OrgsOrgTeamsTeamSlugTeamSyncGroupMappingsPatchBodyGroupsItem' => false];
     }
 }
