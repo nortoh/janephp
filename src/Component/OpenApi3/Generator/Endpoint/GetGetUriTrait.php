@@ -7,8 +7,10 @@ use Jane\Component\OpenApi3\Generator\EndpointGenerator;
 use Jane\Component\OpenApi3\Guesser\GuessClass;
 use Jane\Component\OpenApi3\JsonSchema\Model\Parameter;
 use Jane\Component\OpenApiCommon\Guesser\Guess\OperationGuess;
+use PhpParser\Modifiers;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
@@ -31,8 +33,8 @@ trait GetGetUriTrait
         }
 
         if (\count($names) === 0) {
-            return new Stmt\ClassMethod('getUri', [
-                'type' => Stmt\Class_::MODIFIER_PUBLIC,
+            return new Stmt\ClassMethod(new Identifier('getUri'), [
+                'type' => Modifiers::PUBLIC,
                 'stmts' => [
                     new Stmt\Return_(new Scalar\String_($operation->getPath())),
                 ],
@@ -40,8 +42,8 @@ trait GetGetUriTrait
             ]);
         }
 
-        return new Stmt\ClassMethod('getUri', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
+        return new Stmt\ClassMethod(new Identifier('getUri'), [
+            'type' => Modifiers::PUBLIC,
             'stmts' => [
                 new Stmt\Return_(new Expr\FuncCall(new Name('str_replace'), [
                     new Arg(new Expr\Array_(array_map(function ($name) {

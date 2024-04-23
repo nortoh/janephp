@@ -5,6 +5,7 @@ namespace Jane\Component\OpenApiCommon\Generator\Model;
 use Jane\Component\JsonSchema\Generator\Model\ClassGenerator as BaseClassGenerator;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
 
@@ -41,7 +42,7 @@ EOD
         }
 
         return new Stmt\Class_(
-            new Name($this->getNaming()->getClassName($name)),
+            new Identifier($this->getNaming()->getClassName($name)),
             [
                 'stmts' => array_merge($this->getInitialized(), $properties, $methods),
                 'extends' => $classExtends,

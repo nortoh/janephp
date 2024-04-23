@@ -4,6 +4,8 @@ namespace Jane\Component\OpenApi2\Generator\Endpoint;
 
 use Jane\Component\OpenApi2\JsonSchema\Model\OpenApi;
 use Jane\Component\OpenApiCommon\Guesser\Guess\OperationGuess;
+use PhpParser\Modifiers;
+use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar;
@@ -21,10 +23,10 @@ trait GetGetExtraHeadersTrait
 
         // It's a server side specification, what it produces is what we potentially can accept
         if (\in_array('application/json', $produces, true)) {
-            $headers[] = new Expr\ArrayItem(
+            $headers[] = new Node\ArrayItem(
                 new Expr\Array_(
                     [
-                        new Expr\ArrayItem(
+                        new Node\ArrayItem(
                             new Scalar\String_('application/json')
                         ),
                     ]
@@ -37,8 +39,8 @@ trait GetGetExtraHeadersTrait
             return null;
         }
 
-        return new Stmt\ClassMethod('getExtraHeaders', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
+        return new Stmt\ClassMethod(new Identifier('getExtraHeaders'), [
+            'type' => Modifiers::PUBLIC,
             'stmts' => [
                 new Stmt\Return_(new Expr\Array_($headers)),
             ],

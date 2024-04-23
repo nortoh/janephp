@@ -4,7 +4,10 @@ namespace Jane\Component\OpenApiCommon\Generator\Authentication;
 
 use Jane\Component\OpenApi3\JsonSchema\Model\HTTPSecurityScheme;
 use Jane\Component\OpenApiCommon\Guesser\Guess\SecuritySchemeGuess;
+use PhpParser\Modifiers;
+use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
@@ -41,13 +44,13 @@ trait ConstructGenerator
         $constructParams = [];
         $statements = [];
         foreach ($needs as $field => $type) {
-            $statements[] = new Stmt\Property(Stmt\Class_::MODIFIER_PRIVATE, [new Stmt\PropertyProperty($field)]);
+            $statements[] = new Stmt\Property(Modifiers::PRIVATE, [new Node\PropertyItem($field)]);
             $constructParams[] = new Param(new Expr\Variable($field), null, $type);
             $constructStmts[] = new Stmt\Expression(new Expr\Assign(new Expr\PropertyFetch(new Expr\Variable('this'), new Scalar\String_($field)), new Expr\Variable($field)));
         }
 
-        $statements[] = new Stmt\ClassMethod('__construct', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
+        $statements[] = new Stmt\ClassMethod(new Identifier('__construct'), [
+            'type' => Modifiers::PUBLIC,
             'stmts' => $constructStmts,
             'params' => $constructParams,
         ]);

@@ -5,8 +5,11 @@ namespace Jane\Component\JsonSchema\Generator;
 use Jane\Component\JsonSchema\Generator\Context\Context;
 use Jane\Component\JsonSchema\Guesser\Validator\ValidatorGuess;
 use Jane\Component\JsonSchema\Registry\Schema;
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
 use PhpParser\Node\Scalar;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Optional;
@@ -40,7 +43,7 @@ class ValidatorGenerator implements GeneratorInterface
                 foreach ($class->getPropertyValidatorGuesses() as $name => $propertyGuesses) {
                     $constraints = [];
                     foreach ($propertyGuesses as $propertyGuess) {
-                        $constraints[] = new Expr\ArrayItem($this->generateConstraint($propertyGuess));
+                        $constraints[] = new Node\ArrayItem($this->generateConstraint($propertyGuess));
                     }
 
                     $collectionItemsConstraints[$name] = $constraints;
@@ -52,7 +55,7 @@ class ValidatorGenerator implements GeneratorInterface
                 /** @var ValidatorGuess $classGuess */
                 foreach ($class->getValidatorGuesses() as $classGuess) {
                     if ($classGuess->getSubProperty() === null) {
-                        $constraintsItems[] = new Expr\ArrayItem($this->generateConstraint($classGuess));
+                        $constraintsItems[] = new Node\ArrayItem($this->generateConstraint($classGuess));
                     } else {
                         $localNamespace = $namespace;
                         if (null !== $classGuess->getClassReference()) {
@@ -75,7 +78,7 @@ class ValidatorGenerator implements GeneratorInterface
 
                 foreach ($collectionItemsConstraints as $name => $constraints) {
                     $collectionClass = $class->isRequired($name) ? Required::class : Optional::class;
-                    $collectionItems[] = new Expr\ArrayItem(new Expr\New_(new Node\Name\FullyQualified($collectionClass), [
+                    $collectionItems[] = new Node\ArrayItem(new Expr\New_(new Node\Name\FullyQualified($collectionClass), [
                         new Node\Arg(new Expr\Array_($constraints)),
                     ]), new Scalar\String_($name));
                 }
@@ -88,10 +91,10 @@ class ValidatorGenerator implements GeneratorInterface
                         $allowExtraFields = 'false';
                     }
 
-                    $constraintsItems[] = new Expr\ArrayItem(new Expr\New_(new Node\Name\FullyQualified(Collection::class), [
+                    $constraintsItems[] = new Node\ArrayItem(new Expr\New_(new Node\Name\FullyQualified(Collection::class), [
                         new Node\Arg(new Expr\Array_([
-                            new Expr\ArrayItem(new Expr\Array_($collectionItems), new Scalar\String_('fields')),
-                            new Expr\ArrayItem(new Expr\ConstFetch(new Node\Name($allowExtraFields)), new Scalar\String_('allowExtraFields')),
+                            new Node\ArrayItem(new Expr\Array_($collectionItems), new Scalar\String_('fields')),
+                            new Node\ArrayItem(new Expr\ConstFetch(new Node\Name($allowExtraFields)), new Scalar\String_('allowExtraFields')),
                         ])),
                     ]));
                 }
@@ -101,14 +104,14 @@ class ValidatorGenerator implements GeneratorInterface
                     [
                         'stmts' => [
                             new Node\Stmt\ClassMethod(
-                                'getConstraints',
+                                new Identifier('getConstraints'),
                                 [
-                                    'type' => Node\Stmt\Class_::MODIFIER_PROTECTED,
+                                    'type' => Modifiers::PROTECTED,
                                     'params' => [new Node\Param($optionsVariable)],
                                     'stmts' => [
                                         new Node\Stmt\Return_(new Expr\Array_($constraintsItems)),
                                     ],
-                                    'returnType' => 'array',
+                                    'returnType' => new Name('array'),
                                 ]
                             ),
                         ],
@@ -130,19 +133,19 @@ class ValidatorGenerator implements GeneratorInterface
             if (\is_array($argument)) {
                 $values = [];
                 foreach ($argument as $item) {
-                    $values[] = new Expr\ArrayItem(new Scalar\String_($item));
+                    $values[] = new Node\ArrayItem(new Scalar\String_($item));
                 }
                 $value = new Expr\Array_($values);
             } elseif (\is_string($argument)) {
                 $value = new Scalar\String_($argument);
             } elseif (\is_int($argument)) {
-                $value = new Scalar\LNumber($argument);
+                $value = new Scalar\Int_($argument);
             } elseif (\is_float($argument)) {
-                $value = new Scalar\DNumber($argument);
+                $value = new Scalar\Float_($argument);
             }
 
             if (null !== $value) {
-                $args[] = new Expr\ArrayItem($value, new Scalar\String_($argName));
+                $args[] = new Node\ArrayItem($value, new Scalar\String_($argName));
             }
         }
 

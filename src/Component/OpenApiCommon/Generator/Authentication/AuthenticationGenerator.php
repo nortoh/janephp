@@ -3,8 +3,10 @@
 namespace Jane\Component\OpenApiCommon\Generator\Authentication;
 
 use Jane\Component\OpenApiCommon\Guesser\Guess\SecuritySchemeGuess;
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
@@ -71,7 +73,7 @@ trait AuthenticationGenerator
                             new Stmt\Expression(new Expr\Assign(new Expr\Variable('params'), new Expr\FuncCall(new Name('array_merge'), [
                                 new Node\Arg(new Expr\Variable('params')),
                                 new Node\Arg(new Expr\Array_([
-                                    new Expr\ArrayItem(new Expr\PropertyFetch(new Expr\Variable('this'), new Scalar\String_('apiKey')), new Scalar\String_($securityScheme->getVariable())),
+                                    new Node\ArrayItem(new Expr\PropertyFetch(new Expr\Variable('this'), new Scalar\String_('apiKey')), new Scalar\String_($securityScheme->getVariable())),
                                 ])),
                             ]))),
                             new Stmt\Expression(new Expr\Assign(new Expr\Variable('query'), new Expr\FuncCall(new Name('http_build_query'), [
@@ -96,13 +98,13 @@ trait AuthenticationGenerator
 
         $stmts[] = new Stmt\Return_($requestVar);
 
-        return new Stmt\ClassMethod('authentication', [
+        return new Stmt\ClassMethod(new Identifier('authentication'), [
             'params' => [
                 new Param($requestVar, null, new Name\FullyQualified(RequestInterface::class)),
             ],
             'returnType' => new Name\FullyQualified(RequestInterface::class),
             'stmts' => $stmts,
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
+            'type' => Modifiers::PUBLIC,
         ]);
     }
 }

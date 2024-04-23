@@ -9,8 +9,10 @@ use Jane\Component\JsonSchema\Guesser\Guess\MultipleType;
 use Jane\Component\JsonSchema\Guesser\Guess\Property;
 use Jane\Component\JsonSchema\Guesser\Guess\Type;
 use PhpParser\Comment\Doc;
+use PhpParser\Modifiers;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
@@ -63,13 +65,13 @@ trait NormalizerGenerator
      */
     protected function createSupportsNormalizationMethod(string $modelFqdn, bool $symfony7)
     {
-        return new Stmt\ClassMethod('supportsNormalization', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'bool',
+        return new Stmt\ClassMethod(new Identifier('supportsNormalization'), [
+            'type' => Modifiers::PUBLIC,
+            'returnType' => new Name('bool'),
             'params' => [
-                $symfony7 ? new Param(new Expr\Variable('data'), type: 'mixed') : new Param(new Expr\Variable('data')),
-                $symfony7 ? new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), 'string') : new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                $symfony7 ? new Param(new Expr\Variable('data'), type: new Name('mixed')) : new Param(new Expr\Variable('data')),
+                $symfony7 ? new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), new Name('string')) : new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [new Stmt\Return_(new Expr\Instanceof_(new Expr\Variable('data'), new Name('\\' . $modelFqdn)))],
         ]);
@@ -184,13 +186,13 @@ trait NormalizerGenerator
 
         $statements[] = new Stmt\Return_($dataVariable);
 
-        return new Stmt\ClassMethod('normalize', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => $symfony7 ? 'array|string|int|float|bool|\ArrayObject|null' : null,
+        return new Stmt\ClassMethod(new Identifier('normalize'), [
+            'type' => Modifiers::PUBLIC,
+            'returnType' => $symfony7 ? new Name('array|string|int|float|bool|\ArrayObject|null') : null,
             'params' => [
-                $symfony7 ? new Param($objectVariable, type: 'mixed') : new Param($objectVariable),
-                $symfony7 ? new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), 'string') : new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                $symfony7 ? new Param($objectVariable, type: new Name('mixed')) : new Param($objectVariable),
+                $symfony7 ? new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), new Name('string')) : new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => $statements,
         ], [
@@ -210,9 +212,9 @@ EOD
      */
     protected function createHasCacheableSupportsMethod()
     {
-        return new Stmt\ClassMethod('hasCacheableSupportsMethod', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'bool',
+        return new Stmt\ClassMethod(new Identifier('hasCacheableSupportsMethod'), [
+            'type' => Modifiers::PUBLIC,
+            'returnType' => new Name('bool'),
             'stmts' => [
                 new Stmt\Return_(new Expr\ConstFetch(new Name('true'))),
             ],

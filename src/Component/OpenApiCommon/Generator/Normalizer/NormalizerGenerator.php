@@ -6,7 +6,9 @@ use Jane\Component\JsonSchema\Generator\Context\Context;
 use Jane\Component\JsonSchema\Generator\Normalizer\NormalizerGenerator as JsonSchemaNormalizerGenerator;
 use Jane\Component\JsonSchema\Guesser\Guess\ClassGuess;
 use Jane\Component\OpenApiCommon\Guesser\Guess\ParentClass;
+use PhpParser\Modifiers;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
@@ -68,13 +70,13 @@ trait NormalizerGenerator
             );
         };
 
-        return new Stmt\ClassMethod('supportsNormalization', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'bool',
+        return new Stmt\ClassMethod(new Identifier('supportsNormalization'), [
+            'type' => Modifiers::PUBLIC,
+            'returnType' => new Name('bool'),
             'params' => [
-                new Param(new Expr\Variable('data'), type: 'mixed'),
-                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), 'string'),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                new Param(new Expr\Variable('data'), type: new Name('mixed')),
+                new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), new Name('string')),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [
                 new Stmt\Return_(

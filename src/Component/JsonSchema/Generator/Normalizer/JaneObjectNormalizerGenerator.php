@@ -3,8 +3,10 @@
 namespace Jane\Component\JsonSchema\Generator\Normalizer;
 
 use PhpParser\Comment\Doc;
+use PhpParser\Modifiers;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt;
@@ -13,14 +15,14 @@ trait JaneObjectNormalizerGenerator
 {
     protected function createBaseNormalizerSupportsDenormalizationMethod(): Stmt\ClassMethod
     {
-        return new Stmt\ClassMethod('supportsDenormalization', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'bool',
+        return new Stmt\ClassMethod(new Identifier('supportsDenormalization'), [
+            'type' => Modifiers::PUBLIC,
+            'returnType' => new Name('bool'),
             'params' => [
                 new Param(new Expr\Variable('data')),
                 new Param(new Expr\Variable('type')),
                 new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [new Stmt\Return_(new Expr\FuncCall(new Name('array_key_exists'), [
                 new Arg(new Expr\Variable('type')),
@@ -31,13 +33,13 @@ trait JaneObjectNormalizerGenerator
 
     protected function createBaseNormalizerSupportsNormalizationMethod(): Stmt\ClassMethod
     {
-        return new Stmt\ClassMethod('supportsNormalization', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => 'bool',
+        return new Stmt\ClassMethod(new Identifier('supportsNormalization'), [
+            'type' => Modifiers::PUBLIC,
+            'returnType' => new Name('bool'),
             'params' => [
                 new Param(new Expr\Variable('data')),
                 new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [new Stmt\Return_(
                 new Expr\BinaryOp\BooleanAnd(
@@ -52,13 +54,13 @@ trait JaneObjectNormalizerGenerator
 
     protected function createBaseNormalizerNormalizeMethod(bool $symfony7): Stmt\ClassMethod
     {
-        return new Stmt\ClassMethod('normalize', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => $symfony7 ? 'array|string|int|float|bool|\ArrayObject|null' : null,
+        return new Stmt\ClassMethod(new Identifier('normalize'), [
+            'type' => Modifiers::PUBLIC,
+            'returnType' => $symfony7 ? new Name('array|string|int|float|bool|\ArrayObject|null') : null,
             'params' => [
-                $symfony7 ? new Param(new Expr\Variable('object'), type: 'mixed') : new Param(new Expr\Variable('object')),
-                $symfony7 ? new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), 'string') : new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                $symfony7 ? new Param(new Expr\Variable('object'), type: new Name('mixed')) : new Param(new Expr\Variable('object')),
+                $symfony7 ? new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), new Name('string')) : new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [
                 new Stmt\Expression(new Expr\Assign(
@@ -92,14 +94,14 @@ EOD
 
     protected function createBaseNormalizerDenormalizeMethod(bool $symfony7): Stmt\ClassMethod
     {
-        return new Stmt\ClassMethod('denormalize', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
-            'returnType' => $symfony7 ? 'mixed' : null,
+        return new Stmt\ClassMethod(new Identifier('denormalize'), [
+            'type' => Modifiers::PUBLIC,
+            'returnType' => $symfony7 ? new Name('mixed') : null,
             'params' => [
-                $symfony7 ? new Param(new Expr\Variable('data'), type: 'mixed') : new Param(new Expr\Variable('data')),
-                $symfony7 ? new Param(new Expr\Variable('type'), type: 'string') : new Param(new Expr\Variable('type')),
-                $symfony7 ? new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), 'string') : new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
-                new Param(new Expr\Variable('context'), new Expr\Array_(), 'array'),
+                $symfony7 ? new Param(new Expr\Variable('data'), type: new Name('mixed')) : new Param(new Expr\Variable('data')),
+                $symfony7 ? new Param(new Expr\Variable('type'), type: new Name('string')) : new Param(new Expr\Variable('type')),
+                $symfony7 ? new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null')), new Name('string')) : new Param(new Expr\Variable('format'), new Expr\ConstFetch(new Name('null'))),
+                new Param(new Expr\Variable('context'), new Expr\Array_(), new Name('array')),
             ],
             'stmts' => [
                 new Stmt\Expression(new Expr\Assign(
@@ -134,10 +136,10 @@ EOD
 
     protected function createBaseNormalizerGetNormalizer(): Stmt\ClassMethod
     {
-        return new Stmt\ClassMethod('getNormalizer', [
-            'type' => Stmt\Class_::MODIFIER_PRIVATE,
+        return new Stmt\ClassMethod(new Identifier('getNormalizer'), [
+            'type' => Modifiers::PRIVATE,
             'params' => [
-                new Param(new Expr\Variable('normalizerClass'), null, 'string'),
+                new Param(new Expr\Variable('normalizerClass'), null, new Name('string')),
             ],
             'stmts' => [
                 new Stmt\Return_(new Expr\BinaryOp\Coalesce(
@@ -155,10 +157,10 @@ EOD
 
     protected function createBaseNormalizerInitNormalizerMethod(): Stmt\ClassMethod
     {
-        return new Stmt\ClassMethod('initNormalizer', [
-            'type' => Stmt\Class_::MODIFIER_PRIVATE,
+        return new Stmt\ClassMethod(new Identifier('initNormalizer'), [
+            'type' => Modifiers::PRIVATE,
             'params' => [
-                new Param(new Expr\Variable('normalizerClass'), null, 'string'),
+                new Param(new Expr\Variable('normalizerClass'), null, new Name('string')),
             ],
             'stmts' => [
                 new Stmt\Expression(new Expr\Assign(

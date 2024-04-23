@@ -10,6 +10,7 @@ use Jane\Component\OpenApi2\JsonSchema\Model\Schema;
 use Jane\Component\OpenApiCommon\Generator\ExceptionGenerator;
 use Jane\Component\OpenApiCommon\Guesser\Guess\OperationGuess;
 use PhpParser\Comment\Doc;
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
@@ -69,7 +70,7 @@ trait GetTransformResponseBodyTrait
             $outputStatements = array_merge(
                 $outputStatements,
                 [
-                    new Stmt\Throw_(
+                    new Expr\Throw_(
                         new Expr\New_(
                             new Name($throwType),
                             [
@@ -88,8 +89,8 @@ trait GetTransformResponseBodyTrait
             . " *\n"
             . ' * @return ' . implode('|', $outputTypes);
 
-        return [new Stmt\ClassMethod('transformResponseBody', [
-            'type' => Stmt\Class_::MODIFIER_PROTECTED,
+        return [new Stmt\ClassMethod(new Identifier('transformResponseBody'), [
+            'type' => Modifiers::PROTECTED,
             'params' => [
                 new Node\Param(new Expr\Variable('response'), null, new Name('\\Psr\\Http\\Message\\ResponseInterface')),
                 new Node\Param(new Expr\Variable('serializer'), null, new Name\FullyQualified(SerializerInterface::class)),
@@ -156,7 +157,7 @@ EOD
 
             $returnType = null;
             $throwType = '\\' . $context->getCurrentSchema()->getNamespace() . '\\Exception\\' . $exceptionName;
-            $returnStmt = new Stmt\Throw_(new Expr\New_(new Name($throwType), $classGuess ? [
+            $returnStmt = new Expr\Throw_(new Expr\New_(new Name($throwType), $classGuess ? [
                 new Arg($serializeStmt), new Arg(new Expr\Variable('response')),
             ] : [new Arg(new Expr\Variable('response'))]));
         }
@@ -167,7 +168,7 @@ EOD
 
         return [$returnType, $throwType, new Stmt\If_(
             new Expr\BinaryOp\Identical(
-                new Scalar\LNumber((int) $status),
+                new Scalar\Int_((int) $status),
                 new Expr\Variable('status')
             ),
             [

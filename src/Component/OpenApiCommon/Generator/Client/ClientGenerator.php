@@ -7,8 +7,10 @@ use Jane\Component\JsonSchema\Generator\Context\Context;
 use Jane\Component\JsonSchema\Generator\Naming;
 use Jane\Component\JsonSchema\Registry\Schema;
 use Jane\Component\JsonSchema\Registry\Schema as BaseSchema;
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
@@ -30,7 +32,7 @@ trait ClientGenerator
     {
         $naming = new Naming();
 
-        return new Stmt\Class_($name, [
+        return new Stmt\Class_(new Identifier($name), [
             'extends' => new Name\FullyQualified($naming->getRuntimeClassFQCN($schema->getNamespace(), ['Client'], 'Client')),
         ]);
     }
@@ -39,13 +41,13 @@ trait ClientGenerator
     {
         $params = [
             new Node\Param(new Expr\Variable('httpClient'), new Expr\ConstFetch(new Name('null'))),
-            new Node\Param(new Expr\Variable('additionalPlugins'), new Expr\Array_(), 'array'),
-            new Node\Param(new Expr\Variable('additionalNormalizers'), new Expr\Array_(), 'array'),
+            new Node\Param(new Expr\Variable('additionalPlugins'), new Expr\Array_(), new Name('array')),
+            new Node\Param(new Expr\Variable('additionalNormalizers'), new Expr\Array_(), new Name('array')),
         ];
 
         return new Stmt\ClassMethod(
-            'create', [
-                'flags' => Stmt\Class_::MODIFIER_STATIC | Stmt\Class_::MODIFIER_PUBLIC,
+            new Identifier('create'), [
+                'flags' => Modifiers::STATIC | Modifiers::PUBLIC,
                 'params' => $params,
                 'stmts' => [
                     new Stmt\If_(
@@ -71,8 +73,8 @@ trait ClientGenerator
                     new Stmt\Expression(new Expr\Assign(
                         new Expr\Variable('normalizers'),
                         new Expr\Array_([
-                            new Expr\ArrayItem(new Expr\New_(new Name('\\Symfony\\Component\\Serializer\\Normalizer\\ArrayDenormalizer'))),
-                            new Expr\ArrayItem(new Expr\New_(new Name('\\' . $context->getCurrentSchema()->getNamespace() . '\\Normalizer\\JaneObjectNormalizer'))),
+                            new Node\ArrayItem(new Expr\New_(new Name('\\Symfony\\Component\\Serializer\\Normalizer\\ArrayDenormalizer'))),
+                            new Node\ArrayItem(new Expr\New_(new Name('\\' . $context->getCurrentSchema()->getNamespace() . '\\Normalizer\\JaneObjectNormalizer'))),
                         ])
                     )),
                     new Stmt\If_(
@@ -100,12 +102,12 @@ trait ClientGenerator
                                 new Node\Arg(new Expr\Variable('normalizers')),
                                 new Node\Arg(
                                     new Expr\Array_([
-                                        new Expr\ArrayItem(
+                                        new Node\ArrayItem(
                                             new Expr\New_(new Name\FullyQualified(JsonEncoder::class), [
                                                 new Node\Arg(new Expr\New_(new Name\FullyQualified(JsonEncode::class))),
                                                 new Node\Arg(new Expr\New_(new Name\FullyQualified(JsonDecode::class), [
                                                     new Node\Arg(new Expr\Array_([
-                                                        new Expr\ArrayItem(new Expr\ConstFetch(new Name('true')), new Scalar\String_('json_decode_associative')),
+                                                        new Node\ArrayItem(new Expr\ConstFetch(new Name('true')), new Scalar\String_('json_decode_associative')),
                                                     ])),
                                                 ])),
                                             ])

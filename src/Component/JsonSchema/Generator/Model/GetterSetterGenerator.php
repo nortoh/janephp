@@ -7,7 +7,9 @@ use Jane\Component\JsonSchema\Guesser\Guess\MultipleType;
 use Jane\Component\JsonSchema\Guesser\Guess\Property;
 use Jane\Component\JsonSchema\Guesser\Guess\Type;
 use PhpParser\Comment\Doc;
+use PhpParser\Modifiers;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Scalar;
@@ -33,14 +35,14 @@ trait GetterSetterGenerator
             $this->getNaming()->getPrefixedMethodName('get', $property->getAccessorName()),
             [
                 // public function
-                'type' => Stmt\Class_::MODIFIER_PUBLIC,
+                'type' => Modifiers::PUBLIC,
                 'stmts' => [
                     // return $this->property;
                     new Stmt\Return_(
                         new Expr\PropertyFetch(new Expr\Variable('this'), $property->getPhpName())
                     ),
                 ],
-                'returnType' => $returnType,
+                'returnType' => $returnType ? new Name($returnType) : null,
             ], [
                 'comments' => [$this->createGetterDoc($property, $namespace, $strict)],
             ]
@@ -81,17 +83,17 @@ trait GetterSetterGenerator
             $this->getNaming()->getPrefixedMethodName('set', $property->getAccessorName()),
             [
                 // public function
-                'type' => Stmt\Class_::MODIFIER_PUBLIC,
+                'type' => Modifiers::PUBLIC,
                 // ($property)
                 'params' => [
                     new Param(
                         new Expr\Variable($property->getPhpName()),
                         null,
-                        $setType
+                        $setType ? new Identifier($setType) : null
                     ),
                 ],
                 'stmts' => $stmts,
-                'returnType' => $fluent ? 'self' : null,
+                'returnType' => $fluent ? new Name('self') : null,
             ], [
                 'comments' => [$this->createSetterDoc($property, $namespace, $strict, $fluent)],
             ]

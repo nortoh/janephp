@@ -72,7 +72,7 @@ class NonBodyParameterGenerator extends ParameterGenerator
             }
 
             if (!\array_key_exists($parameterName, $defined)) {
-                $defined[$parameterName] = new Expr\ArrayItem(new Scalar\String_($parameterName));
+                $defined[$parameterName] = new Node\ArrayItem(new Scalar\String_($parameterName));
             }
 
             $schema = $parameter->getSchema();
@@ -82,7 +82,7 @@ class NonBodyParameterGenerator extends ParameterGenerator
             }
 
             if ($parameter->getRequired() && (null !== $schema && null === $schema->getDefault())) {
-                $required[] = new Expr\ArrayItem(new Scalar\String_($parameterName));
+                $required[] = new Node\ArrayItem(new Scalar\String_($parameterName));
             }
 
             $matchGenericResolver = null;
@@ -94,11 +94,11 @@ class NonBodyParameterGenerator extends ParameterGenerator
                         $matchGenericResolver = $typeString;
                     }
 
-                    $types[] = new Expr\ArrayItem(new Scalar\String_($typeString));
+                    $types[] = new Node\ArrayItem(new Scalar\String_($typeString));
                 }
 
                 if ($schema->getNullable()) {
-                    $types[] = new Expr\ArrayItem(new Scalar\String_('null'));
+                    $types[] = new Node\ArrayItem(new Scalar\String_('null'));
                 }
 
                 $allowedTypes[] = new Stmt\Expression(new Expr\MethodCall($optionsResolverVariable, 'addAllowedTypes', [
@@ -108,7 +108,7 @@ class NonBodyParameterGenerator extends ParameterGenerator
             }
 
             if (!$parameter->getRequired() && null !== $schema && null !== $schema->getDefault()) {
-                $defaults[] = new Expr\ArrayItem($this->getDefaultAsExpr($parameter), new Scalar\String_($parameterName));
+                $defaults[] = new Node\ArrayItem($this->getDefaultAsExpr($parameter), new Scalar\String_($parameterName));
             }
 
             if (null !== $matchGenericResolver) {

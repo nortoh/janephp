@@ -4,8 +4,11 @@ namespace Jane\Component\OpenApi3\Generator\Endpoint;
 
 use Jane\Component\OpenApi3\Guesser\GuessClass;
 use Jane\Component\OpenApiCommon\Guesser\Guess\OperationGuess;
+use PhpParser\Modifiers;
+use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
@@ -27,16 +30,16 @@ trait GetGetExtraHeadersTrait
             if ($contentType === 'text/html') {
                 continue;
             }
-            $items[] = new Expr\ArrayItem(new Scalar\String_($contentType));
+            $items[] = new Node\ArrayItem(new Scalar\String_($contentType));
         }
-        $headers[] = new Expr\ArrayItem(
+        $headers[] = new Node\ArrayItem(
             new Expr\Array_($items),
             new Scalar\String_('Accept')
         );
 
         if (\count($items) === 1) {
-            return new Stmt\ClassMethod('getExtraHeaders', [
-                'type' => Stmt\Class_::MODIFIER_PUBLIC,
+            return new Stmt\ClassMethod(new Identifier('getExtraHeaders'), [
+                'type' => Modifiers::PUBLIC,
                 'stmts' => [new Stmt\Return_(new Expr\Array_($headers))],
                 'returnType' => new Name('array'),
             ]);
@@ -55,8 +58,8 @@ trait GetGetExtraHeadersTrait
 
         $returnAccept = new Stmt\Return_(new Expr\PropertyFetch(new Expr\Variable('this'), 'accept'));
 
-        return new Stmt\ClassMethod('getExtraHeaders', [
-            'type' => Stmt\Class_::MODIFIER_PUBLIC,
+        return new Stmt\ClassMethod(new Identifier('getExtraHeaders'), [
+            'type' => Modifiers::PUBLIC,
             'stmts' => [$returnDefault, $returnAccept],
             'returnType' => new Name('array'),
         ]);
